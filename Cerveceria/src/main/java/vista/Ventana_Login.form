@@ -85,7 +85,7 @@
               <focusable value="false"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
-              <icon value="imagenes/ImagenCerveza.png"/>
+              <icon value="imagenes/Cerveza.png"/>
               <text value=""/>
             </properties>
           </component>
