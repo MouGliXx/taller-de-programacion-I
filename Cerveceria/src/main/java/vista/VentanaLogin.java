@@ -48,22 +48,6 @@ public class VentanaLogin extends JFrame implements IVistaLogin, KeyListener {
     }
 
     @Override
-    public void creaOtraVentana(String ventana) {
-        switch (ventana) {
-            case "Administrador":
-                VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
-
-
-                break;
-            case "Operario":
-                VentanaOperario ventanaOperario = new VentanaOperario();
-
-
-                break;
-        }
-    }
-
-    @Override
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, mensaje);

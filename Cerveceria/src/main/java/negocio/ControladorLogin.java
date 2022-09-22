@@ -1,7 +1,14 @@
 package negocio;
 
+import excepciones.ErrorDeContrasenaException;
+import excepciones.ErrorDeUsuarioException;
+import modelo.Administrador;
 import modelo.Cerveceria;
+import modelo.Operario;
 import vista.IVistaLogin;
+import vista.VentanaAdministrador;
+import vista.VentanaOperario;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -20,15 +27,38 @@ public class ControladorLogin implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Login" -> this.loguearse();
+            case "Login":
+                try {
+                    if (vista.getUsername().equals("ADMIN")) {
+                        Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
+                        loguearAdministrador(admin);
+                    } else {
+                        Operario operario = Cerveceria.getInstance().login(vista.getUsername(), vista.getPassword());
+                        loguearOperario(operario);
+                    }
+                } catch (ErrorDeUsuarioException e1) {
+                    vista.lanzarVentanaEmergente(e1.getMessage());
+                    vista.nombreUsuarioInvalido();
+                } catch (ErrorDeContrasenaException e2) {
+                    vista.lanzarVentanaEmergente(e2.getMessage());
+                    vista.contrasenaInvalida();
+                }
+                break;
         }
     }
 
-    public void loguearse() {
-        if (vista.getUsername().equals("ADMIN"))
-            Cerveceria.getInstance().login(vista.getPassword());
-        else
-            Cerveceria.getInstance().login(vista.getUsername(), vista.getPassword());
+    public void loguearAdministrador(Administrador admin) {
+        VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
+        ControladorAdministrador controladorAdministrador = new ControladorAdministrador(admin, ventanaAdministrador);
+        ventanaAdministrador.ejecutar();
+        vista.cerrarVentana();
+    }
+
+    public void loguearOperario(Operario operario) {
+        VentanaOperario ventanaOperario = new VentanaOperario();
+        ControladorOperario controladorOperario = new ControladorOperario(operario, ventanaOperario);
+        ventanaOperario.ejecutar();
+        vista.cerrarVentana();
     }
 
     @Override
