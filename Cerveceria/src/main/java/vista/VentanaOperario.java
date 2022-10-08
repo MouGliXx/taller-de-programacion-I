@@ -1,9 +1,12 @@
 package vista;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 
-public class VentanaOperario implements IVistaOperario {
+public class VentanaOperario extends JFrame implements IVistaOperario {
+
+    private JPanel panelPrincipal;
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -17,7 +20,14 @@ public class VentanaOperario implements IVistaOperario {
 
     @Override
     public void ejecutar() {
-
+        setTitle("Cerveceria - Grupo 1");
+        pack(); //Coloca los componentes
+        setContentPane(panelPrincipal);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setSize(1280,720); //Dimensiones del JFrame
+        setResizable(false); //No redimensionable
+        setLocationRelativeTo(null);
     }
 
     @Override

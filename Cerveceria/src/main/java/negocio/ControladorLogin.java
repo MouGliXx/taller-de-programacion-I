@@ -2,9 +2,9 @@ package negocio;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
-import main.java.modelo.Administrador;
-import main.java.modelo.Cerveceria;
-import main.java.modelo.Operario;
+import modelo.Administrador;
+import modelo.Cerveceria;
+import modelo.Operario;
 import vista.IVistaLogin;
 import vista.VentanaAdministrador;
 import vista.VentanaOperario;

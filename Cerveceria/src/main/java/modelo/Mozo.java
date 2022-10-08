@@ -1,8 +1,6 @@
-package main.java.modelo;
+package modelo;
 
 import java.time.LocalDate;
-import java.util.Objects;
-
 
 public class Mozo {
     private String nombre;

@@ -1,4 +1,4 @@
-package main.java.modelo;
+package modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
@@ -9,7 +9,7 @@ public class Cerveceria{
     private static Cerveceria instance = null;
     private String nombreDelLocal;
     private Administrador administrador;
-    ArrayList<Operario> operarios = new ArrayList<>();
+    ArrayList<Operario> operarios = new ArrayList<Operario>();
     ArrayList<Mozo> mozos = new ArrayList<>();
 
     //PATRON SINGLETON
