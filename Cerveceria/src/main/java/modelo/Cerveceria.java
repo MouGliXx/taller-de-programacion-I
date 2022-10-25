@@ -1,7 +1,12 @@
-package modelo;
+package main.java.modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
+import main.java.modelo.Mesa;
+import main.java.modelo.Comanda;
+import main.java.modelo.Mozo;
+import main.java.modelo.Administrador;
+import main.java.modelo.Operario;
 
 import java.util.ArrayList;
 
@@ -11,6 +16,7 @@ public class Cerveceria{
     private Administrador administrador;
     ArrayList<Operario> operarios = new ArrayList<Operario>();
     ArrayList<Mozo> mozos = new ArrayList<>();
+    private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
 
     //PATRON SINGLETON
     public Cerveceria() {
