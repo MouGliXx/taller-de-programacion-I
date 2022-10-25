@@ -1,10 +1,9 @@
-package main.java.modelo;
+package modelo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Comanda {
-
         private Calendar fecha;
         private Mesa mesa;
         private ArrayList<Pedido> pedido;
