@@ -14,4 +14,12 @@ public class Pedido {
         assert cantidad>0:"ERROR : La cantidad debe ser mayor a cero";
         this.cantidad = cantidad;
     }
+
+    private int getCantidad(){
+        return this.cantidad;
+    }
+
+    public double getPrecio(){
+        return this.producto.getPrecioVenta() * this.getCantidad();
+    }
 }

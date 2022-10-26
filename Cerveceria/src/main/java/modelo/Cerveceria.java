@@ -9,6 +9,7 @@ import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Cerveceria{
@@ -20,6 +21,8 @@ public class Cerveceria{
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
     private HashMap<Mesa,Mozo>MesasAsignadas = new HashMap<Mesa, Mozo>();
+    private ArrayList<Facturas> facturas = new ArrayList<Factura>();
+    private ArrayList<IPromocion> promociones = new ArrayList<>();
     private int cantidadMesasHabilitadas;
 
     //PATRON SINGLETON
@@ -64,6 +67,8 @@ public class Cerveceria{
     public String getNombreDelLocal() {
         return nombreDelLocal;
     }
+
+    public ArrayList<IPromocion> getPromociones() { return this.promociones;}
 
     public void setNombreDelLocal(String nombreDelLocal) {
         this.nombreDelLocal = nombreDelLocal;
@@ -144,13 +149,18 @@ public class Cerveceria{
         //descontar stock
     }
 
-    public void cerrarComanda(Comanda comanda){
+    // TESTEAR -
+    // Si se intenta cerrar una comanda que se encuentra cerrada,
+    // tiene que lanzar una excepcion
+    // pre condicion -> los metodos de pago tienen que ser validos [mercadopago, efectivo,tarjeta]
+    // Post condicion -> la mesa de la comanda queda en estado libre
+    //
+    public void cerrarComanda(Comanda comanda , String metodoDePago){
         if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
             throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
         comanda.cerrarComanda();
         comanda.getMesa().liberar();
-        //verificar que cumple promocion
-        //pasar a facturacion
+        Factura factura = new Factura( new Date() , comanda.getMesa() ,metodoDePago,  comanda.getPedidos() , this.getPromociones());
         this.comandas.remove(comanda);
     }
     public void nuevaMesa(){
@@ -159,4 +169,6 @@ public class Cerveceria{
     public void eliminarMesa(Mesa mesa){
         this.mesas.remove(mesa);
     }
+
+    public void
 }
