@@ -1,11 +1,13 @@
-package modelo;
+package main.java.modelo;
 
+import main.java.modelo.Producto;
 public class Pedido {
     private Producto producto;
     private int cantidad;
 
     public Pedido (Producto producto, int cantidad){
         this.setCantidad(cantidad);
+        this.producto = producto;
     }
 
     public void setCantidad(int cantidad) {

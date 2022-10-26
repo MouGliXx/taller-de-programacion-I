@@ -1,8 +1,15 @@
-package modelo;
+package main.java.modelo;
 
+import main.java.modelo.Administrador;
+import main.java.modelo.Mozo;
+import main.java.modelo.Operario;
+import main.java.modelo.Mesa;
+import main.java.modelo.Comanda;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class Cerveceria{
     private static Cerveceria instance = null;
@@ -11,6 +18,9 @@ public class Cerveceria{
     ArrayList<Operario> operarios = new ArrayList<Operario>();
     ArrayList<Mozo> mozos = new ArrayList<>();
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+    private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
+    private HashMap<Mesa,Mozo>MesasAsignadas = new HashMap<Mesa, Mozo>();
+    private int cantidadMesasHabilitadas;
 
     //PATRON SINGLETON
     public Cerveceria() {
@@ -94,5 +104,59 @@ public class Cerveceria{
                 break;
             }
         }
+    }
+    public boolean hayMozosActivos(){return true;}
+
+    public boolean hayDosProductosPromocionActiva(){return true;}
+
+    // Hay que verificar
+    //1. No es posible crear una nueva comanda si el local
+    //1. no tiene mesas habilitadas
+    //2. la mesa asociada debe tener un mozo activo asociado
+    //3. no tiene mozos activos
+    //4. al menos 2 productos están en promoción activa
+    //5. la lista de productos no puede estar vacía
+    // 2. La mesa debe estar en estado libre
+    //3. Al momento de agregar un PEDIDO la cantidad solicitada no puede superar al stock del producto
+    //4. Al momento de guardar la comanda, el estado de la mesa debe pasar a ocupada
+    //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
+    public void nuevaComanda(Calendar fecha, Mesa mesa, int cantidadComensales){
+        if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
+            throw new RuntimeException(); //2. Mesa ocupada
+        if (this.cantidadMesasHabilitadas<=0)
+            throw new RuntimeException(); //1.1 Local sin mesas habilitadas
+        if (this.MesasAsignadas.get(mesa) == null)
+            throw new RuntimeException(); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
+        if (hayMozosActivos() == false)
+            throw new RuntimeException(); //1.2 No hay mozos activos
+        if (hayDosProductosPromocionActiva() == false)
+            throw new RuntimeException(); //1.4 NO hay 2 productos en promocion activa
+
+        // Verificar que la lista de productos NO este vacia
+
+        this.comandas.add(new Comanda(fecha,mesa));
+        mesa.ocupar(cantidadComensales);
+
+    }
+    public void agregarPedidoAComanda (Comanda comanda,Pedido pedido){
+        //verificar que haya stock
+        comanda.agregarPedido(pedido);
+        //descontar stock
+    }
+
+    public void cerrarComanda(Comanda comanda){
+        if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
+            throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
+        comanda.cerrarComanda();
+        comanda.getMesa().liberar();
+        //verificar que cumple promocion
+        //pasar a facturacion
+        this.comandas.remove(comanda);
+    }
+    public void nuevaMesa(){
+        this.mesas.add(new Mesa());
+    }
+    public void eliminarMesa(Mesa mesa){
+        this.mesas.remove(mesa);
     }
 }
