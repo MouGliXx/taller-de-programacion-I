@@ -1,18 +1,30 @@
 package main.java.modelo;
 
+import main.java.excepciones.ErrorCostoMayorAPrecioVenta;
+import main.java.excepciones.ErrorPrecioCostoMenorCero;
+import main.java.excepciones.ErrorPrecioVentaMenorCero;
+
 public class Producto {
     
-    int idProduct;
-    String nombre;
-    double precioCosto;
-    double precioVenta;
-    int stockInicial;
+    private int idProduct;
+    private String nombre;
+    private double precioCosto;
+    private double precioVenta;
+    private int stockInicial;
 
-    public Producto(int idProduct, String nombre, double precioCosto, double precioVenta, int stockInicial) {
+    public Producto(int idProduct, String nombre, double precioCosto, double precioVenta, int stockInicial) throws ErrorCostoMayorAPrecioVenta, ErrorPrecioVentaMenorCero, ErrorPrecioCostoMenorCero {
         this.idProduct = idProduct;
         this.nombre = nombre;
-        this.precioCosto = precioCosto;
-        this.precioVenta = precioVenta;
+        if (precioVenta>=precioCosto){
+            if(precioVenta>0){
+                this.precioVenta = precioVenta;
+                if(precioCosto>0)
+                    this.precioCosto=precioCosto;
+                else throw new ErrorPrecioCostoMenorCero("El precio de costo es menor a cero");
+            }
+            else throw new ErrorPrecioVentaMenorCero("El precio de venta es menor a cero");
+        }
+        else throw new ErrorCostoMayorAPrecioVenta("El precio de venta es menor al de costo");
         this.stockInicial = stockInicial;
     }
 
