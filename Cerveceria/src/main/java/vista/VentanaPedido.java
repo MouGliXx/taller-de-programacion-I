@@ -50,7 +50,7 @@ public class VentanaPedido extends JFrame implements IVistaPedido {
 
     @Override
     public void setAccion(String accion) {
-        this.accionPedidoLabel.setText(accion + " comanda");
+        this.accionPedidoLabel.setText(accion + " pedido");
         this.accionButton.setText(accion);
     }
 }

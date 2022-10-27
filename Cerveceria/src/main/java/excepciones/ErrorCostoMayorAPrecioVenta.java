@@ -1,4 +1,4 @@
-package main.java.excepciones;
+package excepciones;
 
 /**
  * Se lanza cuando el precio de costo es mayor al de venta

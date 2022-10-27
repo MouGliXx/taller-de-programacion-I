@@ -1,4 +1,4 @@
-package main.java.excepciones;
+package excepciones;
 
 public class ErrorPrecioCostoMenorCero extends Exception{
     public ErrorPrecioCostoMenorCero(String message) {

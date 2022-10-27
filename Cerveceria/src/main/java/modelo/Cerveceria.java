@@ -1,14 +1,10 @@
-package main.java.modelo;
+package modelo;
 
-import main.java.excepciones.ErrorAlCrearComandaException;
-import main.java.excepciones.StockInsufucienteException;
-import main.java.modelo.Administrador;
-import main.java.modelo.Mozo;
-import main.java.modelo.Operario;
-import main.java.modelo.Mesa;
-import main.java.modelo.Comanda;
+import excepciones.ErrorAlCrearComandaException;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
+import excepciones.StockInsufucienteException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -125,7 +121,7 @@ public class Cerveceria {
     //3. Al momento de agregar un PEDIDO la cantidad solicitada no puede superar al stock del producto
     //4. Al momento de guardar la comanda, el estado de la mesa debe pasar a ocupada
     //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
-    public void nuevaComanda(Date fecha, Mesa mesa, int cantidadComensales) throws ErrorAlCrearComandaException {
+    public void nuevaComanda(String fecha, Mesa mesa, int cantidadComensales) throws ErrorAlCrearComandaException {
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.cantidadMesasHabilitadas<=0)

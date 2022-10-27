@@ -1,8 +1,8 @@
-package main.java.modelo;
+package modelo;
 
-import main.java.excepciones.ErrorCostoMayorAPrecioVenta;
-import main.java.excepciones.ErrorPrecioCostoMenorCero;
-import main.java.excepciones.ErrorPrecioVentaMenorCero;
+import excepciones.ErrorCostoMayorAPrecioVenta;
+import excepciones.ErrorPrecioCostoMenorCero;
+import excepciones.ErrorPrecioVentaMenorCero;
 
 public class Producto {
     

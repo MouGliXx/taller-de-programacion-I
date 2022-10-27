@@ -3,10 +3,7 @@ package negocio;
 import modelo.Comanda;
 import modelo.Pedido;
 import vista.IVistaComanda;
-import vista.VentanaComanda;
-import vista.VentanaLogin;
 import vista.VentanaPedido;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,7 +22,7 @@ public class ControladorComanda implements ActionListener {
         switch (e.getActionCommand()) {
             case "Nuevo Pedido" -> {
                 VentanaPedido ventanaPedido = new VentanaPedido();
-                ventanaPedido.setAccion("Nueva");
+                ventanaPedido.setAccion("Nuevo");
                 Pedido nuevoPedido = new Pedido();
                 ControladorPedido controladorPedido = new ControladorPedido(nuevoPedido, ventanaPedido);
                 ventanaPedido.ejecutar();

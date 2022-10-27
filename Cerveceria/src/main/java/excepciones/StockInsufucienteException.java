@@ -1,5 +1,4 @@
-package main.java.excepciones;
-
+package excepciones;
 
 /**
  * Se lanza cuando no hay Stock suficiente de producto
