@@ -15,11 +15,15 @@ public class Pedido {
         this.cantidad = cantidad;
     }
 
-    private int getCantidad(){
+    public int getCantidad(){
         return this.cantidad;
     }
 
     public double getPrecio(){
         return this.producto.getPrecioVenta() * this.getCantidad();
+    }
+
+    public Producto getProducto (){
+        return this.producto;
     }
 }

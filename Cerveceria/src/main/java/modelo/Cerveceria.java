@@ -1,5 +1,7 @@
 package main.java.modelo;
 
+import main.java.excepciones.ErrorAlCrearComandaException;
+import main.java.excepciones.StockInsufucienteException;
 import main.java.modelo.Administrador;
 import main.java.modelo.Mozo;
 import main.java.modelo.Operario;
@@ -8,7 +10,6 @@ import main.java.modelo.Comanda;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -17,12 +18,13 @@ public class Cerveceria{
     private String nombreDelLocal;
     private Administrador administrador;
     ArrayList<Operario> operarios = new ArrayList<Operario>();
-    ArrayList<Mozo> mozos = new ArrayList<>();
+    ArrayList<Mozo> mozos = new ArrayList<Mozo>();
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
     private HashMap<Mesa,Mozo>MesasAsignadas = new HashMap<Mesa, Mozo>();
-    private ArrayList<Facturas> facturas = new ArrayList<Factura>();
+    private ArrayList<Factura> facturas = new ArrayList<Factura>();
     private ArrayList<IPromocion> promociones = new ArrayList<>();
+    private ArrayList<Producto> productos = new ArrayList<Producto>();
     private int cantidadMesasHabilitadas;
 
     //PATRON SINGLETON
@@ -125,28 +127,33 @@ public class Cerveceria{
     //3. Al momento de agregar un PEDIDO la cantidad solicitada no puede superar al stock del producto
     //4. Al momento de guardar la comanda, el estado de la mesa debe pasar a ocupada
     //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
-    public void nuevaComanda(Calendar fecha, Mesa mesa, int cantidadComensales){
+    public void nuevaComanda(Date fecha, Mesa mesa, int cantidadComensales) throws ErrorAlCrearComandaException {
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
-            throw new RuntimeException(); //2. Mesa ocupada
+            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.cantidadMesasHabilitadas<=0)
-            throw new RuntimeException(); //1.1 Local sin mesas habilitadas
+            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
         if (this.MesasAsignadas.get(mesa) == null)
-            throw new RuntimeException(); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
+            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
         if (hayMozosActivos() == false)
-            throw new RuntimeException(); //1.2 No hay mozos activos
+            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
         if (hayDosProductosPromocionActiva() == false)
-            throw new RuntimeException(); //1.4 NO hay 2 productos en promocion activa
-
-        // Verificar que la lista de productos NO este vacia
+            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
+        if (this.productos.isEmpty())
+            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
 
         this.comandas.add(new Comanda(fecha,mesa));
         mesa.ocupar(cantidadComensales);
 
     }
-    public void agregarPedidoAComanda (Comanda comanda,Pedido pedido){
+    public void agregarPedidoAComanda (Comanda comanda,Pedido pedido) throws StockInsufucienteException {
         //verificar que haya stock
+        if (pedido.getProducto().getStockInicial() < pedido.getCantidad() )
+            throw new StockInsufucienteException("ERROR : No se puede completar pedido. Stock insuficiente");
         comanda.agregarPedido(pedido);
-        //descontar stock
+
+        // descuenta Stock
+        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()-pedido.getCantidad());
+
     }
 
     // TESTEAR -
@@ -160,7 +167,8 @@ public class Cerveceria{
             throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
         comanda.cerrarComanda();
         comanda.getMesa().liberar();
-        Factura factura = new Factura( new Date() , comanda.getMesa() ,metodoDePago,  comanda.getPedidos() , this.getPromociones());
+
+        this.facturas.add(new Factura( new Date() , comanda.getMesa() ,metodoDePago,  comanda.getPedidos() , this.getPromociones()));
         this.comandas.remove(comanda);
     }
     public void nuevaMesa(){
@@ -170,5 +178,4 @@ public class Cerveceria{
         this.mesas.remove(mesa);
     }
 
-    public void
 }

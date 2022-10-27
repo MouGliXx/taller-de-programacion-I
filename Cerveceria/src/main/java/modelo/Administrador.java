@@ -1,4 +1,4 @@
-package modelo;
+package main.java.modelo;
 
 public class Administrador {
     private String username; //(10)

@@ -3,16 +3,16 @@ package main.java.modelo;
 import main.java.modelo.Mesa;
 import main.java.modelo.Pedido;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
 public class Comanda {
-        private Calendar fecha;
+        private Date fecha;
         private Mesa mesa;
         private ArrayList<Pedido> pedidos;
         private String estado; //abierta o cerrada
 
-        public Comanda (Calendar fecha, Mesa mesa){
-                assert fecha != Calendar.getInstance():"Fecha invalida";
+        public Comanda (Date fecha, Mesa mesa){
+                //assert fecha != Date.from():"Fecha invalida";
                 assert mesa.getEstado().equalsIgnoreCase("Libre"): "ERROR : la mesa debe estar en estado libre";
                 this.fecha = fecha;
                 this.pedidos = new ArrayList<Pedido>();
@@ -37,7 +37,7 @@ public class Comanda {
                 this.estado = "Cerrada";
         }
 
-        public void agregarpedidos(Pedido pedido){
+        public void agregarPedido(Pedido pedido){
                 this.pedidos.add(pedido);
         }
 
