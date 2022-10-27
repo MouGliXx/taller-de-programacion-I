@@ -1,5 +1,8 @@
 package vista;
 
+import negocio.ControladorLogin;
+import negocio.ControladorOperario;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;

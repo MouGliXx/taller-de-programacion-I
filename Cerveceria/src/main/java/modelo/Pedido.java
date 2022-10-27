@@ -4,8 +4,7 @@ public class Pedido {
     private Producto producto;
     private int cantidad;
 
-    public Pedido (Producto producto, int cantidad){
-        this.setCantidad(cantidad);
+    public Pedido() {
     }
 
     public void setCantidad(int cantidad) {

@@ -5,11 +5,1047 @@
       <xy x="20" y="20" width="1280" height="720"/>
     </constraints>
     <properties>
+      <background color="-5131342"/>
       <maximumSize width="1280" height="720"/>
       <minimumSize width="1280" height="720"/>
       <preferredSize width="1280" height="720"/>
     </properties>
     <border type="none"/>
-    <children/>
+    <children>
+      <grid id="c7604" binding="panelIzquierdo" layout-manager="GridLayoutManager" row-count="13" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints border-constraint="West"/>
+        <properties>
+          <background color="-679164"/>
+          <maximumSize width="320" height="720"/>
+          <minimumSize width="320" height="720"/>
+          <preferredSize width="320" height="720"/>
+        </properties>
+        <border type="empty">
+          <size top="50" left="0" bottom="50" right="0"/>
+        </border>
+        <children>
+          <component id="23bd1" class="javax.swing.JButton" binding="promocionesButton" default-binding="true">
+            <constraints>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="320" height="60"/>
+                <preferred-size width="320" height="60"/>
+                <maximum-size width="320" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <defaultCapable value="true"/>
+              <focusPainted value="true"/>
+              <focusable value="false"/>
+              <font name="Inter SemiBold" size="20"/>
+              <foreground color="-11053225"/>
+              <hideActionText value="false"/>
+              <horizontalTextPosition value="0"/>
+              <selected value="false"/>
+              <text value="Promociones"/>
+            </properties>
+          </component>
+          <component id="b319d" class="javax.swing.JButton" binding="facturasButton" default-binding="true">
+            <constraints>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="320" height="60"/>
+                <preferred-size width="320" height="60"/>
+                <maximum-size width="320" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <defaultCapable value="true"/>
+              <focusPainted value="true"/>
+              <focusable value="false"/>
+              <font name="Inter SemiBold" size="20"/>
+              <foreground color="-11053225"/>
+              <hideActionText value="false"/>
+              <horizontalTextPosition value="0"/>
+              <selected value="false"/>
+              <text value="Facturas"/>
+            </properties>
+          </component>
+          <component id="c941f" class="javax.swing.JButton" binding="mozosButton" default-binding="true">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="320" height="60"/>
+                <preferred-size width="320" height="60"/>
+                <maximum-size width="320" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <defaultCapable value="true"/>
+              <focusPainted value="true"/>
+              <focusable value="false"/>
+              <font name="Inter SemiBold" size="20"/>
+              <foreground color="-11053225"/>
+              <hideActionText value="false"/>
+              <horizontalTextPosition value="0"/>
+              <selected value="false"/>
+              <text value="Mozos"/>
+            </properties>
+          </component>
+          <component id="4ded2" class="javax.swing.JButton" binding="comandasButton" default-binding="true">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="320" height="60"/>
+                <preferred-size width="320" height="60"/>
+                <maximum-size width="320" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <defaultCapable value="true"/>
+              <focusPainted value="true"/>
+              <focusable value="false"/>
+              <font name="Inter SemiBold" size="20"/>
+              <foreground color="-11053225"/>
+              <hideActionText value="false"/>
+              <horizontalTextPosition value="0"/>
+              <selected value="false"/>
+              <text value="Comandas"/>
+            </properties>
+          </component>
+          <component id="6060d" class="javax.swing.JLabel" binding="ImagenCerveza">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <focusable value="false"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="ImagenCerveza.png"/>
+              <text value="."/>
+            </properties>
+          </component>
+          <vspacer id="6fd77">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="a6934">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="8d43f">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="bbcd6">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="29be">
+            <constraints>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="fedb8">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="dd0d0">
+            <constraints>
+              <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="a8edb" class="javax.swing.JButton" binding="inicioButton" default-binding="true">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="320" height="60"/>
+                <preferred-size width="320" height="60"/>
+                <maximum-size width="320" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <defaultCapable value="true"/>
+              <focusPainted value="true"/>
+              <focusable value="false"/>
+              <font name="Inter SemiBold" size="20"/>
+              <foreground color="-11053225"/>
+              <hideActionText value="false"/>
+              <horizontalTextPosition value="0"/>
+              <selected value="false"/>
+              <text value="Inicio"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <tabbedpane id="15eb" binding="panelCentral">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <background color="-1"/>
+          <focusable value="false"/>
+          <inheritsPopupMenu value="false"/>
+          <maximumSize width="960" height="720"/>
+          <minimumSize width="960" height="720"/>
+          <opaque value="true"/>
+          <preferredSize width="960" height="720"/>
+          <requestFocusEnabled value="false"/>
+          <tabLayoutPolicy value="0"/>
+          <tabPlacement value="1"/>
+          <verifyInputWhenFocusTarget value="false"/>
+          <visible value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="4505" binding="inicioPanel" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Inicio"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="empty">
+              <size top="50" left="50" bottom="50" right="50"/>
+            </border>
+            <children>
+              <component id="5c123" class="javax.swing.JLabel" binding="bienvenidoLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="50" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="Bienvenido!"/>
+                </properties>
+              </component>
+              <component id="dfa12" class="javax.swing.JButton" binding="cerrarSesionButton" default-binding="true">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="400" height="80"/>
+                    <preferred-size width="400" height="80"/>
+                    <maximum-size width="400" height="80"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-679164"/>
+                  <focusPainted value="false"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="32" style="1"/>
+                  <foreground color="-983056"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Cerrar Sesion"/>
+                </properties>
+              </component>
+              <component id="3d94e" class="javax.swing.JLabel" binding="cerveceriaLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="80" style="1"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Cerveceria"/>
+                </properties>
+              </component>
+              <component id="4b3bb" class="javax.swing.JLabel" binding="NombreApellidoLabel">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="50" style="1"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="[Nombre y Apellido]"/>
+                </properties>
+              </component>
+              <vspacer id="503be">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="70d1">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="681bc">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="5f1e3">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="9ff50" class="javax.swing.JButton" binding="IniciarJornadaButton">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="280" height="100"/>
+                    <preferred-size width="280" height="100"/>
+                    <maximum-size width="280" height="100"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Iniciar Jornada"/>
+                  <background color="-12417778"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <defaultCapable value="true"/>
+                  <doubleBuffered value="false"/>
+                  <enabled value="false"/>
+                  <focusPainted value="true"/>
+                  <focusable value="false"/>
+                  <font name="Inter SemiBold" size="20"/>
+                  <foreground color="-983056"/>
+                  <hideActionText value="false"/>
+                  <horizontalTextPosition value="0"/>
+                  <selected value="false"/>
+                  <text value="INICIAR JORNADA"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="e9bc5" binding="mozosPanel" layout-manager="GridLayoutManager" row-count="21" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Mozos"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <focusable value="false"/>
+            </properties>
+            <border type="empty">
+              <size top="50" left="50" bottom="50" right="50"/>
+            </border>
+            <children>
+              <component id="870c6" class="javax.swing.JLabel" binding="mozosLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="80" style="1"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Mozos"/>
+                </properties>
+              </component>
+              <component id="26e2c" class="javax.swing.JLabel" binding="estadoLabel">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Estado"/>
+                </properties>
+              </component>
+              <component id="6889" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <editable value="false"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model>
+                    <item value=""/>
+                    <item value="Activo"/>
+                    <item value="Ausente"/>
+                    <item value="Franco"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="8cf6a" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+                <constraints>
+                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model>
+                    <item value=""/>
+                    <item value="Activo"/>
+                    <item value="Ausente"/>
+                    <item value="Franco"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="4d39d" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+                <constraints>
+                  <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model>
+                    <item value=""/>
+                    <item value="Activo"/>
+                    <item value="Ausente"/>
+                    <item value="Franco"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="516e5" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
+                <constraints>
+                  <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model>
+                    <item value=""/>
+                    <item value="Activo"/>
+                    <item value="Ausente"/>
+                    <item value="Franco"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="111c1" class="javax.swing.JComboBox" binding="comboBox5" default-binding="true">
+                <constraints>
+                  <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model>
+                    <item value=""/>
+                    <item value="Activo"/>
+                    <item value="Ausente"/>
+                    <item value="Franco"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="77a29" class="javax.swing.JLabel" binding="nombreYApellidoLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre y Apellido"/>
+                </properties>
+              </component>
+              <component id="b1c4e" class="javax.swing.JLabel" binding="NPLabel1">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre1 Apellido1"/>
+                </properties>
+              </component>
+              <component id="99b50" class="javax.swing.JLabel" binding="NPLabel2">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre1 Apellido1"/>
+                </properties>
+              </component>
+              <component id="cc0a5" class="javax.swing.JLabel" binding="NPLabel3">
+                <constraints>
+                  <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre1 Apellido1"/>
+                </properties>
+              </component>
+              <component id="66ace" class="javax.swing.JLabel" binding="NPLabel4">
+                <constraints>
+                  <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre1 Apellido1"/>
+                </properties>
+              </component>
+              <component id="7ba17" class="javax.swing.JLabel" binding="NPLabel5">
+                <constraints>
+                  <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre1 Apellido1"/>
+                </properties>
+              </component>
+              <component id="d7fc9" class="javax.swing.JLabel" binding="NPLabel6">
+                <constraints>
+                  <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Nombre1 Apellido1"/>
+                </properties>
+              </component>
+              <component id="5f128" class="javax.swing.JComboBox" binding="comboBox6" default-binding="true">
+                <constraints>
+                  <grid row="16" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model>
+                    <item value=""/>
+                    <item value="Activo"/>
+                    <item value="Ausente"/>
+                    <item value="Franco"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="c2fd5" class="javax.swing.JLabel" binding="mesasAsignadasLabel">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Mesas asignadas"/>
+                </properties>
+              </component>
+              <component id="155ac" class="javax.swing.JLabel" binding="MA1">
+                <constraints>
+                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="X - X"/>
+                </properties>
+              </component>
+              <component id="c984f" class="javax.swing.JLabel" binding="MA2">
+                <constraints>
+                  <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="X - X"/>
+                </properties>
+              </component>
+              <component id="ee065" class="javax.swing.JLabel" binding="MA3">
+                <constraints>
+                  <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="X - X"/>
+                </properties>
+              </component>
+              <component id="5aba4" class="javax.swing.JLabel" binding="MA4">
+                <constraints>
+                  <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="X - X"/>
+                </properties>
+              </component>
+              <component id="9807f" class="javax.swing.JLabel" binding="MA5">
+                <constraints>
+                  <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="X - X"/>
+                </properties>
+              </component>
+              <component id="51ac6" class="javax.swing.JLabel" binding="MA6">
+                <constraints>
+                  <grid row="16" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="20" style="0"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="X - X"/>
+                </properties>
+              </component>
+              <component id="b909b" class="javax.swing.JButton" binding="asignarMesasButton" default-binding="true">
+                <constraints>
+                  <grid row="20" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="500" height="60"/>
+                    <preferred-size width="500" height="60"/>
+                    <maximum-size width="500" height="60"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Asignar Mesas"/>
+                  <background color="-679164"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="32" style="1"/>
+                  <foreground color="-1"/>
+                  <text value="Asignar Mesas"/>
+                </properties>
+              </component>
+              <vspacer id="1deae">
+                <constraints>
+                  <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="2ea3d">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="266ad">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="eaebe">
+                <constraints>
+                  <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="4d407">
+                <constraints>
+                  <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="769b4">
+                <constraints>
+                  <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="a9a93">
+                <constraints>
+                  <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="b7b8b">
+                <constraints>
+                  <grid row="19" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="7f6ac">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="6ff81">
+                <constraints>
+                  <grid row="18" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="5074b">
+                <constraints>
+                  <grid row="17" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="b8125">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+          <grid id="c83fe" binding="comandasPanel" layout-manager="GridLayoutManager" row-count="6" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Comandas"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="empty">
+              <size top="50" left="50" bottom="50" right="50"/>
+            </border>
+            <children>
+              <component id="2c6c6" class="javax.swing.JLabel" binding="comandasLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="80" style="1"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Comandas"/>
+                </properties>
+              </component>
+              <component id="537b6" class="javax.swing.JLabel" binding="listadoDeComandasAbiertasLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Listado de comandas abiertas:"/>
+                </properties>
+              </component>
+              <scrollpane id="26231">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="860" height="300"/>
+                    <preferred-size width="860" height="300"/>
+                    <maximum-size width="860" height="300"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-5131342"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="70526" class="javax.swing.JList" binding="list1" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <background color="-2500135"/>
+                      <font name="Inter" size="20" style="0"/>
+                      <foreground color="-16777216"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="ca459" class="javax.swing.JButton" binding="nuevaComandaButton">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="300" height="60"/>
+                    <preferred-size width="300" height="60"/>
+                    <maximum-size width="300" height="60"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Nueva Comanda"/>
+                  <background color="-679164"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="32" style="1"/>
+                  <foreground color="-1"/>
+                  <text value="Nueva comanda"/>
+                </properties>
+              </component>
+              <component id="ed844" class="javax.swing.JButton" binding="cerrarComandaButton">
+                <constraints>
+                  <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="300" height="60"/>
+                    <preferred-size width="300" height="60"/>
+                    <maximum-size width="300" height="60"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Cerrar Comanda"/>
+                  <background color="-679164"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="32" style="1"/>
+                  <foreground color="-1"/>
+                  <text value="Cerrar comanda"/>
+                </properties>
+              </component>
+              <component id="66ca4" class="javax.swing.JButton" binding="editarComandaButton">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="160" height="60"/>
+                    <preferred-size width="160" height="60"/>
+                    <maximum-size width="160" height="60"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Editar Comanda"/>
+                  <background color="-679164"/>
+                  <focusable value="false"/>
+                  <font name="Inter" size="32" style="1"/>
+                  <foreground color="-1"/>
+                  <text value="Editar"/>
+                </properties>
+              </component>
+              <hspacer id="97cf1">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="57954">
+                <constraints>
+                  <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <vspacer id="70d91">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="10010">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+          <grid id="1022" binding="facturasPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Facturas"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="empty">
+              <size top="50" left="50" bottom="50" right="50"/>
+            </border>
+            <children>
+              <component id="ce146" class="javax.swing.JLabel" binding="facturasLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="80" style="1"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Facturas"/>
+                </properties>
+              </component>
+              <component id="65b84" class="javax.swing.JLabel" binding="listadoDeComandasAbiertasLabel1">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Listado de comandas abiertas:"/>
+                </properties>
+              </component>
+              <scrollpane id="22d44">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="860" height="400"/>
+                    <preferred-size width="860" height="400"/>
+                    <maximum-size width="860" height="400"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-5131342"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="75c80" class="javax.swing.JList" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <background color="-2500135"/>
+                      <font name="Inter" size="20" style="0"/>
+                      <foreground color="-16777216"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <vspacer id="b178a">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="f6270">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+          <grid id="938ec" binding="promocionesPanel" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Promociones"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="empty">
+              <size top="50" left="50" bottom="50" right="50"/>
+            </border>
+            <children>
+              <component id="29217" class="javax.swing.JLabel" binding="listadoDeProductosEnPromocionLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Listado de productos en promocion:"/>
+                </properties>
+              </component>
+              <scrollpane id="96ebd">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="860" height="150"/>
+                    <preferred-size width="860" height="150"/>
+                    <maximum-size width="860" height="150"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-5131342"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="879d4" class="javax.swing.JList" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <background color="-2500135"/>
+                      <font name="Inter" size="20" style="0"/>
+                      <foreground color="-16777216"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="9348c" class="javax.swing.JLabel" binding="listadoDePromocionesTemporalesLabel">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <font name="Inter SemiBold" size="30"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Listado de promociones temporales:"/>
+                </properties>
+              </component>
+              <scrollpane id="af241">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="860" height="150"/>
+                    <preferred-size width="860" height="150"/>
+                    <maximum-size width="860" height="150"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-5131342"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="12450" class="javax.swing.JList" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <background color="-2500135"/>
+                      <font name="Inter" size="20" style="0"/>
+                      <foreground color="-16777216"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <vspacer id="5b3e2">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="a4f41" class="javax.swing.JLabel" binding="promocionesLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="80" style="1"/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Promociones"/>
+                </properties>
+              </component>
+              <vspacer id="8a6b9">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="78ed3">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
   </grid>
 </form>
