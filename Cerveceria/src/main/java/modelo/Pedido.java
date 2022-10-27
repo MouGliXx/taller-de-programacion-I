@@ -1,6 +1,5 @@
-package main.java.modelo;
+package modelo;
 
-import main.java.modelo.Producto;
 public class Pedido {
     private Producto producto;
     private int cantidad;

@@ -1,7 +1,5 @@
-package main.java.modelo;
+package modelo;
 
-import main.java.modelo.Mesa;
-import main.java.modelo.Pedido;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,16 +12,24 @@ public class Comanda {
         private String estado; //abierta o cerrada
 
         //CONSTRUCTOR
-        public Comanda (Date fecha, Mesa mesa){
-                //assert fecha != Date.from():"Fecha invalida";
-                assert mesa.getEstado().equalsIgnoreCase("Libre"): "ERROR : la mesa debe estar en estado libre";
-
+        public Comanda() {
                 DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
                 String fechaActual = dateFormat.format(new Date());
-                this.fecha =  fechaActual
+                this.fecha = fechaActual;
+                this.mesa = null;
+                this.pedidos = new ArrayList<Pedido>();
+                this.estado = "Abierta";
+        }
+
+        public Comanda (String fecha, Mesa mesa) {
+                //assert fecha != Date.from():"Fecha invalida";
+                assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
+
+                this.fecha = fecha;
                 this.pedidos = new ArrayList<Pedido>();
                 this.mesa = mesa;
                 this.estado = "Abierta";
+        }
 
         //GETTERS & SETTERS
         public String getFecha() {
@@ -47,7 +53,7 @@ public class Comanda {
         }
 
         public void cerrarComanda(){
-                assert this.getEstado().equalsIgnoreCase("Cerrada"):"ERROR: no se puede cerrar una comanda ya cerrada";
+                assert this.estado.equalsIgnoreCase("Cerrada"):"ERROR: no se puede cerrar una comanda ya cerrada";
                 this.estado = "Cerrada";
         }
 

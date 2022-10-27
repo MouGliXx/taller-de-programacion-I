@@ -19,6 +19,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
         this.vista = vista;
         this.vista.setActionListener(this);
         this.vista.setWindowListener(this);
+        this.vista.setNombreCompleto(operario.getNombreCompleto());
     }
 
     @Override

@@ -1,13 +1,8 @@
 package vista;
 
-import negocio.ControladorLogin;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class VentanaOperario extends JFrame implements IVistaOperario {
     private JPanel panelPrincipal;
@@ -83,6 +78,11 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
     @Override
     public void setWindowListener(WindowListener controlador) {
         this.addWindowListener(controlador);
+    }
+
+    @Override
+    public void setNombreCompleto(String nombreCompleto) {
+        this.NombreApellidoLabel.setText(nombreCompleto);
     }
 
     @Override

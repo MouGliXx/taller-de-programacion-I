@@ -1,5 +1,5 @@
-package main.java.modelo;
-import main.java.modelo.Mesa;
+package modelo;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +7,7 @@ public class Factura<Promocion> {
 
     Date fecha = new Date();
     Mesa mesa;
-    ArrayList<main.java.modelo.Pedido> pedidos = new ArrayList<>();
+    ArrayList<Pedido> pedidos = new ArrayList<>();
     double total;
     String formaDePago;
     ArrayList<IPromocion> promociones = new ArrayList<>();

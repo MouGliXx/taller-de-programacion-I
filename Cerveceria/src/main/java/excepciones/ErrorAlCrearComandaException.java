@@ -1,4 +1,4 @@
-package main.java.excepciones;
+package excepciones;
 
 /**
  * Se lanza cuando no puede crear una comanda
