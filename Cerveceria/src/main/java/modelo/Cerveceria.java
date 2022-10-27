@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Cerveceria{
+public class Cerveceria {
     private static Cerveceria instance = null;
     private String nombreDelLocal;
     private Administrador administrador;
@@ -39,33 +39,7 @@ public class Cerveceria{
         return instance;
     }
 
-    public Administrador login(String password) throws ErrorDeContrasenaException {
-
-        if (password.equalsIgnoreCase(administrador.getPassword())) {
-            return this.administrador;
-        }
-
-        throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
-    }
-
-    public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
-
-        for (Operario operario: operarios) {
-            if (operario.getUsername().equalsIgnoreCase(username)) {
-                if (operario.getPassword().equalsIgnoreCase(password))
-                    return operario;
-
-                throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
-            }
-        }
-
-        throw new ErrorDeUsuarioException("Nombre de usuario invalido: " + username);
-    }
-
-    public static void setInstance(Cerveceria instance) {
-        Cerveceria.instance = instance;
-    }
-
+    //GETTERS & SETTERS
     public String getNombreDelLocal() {
         return nombreDelLocal;
     }
@@ -98,6 +72,30 @@ public class Cerveceria{
 
     public void setMozos(ArrayList<Mozo> mozos) {
         this.mozos = mozos;
+    }
+
+    //FUNCIONALIDADES
+    public Administrador login(String password) throws ErrorDeContrasenaException {
+
+        if (password.equalsIgnoreCase(administrador.getPassword())) {
+            return this.administrador;
+        }
+
+        throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
+    }
+
+    public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
+
+        for (Operario operario: operarios) {
+            if (operario.getUsername().equalsIgnoreCase(username)) {
+                if (operario.getPassword().equalsIgnoreCase(password))
+                    return operario;
+
+                throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
+            }
+        }
+
+        throw new ErrorDeUsuarioException("Nombre de usuario invalido: " + username);
     }
 
     public void agregarMozo(Mozo mozo){
