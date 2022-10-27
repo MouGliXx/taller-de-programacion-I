@@ -1,5 +1,6 @@
 package main.java.modelo;
 
+import main.java.excepciones.ErrorAlAsignarMesasException;
 import main.java.excepciones.ErrorAlCrearComandaException;
 import main.java.excepciones.StockInsufucienteException;
 import main.java.modelo.Administrador;
@@ -19,6 +20,7 @@ public class Cerveceria {
     private Administrador administrador;
     ArrayList<Operario> operarios = new ArrayList<Operario>();
     ArrayList<Mozo> mozos = new ArrayList<Mozo>();
+    public ArrayList<Mozo> mozosActivos = new ArrayList<Mozo>();
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
     private HashMap<Mesa,Mozo>MesasAsignadas = new HashMap<Mesa, Mozo>();
@@ -110,8 +112,6 @@ public class Cerveceria {
             }
         }
     }
-    public boolean hayMozosActivos(){return true;}
-
     public boolean hayDosProductosPromocionActiva(){return true;}
 
     // Hay que verificar
@@ -132,7 +132,7 @@ public class Cerveceria {
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
         if (this.MesasAsignadas.get(mesa) == null)
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
-        if (hayMozosActivos() == false)
+        if (this.mozosActivos.isEmpty())
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
         if (hayDosProductosPromocionActiva() == false)
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
@@ -176,4 +176,17 @@ public class Cerveceria {
         this.mesas.remove(mesa);
     }
 
+    public void asignarMesas () throws ErrorAlAsignarMesasException {
+        int mozos,mesas,indiceMesa=0;
+        if (cantidadMesasHabilitadas<=0)
+            throw new ErrorAlAsignarMesasException("No hay mesas habilitadas. NO se puede Asignar mesas");
+        if (this.mozosActivos.isEmpty())
+            throw new ErrorAlAsignarMesasException("No hay mozos activos. NO se puede asignar mesas");
+        for (mozos=0;mozos<this.mozosActivos.size();mozos++){
+            for (mesas=0; mesas<(this.cantidadMesasHabilitadas/this.mozosActivos.size());mesas++) {
+                this.MesasAsignadas.put(this.mesas.get(indiceMesa++),this.mozosActivos.get(mozos));
+            }
+        }
+
+    }
 }
