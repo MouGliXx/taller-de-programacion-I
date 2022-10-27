@@ -34,10 +34,10 @@
             <properties>
               <font name="Inter" size="50" style="1"/>
               <foreground color="-16777216"/>
-              <text value="[Accion] comanda"/>
+              <text value="[Accion] modelo"/>
             </properties>
           </component>
-          <component id="40386" class="javax.swing.JLabel" binding="listadoDeComandasAbiertasLabel">
+          <component id="40386" class="javax.swing.JLabel" binding="listadoDePedidosAsignadosLabel">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -47,7 +47,7 @@
               <foreground color="-16777216"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
-              <text value="Listado de comandas abiertas:"/>
+              <text value="Listado de pedidos asignados:"/>
             </properties>
           </component>
           <component id="ab0da" class="javax.swing.JButton" binding="accionButton" default-binding="true">
@@ -97,12 +97,15 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="45ccd" class="javax.swing.JList" binding="list1" default-binding="true">
+              <component id="45ccd" class="javax.swing.JList" binding="listaPedidosAsignados">
                 <constraints/>
                 <properties>
                   <background color="-2500135"/>
+                  <focusable value="false"/>
                   <font name="Inter" size="20" style="0"/>
                   <foreground color="-16777216"/>
+                  <model/>
+                  <valueIsAdjusting value="false"/>
                 </properties>
               </component>
             </children>

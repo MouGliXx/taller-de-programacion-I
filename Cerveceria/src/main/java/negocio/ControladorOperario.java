@@ -1,14 +1,15 @@
 package negocio;
 
-import modelo.Comanda;
-import modelo.Operario;
+import modelo.*;
 import vista.IVistaOperario;
 import vista.VentanaComanda;
+import vista.VentanaFactura;
 import vista.VentanaLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 public class ControladorOperario implements ActionListener, WindowListener {
     private Operario operario;
@@ -45,34 +46,45 @@ public class ControladorOperario implements ActionListener, WindowListener {
 
     public void creaOtraVentana(String ventana) {
         switch (ventana) {
-            case "Login":
+            case "Login" -> {
                 VentanaLogin ventanaLogin = new VentanaLogin();
                 ControladorLogin controladorLogin = new ControladorLogin(ventanaLogin);
                 ventanaLogin.ejecutar();
                 vista.cerrarVentana();
-                break;
-            case "Nueva Comanda":
+            }
+            case "Nueva Comanda" -> {
                 VentanaComanda ventanaNuevaComanda = new VentanaComanda();
                 ventanaNuevaComanda.setAccion("Nueva");
                 Comanda nuevaComanda = new Comanda();
                 ControladorComanda controladorComanda = new ControladorComanda(nuevaComanda, ventanaNuevaComanda);
                 ventanaNuevaComanda.ejecutar();
-                break;
-            case "Editar Comanda":
+            }
+            case "Editar Comanda" -> {
                 VentanaComanda ventanaEditarComanda = new VentanaComanda();
                 ventanaEditarComanda.setAccion("Editar");
-                //TOMAR LA COMANDA SELECCIONADA
-//                ControladorComanda controladorComanda = new ControladorComanda(comandaSeleccionada, ventanaNuevaComanda);
-                break;
-            case "Nueva factura":
+                Comanda comandaSeleccionada = vista.getComandaSeleccionada();
+                ControladorComanda controladorComanda = new ControladorComanda(comandaSeleccionada, ventanaEditarComanda);
+                ventanaEditarComanda.ejecutar();
+            }
+            case "Nueva factura" -> {
+                Comanda comandaSeleccionada = vista.getComandaSeleccionada();
 
-                break;
+                Cerveceria.getInstance().cerrarComanda(comandaSeleccionada); //FALTA RECIBIR EXCEPCION
+
+                double total = 0; //METODO EN COMANDA QUE CALCULE EL TOTAL
+                ArrayList<IPromocion> promocionesAplicadas = null; //METODO QUE GESTIONE LAS PROMOCIONES
+
+                Factura nuevaFacura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos(), total, promocionesAplicadas);
+                VentanaFactura ventanaFactura = new VentanaFactura();
+                ControladorFactura controladorFactura = new ControladorFactura(nuevaFacura, ventanaFactura);
+                ventanaFactura.ejecutar();
+            }
         }
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-
+        //PERSISTIR
     }
 
     //METODOS NO USADOS

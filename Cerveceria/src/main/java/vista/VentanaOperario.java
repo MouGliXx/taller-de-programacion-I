@@ -1,8 +1,11 @@
 package vista;
 
+import modelo.*;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 public class VentanaOperario extends JFrame implements IVistaOperario {
     private JPanel panelPrincipal;
@@ -52,13 +55,21 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
     private JButton nuevaComandaButton;
     private JButton cerrarComandaButton;
     private JButton editarComandaButton;
-    private JList list1;
     private JLabel facturasLabel;
-    private JLabel listadoDeComandasAbiertasLabel1;
+    private JLabel historialDeFacturasLabel;
     private JLabel promocionesLabel;
     private JLabel listadoDeProductosEnPromocionLabel;
     private JLabel listadoDePromocionesTemporalesLabel;
+    private JList listaComandasAbiertas;
+    private JList listaFacturas;
+    private JList listaProductosEnPromocion;
+    private JList listaPromocionesTemporales;
     private JLabel fechaHoraLabel2;
+    //MODELOS PARA LISTA
+    DefaultListModel<Comanda> modeloComanda = new DefaultListModel<>();
+    DefaultListModel<Factura> modeloFactura = new DefaultListModel<>();
+    DefaultListModel<Producto_en_Promocion> modeloProductoEnPromocion = new DefaultListModel<>();
+    DefaultListModel<Promocion_General> modeloPromocionGeneral = new DefaultListModel<>();
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -95,6 +106,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
         setSize(1280,720); //Dimensiones del JFrame
         setResizable(false); //No redimensionable
         setLocationRelativeTo(null);
+        setModelos();
     }
 
     @Override
@@ -111,7 +123,28 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
 
     @Override
     public void setModelos() {
+        this.listaComandasAbiertas.setModel(modeloComanda);
+        this.listaFacturas.setModel(modeloFactura);
+        this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
+        this.listaPromocionesTemporales.setModel(modeloPromocionGeneral);
+    }
 
+    @Override
+    public void inicializarListas(ArrayList<Comanda> comandas, ArrayList<Factura> facturas, ArrayList<IPromocion> promociones) {
+        comandas.forEach((comanda) -> {
+            this.modeloComanda.add(modeloComanda.size(), comanda);
+        });
+
+        facturas.forEach((factura) -> {
+            this.modeloFactura.add(modeloFactura.size(), factura);
+        });
+
+        //RESOLVER TEMA PROMOCIONES
+    }
+
+    @Override
+    public Comanda getComandaSeleccionada() {
+        return (this.listaComandasAbiertas == null ? null : (Comanda) this.listaComandasAbiertas.getSelectedValue());
     }
 
     @Override

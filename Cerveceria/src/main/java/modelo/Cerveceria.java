@@ -4,9 +4,7 @@ import excepciones.ErrorAlCrearComandaException;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import excepciones.StockInsufucienteException;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class Cerveceria {
@@ -121,7 +119,7 @@ public class Cerveceria {
     //3. Al momento de agregar un PEDIDO la cantidad solicitada no puede superar al stock del producto
     //4. Al momento de guardar la comanda, el estado de la mesa debe pasar a ocupada
     //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
-    public void nuevaComanda(String fecha, Mesa mesa, int cantidadComensales) throws ErrorAlCrearComandaException {
+    public void nuevaComanda(Mesa mesa, int cantidadComensales) throws ErrorAlCrearComandaException {
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.cantidadMesasHabilitadas<=0)
@@ -135,7 +133,7 @@ public class Cerveceria {
         if (this.productos.isEmpty())
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
 
-        this.comandas.add(new Comanda(fecha,mesa));
+        this.comandas.add(new Comanda(mesa));
         mesa.ocupar(cantidadComensales);
 
     }
@@ -155,21 +153,25 @@ public class Cerveceria {
     // tiene que lanzar una excepcion
     // pre condicion -> los metodos de pago tienen que ser validos [mercadopago, efectivo,tarjeta]
     // Post condicion -> la mesa de la comanda queda en estado libre
-    //
-    public void cerrarComanda(Comanda comanda , String metodoDePago){
+    public void cerrarComanda(Comanda comanda) {
         if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
             throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
+
         comanda.cerrarComanda();
         comanda.getMesa().liberar();
 
-        this.facturas.add(new Factura( new Date() , comanda.getMesa() ,metodoDePago,  comanda.getPedidos() , this.getPromociones()));
         this.comandas.remove(comanda);
     }
+
     public void nuevaMesa(){
         this.mesas.add(new Mesa());
     }
+
     public void eliminarMesa(Mesa mesa){
         this.mesas.remove(mesa);
     }
 
+    public void agregarFactura(Factura factura) {
+        facturas.add(factura);
+    }
 }

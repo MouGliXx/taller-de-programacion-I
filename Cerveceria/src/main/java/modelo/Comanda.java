@@ -1,42 +1,38 @@
 package modelo;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Comanda {
-        private String fecha;
+        private Date fecha;
         private Mesa mesa;
         private ArrayList<Pedido> pedidos;
         private String estado; //abierta o cerrada
 
         //CONSTRUCTOR
         public Comanda() {
-                DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
-                String fechaActual = dateFormat.format(new Date());
-                this.fecha = fechaActual;
+                this.fecha = new Date();
                 this.mesa = null;
                 this.pedidos = new ArrayList<Pedido>();
                 this.estado = "Abierta";
         }
 
-        public Comanda (String fecha, Mesa mesa) {
+        public Comanda (Mesa mesa) {
                 //assert fecha != Date.from():"Fecha invalida";
                 assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
 
-                this.fecha = fecha;
+                this.fecha = new Date();
                 this.pedidos = new ArrayList<Pedido>();
                 this.mesa = mesa;
                 this.estado = "Abierta";
         }
 
         //GETTERS & SETTERS
-        public String getFecha() {
+        public Date getFecha() {
                 return fecha;
         }
 
-        public void setFecha(String fecha) {
+        public void setFecha(Date fecha) {
                 this.fecha = fecha;
         }
 
