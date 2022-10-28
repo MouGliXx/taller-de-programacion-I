@@ -6,16 +6,21 @@ public class Mesa {
     private int cantidadComensales;
     private String estado;
 
-    public Mesa () {
-        this.nro = sig++;
-        this.estado="Libre";
+    //CONSTRUCTOR
+    public Mesa() { //DUDOSO ESTO
+    }
+
+    public Mesa(int nro, int cantidadComensales, String estado) {
+        this.nro = nro; //Asigno 'sig' pero desde la ventana
+        this.cantidadComensales = cantidadComensales;
+        this.estado = estado;
     }
 
     //GETTERS && SETTERS
-
-    public static int getSig(){
+    public static int getSig() {
         return sig;
     }
+
     public int getNro() {
         return nro;
     }

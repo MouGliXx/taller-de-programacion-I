@@ -20,24 +20,21 @@ public class ControladorEntidad implements ActionListener {
             case "Accion" -> {
                 switch (vista.getEntidad()) {
                     case "Operario" -> {
-
+                        //GUARDAR OPERARIO
                     }
                     case "Mozo" -> {
-
+                        //GUARDAR MOZO
                     }
                     case "Producto" -> {
-
+                        //GUARDAR PRODUCTO
                     }
                     case "Mesa" -> {
-
+                        //GUARDAR MESA
                     }
                 }
                 this.vista.cerrarVentana();
             }
-            case "Cancelar" -> {
-
-                this.vista.cerrarVentana();
-            }
+            case "Cancelar" -> this.vista.cerrarVentana();
         }
     }
 }

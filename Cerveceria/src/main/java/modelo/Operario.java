@@ -6,11 +6,11 @@ public class Operario {
     private String password; //(12)
     private boolean activo;
 
-    public Operario(String nombreCompleto, String nombreUsuario, String password) {
+    public Operario(String nombreCompleto, String nombreUsuario, String password, boolean activo) {
         this.nombreCompleto = nombreCompleto;
         this.username = nombreUsuario;
         this.password = password;
-        this.activo = true;
+        this.activo = activo;
     }
 
     public String getNombreCompleto() {

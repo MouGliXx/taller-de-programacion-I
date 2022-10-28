@@ -55,6 +55,12 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JComboBox cantComensalesComboBox;
     private JTextField nombreYApellidoTextField;
     private JTextField fechaNacimientoTextField;
+    private JLabel contrasenaLabel;
+    private JTextField contrasenaTextField;
+    private JComboBox cantHijosComboBox;
+    private JComboBox estadoComboBox;
+    private JLabel estadoLabel1;
+    private JComboBox estadoMesaComboBox;
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -67,6 +73,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.nombreTextField.addKeyListener(this);
         this.apellidoTextField.addKeyListener(this);
         this.nombreUsuarioTextField .addKeyListener(this);
+        this.contrasenaTextField.addKeyListener(this);
         this.nombreYApellidoTextField .addKeyListener(this);
         this.fechaNacimientoTextField.addKeyListener(this);
         this.stockInicialTextField.addKeyListener(this);
@@ -138,22 +145,43 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
 
     @Override
     public Operario getOperario() {
-        return null;
+        String nombreCompleto = nombreTextField.getText() + " " + apellidoTextField.getText();
+        String username = nombreUsuarioTextField.getText();
+        String password = contrasenaTextField.getText();
+        Boolean activo = operarioComboBox.getSelectedIndex() == 0 ?  true : false;
+
+        return new Operario(nombreCompleto, username, password, activo);
     }
 
     @Override
     public Mozo getMozo() {
+        String nombreCompleto = nombreYApellidoTextField.getText();
+        //FECHA DE NACIMIENTO
+        int cantHijos = cantHijosComboBox.getSelectedIndex();
+        int estado = estadoComboBox.getSelectedIndex();
+
+//        return new Mozo(nombreCompleto, cantHijos, estado);
         return null;
     }
 
     @Override
     public Producto getProducto() {
-        return null;
+        int idProduct = Integer.parseInt(IDLabel.getText()) ;
+        int stockInicial = Integer.parseInt(stockInicialTextField.getText());
+        String nombre = nombreProductoTextField.getText() ;
+        double precioCosto = Double.parseDouble(precioCostoTextField.getText());
+        double precioVenta= Double.parseDouble(precioVentaTextField.getText());
+
+        return new Producto(idProduct, nombre, precioCosto, precioVenta, stockInicial);
     }
 
     @Override
     public Mesa getMesa() {
-        return null;
+        int nro = Integer.parseInt(NMesaLabel.getText());
+        int cantidadComensales = cantComensalesComboBox.getSelectedIndex() + 1;
+        String estado = estadoMesaComboBox.getSelectedIndex() == 0 ? "Libre" : "Ocupada";
+
+        return new Mesa(nro,cantidadComensales,estado);
     }
 
     @Override
@@ -162,7 +190,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
 
         switch (panelCentral.getSelectedIndex()) {
             case 0 -> {
-                if (nombreTextField.getText().isEmpty() || apellidoTextField.getText().isEmpty() || nombreUsuarioTextField.getText().isEmpty()) {
+                if (nombreTextField.getText().isEmpty() || apellidoTextField.getText().isEmpty() || nombreUsuarioTextField.getText().isEmpty() || contrasenaTextField.getText().isEmpty()) {
                     accionButton.setEnabled(false);
                 }
             }
@@ -189,6 +217,4 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     public void keyPressed(KeyEvent e) {
 
     }
-
-
 }

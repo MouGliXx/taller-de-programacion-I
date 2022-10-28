@@ -12,19 +12,20 @@ public class Producto {
     private double precioVenta;
     private int stockInicial;
 
-    public Producto(int idProduct, String nombre, double precioCosto, double precioVenta, int stockInicial) throws ErrorCostoMayorAPrecioVenta, ErrorPrecioVentaMenorCero, ErrorPrecioCostoMenorCero {
+    public Producto(int idProduct, String nombre, double precioCosto, double precioVenta, int stockInicial) {
         this.idProduct = idProduct;
         this.nombre = nombre;
+
         if (precioVenta>=precioCosto){
             if(precioVenta>0){
                 this.precioVenta = precioVenta;
                 if(precioCosto>0)
                     this.precioCosto=precioCosto;
-                else throw new ErrorPrecioCostoMenorCero("El precio de costo es menor a cero");
+//                else throw new ErrorPrecioCostoMenorCero("El precio de costo es menor a cero");
             }
-            else throw new ErrorPrecioVentaMenorCero("El precio de venta es menor a cero");
+//            else throw new ErrorPrecioVentaMenorCero("El precio de venta es menor a cero");
         }
-        else throw new ErrorCostoMayorAPrecioVenta("El precio de venta es menor al de costo");
+//        else throw new ErrorCostoMayorAPrecioVenta("El precio de venta es menor al de costo");
         this.stockInicial = stockInicial;
     }
 

@@ -4,16 +4,17 @@ import java.time.LocalDate;
 
 public class Mozo {
     private String nombre;
-    private LocalDate fechaNacimiento;
+    private LocalDate fechaNacimiento; //RESOLVER
     private int cantHijos;
     private int estado; // 0-> activo 1->ausente 2->de franco // un invariable podria ser que el estado nunca sea != a 0,1,2
 
+    //CONSTRUCTOR
     public Mozo(String nombre, LocalDate fechaNacimiento, int cantHijos, int estado) throws Exception {
         this.nombre = nombre;
         this.estado = estado;
-        //if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
+//        if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
         this.fechaNacimiento = fechaNacimiento;
-        if (cantHijos < 0) throw new Exception();
+//        if (cantHijos < 0) throw new Exception();
         this.cantHijos = cantHijos;
     }
 

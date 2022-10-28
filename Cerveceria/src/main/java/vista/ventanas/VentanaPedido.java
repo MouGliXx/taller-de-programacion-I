@@ -16,9 +16,6 @@ public class VentanaPedido extends JFrame implements IVistaPedido {
     private JLabel cantidadLabel;
     private JButton accionButton;
 
-    //GETTERS & SETTERS
-
-
     //FUNCIONALIDADES
     @Override
     public void setActionListener(ActionListener controlador) {
