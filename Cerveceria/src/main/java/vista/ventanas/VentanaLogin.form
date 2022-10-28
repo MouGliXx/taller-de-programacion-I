@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="vista.ventanas.VentanaLogin">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="600" height="600"/>
+    </constraints>
+    <properties>
+      <background color="-2500135"/>
+      <maximumSize width="600" height="600"/>
+      <minimumSize width="600" height="600"/>
+      <preferredSize width="600" height="600"/>
+    </properties>
+    <border type="empty">
+      <size top="50" left="50" bottom="50" right="50"/>
+    </border>
+    <children>
+      <grid id="6fa57" binding="panelCentral" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints/>
+        <properties>
+          <background color="-1"/>
+          <doubleBuffered value="false"/>
+          <focusable value="false"/>
+          <maximumSize width="500" height="500"/>
+          <minimumSize width="500" height="500"/>
+          <name value=""/>
+          <preferredSize width="500" height="500"/>
+        </properties>
+        <border type="empty">
+          <size top="30" left="30" bottom="30" right="30"/>
+        </border>
+        <children>
+          <component id="b6275" class="javax.swing.JButton" binding="botonLogin">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="375" height="50"/>
+                <preferred-size width="375" height="50"/>
+                <maximum-size width="375" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <autoscrolls value="true"/>
+              <background color="-679164"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <defaultCapable value="true"/>
+              <doubleBuffered value="false"/>
+              <enabled value="false"/>
+              <focusCycleRoot value="true"/>
+              <focusPainted value="true"/>
+              <focusable value="false"/>
+              <font size="16" style="1"/>
+              <foreground color="-2500135"/>
+              <hideActionText value="false"/>
+              <horizontalTextPosition value="0"/>
+              <selected value="true"/>
+              <text value="Login"/>
+            </properties>
+          </component>
+          <component id="4e6fc" class="javax.swing.JTextField" binding="passwordTextField" default-binding="true">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="375" height="50"/>
+                <preferred-size width="375" height="50"/>
+                <maximum-size width="375" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <caretColor color="-1"/>
+              <dragEnabled value="false"/>
+              <dropMode value="USE_SELECTION"/>
+              <focusable value="true"/>
+              <font size="16" style="1"/>
+              <foreground color="-11053225"/>
+              <horizontalAlignment value="2"/>
+              <inheritsPopupMenu value="false"/>
+              <margin top="2" left="6" bottom="2" right="6"/>
+              <opaque value="true"/>
+              <selectionColor color="-533952"/>
+              <text value="Password"/>
+            </properties>
+          </component>
+          <component id="84fb6" class="javax.swing.JLabel" binding="ImagenCerveza">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <focusable value="false"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <icon value="ImagenCerveza.png"/>
+              <text value="."/>
+            </properties>
+          </component>
+          <component id="dac39" class="javax.swing.JTextField" binding="usernameTextField" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="375" height="50"/>
+                <preferred-size width="375" height="50"/>
+                <maximum-size width="375" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2500135"/>
+              <caretColor color="-1"/>
+              <focusCycleRoot value="false"/>
+              <focusable value="true"/>
+              <font size="16" style="1"/>
+              <foreground color="-11053225"/>
+              <horizontalAlignment value="2"/>
+              <inheritsPopupMenu value="false"/>
+              <margin top="2" left="6" bottom="2" right="6"/>
+              <nextFocusableComponent value=""/>
+              <selectionColor color="-533952"/>
+              <text value="Username"/>
+              <toolTipText value="Username"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

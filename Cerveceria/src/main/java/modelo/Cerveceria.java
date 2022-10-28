@@ -43,8 +43,6 @@ public class Cerveceria {
         this.nombreDelLocal = nombreDelLocal;
     }
 
-    public ArrayList<IPromocion> getPromociones() { return this.promociones;}
-
     public Administrador getAdministrador() {
         return administrador;
     }
@@ -67,6 +65,62 @@ public class Cerveceria {
 
     public void setMozos(ArrayList<Mozo> mozos) {
         this.mozos = mozos;
+    }
+
+    public ArrayList<Mesa> getMesas() {
+        return mesas;
+    }
+
+    public void setMesas(ArrayList<Mesa> mesas) {
+        this.mesas = mesas;
+    }
+
+    public ArrayList<Comanda> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(ArrayList<Comanda> comandas) {
+        this.comandas = comandas;
+    }
+
+    public HashMap<Mesa, Mozo> getMesasAsignadas() {
+        return mesasAsignadas;
+    }
+
+    public void setMesasAsignadas(HashMap<Mesa, Mozo> mesasAsignadas) {
+        this.mesasAsignadas = mesasAsignadas;
+    }
+
+    public ArrayList<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(ArrayList<Factura> facturas) {
+        this.facturas = facturas;
+    }
+
+    public ArrayList<IPromocion> getPromociones() {
+        return promociones;
+    }
+
+    public void setPromociones(ArrayList<IPromocion> promociones) {
+        this.promociones = promociones;
+    }
+
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public int getCantidadMesasHabilitadas() {
+        return cantidadMesasHabilitadas;
+    }
+
+    public void setCantidadMesasHabilitadas(int cantidadMesasHabilitadas) {
+        this.cantidadMesasHabilitadas = cantidadMesasHabilitadas;
     }
 
     //FUNCIONALIDADES

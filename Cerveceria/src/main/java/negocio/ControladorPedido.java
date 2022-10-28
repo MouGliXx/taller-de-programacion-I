@@ -1,7 +1,7 @@
 package negocio;
 
 import modelo.Pedido;
-import vista.IVista;
+import vista.interfaces.IVista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

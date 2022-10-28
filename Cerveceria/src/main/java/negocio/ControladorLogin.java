@@ -5,9 +5,9 @@ import excepciones.ErrorDeUsuarioException;
 import modelo.Administrador;
 import modelo.Cerveceria;
 import modelo.Operario;
-import vista.IVistaLogin;
-import vista.VentanaAdministrador;
-import vista.VentanaOperario;
+import vista.interfaces.IVistaLogin;
+import vista.ventanas.VentanaAdministrador;
+import vista.ventanas.VentanaOperario;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

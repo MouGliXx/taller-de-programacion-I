@@ -1,10 +1,10 @@
 package negocio;
 
 import modelo.*;
-import vista.IVistaOperario;
-import vista.VentanaComanda;
-import vista.VentanaFactura;
-import vista.VentanaLogin;
+import vista.interfaces.IVistaOperario;
+import vista.ventanas.VentanaComanda;
+import vista.ventanas.VentanaFactura;
+import vista.ventanas.VentanaLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -18,6 +18,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
     public ControladorOperario(Operario operario, IVistaOperario vista) {
         this.operario = operario;
         this.vista = vista;
+
         this.vista.setActionListener(this);
         this.vista.setWindowListener(this);
         this.vista.setNombreCompleto(operario.getNombreCompleto());
@@ -70,9 +71,9 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 Comanda comandaSeleccionada = vista.getComandaSeleccionada();
 
                 try {
-                    Cerveceria.getInstance().cerrarComanda(comandaSeleccionada); //FALTA RECIBIR EXCEPCION
+                    Cerveceria.getInstance().cerrarComanda(comandaSeleccionada);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    vista.lanzarVentanaEmergente(e.getMessage());
                 }
 
                 double total = 0; //METODO EN COMANDA QUE CALCULE EL TOTAL

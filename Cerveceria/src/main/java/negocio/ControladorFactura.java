@@ -1,7 +1,7 @@
 package negocio;
 
 import modelo.*;
-import vista.IVistaFactura;
+import vista.interfaces.IVistaFactura;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

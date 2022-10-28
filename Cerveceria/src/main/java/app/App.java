@@ -1,10 +1,8 @@
 package app;
 
 import modelo.Operario;
-import negocio.ControladorLogin;
 import negocio.ControladorOperario;
-import vista.VentanaLogin;
-import vista.VentanaOperario;
+import vista.ventanas.VentanaOperario;
 
 public class App {
     public static void main(String[] args) {

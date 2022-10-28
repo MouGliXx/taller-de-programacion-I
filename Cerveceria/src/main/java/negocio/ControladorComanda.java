@@ -2,8 +2,8 @@ package negocio;
 
 import modelo.Comanda;
 import modelo.Pedido;
-import vista.IVistaComanda;
-import vista.VentanaPedido;
+import vista.interfaces.IVistaComanda;
+import vista.ventanas.VentanaPedido;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
