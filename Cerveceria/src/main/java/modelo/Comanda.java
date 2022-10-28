@@ -17,9 +17,9 @@ public class Comanda {
 
                 DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
                 String fechaActual = dateFormat.format(new Date());
-
+                this.mesa = null;
                 this.pedidos = new ArrayList<Pedido>();
-                this.estado = "Abierta";
+                this.setEstado("Abierta");
         }
 
         //GETTERS & SETTERS
@@ -27,8 +27,20 @@ public class Comanda {
                 return fecha;
         }
 
+        public void setEstado(String estado) {
+                assert estado!=null :"ERROR : El estado no debe ser null";
+                assert estado!="":"ERROR : El estado no debe ser vacio";
+                assert estado!="Abierta" || estado!="Cerrada" :"ERROR : El estado debe ser Ocupado o Libre";
+                this.estado = estado;
+        }
+
         public void setFecha(Date fecha) {
                 this.fecha = fecha;
+        }
+
+        public void setMesa(Mesa mesa){
+                assert mesa!= null :"ERROR : La mesa no debe ser null";
+                this.mesa = mesa;
         }
 
         public String getEstado(){

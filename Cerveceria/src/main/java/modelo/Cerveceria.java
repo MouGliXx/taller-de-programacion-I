@@ -1,8 +1,5 @@
 package modelo;
 
-
-import excepciones.ErrorAlCrearComandaException;
-import excepciones.StockInsufucienteException;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
@@ -174,44 +171,47 @@ public class Cerveceria {
     //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
 
     /**
-     * <b>pre:</b> mesa debe ser distinto de null y no vacio<br>.
+     * <b>pre:</b> mesa debe ser distinto de null<br>.
      * @param mesa sobre la cual se va a crear la comanda
-     * @throws ErrorAlCrearComandaException Se lanza excepción si la mesa esta en estado Ocupado
-     * @throws ErrorAlCrearComandaException Se lanza excepción si No hay mesas habilitadas en el Negocio
-     * @throws ErrorAlCrearComandaException Se lanza excepción si la mesa no tiene mozo asignado
-     * @throws ErrorAlCrearComandaException Se lanza excepción Si el local no tiene Mozos activos
-     * @throws ErrorAlCrearComandaException Se lanza excepción si no hay dos promociones en estado activo
-     * @throws ErrorAlCrearComandaException Se lanza excepción si la lista de productos esta vacia.
+     * @throws Exception Se lanza excepción si la mesa esta en estado Ocupado
+     * @throws Exception Se lanza excepción si No hay mesas habilitadas en el Negocio
+     * @throws Exception Se lanza excepción si la mesa no tiene mozo asignado
+     * @throws Exception Se lanza excepción Si el local no tiene Mozos activos
+     * @throws Exception Se lanza excepción si no hay dos promociones en estado activo
+     * @throws Exception Se lanza excepción si la lista de productos esta vacia.
      * <b>post:</b> Se agregara a la lista de comandas una nueva y la mesa pasara a estado ocupado<br>.
      */
-    public void nuevaComanda( Mesa mesa) throws ErrorAlCrearComandaException {
+    public void nuevaComanda( Mesa mesa) throws Exception {
+        assert mesa!=null:"ERROR : La mesa no debe ser null";
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
-            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
+            throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.cantidadMesasHabilitadas<=0)
-            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
+            throw new Exception("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
         if (this.mesasAsignadas.get(mesa) == null)
-            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
+            throw new Exception("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
         if (this.mozos.isEmpty())
-            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
+            throw new Exception("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
         if (hayDosProductosPromocionActiva() == false)
-            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
+            throw new Exception("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
         if (this.productos.isEmpty())
-            throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
+            throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
 
         this.comandas.add(new Comanda());
         mesa.ocupar();
     }
     /**
-     * <b>pre:</b> comanda y pedido deben ser distintos de null y no vacios<br>.
+     * <b>pre:</b> comanda y pedido deben ser distintos de null<br>.
      * @param comanda Comanda a la cual se le va a agregar un Pedido
      * @param pedido Pedido que sera agregado a la Comanda
-     * @throws StockInsufucienteException Se lanza excepción si la cantidad de Pedido es mayor al Stock del mismo.
+     * @throws Exception Se lanza excepción si la cantidad de Pedido es mayor al Stock del mismo.
      * <b>post:</b> Se agregara a la Comandas un nuevo pedido y se descontara la cantidad del stock <br>.
      */
-    public void agregarPedidoAComanda (Comanda comanda,Pedido pedido) throws StockInsufucienteException {
+    public void agregarPedidoAComanda (Comanda comanda,Pedido pedido) throws Exception {
+        assert comanda!=null:"ERROR : La comanda no debe ser null";
+        assert pedido!=null:"ERROR : El pedido no debe ser null";
         //verificar que haya stock
         if (pedido.getProducto().getStockInicial() < pedido.getCantidad() )
-            throw new StockInsufucienteException("ERROR : No se puede completar pedido. Stock insuficiente");
+            throw new Exception("ERROR : No se puede completar pedido. Stock insuficiente");
         comanda.agregarPedido(pedido);
 
         // descuenta Stock
@@ -227,12 +227,13 @@ public class Cerveceria {
     //
 
     /**
-     * <b>pre:</b> comanda y pedido deben ser distintos de null y no vacios<br>.
+     * <b>pre:</b> comanda deben ser distintos de null<br>.
      * @throws Exception Se lanza excepción si la comanda a cerrar ya esta en estado cerrada.
      * @param comanda Comanda que se cerrara
      * <b>post:</b> Se cerrará la comanda. La mesa de la comanda queda en estado Libre. Se creará la factura de la comanda a cerrar. Y se removera la comanda de la lista de comandas<br>.
      */
     public void cerrarComanda(Comanda comanda) throws Exception {
+        assert comanda!=null:"ERROR : La comanda no debe ser null";
         if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
             throw new Exception("ERROR : No se puede cerrar una comanda ya cerrada");
         comanda.cerrarComanda();
@@ -252,7 +253,7 @@ public class Cerveceria {
     }
 
     /**
-     * <b>pre:</b> comanda y pedido deben ser distintos de null y no vacios<br>.
+     * <b>pre:</b> <br>.
      * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya
      * mesas y mozos activos para asignar a cada Mesa un mozo
      * @throws Exception Se lanza excepción si no hay mesas habilitadas en el Negocio
@@ -272,7 +273,13 @@ public class Cerveceria {
             }
         }
     }
-    public ArrayList<Mozo> mozosActivos(){
+
+    /**
+     * Metodo privado de esta clase que es llamado por asignarMesas. Este genera una lista con los mozos que
+     * estan activos.
+     * @return ArrayList<Mozo> Lista de mozos activos
+     */
+    private ArrayList<Mozo> mozosActivos(){
         ArrayList<Mozo> activos = new ArrayList<Mozo>();
         for (int q = 0 ; q < this.mozos.size(); q++){
             if (mozos.get(q).getEstado() == 0)
