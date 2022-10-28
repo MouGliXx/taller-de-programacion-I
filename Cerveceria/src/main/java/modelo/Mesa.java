@@ -9,7 +9,6 @@ public class Mesa {
     public Mesa (){
         this.nro = sig++;
         this.estado="Libre";
-
     }
 
     public void ocupar () {
@@ -33,6 +32,7 @@ public class Mesa {
     }
 
     //FUNCIONALIDADES
+    
     public void setCantidadComensales(int cantidadComensales){
         if (this.nro>0)
             assert cantidadComensales>1:"ERROR: la cantidad de comensales debe ser mayor a 1";
@@ -40,6 +40,7 @@ public class Mesa {
             assert cantidadComensales>0:"ERROR: la cantidad de comensales debe ser mayor a 1";
         this.cantidadComensales = cantidadComensales;
     }
+
     public void liberar (){
         this.estado = "Libre";
     }

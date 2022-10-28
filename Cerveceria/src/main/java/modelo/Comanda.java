@@ -54,6 +54,5 @@ public class Comanda {
         public void agregarPedido(Pedido pedido){
                 this.pedidos.add(pedido);
         }
-
 }
 

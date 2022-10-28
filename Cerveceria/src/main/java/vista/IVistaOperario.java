@@ -11,6 +11,8 @@ public interface IVistaOperario extends IVista{
 
     void setWindowListener(WindowListener controlador);
 
+    void setNombreLocal();
+
     void setNombreCompleto(String nombreCompleto);
 
     void setModelos();
