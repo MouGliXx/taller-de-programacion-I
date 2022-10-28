@@ -182,7 +182,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
             this.entidadSeleccionada = "Operario";
         }
 
-        if (this.mesasDelLocalCheckBox.isSelected()) {
+        if (this.mozosCheckBox.isSelected()) {
             this.entidadSeleccionada = "Mozo";
         }
 

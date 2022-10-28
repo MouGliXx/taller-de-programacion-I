@@ -205,7 +205,7 @@
                   <text value="Nombre y apellido:"/>
                 </properties>
               </component>
-              <component id="36af9" class="javax.swing.JTextField">
+              <component id="36af9" class="javax.swing.JTextField" binding="nombreYApellidoTextField">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="250" height="30"/>
@@ -230,7 +230,7 @@
                   <text value="Fecha de nacimiento:"/>
                 </properties>
               </component>
-              <component id="746a4" class="javax.swing.JTextField">
+              <component id="746a4" class="javax.swing.JTextField" binding="fechaNacimientoTextField">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="250" height="30"/>
@@ -605,7 +605,6 @@
                   <font name="Inter" size="18" style="0"/>
                   <foreground color="-11053225"/>
                   <model>
-                    <item value="0"/>
                     <item value="1"/>
                     <item value="2"/>
                     <item value="3"/>
@@ -662,6 +661,7 @@
             <properties>
               <actionCommand value="Accion"/>
               <background color="-16759896"/>
+              <enabled value="false"/>
               <focusable value="false"/>
               <font name="Inter" size="32" style="1"/>
               <foreground color="-1"/>

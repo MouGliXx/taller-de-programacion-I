@@ -1,12 +1,17 @@
 package vista.ventanas;
 
+import modelo.Mesa;
+import modelo.Mozo;
+import modelo.Operario;
+import modelo.Producto;
 import vista.interfaces.IVistaEntidad;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class VentanaEntidad extends JFrame implements IVistaEntidad {
-
+public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener {
+    private String entidad;
     private JPanel panelPrincipal;
     private JTabbedPane panelCentral;
     private JPanel operarioPanel;
@@ -48,11 +53,26 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad {
     private JLabel NMesaLabel;
     private JLabel cantidadDeComensalesLabel;
     private JComboBox cantComensalesComboBox;
+    private JTextField nombreYApellidoTextField;
+    private JTextField fechaNacimientoTextField;
 
     @Override
     public void setActionListener(ActionListener controlador) {
         this.accionButton.addActionListener(controlador);
         this.cancelarButton.addActionListener(controlador);
+    }
+
+    @Override
+    public void setKeyListener() {
+        this.nombreTextField.addKeyListener(this);
+        this.apellidoTextField.addKeyListener(this);
+        this.nombreUsuarioTextField .addKeyListener(this);
+        this.nombreYApellidoTextField .addKeyListener(this);
+        this.fechaNacimientoTextField.addKeyListener(this);
+        this.stockInicialTextField.addKeyListener(this);
+        this.nombreProductoTextField.addKeyListener(this);
+        this.precioVentaTextField.addKeyListener(this);
+        this.precioCostoTextField.addKeyListener(this);
     }
 
     @Override
@@ -91,10 +111,84 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad {
     @Override
     public void setEntidad(String entidad) {
         switch (entidad) {
-            case "Operario" -> this.panelCentral.setSelectedIndex(0);
-            case "Mozo" -> this.panelCentral.setSelectedIndex(1);
-            case "Producto" -> this.panelCentral.setSelectedIndex(2);
-            case "Mesa" -> this.panelCentral.setSelectedIndex(3);
+            case "Operario" -> {
+                entidad = "Operario";
+                this.panelCentral.setSelectedIndex(0);
+            }
+            case "Mozo" -> {
+                entidad = "Mozo";
+                this.panelCentral.setSelectedIndex(1);
+            }
+            case "Producto" -> {
+                entidad = "Producto";
+                this.panelCentral.setSelectedIndex(2);
+            }
+            case "Mesa" -> {
+                entidad = "Mesa";
+                this.panelCentral.setSelectedIndex(3);
+                accionButton.setEnabled(true); //No borrar
+            }
         }
     }
+
+    @Override
+    public String getEntidad() {
+        return entidad;
+    }
+
+    @Override
+    public Operario getOperario() {
+        return null;
+    }
+
+    @Override
+    public Mozo getMozo() {
+        return null;
+    }
+
+    @Override
+    public Producto getProducto() {
+        return null;
+    }
+
+    @Override
+    public Mesa getMesa() {
+        return null;
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        accionButton.setEnabled(true);
+
+        switch (panelCentral.getSelectedIndex()) {
+            case 0 -> {
+                if (nombreTextField.getText().isEmpty() || apellidoTextField.getText().isEmpty() || nombreUsuarioTextField.getText().isEmpty()) {
+                    accionButton.setEnabled(false);
+                }
+            }
+            case 1 -> {
+                if (nombreYApellidoTextField.getText().isEmpty() || fechaNacimientoTextField.getText().isEmpty()) {
+                    accionButton.setEnabled(false);
+                }
+            }
+            case 2 -> {
+                if (stockInicialTextField.getText().isEmpty() || nombreProductoTextField.getText().isEmpty() || precioVentaTextField.getText().isEmpty() || precioCostoTextField.getText().isEmpty()) {
+                    accionButton.setEnabled(false);
+                }
+            }
+        }
+    }
+
+    //METODOS NO USADOS
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+
 }

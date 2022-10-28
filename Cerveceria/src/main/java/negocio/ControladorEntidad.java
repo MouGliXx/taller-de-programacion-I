@@ -11,10 +11,33 @@ public class ControladorEntidad implements ActionListener {
         this.vista = vista;
 
         this.vista.setActionListener(this);
+        this.vista.setKeyListener();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "Accion" -> {
+                switch (vista.getEntidad()) {
+                    case "Operario" -> {
 
+                    }
+                    case "Mozo" -> {
+
+                    }
+                    case "Producto" -> {
+
+                    }
+                    case "Mesa" -> {
+
+                    }
+                }
+                this.vista.cerrarVentana();
+            }
+            case "Cancelar" -> {
+
+                this.vista.cerrarVentana();
+            }
+        }
     }
 }
