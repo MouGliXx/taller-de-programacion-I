@@ -1,4 +1,4 @@
-package main.java.excepciones;
+package excepciones;
 
 public class ErrorAlAsignarMesasException extends Exception {
     public ErrorAlAsignarMesasException(String message) {

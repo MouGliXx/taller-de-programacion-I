@@ -1,6 +1,6 @@
 package modelo;
 
-import main.java.excepciones.ErrorAlAsignarMesasException;
+import excepciones.ErrorAlAsignarMesasException;
 import excepciones.ErrorAlCrearComandaException;
 import excepciones.StockInsufucienteException;
 import modelo.Administrador;
@@ -10,6 +10,7 @@ import modelo.Mesa;
 import modelo.Comanda;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
+import excepciones.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -150,9 +151,8 @@ public class Cerveceria {
         if (this.productos.isEmpty())
             throw new ErrorAlCrearComandaException("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
 
-        this.comandas.add(new Comanda(mesa));
+        this.comandas.add(new Comanda());
         mesa.ocupar();
-
     }
     /**
      * <b>pre:</b> comanda y pedido deben ser distintos de null y no vacios<br>.
@@ -194,11 +194,25 @@ public class Cerveceria {
         this.facturas.add(new Factura( new Date() , comanda.getMesa() ,metodoDePago,  comanda.getPedidos() , this.getPromociones()));
         this.comandas.remove(comanda);
     }
-    public void nuevaMesa(int cantidadSillas){
-        this.mesas.add(new Mesa(cantidadSillas));
+
+    public void cerrarComanda(Comanda comanda) {
+        if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
+            throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
+
+        comanda.cerrarComanda();
+        comanda.getMesa().liberar();
+
+        this.comandas.remove(comanda);
     }
+
+    public void nuevaMesa(){this.mesas.add(new Mesa());}
+
     public void eliminarMesa(Mesa mesa){
         this.mesas.remove(mesa);
+    }
+
+    public void agregarFactura(Factura factura) {
+        facturas.add(factura);
     }
 
     /**
@@ -229,5 +243,6 @@ public class Cerveceria {
                 activos.add(mozos.get(q));
         }
         return activos;
+
     }
 }

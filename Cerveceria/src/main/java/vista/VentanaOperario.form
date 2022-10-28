@@ -776,7 +776,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="70526" class="javax.swing.JList" binding="list1" default-binding="true">
+                  <component id="70526" class="javax.swing.JList" binding="listaComandasAbiertas">
                     <constraints/>
                     <properties>
                       <background color="-2500135"/>
@@ -800,7 +800,7 @@
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
-                  <text value="Nueva comanda"/>
+                  <text value="Nueva modelo"/>
                 </properties>
               </component>
               <component id="ed844" class="javax.swing.JButton" binding="cerrarComandaButton">
@@ -817,7 +817,7 @@
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
-                  <text value="Cerrar comanda"/>
+                  <text value="Cerrar modelo"/>
                 </properties>
               </component>
               <component id="66ca4" class="javax.swing.JButton" binding="editarComandaButton">
@@ -883,7 +883,7 @@
                   <text value="Facturas"/>
                 </properties>
               </component>
-              <component id="65b84" class="javax.swing.JLabel" binding="listadoDeComandasAbiertasLabel1">
+              <component id="65b84" class="javax.swing.JLabel" binding="historialDeFacturasLabel">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -893,7 +893,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="Listado de comandas abiertas:"/>
+                  <text value="Historial de facturas:"/>
                 </properties>
               </component>
               <scrollpane id="22d44">
@@ -909,7 +909,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="75c80" class="javax.swing.JList" default-binding="true">
+                  <component id="75c80" class="javax.swing.JList" binding="listaFacturas">
                     <constraints/>
                     <properties>
                       <background color="-2500135"/>
@@ -969,7 +969,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="879d4" class="javax.swing.JList" default-binding="true">
+                  <component id="879d4" class="javax.swing.JList" binding="listaProductosEnPromocion">
                     <constraints/>
                     <properties>
                       <background color="-2500135"/>
@@ -1005,7 +1005,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="12450" class="javax.swing.JList" default-binding="true">
+                  <component id="12450" class="javax.swing.JList" binding="listaPromocionesTemporales">
                     <constraints/>
                     <properties>
                       <background color="-2500135"/>

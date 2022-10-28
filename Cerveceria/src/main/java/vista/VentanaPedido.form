@@ -60,6 +60,7 @@
             </constraints>
             <properties>
               <background color="-2500135"/>
+              <font name="Inter SemiBold" size="20"/>
             </properties>
           </component>
           <component id="f8933" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
@@ -72,6 +73,7 @@
             </constraints>
             <properties>
               <background color="-2500135"/>
+              <font name="Inter SemiBold" size="20"/>
             </properties>
           </component>
           <component id="57b8" class="javax.swing.JLabel" binding="accionPedidoLabel">

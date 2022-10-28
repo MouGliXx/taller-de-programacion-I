@@ -1,10 +1,12 @@
 package vista;
 
+import modelo.Pedido;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class VentanaComanda extends JFrame implements IVistaComanda {
@@ -14,15 +16,17 @@ public class VentanaComanda extends JFrame implements IVistaComanda {
     private JLabel fechaLabel;
     private JLabel fechaActualLabel;
     private JComboBox comboBox1;
-    private JLabel listadoDeComandasAbiertasLabel;
+    private JLabel listadoDePedidosAsignadosLabel;
     private JButton accionButton;
-    private JList list1;
+    private JList listaPedidosAsignados;
     private JButton nuevoPedidoButton;
     private JButton editarPedidoButton;
     private JButton eliminarPedidoButton;
     private JPanel fechayMesaPnael;
     private JLabel mesaLabel;
     private JButton cancelarButton;
+    //MODELOS PARA LISTA
+    DefaultListModel<Pedido> modeloPedidos = new DefaultListModel<>();
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -43,7 +47,7 @@ public class VentanaComanda extends JFrame implements IVistaComanda {
         setSize(800,600); //Dimensiones del JFrame
         setResizable(false); //No redimensionable
         setLocationRelativeTo(null);
-        setFecha();
+        setModelos();
     }
 
     @Override
@@ -65,9 +69,26 @@ public class VentanaComanda extends JFrame implements IVistaComanda {
     }
 
     @Override
-    public void setFecha() {
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
+    public void setFecha(Date fecha) {
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
         String fechaActual = dateFormat.format(new Date());
         this.fechaActualLabel.setText(fechaActual);
+    }
+
+    @Override
+    public void setModelos() {
+        this.listaPedidosAsignados.setModel(modeloPedidos);
+    }
+
+    @Override
+    public void inicializarLista(ArrayList<Pedido> pedidos) {
+        pedidos.forEach((pedido) -> {
+            modeloPedidos.add(modeloPedidos.size(), pedido);
+        });
+    }
+
+    @Override
+    public Pedido getPedidoSeleccionado() {
+        return (this.listaPedidosAsignados == null ? null : (Pedido) this.listaPedidosAsignados.getSelectedValue());
     }
 }

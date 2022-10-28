@@ -6,30 +6,31 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Comanda {
-        private String fecha;
+        private Date fecha;
         private Mesa mesa;
         private ArrayList<Pedido> pedidos;
         private String estado; //abierta o cerrada
 
         //CONSTRUCTOR
-        public Comanda(Mesa mesa) {
+
+        public Comanda() {
 
                 assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
 
                 DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
                 String fechaActual = dateFormat.format(new Date());
-                this.fecha = fechaActual;
-                this.mesa = mesa;
+
                 this.pedidos = new ArrayList<Pedido>();
                 this.estado = "Abierta";
         }
 
+
         //GETTERS & SETTERS
-        public String getFecha() {
+        public Date getFecha() {
                 return fecha;
         }
 
-        public void setFecha(String fecha) {
+        public void setFecha(Date fecha) {
                 this.fecha = fecha;
         }
 
