@@ -321,7 +321,15 @@ public class Cerveceria {
         else throw new Exception("El precio de venta es menor al de costo");
     }
 
-    private void eliminarProducto(Producto producto){
+    private void eliminarProducto(Producto producto) throws Exception{
+        for (int i=0;i<comandas.size();i++){
+            ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
+            for (int j=0;j<pedidos.size();j++){
+                if(producto.getNro()==pedidos.get(j).getProducto().getNro()){
+                    throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
+                }
+            }
+        }
         this.productos.remove(producto);
     }
 

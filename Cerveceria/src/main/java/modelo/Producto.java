@@ -13,7 +13,15 @@ public class Producto {
     private double precioVenta;
     private int stockInicial;
 
-    public Producto(int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) {
+    public int getNro() {
+        return nro;
+    }
+
+    public void setNro(int nro) {
+        this.nro = nro;
+    }
+
+    public Producto(int nro, String nombre, double precioCosto, double precioVenta, int stockInicial) {
         idProduct++;
         nro=idProduct;
         this.nombre = nombre;
