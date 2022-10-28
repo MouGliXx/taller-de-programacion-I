@@ -69,7 +69,6 @@ public class Mozo {
         this.estado = estado;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,6 +76,4 @@ public class Mozo {
         Mozo mozo = (Mozo) o;
         return getCantHijos() == mozo.getCantHijos() && getEstado() == mozo.getEstado() && getNombre().equals(mozo.getNombre()) && getFechaNacimiento().equals(mozo.getFechaNacimiento());
     }
-
-
 }

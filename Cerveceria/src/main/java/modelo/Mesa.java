@@ -6,7 +6,7 @@ public class Mesa {
     private int cantidadComensales;
     private String estado;
 
-    public Mesa (){
+    public Mesa () {
         this.nro = sig++;
         this.estado="Libre";
     }
@@ -20,6 +20,7 @@ public class Mesa {
         assert nro>0:"ERROR : El numero de mesa debe ser mayor a cero";
         this.nro = nro;
     }
+
     public void setEstado(String estado) {
         assert estado!=null :"ERROR : El estado no debe ser null";
         assert estado!="":"ERROR : El estado no debe ser vacio";

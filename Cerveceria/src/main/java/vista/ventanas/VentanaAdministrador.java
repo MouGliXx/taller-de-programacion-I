@@ -2,7 +2,6 @@ package vista.ventanas;
 
 import modelo.*;
 import vista.interfaces.IVistaAdministrador;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +13,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
     private JButton estadisticasButton;
-    private JButton promocionesButton1;
+    private JButton promocionesButton;
     private JButton entidadesButton;
-    private JButton productosButton;
     private JLabel ImagenCerveza;
     private JButton inicioButton;
     private JTabbedPane panelCentral;
@@ -53,14 +51,20 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JLabel estadisticasLabel;
     private JCheckBox productosEnPromocionCheckBox;
     private JCheckBox promocionesTemporalesCheckBox;
+    //MODELOS PARA LISTAS
+    DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
+    DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
+    DefaultListModel<Producto> modeloProducto = new DefaultListModel<>();
+    DefaultListModel<Mesa> modeloMesa = new DefaultListModel<>();
+    DefaultListModel<ProductoEnPromocion> modeloProductoEnPromocion = new DefaultListModel<>();
+    DefaultListModel<PromocionTemporal> modeloPromocionGeneral = new DefaultListModel<>();
 
     @Override
     public void setActionListener(ActionListener controlador) {
         //BUTTONS
         this.inicioButton.addActionListener(controlador);
         this.entidadesButton.addActionListener(controlador);
-        this.productosButton.addActionListener(controlador);
-        this.promocionesButton1.addActionListener(controlador);
+        this.promocionesButton.addActionListener(controlador);
         this.estadisticasButton.addActionListener(controlador);
         this.cerrarSesionButton.addActionListener(controlador);
         this.editarTituloButton.addActionListener(controlador);
@@ -117,6 +121,16 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
+    public void setModeloEntidad() {
+        switch (this.entidadSeleccionada) {
+            case "Operarios" -> this.listaEntidades.setModel(modeloOperario);
+            case "Mozos" -> this.listaEntidades.setModel(modeloMozo);
+            case "Productos en venta" -> this.listaEntidades.setModel(modeloProducto);
+            case "Mesas del local" -> this.listaEntidades.setModel(modeloMesa);
+        }
+    }
+
+    @Override
     public void inicializarListas() {
 
     }
@@ -163,6 +177,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //ENTIDADES
         if (this.operariosCheckBox.isSelected()) {
             this.entidadSeleccionada = "Operario";
         }
@@ -175,10 +190,13 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
             this.entidadSeleccionada = "Productos en venta";
         }
 
-        if (this.mozosCheckBox.isSelected()) {
+        if (this.mesasDelLocalCheckBox.isSelected()) {
             this.entidadSeleccionada = "Mesas del local";
         }
 
+        setModeloEntidad();
+
+        //PROMOCIONES
         if (this.productosEnPromocionCheckBox.isSelected()) {
             this.promocionSeleccionada = "Productos en promocion";
         }
