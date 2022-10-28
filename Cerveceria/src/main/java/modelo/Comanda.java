@@ -12,9 +12,7 @@ public class Comanda {
         private String estado; //abierta o cerrada
 
         //CONSTRUCTOR
-
         public Comanda() {
-
                 assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
 
                 DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
@@ -23,7 +21,6 @@ public class Comanda {
                 this.pedidos = new ArrayList<Pedido>();
                 this.estado = "Abierta";
         }
-
 
         //GETTERS & SETTERS
         public Date getFecha() {

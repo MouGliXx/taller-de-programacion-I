@@ -69,7 +69,11 @@ public class ControladorOperario implements ActionListener, WindowListener {
             case "Nueva factura" -> {
                 Comanda comandaSeleccionada = vista.getComandaSeleccionada();
 
-                Cerveceria.getInstance().cerrarComanda(comandaSeleccionada); //FALTA RECIBIR EXCEPCION
+                try {
+                    Cerveceria.getInstance().cerrarComanda(comandaSeleccionada); //FALTA RECIBIR EXCEPCION
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 double total = 0; //METODO EN COMANDA QUE CALCULE EL TOTAL
                 ArrayList<IPromocion> promocionesAplicadas = null; //METODO QUE GESTIONE LAS PROMOCIONES

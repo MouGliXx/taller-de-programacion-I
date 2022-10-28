@@ -11,10 +11,7 @@ public class Mesa {
         this.estado="Libre";
     }
 
-    public void ocupar () {
-        this.estado = "Ocupado";
-    }
-        //GETTERS && SETTERS
+    //GETTERS && SETTERS
     public int getNro() {
         return nro;
     }
@@ -32,7 +29,6 @@ public class Mesa {
     }
 
     //FUNCIONALIDADES
-    
     public void setCantidadComensales(int cantidadComensales){
         if (this.nro>0)
             assert cantidadComensales>1:"ERROR: la cantidad de comensales debe ser mayor a 1";
@@ -43,6 +39,10 @@ public class Mesa {
 
     public void liberar (){
         this.estado = "Libre";
+    }
+
+    public void ocupar () {
+        this.estado = "Ocupado";
     }
 
     public String getEstado(){

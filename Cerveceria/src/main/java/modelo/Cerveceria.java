@@ -183,22 +183,11 @@ public class Cerveceria {
      * <b>pre:</b> comanda y pedido deben ser distintos de null y no vacios<br>.
      * @throws Exception Se lanza excepción si la comanda a cerrar ya esta en estado cerrada.
      * @param comanda Comanda que se cerrara
-     * @param metodoDePago Metodo de Pago con el cual se pagara la facturo originada por el cierre de la comanda
      * <b>post:</b> Se cerrará la comanda. La mesa de la comanda queda en estado Libre. Se creará la factura de la comanda a cerrar. Y se removera la comanda de la lista de comandas<br>.
      */
-    public void cerrarComanda(Comanda comanda , String metodoDePago) throws Exception {
+    public void cerrarComanda(Comanda comanda) throws Exception {
         if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
             throw new Exception("ERROR : No se puede cerrar una comanda ya cerrada");
-        comanda.cerrarComanda();
-        comanda.getMesa().liberar();
-        this.facturas.add(new Factura( new Date() , comanda.getMesa() ,  comanda.getPedidos(), 22.22, promociones));
-        this.comandas.remove(comanda);
-    }
-
-    public void cerrarComanda(Comanda comanda) {
-        if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
-            throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
-
         comanda.cerrarComanda();
         comanda.getMesa().liberar();
 
