@@ -195,15 +195,6 @@ public class Cerveceria {
         this.comandas.remove(comanda);
     }
 
-    public void cerrarComanda(Comanda comanda) {
-        if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
-            throw new RuntimeException(); // No se puede cerrar una comanda ya cerrada
-
-        comanda.cerrarComanda();
-        comanda.getMesa().liberar();
-
-        this.comandas.remove(comanda);
-    }
 
     public void nuevaMesa(){this.mesas.add(new Mesa());}
 
