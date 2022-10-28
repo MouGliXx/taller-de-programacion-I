@@ -12,6 +12,10 @@ public class Mesa {
     }
 
     //GETTERS && SETTERS
+
+    public static int getSig(){
+        return sig;
+    }
     public int getNro() {
         return nro;
     }
@@ -49,5 +53,10 @@ public class Mesa {
 
     public String getEstado(){
         return this.estado;
+    }
+
+    @Override
+    public String toString(){
+        return "Mesa n°"+this.nro;
     }
 }

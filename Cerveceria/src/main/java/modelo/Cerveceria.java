@@ -2,11 +2,14 @@ package modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Cerveceria {
     private static Cerveceria instance = null;
+    public static final int totalMaximoMesas = 50;
     private String nombreDelLocal;
     private Administrador administrador;
     ArrayList<Operario> operarios = new ArrayList<Operario>();
@@ -242,7 +245,16 @@ public class Cerveceria {
         this.comandas.remove(comanda);
     }
 
-    public void nuevaMesa(){this.mesas.add(new Mesa());}
+    /**
+     * <b>pre:</b> La lista de mesas debe existir <br>.
+     * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
+     * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
+     */
+    public void agregarMesa() throws Exception{
+        if (this.mesas.size()>= totalMaximoMesas)
+            throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
+        this.mesas.add(new Mesa());
+    }
 
     public void eliminarMesa(Mesa mesa){
         this.mesas.remove(mesa);
@@ -262,15 +274,15 @@ public class Cerveceria {
      */
     public void asignarMesas () throws Exception {
         ArrayList<Mozo> listaMozosActivos = mozosActivos();
-        int mozos,mesas,indiceMesa=0;
+        int mozo=0,m,indiceMesa=0;
         if (this.mesas.isEmpty())
             throw new Exception("No hay mesas habilitadas. NO se puede Asignar mesas");
         if (listaMozosActivos.isEmpty())
             throw new Exception("No hay mozos activos. NO se puede asignar mesas");
-        for (mozos=0;mozos<mozosActivos().size();mozos++){
-            for (mesas=0; mesas<(this.cantidadMesasHabilitadas/mozosActivos().size());mesas++) {
-                this.mesasAsignadas.put(this.mesas.get(indiceMesa++),listaMozosActivos.get(mozos));
-            }
+        for (m=0;m<this.mesas.size();m++){
+            if (mozo >= listaMozosActivos.size())
+                mozo = 0;
+            this.mesasAsignadas.put(this.mesas.get(m),listaMozosActivos.get(mozo++));
         }
     }
 
@@ -286,6 +298,5 @@ public class Cerveceria {
                 activos.add(mozos.get(q));
         }
         return activos;
-
     }
 }
