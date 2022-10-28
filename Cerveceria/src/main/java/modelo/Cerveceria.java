@@ -37,11 +37,11 @@ public class Cerveceria {
         return nombreDelLocal;
     }
 
-    public ArrayList<IPromocion> getPromociones() { return this.promociones;}
-
     public void setNombreDelLocal(String nombreDelLocal) {
         this.nombreDelLocal = nombreDelLocal;
     }
+
+    public ArrayList<IPromocion> getPromociones() { return this.promociones;}
 
     public Administrador getAdministrador() {
         return administrador;

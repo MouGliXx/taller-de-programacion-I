@@ -92,11 +92,6 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
     }
 
     @Override
-    public void setNombreCompleto(String nombreCompleto) {
-        this.NombreApellidoLabel.setText(nombreCompleto);
-    }
-
-    @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
         pack(); //Coloca los componentes
@@ -106,6 +101,8 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
         setSize(1280,720); //Dimensiones del JFrame
         setResizable(false); //No redimensionable
         setLocationRelativeTo(null);
+
+        setNombreLocal();
         setModelos();
     }
 
@@ -119,6 +116,19 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, mensaje);
+    }
+
+    @Override
+    public void setNombreLocal() {
+        String nombreLocal = Cerveceria.getInstance().getNombreDelLocal();
+        if (!nombreLocal.isEmpty()) {
+            this.cerveceriaLabel.setText(nombreLocal);
+        }
+    }
+
+    @Override
+    public void setNombreCompleto(String nombreCompleto) {
+        this.NombreApellidoLabel.setText(nombreCompleto);
     }
 
     @Override

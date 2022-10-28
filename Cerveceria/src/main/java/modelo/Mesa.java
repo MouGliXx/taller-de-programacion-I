@@ -9,8 +9,8 @@ public class Mesa {
     //CONSTRUCTOR
     public Mesa (){
         this.nro = sig++;
-        this.estado="Libre";
-        this.cantidadComensales=0;
+        this.estado = "Libre";
+        this.cantidadComensales = 0;
     }
 
     //GETTERS && SETTERS
@@ -35,6 +35,7 @@ public class Mesa {
         this.setCantidadComensales(cantidadComensales);
         this.estado = "Ocupado";
     }
+
     public void setCantidadComensales(int cantidadComensales){
         if (this.nro>0)
             assert cantidadComensales>1:"ERROR: la cantidad de comensales debe ser mayor a 1";
@@ -42,6 +43,7 @@ public class Mesa {
             assert cantidadComensales>0:"ERROR: la cantidad de comensales debe ser mayor a 1";
         this.cantidadComensales = cantidadComensales;
     }
+
     public void liberar (){
         this.estado = "Libre";
         this.cantidadComensales = 0;
