@@ -166,13 +166,12 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
 
     @Override
     public Producto getProducto() {
-        int idProduct = Integer.parseInt(IDLabel.getText()) ;
         int stockInicial = Integer.parseInt(stockInicialTextField.getText());
         String nombre = nombreProductoTextField.getText() ;
         double precioCosto = Double.parseDouble(precioCostoTextField.getText());
         double precioVenta= Double.parseDouble(precioVentaTextField.getText());
 
-        return new Producto(idProduct, nombre, precioCosto, precioVenta, stockInicial);
+        return new Producto(nombre, precioCosto, precioVenta, stockInicial);
     }
 
     @Override

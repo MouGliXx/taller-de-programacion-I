@@ -2,6 +2,7 @@ package modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
+import excepciones.ErrorPrecioVentaMenorCero;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Cerveceria {
     private HashMap<Mesa,Mozo>mesasAsignadas = new HashMap<Mesa, Mozo>();
     private ArrayList<Factura> facturas = new ArrayList<Factura>();
     private ArrayList<IPromocion> promociones = new ArrayList<>();
-    private ArrayList<Producto> productos = new ArrayList<Producto>();
+    private HashMap<Integer,Producto> productos = new HashMap<>();
     private int cantidadMesasHabilitadas;
 
     //PATRON SINGLETON
@@ -107,11 +108,11 @@ public class Cerveceria {
         this.promociones = promociones;
     }
 
-    public ArrayList<Producto> getProductos() {
+    public HashMap<Integer,Producto> getProductos() {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
+    public void setProductos(HashMap<Integer,Producto> productos) {
         this.productos = productos;
     }
 
@@ -299,4 +300,29 @@ public class Cerveceria {
         }
         return activos;
     }
+
+    private void guardarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+        if (precioVenta>=precioCosto){
+            if(precioVenta>0){
+                if(precioCosto>0) {
+                    if(this.productos.containsKey(nro)){
+                        Producto producto=productos.get(nro);
+                        producto.setNombre(nombre);
+                        producto.setPrecioCosto(precioCosto);
+                        producto.setPrecioVenta(precioVenta);
+                        producto.setStockInicial(stockInicial);
+                    }
+                    else this.productos.put(nro,new Producto(nro, nombre, precioCosto, precioVenta, stockInicial));
+                }
+                else throw new Exception("El precio de costo es menor a cero");
+            }
+            else throw new Exception("El precio de venta es menor a cero");
+        }
+        else throw new Exception("El precio de venta es menor al de costo");
+    }
+
+    private void eliminarProducto(Producto producto){
+        this.productos.remove(producto);
+    }
+
 }
