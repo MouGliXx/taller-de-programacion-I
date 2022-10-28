@@ -7,14 +7,13 @@ public class Mesa {
     private int cantidadComensales;
     private String estado;
 
-    public Mesa (){
+    public Mesa (int cantidadComensales){
         this.nro = sig++;
         this.estado="Libre";
-        this.cantidadComensales=0;
+        this.cantidadComensales=cantidadComensales;
     }
 
-    public void ocupar (int cantidadComensales){
-        this.setCantidadComensales(cantidadComensales);
+    public void ocupar (){
         this.estado = "Ocupado";
     }
     public void setCantidadComensales(int cantidadComensales){

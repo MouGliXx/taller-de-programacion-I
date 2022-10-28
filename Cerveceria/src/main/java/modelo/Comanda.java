@@ -12,22 +12,15 @@ public class Comanda {
         private String estado; //abierta o cerrada
 
         //CONSTRUCTOR
-        public Comanda() {
+        public Comanda(Mesa mesa) {
+
+                assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
+
                 DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
                 String fechaActual = dateFormat.format(new Date());
                 this.fecha = fechaActual;
-                this.mesa = null;
-                this.pedidos = new ArrayList<Pedido>();
-                this.estado = "Abierta";
-        }
-
-        public Comanda (String fecha, Mesa mesa) {
-                //assert fecha != Date.from():"Fecha invalida";
-                assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
-
-                this.fecha = fecha;
-                this.pedidos = new ArrayList<Pedido>();
                 this.mesa = mesa;
+                this.pedidos = new ArrayList<Pedido>();
                 this.estado = "Abierta";
         }
 
