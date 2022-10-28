@@ -17,7 +17,7 @@ public class Cerveceria {
     private HashMap<Mesa,Mozo>mesasAsignadas = new HashMap<Mesa, Mozo>();
     private ArrayList<Factura> facturas = new ArrayList<Factura>();
     private ArrayList<IPromocion> promociones = new ArrayList<>();
-    private ArrayList<Producto> productos = new ArrayList<Producto>();
+    private HashMap<Integer,Producto> productos = new HashMap<>();
     private int cantidadMesasHabilitadas;
     private double remuneracionBasica;
 
@@ -115,11 +115,11 @@ public class Cerveceria {
         this.promociones = promociones;
     }
 
-    public ArrayList<Producto> getProductos() {
+    public HashMap<Integer,Producto> getProductos() {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
+    public void setProductos(HashMap<Integer,Producto> productos) {
         this.productos = productos;
     }
 
@@ -307,4 +307,37 @@ public class Cerveceria {
         }
         return activos;
     }
+
+    private void guardarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+        if (precioVenta>=precioCosto){
+            if(precioVenta>0){
+                if(precioCosto>0) {
+                    if(this.productos.containsKey(nro)){
+                        Producto producto=productos.get(nro);
+                        producto.setNombre(nombre);
+                        producto.setPrecioCosto(precioCosto);
+                        producto.setPrecioVenta(precioVenta);
+                        producto.setStockInicial(stockInicial);
+                    }
+                    else this.productos.put(nro,new Producto(nro, nombre, precioCosto, precioVenta, stockInicial));
+                }
+                else throw new Exception("El precio de costo es menor a cero");
+            }
+            else throw new Exception("El precio de venta es menor a cero");
+        }
+        else throw new Exception("El precio de venta es menor al de costo");
+    }
+
+    private void eliminarProducto(Producto producto) throws Exception{
+        for (int i=0;i<comandas.size();i++){
+            ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
+            for (int j=0;j<pedidos.size();j++){
+                if(producto.getNro()==pedidos.get(j).getProducto().getNro()){
+                    throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
+                }
+            }
+        }
+        this.productos.remove(producto);
+    }
+
 }

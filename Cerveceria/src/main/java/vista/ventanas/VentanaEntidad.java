@@ -172,7 +172,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         double precioCosto = Double.parseDouble(precioCostoTextField.getText());
         double precioVenta= Double.parseDouble(precioVentaTextField.getText());
 
-        return new Producto(idProduct, nombre, precioCosto, precioVenta, stockInicial);
+        return new Producto(idProduct,nombre, precioCosto, precioVenta, stockInicial);
     }
 
     @Override

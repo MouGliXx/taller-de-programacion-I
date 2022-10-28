@@ -6,26 +6,27 @@ import excepciones.ErrorPrecioVentaMenorCero;
 
 public class Producto {
     //FALTA UNA VARIABLE ESTATICA QUE DETERMINE EL ID (como pasa con Nmero mesa en MESA)
-    private int idProduct;
+    private static int idProduct=0;
+    private int nro;
     private String nombre;
     private double precioCosto;
     private double precioVenta;
     private int stockInicial;
 
-    public Producto(int idProduct, String nombre, double precioCosto, double precioVenta, int stockInicial) {
-        this.idProduct = idProduct;
-        this.nombre = nombre;
+    public int getNro() {
+        return nro;
+    }
 
-        if (precioVenta>=precioCosto){
-            if(precioVenta>0){
-                this.precioVenta = precioVenta;
-                if(precioCosto>0)
-                    this.precioCosto=precioCosto;
-//                else throw new ErrorPrecioCostoMenorCero("El precio de costo es menor a cero");
-            }
-//            else throw new ErrorPrecioVentaMenorCero("El precio de venta es menor a cero");
-        }
-//        else throw new ErrorCostoMayorAPrecioVenta("El precio de venta es menor al de costo");
+    public void setNro(int nro) {
+        this.nro = nro;
+    }
+
+    public Producto(int nro, String nombre, double precioCosto, double precioVenta, int stockInicial) {
+        idProduct++;
+        nro=idProduct;
+        this.nombre = nombre;
+        this.precioCosto=precioCosto;
+        this.precioVenta=precioVenta;
         this.stockInicial = stockInicial;
     }
 
