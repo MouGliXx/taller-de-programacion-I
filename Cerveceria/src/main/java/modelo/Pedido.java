@@ -9,7 +9,7 @@ public class Pedido {
         this.setCantidad(cantidad);
     }
 
-    
+
     public void setCantidad(int cantidad) {
         assert cantidad>0:"ERROR : La cantidad debe ser mayor a cero";
         this.cantidad = cantidad;

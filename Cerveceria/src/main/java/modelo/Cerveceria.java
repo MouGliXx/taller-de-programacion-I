@@ -191,7 +191,7 @@ public class Cerveceria {
             throw new Exception("ERROR : No se puede cerrar una comanda ya cerrada");
         comanda.cerrarComanda();
         comanda.getMesa().liberar();
-        this.facturas.add(new Factura( new Date() , comanda.getMesa() ,metodoDePago,  comanda.getPedidos() , this.getPromociones()));
+        this.facturas.add(new Factura( new Date() , comanda.getMesa() ,  comanda.getPedidos(), 22.22, promociones));
         this.comandas.remove(comanda);
     }
 
