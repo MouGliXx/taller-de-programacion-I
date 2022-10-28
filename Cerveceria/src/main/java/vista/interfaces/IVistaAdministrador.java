@@ -4,6 +4,7 @@ import modelo.Mesa;
 import modelo.Mozo;
 import modelo.Operario;
 import modelo.Producto;
+
 import java.awt.event.WindowListener;
 
 public interface IVistaAdministrador extends IVista{
@@ -11,6 +12,8 @@ public interface IVistaAdministrador extends IVista{
     void setWindowListener(WindowListener controlador);
 
     void setModelos();
+
+    void setModeloEntidad();
 
     void inicializarListas();
 

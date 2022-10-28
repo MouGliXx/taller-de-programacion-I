@@ -34,7 +34,7 @@
             <properties>
               <font name="Inter" size="50" style="1"/>
               <foreground color="-16777216"/>
-              <text value="[Accion] modelo"/>
+              <text value="[Accion] comanda"/>
             </properties>
           </component>
           <component id="40386" class="javax.swing.JLabel" binding="listadoDePedidosAsignadosLabel">

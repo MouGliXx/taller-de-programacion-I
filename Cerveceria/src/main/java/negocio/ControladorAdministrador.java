@@ -18,6 +18,9 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
     public ControladorAdministrador(Administrador modelo, IVistaAdministrador vista) {
         this.modelo = modelo;
         this.vista = vista;
+
+        this.vista.setActionListener(this);
+        this.vista.setWindowListener(this);
     }
 
     @Override
@@ -25,9 +28,8 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         switch (e.getActionCommand()) {
             case "Inicio" -> vista.cambiarPagina(0);
             case "Entidades" -> vista.cambiarPagina(1);
-            case "Productos" -> vista.cambiarPagina(2);
-            case "Promociones" -> vista.cambiarPagina(3);
-            case "Estadisticas" -> vista.cambiarPagina(4);
+            case "Promociones" -> vista.cambiarPagina(2);
+            case "Estadisticas" -> vista.cambiarPagina(3);
             case "Cerrar Sesion" -> creaOtraVentana("Login");
             case "Agregar" -> creaOtraVentana("Agregar Entidad");
             case "Modificar" -> creaOtraVentana("Modificar Entidad");
@@ -79,41 +81,25 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                 VentanaEntidad ventanaEntidad = new VentanaEntidad();
                 ventanaEntidad.setAccion("Crear");
                 switch (vista.getTipoEntidadSeleccionada()) {
-                    case "Operario" -> {
-
-                    }
-                    case "Mozo" -> {
-
-                    }
-                    case "Productos en venta" -> {
-
-                    }
-                    case "Mesas del local" -> {
-
-                    }
+                    case "Operario" -> ventanaEntidad.setEntidad("Operario");
+                    case "Mozo" -> ventanaEntidad.setEntidad("Mozo");
+                    case "Productos en venta" -> ventanaEntidad.setEntidad("Producto");
+                    case "Mesas del local" -> ventanaEntidad.setEntidad("Mesa");
                 }
-                //CONTROLADOR
-                //ventanaEntidad.ejecutar();
+                ControladorEntidad controladorEntidad = new ControladorEntidad(ventanaEntidad);
+                ventanaEntidad.ejecutar();
             }
             case "Modificar Entidad" -> {
                 VentanaEntidad ventanaEntidad = new VentanaEntidad();
                 ventanaEntidad.setAccion("Modificar");
                 switch (vista.getTipoEntidadSeleccionada()) {
-                    case "Operario" -> {
-
-                    }
-                    case "Mozo" -> {
-
-                    }
-                    case "Productos en venta" -> {
-
-                    }
-                    case "Mesas del local" -> {
-
-                    }
+                    case "Operario" -> ventanaEntidad.setEntidad("Operario");
+                    case "Mozo" -> ventanaEntidad.setEntidad("Mozo");
+                    case "Productos en venta" -> ventanaEntidad.setEntidad("Producto");
+                    case "Mesas del local" -> ventanaEntidad.setEntidad("Mesa");
                 }
-                //CONTROLADOR
-                //ventanaEntidad.ejecutar();
+                ControladorEntidad controladorEntidad = new ControladorEntidad(ventanaEntidad);
+                ventanaEntidad.ejecutar();
             }
             case "Nueva Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {

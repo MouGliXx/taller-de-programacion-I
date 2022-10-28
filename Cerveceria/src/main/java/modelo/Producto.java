@@ -5,7 +5,7 @@ import excepciones.ErrorPrecioCostoMenorCero;
 import excepciones.ErrorPrecioVentaMenorCero;
 
 public class Producto {
-    
+    //FALTA UNA VARIABLE ESTATICA QUE DETERMINE EL ID (como pasa con Nmero mesa en MESA)
     private int idProduct;
     private String nombre;
     private double precioCosto;
