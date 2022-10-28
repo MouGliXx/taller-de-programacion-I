@@ -35,8 +35,6 @@ public class Prueba {
         for (HashMap.Entry<Mesa, Mozo> entry : mA.entrySet()) {
             System.out.println(entry.getKey().toString() + " Asignado " + entry.getValue().toString());
         }
-
-        cerveza.a
     }
 }
 

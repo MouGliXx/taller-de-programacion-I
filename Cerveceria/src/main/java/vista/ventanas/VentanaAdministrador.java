@@ -3,11 +3,9 @@ package vista.ventanas;
 import modelo.*;
 import vista.interfaces.IVistaAdministrador;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 
-public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener {
+public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener {
     private String entidadSeleccionada;
     private String promocionSeleccionada;
     private JPanel panelPrincipal;
@@ -21,7 +19,6 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JPanel inicioPanel;
     private JLabel bienvenidoLabel;
     private JButton cerrarSesionButton;
-    private JLabel cerveceriaLabel;
     private JLabel nombreApellidoLabel;
     private JPanel entidadesPanel;
     private JLabel entidadesLabel;
@@ -31,7 +28,6 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JButton modificarButton;
     private JButton editarTituloButton;
     private JLabel remuneracionBasicaLabel;
-    private JLabel montoLabel;
     private JButton editarRemuneracionButton;
     private JPanel remuneracionPanel;
     private JPanel checkBoxPanel;
@@ -51,6 +47,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JLabel estadisticasLabel;
     private JCheckBox productosEnPromocionCheckBox;
     private JCheckBox promocionesTemporalesCheckBox;
+    private JTextField cerveceriaTextField;
+    private JTextField remuneracionTextField;
     //MODELOS PARA LISTAS
     DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
@@ -68,10 +66,15 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.estadisticasButton.addActionListener(controlador);
         this.cerrarSesionButton.addActionListener(controlador);
         this.editarTituloButton.addActionListener(controlador);
+        this.editarTituloButton.addActionListener(this);
         this.editarRemuneracionButton.addActionListener(controlador);
+        this.editarRemuneracionButton.addActionListener(this);
         this.agregarButton.addActionListener(controlador);
+        this.agregarButton.addActionListener(this);
         this.modificarButton.addActionListener(controlador);
+        this.modificarButton.addActionListener(this);
         this.eliminarButton.addActionListener(controlador);
+        this.eliminarButton.addActionListener(this);
         this.nuevaPromocionButton.addActionListener(controlador);
         this.eliminarPromocionButton.addActionListener(controlador);
         this.activarButton.addActionListener(controlador);
@@ -84,6 +87,12 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.mesasDelLocalCheckBox.addActionListener(this);
         this.productosEnPromocionCheckBox.addActionListener(this);
         this.promocionesTemporalesCheckBox.addActionListener(this);
+    }
+
+    @Override
+    public void setKeyListener() {
+        this.cerveceriaTextField.addKeyListener(this);
+        this.remuneracionTextField.addKeyListener(this);
     }
 
     @Override
@@ -136,6 +145,16 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
+    public String getNombreLocal() {
+        return cerveceriaTextField.getText();
+    }
+
+    @Override
+    public Double getRemuneracion() {
+        return Double.parseDouble(remuneracionTextField.getText());
+    }
+
+    @Override
     public String getTipoEntidadSeleccionada() {
         return entidadSeleccionada;
     }
@@ -177,32 +196,81 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //ENTIDADES
-        if (this.operariosCheckBox.isSelected()) {
-            this.entidadSeleccionada = "Operario";
+        //BOTONES
+        switch (e.getActionCommand()) {
+            case "Editar Cerveceria" -> editarTituloButton.setEnabled(false);
+            case "Editar Remuneracion" -> editarRemuneracionButton.setEnabled(false);
+            default -> {
+                //ENTIDADES
+                if (this.operariosCheckBox.isSelected() || this.mozosCheckBox.isSelected() || this.productosEnVentaCheckBox.isSelected() || this.mesasDelLocalCheckBox.isSelected()) {
+                    this.agregarButton.setEnabled(true);
+                    this.modificarButton.setEnabled(true);
+                    this.eliminarButton.setEnabled(true);
+
+                    if (this.operariosCheckBox.isSelected()) {
+                        this.entidadSeleccionada = "Operario";
+                    }
+
+                    if (this.mozosCheckBox.isSelected()) {
+                        this.entidadSeleccionada = "Mozo";
+                    }
+
+                    if (this.productosEnVentaCheckBox.isSelected()) {
+                        this.entidadSeleccionada = "Productos en venta";
+                    }
+
+                    if (this.mesasDelLocalCheckBox.isSelected()) {
+                        this.entidadSeleccionada = "Mesas del local";
+                    }
+
+                    setModeloEntidad();
+                }
+
+                //PROMOCIONES
+                if (this.productosEnPromocionCheckBox.isSelected() || this.promocionesTemporalesCheckBox.isSelected()) {
+                    this.activarButton.setEnabled(true);
+                    this.desactivarButton.setEnabled(true);
+                    this.nuevaPromocionButton.setEnabled(true);
+                    this.eliminarPromocionButton.setEnabled(true);
+
+                    if (this.productosEnPromocionCheckBox.isSelected()) {
+                        this.promocionSeleccionada = "Productos en promocion";
+                    }
+
+                    if (this.promocionesTemporalesCheckBox.isSelected()) {
+                        this.promocionSeleccionada = "Promociones temporales";
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        String nombreLocal = Cerveceria.getInstance().getNombreDelLocal();
+        String remuneracionBasica = String.valueOf(Cerveceria.getInstance().getRemuneracionBasica());
+
+        if (cerveceriaTextField.getText().equals(nombreLocal)) {
+            editarTituloButton.setEnabled(false);
+        } else {
+            editarTituloButton.setEnabled(true);
         }
 
-        if (this.mozosCheckBox.isSelected()) {
-            this.entidadSeleccionada = "Mozo";
+        if (remuneracionTextField.getText().equals(remuneracionBasica)) {
+            editarRemuneracionButton.setEnabled(false);
+        } else {
+            editarRemuneracionButton.setEnabled(true);
         }
+    }
 
-        if (this.productosEnVentaCheckBox.isSelected()) {
-            this.entidadSeleccionada = "Productos en venta";
-        }
+    //METODOS NO USADOS
+    @Override
+    public void keyTyped(KeyEvent e) {
 
-        if (this.mesasDelLocalCheckBox.isSelected()) {
-            this.entidadSeleccionada = "Mesas del local";
-        }
+    }
 
-        setModeloEntidad();
+    @Override
+    public void keyPressed(KeyEvent e) {
 
-        //PROMOCIONES
-        if (this.productosEnPromocionCheckBox.isSelected()) {
-            this.promocionSeleccionada = "Productos en promocion";
-        }
-
-        if (this.promocionesTemporalesCheckBox.isSelected()) {
-            this.promocionSeleccionada = "Promociones temporales";
-        }
     }
 }

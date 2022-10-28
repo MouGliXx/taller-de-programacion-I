@@ -4,12 +4,8 @@ import modelo.*;
 import vista.interfaces.IVistaAdministrador;
 import vista.ventanas.VentanaEntidad;
 import vista.ventanas.VentanaLogin;
-import vista.ventanas.VentanaProductoEnPromocion;
-import vista.ventanas.VentanaPromocionTemporal;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+
+import java.awt.event.*;
 
 public class ControladorAdministrador implements ActionListener, WindowListener {
     private Administrador modelo;
@@ -20,6 +16,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         this.vista = vista;
 
         this.vista.setActionListener(this);
+        this.vista.setKeyListener();
         this.vista.setWindowListener(this);
     }
 
@@ -30,6 +27,8 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
             case "Entidades" -> vista.cambiarPagina(1);
             case "Promociones" -> vista.cambiarPagina(2);
             case "Estadisticas" -> vista.cambiarPagina(3);
+            case "Editar Cerveceria" -> Cerveceria.getInstance().setNombreDelLocal(vista.getNombreLocal());
+            case "Editar Remuneracion" -> Cerveceria.getInstance().setRemuneracionBasica(vista.getRemuneracion());
             case "Cerrar Sesion" -> creaOtraVentana("Login");
             case "Agregar" -> creaOtraVentana("Agregar Entidad");
             case "Modificar" -> creaOtraVentana("Modificar Entidad");

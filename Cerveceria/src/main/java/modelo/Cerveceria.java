@@ -2,8 +2,6 @@ package modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,11 +19,13 @@ public class Cerveceria {
     private ArrayList<IPromocion> promociones = new ArrayList<>();
     private ArrayList<Producto> productos = new ArrayList<Producto>();
     private int cantidadMesasHabilitadas;
+    private double remuneracionBasica;
 
     //PATRON SINGLETON
     public Cerveceria() {
         this.nombreDelLocal = "CERVECERIA";
         this.administrador = new Administrador("ADMIN", "ADMIN1234");
+        this.remuneracionBasica = 0;
     }
 
     public static Cerveceria getInstance() {
@@ -49,6 +49,14 @@ public class Cerveceria {
 
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
+    }
+
+    public double getRemuneracionBasica() {
+        return remuneracionBasica;
+    }
+
+    public void setRemuneracionBasica(double remuneracionBasica) {
+        this.remuneracionBasica = remuneracionBasica;
     }
 
     public ArrayList<Operario> getOperarios() {
