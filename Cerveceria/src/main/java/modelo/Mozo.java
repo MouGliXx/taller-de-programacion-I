@@ -11,7 +11,7 @@ public class Mozo {
     public Mozo(String nombre, LocalDate fechaNacimiento, int cantHijos, int estado) throws Exception {
         this.nombre = nombre;
         this.estado = estado;
-        if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
+        //if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
         this.fechaNacimiento = fechaNacimiento;
         if (cantHijos < 0) throw new Exception();
         this.cantHijos = cantHijos;
@@ -76,4 +76,15 @@ public class Mozo {
         Mozo mozo = (Mozo) o;
         return getCantHijos() == mozo.getCantHijos() && getEstado() == mozo.getEstado() && getNombre().equals(mozo.getNombre()) && getFechaNacimiento().equals(mozo.getFechaNacimiento());
     }
+
+    @Override
+    public String toString() {
+        return "Mozo{" +
+                "nombre='" + nombre + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", cantHijos=" + cantHijos +
+                ", estado=" + estado +
+                '}';
+    }
+
 }
