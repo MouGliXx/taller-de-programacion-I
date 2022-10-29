@@ -21,7 +21,7 @@
           <background color="-1"/>
         </properties>
         <border type="empty">
-          <size top="30" left="30" bottom="0" right="30"/>
+          <size top="20" left="30" bottom="0" right="30"/>
         </border>
         <children>
           <component id="b37d2" class="javax.swing.JLabel" binding="nuevaPromocionLabel">
@@ -46,7 +46,7 @@
           <visible value="true"/>
         </properties>
         <border type="empty">
-          <size top="15" left="30" bottom="30" right="30"/>
+          <size top="0" left="30" bottom="20" right="30"/>
         </border>
         <children>
           <component id="4d436" class="javax.swing.JButton" binding="establecerButton" default-binding="true">
@@ -58,7 +58,7 @@
               </grid>
             </constraints>
             <properties>
-              <actionCommand value="Accion"/>
+              <actionCommand value="Establecer"/>
               <background color="-16759896"/>
               <enabled value="false"/>
               <focusable value="false"/>
@@ -276,7 +276,7 @@
                       <text value="Producto:"/>
                     </properties>
                   </component>
-                  <component id="4cbf" class="javax.swing.JComboBox" binding="estadoMesaComboBox">
+                  <component id="4cbf" class="javax.swing.JComboBox" binding="productosComboBox">
                     <constraints>
                       <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                         <minimum-size width="200" height="30"/>
@@ -376,6 +376,7 @@
                     </constraints>
                     <properties>
                       <background color="-2500135"/>
+                      <enabled value="false"/>
                       <font name="Inter" size="18" style="0"/>
                       <foreground color="-11053225"/>
                       <horizontalAlignment value="10"/>
@@ -391,7 +392,7 @@
                       <text value="Precio unitario:"/>
                     </properties>
                   </component>
-                  <component id="470" class="javax.swing.JTextField">
+                  <component id="470" class="javax.swing.JTextField" binding="precioUnitarioTextField">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                         <minimum-size width="250" height="30"/>
@@ -401,6 +402,7 @@
                     </constraints>
                     <properties>
                       <background color="-2500135"/>
+                      <enabled value="false"/>
                       <font name="Inter" size="18" style="0"/>
                       <foreground color="-11053225"/>
                       <horizontalAlignment value="10"/>
@@ -479,18 +481,18 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <actionCommand value="comboBoxOperario"/>
+                      <actionCommand value="Cambia Porcentaje"/>
                       <background color="-2500135"/>
                       <focusable value="false"/>
                       <font name="Inter" size="18" style="0"/>
                       <foreground color="-11053225"/>
                       <model>
-                        <item value="0"/>
-                        <item value="10"/>
-                        <item value="25"/>
-                        <item value="50"/>
-                        <item value="70"/>
-                        <item value="100"/>
+                        <item value="0%"/>
+                        <item value="10%"/>
+                        <item value="25%"/>
+                        <item value="50%"/>
+                        <item value="70%"/>
+                        <item value="100%"/>
                       </model>
                     </properties>
                   </component>
@@ -531,7 +533,7 @@
                       <text value="Formas de pago:"/>
                     </properties>
                   </component>
-                  <component id="d8755" class="javax.swing.JCheckBox" default-binding="true">
+                  <component id="d8755" class="javax.swing.JCheckBox" binding="efectivoCheckBox">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -543,7 +545,7 @@
                       <text value="Efectivo"/>
                     </properties>
                   </component>
-                  <component id="c0ded" class="javax.swing.JCheckBox" default-binding="true">
+                  <component id="c0ded" class="javax.swing.JCheckBox" binding="tarjetaCheckBox">
                     <constraints>
                       <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -555,7 +557,7 @@
                       <text value="Tarjeta"/>
                     </properties>
                   </component>
-                  <component id="1f33a" class="javax.swing.JCheckBox">
+                  <component id="1f33a" class="javax.swing.JCheckBox" binding="mercadoPagoCheckBox">
                     <constraints>
                       <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -567,7 +569,7 @@
                       <text value="Mercado Pago"/>
                     </properties>
                   </component>
-                  <component id="41876" class="javax.swing.JCheckBox">
+                  <component id="41876" class="javax.swing.JCheckBox" binding="cuentaDNICheckBox">
                     <constraints>
                       <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -579,9 +581,9 @@
                       <text value="Cuenta DNI"/>
                     </properties>
                   </component>
-                  <component id="87a8" class="javax.swing.JCheckBox">
+                  <component id="87a8" class="javax.swing.JCheckBox" binding="acumulableCheckBox">
                     <constraints>
-                      <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <background color="-1"/>
@@ -616,9 +618,6 @@
       <member id="c0ded"/>
       <member id="1f33a"/>
       <member id="41876"/>
-    </group>
-    <group name="diasDePromoButtonGroup1">
-      <member id="89ca0"/>
     </group>
     <group name="diasDePromoButtonGroup2">
       <member id="7f5c4"/>

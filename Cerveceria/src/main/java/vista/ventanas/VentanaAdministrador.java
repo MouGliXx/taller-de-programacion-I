@@ -181,7 +181,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public String getTipoPromocionSeleccionada() {
-        return null;
+        return promocionSeleccionada;
     }
 
     @Override

@@ -1,5 +1,9 @@
 package negocio;
 
+import modelo.Mesa;
+import modelo.Mozo;
+import modelo.Operario;
+import modelo.Producto;
 import vista.ventanas.VentanaEntidad;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,15 +24,19 @@ public class ControladorEntidad implements ActionListener {
             case "Accion" -> {
                 switch (vista.getEntidad()) {
                     case "Operario" -> {
+                        Operario operario = this.vista.getOperario();
                         //GUARDAR OPERARIO
                     }
                     case "Mozo" -> {
+                        Mozo mozo = this.vista.getMozo();
                         //GUARDAR MOZO
                     }
                     case "Producto" -> {
+                        Producto producto = this.vista.getProducto();
                         //GUARDAR PRODUCTO
                     }
                     case "Mesa" -> {
+                        Mesa mesa = this.vista.getMesa();
                         //GUARDAR MESA
                     }
                 }

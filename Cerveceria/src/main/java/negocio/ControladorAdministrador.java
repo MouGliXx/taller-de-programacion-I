@@ -4,6 +4,7 @@ import modelo.*;
 import vista.interfaces.IVistaAdministrador;
 import vista.ventanas.VentanaEntidad;
 import vista.ventanas.VentanaLogin;
+import vista.ventanas.VentanaPromocion;
 
 import java.awt.event.*;
 
@@ -103,16 +104,16 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
             case "Nueva Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
                     case "Productos en promocion" -> {
-                        VentanaProductoEnPromocion ventanaProductoEnPromocion = new VentanaProductoEnPromocion();
-                        ProductoEnPromocion promocion = new ProductoEnPromocion();
-                        //CONTROLADOR
-                        //ventanaProductoEnPromocion.ejecutar()
+                        VentanaPromocion ventanaPromocion = new VentanaPromocion();
+                        ventanaPromocion.setPromocion("Producto en Promocion");
+                        ControladorPromocion controladorPromocion = new ControladorPromocion(ventanaPromocion);
+                        ventanaPromocion.ejecutar();
                     }
                     case "Promociones temporales" -> {
-                        VentanaPromocionTemporal ventanaPromocionTemporal = new VentanaPromocionTemporal();
-                        PromocionTemporal promocionTemporal = new PromocionTemporal();
-                        //CONTROLADOR
-                        //ventanaPromocionTemporal.ejecutar()
+                        VentanaPromocion ventanaPromocion = new VentanaPromocion();
+                        ventanaPromocion.setPromocion("Promocion Temporal");
+                        ControladorPromocion controladorPromocion = new ControladorPromocion(ventanaPromocion);
+                        ventanaPromocion.ejecutar();
                     }
                 }
             }
