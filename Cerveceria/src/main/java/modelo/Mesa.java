@@ -8,6 +8,7 @@ public class Mesa {
 
     //CONSTRUCTOR
     public Mesa() { //DUDOSO ESTO
+        this.estado = "Libre";
     }
 
     public Mesa(int nro, int cantidadComensales, String estado) {

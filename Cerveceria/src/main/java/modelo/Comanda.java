@@ -13,10 +13,9 @@ public class Comanda {
 
         //CONSTRUCTOR
         public Comanda() {
-                assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
-
                 DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm");
                 String fechaActual = dateFormat.format(new Date());
+                this.fecha = new Date();
                 this.mesa = null;
                 this.pedidos = new ArrayList<Pedido>();
                 this.setEstado("Abierta");
@@ -40,6 +39,7 @@ public class Comanda {
 
         public void setMesa(Mesa mesa){
                 assert mesa!= null :"ERROR : La mesa no debe ser null";
+                assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
                 this.mesa = mesa;
         }
 
@@ -62,6 +62,24 @@ public class Comanda {
 
         public void agregarPedido(Pedido pedido){
                 this.pedidos.add(pedido);
+        }
+
+        @Override
+        public String toString() {
+                return "Comanda{" +
+                        "fecha=" + fecha +
+                        ", mesa=" + mesa +
+                        ", pedidos=" + pedidos +
+                        ", estado='" + estado + '\'' +
+                        '}';
+        }
+
+        public double getTotal(){
+                double total = 0;
+                for (Pedido pedido : pedidos) {
+                        total = total + pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
+                }
+                return total;
         }
 }
 

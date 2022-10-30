@@ -1,9 +1,6 @@
 package app;
 
-import modelo.Cerveceria;
-import modelo.Mesa;
-import modelo.Mozo;
-import modelo.Operario;
+import modelo.*;
 import negocio.ControladorOperario;
 import vista.ventanas.VentanaOperario;
 
@@ -35,6 +32,26 @@ public class Prueba {
         for (HashMap.Entry<Mesa, Mozo> entry : mA.entrySet()) {
             System.out.println(entry.getKey().toString() + " Asignado " + entry.getValue().toString());
         }
+
+        cerveza.guardarProducto(1,"Cerveza",200,260,2);
+        cerveza.guardarProducto(2,"Coca-Cola",150,200,20);
+        cerveza.guardarProducto(3,"Agua",100,150,20);
+        cerveza.guardarProducto(4,"Sprite",250,300,20);
+
+        Pedido p1 = new Pedido();
+        cerveza.nuevoPedido(p1,cerveza.getProductos().get(2),2);
+
+        try {
+            cerveza.nuevaComanda(cerveza.getMesas().get(0));
+            cerveza.agregarPedidoAComanda(cerveza.getComandas().get(0), p1);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        cerveza.nuevaFactura(cerveza.getComandas().get(0));
+        cerveza.cerrarComanda(cerveza.getComandas().get(0));
+        System.out.println(cerveza.getFacturas().get(0).toString());
+
     }
 }
 
