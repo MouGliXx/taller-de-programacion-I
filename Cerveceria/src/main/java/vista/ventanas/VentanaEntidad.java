@@ -119,19 +119,19 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     public void setEntidad(String entidad) {
         switch (entidad) {
             case "Operario" -> {
-                entidad = "Operario";
+                this.entidad = "Operario";
                 this.panelCentral.setSelectedIndex(0);
             }
             case "Mozo" -> {
-                entidad = "Mozo";
+                this.entidad = "Mozo";
                 this.panelCentral.setSelectedIndex(1);
             }
             case "Producto" -> {
-                entidad = "Producto";
+                this.entidad = "Producto";
                 this.panelCentral.setSelectedIndex(2);
             }
             case "Mesa" -> {
-                entidad = "Mesa";
+                this.entidad = "Mesa";
                 this.panelCentral.setSelectedIndex(3);
                 accionButton.setEnabled(true); //No borrar
             }
@@ -148,7 +148,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         String nombreCompleto = nombreTextField.getText() + " " + apellidoTextField.getText();
         String username = nombreUsuarioTextField.getText();
         String password = contrasenaTextField.getText();
-        Boolean activo = operarioComboBox.getSelectedIndex() == 0 ?  true : false;
+        boolean activo = operarioComboBox.getSelectedIndex() == 0;
 
         return new Operario(nombreCompleto, username, password, activo);
     }

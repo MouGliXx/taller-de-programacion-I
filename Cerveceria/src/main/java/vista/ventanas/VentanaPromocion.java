@@ -131,11 +131,11 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     public void setPromocion(String promocion) {
         switch (promocion) {
             case "Producto en Promocion" -> {
-                promocion = "Producto en Promocion";
+                this.promocion = "Producto en Promocion";
                 this.panelCentral.setSelectedIndex(0);
             }
             case "Promocion Temporal" -> {
-                promocion = "Promocion Temporal";
+                this.promocion = "Promocion Temporal";
                 this.panelCentral.setSelectedIndex(1);
             }
         }
@@ -203,44 +203,41 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     public void actionPerformed(ActionEvent e) {
         this.establecerButton.setEnabled(true);
 
-        switch (e.getActionCommand()) {
-            case "Aplica descuento x cantidad" -> {
-                if (aplicaDescuentoXCantidadCheckBox.isSelected()) {
-                    this.cantidadMinimaTextField.setEnabled(true);
-                    this.precioUnitarioTextField.setEnabled(true);
-                } else {
-                    this.cantidadMinimaTextField.setEnabled(false);
-                    this.cantidadMinimaTextField.setText("");
-                    this.precioUnitarioTextField.setEnabled(false);
-                    this.precioUnitarioTextField.setText("");
-                }
-
-                this.establecerButton.setEnabled(false);
+        if ("Aplica descuento x cantidad".equals(e.getActionCommand())) {
+            if (aplicaDescuentoXCantidadCheckBox.isSelected()) {
+                this.cantidadMinimaTextField.setEnabled(true);
+                this.precioUnitarioTextField.setEnabled(true);
+            } else {
+                this.cantidadMinimaTextField.setEnabled(false);
+                this.cantidadMinimaTextField.setText("");
+                this.precioUnitarioTextField.setEnabled(false);
+                this.precioUnitarioTextField.setText("");
             }
-            default -> {
-                switch (panelCentral.getSelectedIndex()) {
-                    case 0 -> {
-                        //FALTA CONDICION CON PRODUCTO COMBOBOX
 
-                        if (!aplicaDescuentoXCantidadCheckBox.isSelected() && !aplica2x1CheckBox.isSelected()) {
-                            this.establecerButton.setEnabled(false);
-                        }
+            this.establecerButton.setEnabled(false);
+        } else {
+            switch (panelCentral.getSelectedIndex()) {
+                case 0 -> {
+                    //FALTA CONDICION CON PRODUCTO COMBOBOX
 
+                    if (!aplicaDescuentoXCantidadCheckBox.isSelected() && !aplica2x1CheckBox.isSelected()) {
+                        this.establecerButton.setEnabled(false);
                     }
-                    case 1 -> {
-                        if (porcentajeComboBox.getSelectedIndex() == 0) {
-                            this.establecerButton.setEnabled(false);
-                        }
 
-                        if (!efectivoCheckBox.isSelected() && !tarjetaCheckBox.isSelected() && !mercadoPagoCheckBox.isSelected() && !cuentaDNICheckBox.isSelected()) {
-                            this.establecerButton.setEnabled(false);
-                        }
+                }
+                case 1 -> {
+                    if (porcentajeComboBox.getSelectedIndex() == 0) {
+                        this.establecerButton.setEnabled(false);
+                    }
+
+                    if (!efectivoCheckBox.isSelected() && !tarjetaCheckBox.isSelected() && !mercadoPagoCheckBox.isSelected() && !cuentaDNICheckBox.isSelected()) {
+                        this.establecerButton.setEnabled(false);
                     }
                 }
+            }
 
-                if (!lunesCheckBox.isSelected() && !martesCheckBox.isSelected() && !miercolesCheckBox.isSelected() && !juevesCheckBox.isSelected() && !viernesCheckBox.isSelected() && !sabadoCheckBox.isSelected() && !domingoCheckBox.isSelected()) {
-                    this.establecerButton.setEnabled(false);
-                }
+            if (!lunesCheckBox.isSelected() && !martesCheckBox.isSelected() && !miercolesCheckBox.isSelected() && !juevesCheckBox.isSelected() && !viernesCheckBox.isSelected() && !sabadoCheckBox.isSelected() && !domingoCheckBox.isSelected()) {
+                this.establecerButton.setEnabled(false);
             }
         }
     }

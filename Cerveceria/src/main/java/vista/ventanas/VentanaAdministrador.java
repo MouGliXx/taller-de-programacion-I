@@ -3,6 +3,7 @@ package vista.ventanas;
 import modelo.*;
 import vista.interfaces.IVistaAdministrador;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener {
@@ -192,6 +193,18 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     @Override
     public void cambiarPagina(int pagina) {
         panelCentral.setSelectedIndex(pagina);
+
+        this.inicioButton.setBackground(Color.decode("#D9D9D9"));
+        this.entidadesButton.setBackground(Color.decode("#D9D9D9"));
+        this.promocionesButton.setBackground(Color.decode("#D9D9D9"));
+        this.estadisticasButton.setBackground(Color.decode("#D9D9D9"));
+
+        switch (pagina) {
+            case 0 -> this.inicioButton.setBackground(Color.decode("#FFFFFF"));
+            case 1 -> this.entidadesButton.setBackground(Color.decode("#FFFFFF"));
+            case 2 -> this.promocionesButton.setBackground(Color.decode("#FFFFFF"));
+            case 3 -> this.estadisticasButton.setBackground(Color.decode("#FFFFFF"));
+        }
     }
 
     @Override

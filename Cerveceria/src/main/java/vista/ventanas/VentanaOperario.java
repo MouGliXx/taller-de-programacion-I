@@ -4,6 +4,7 @@ import modelo.*;
 import vista.interfaces.IVistaOperario;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -165,5 +166,19 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
     @Override
     public void cambiarPagina(int pagina) {
         panelCentral.setSelectedIndex(pagina);
+
+        this.inicioButton.setBackground(Color.decode("#D9D9D9"));
+        this.mozosButton.setBackground(Color.decode("#D9D9D9"));
+        this.comandasButton.setBackground(Color.decode("#D9D9D9"));
+        this.facturasButton.setBackground(Color.decode("#D9D9D9"));
+        this.promocionesButton.setBackground(Color.decode("#D9D9D9"));
+
+        switch (pagina) {
+            case 0 -> this.inicioButton.setBackground(Color.decode("#FFFFFF"));
+            case 1 -> this.mozosButton.setBackground(Color.decode("#FFFFFF"));
+            case 2 -> this.comandasButton.setBackground(Color.decode("#FFFFFF"));
+            case 3 -> this.facturasButton.setBackground(Color.decode("#FFFFFF"));
+            case 4 -> this.promocionesButton.setBackground(Color.decode("#FFFFFF"));
+        }
     }
 }

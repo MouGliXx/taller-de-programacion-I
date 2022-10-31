@@ -78,7 +78,7 @@
               <margin top="2" left="6" bottom="2" right="6"/>
               <opaque value="true"/>
               <selectionColor color="-533952"/>
-              <text value="Password"/>
+              <text value="Contrasena"/>
             </properties>
           </component>
           <component id="84fb6" class="javax.swing.JLabel" binding="ImagenCerveza">
@@ -113,7 +113,7 @@
               <margin top="2" left="6" bottom="2" right="6"/>
               <nextFocusableComponent value=""/>
               <selectionColor color="-533952"/>
-              <text value="Username"/>
+              <text value="Nombre de usuario"/>
               <toolTipText value="Username"/>
             </properties>
           </component>
