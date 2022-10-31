@@ -3,6 +3,7 @@ package modelo;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Cerveceria {
@@ -18,7 +19,6 @@ public class Cerveceria {
     private ArrayList<Factura> facturas = new ArrayList<Factura>();
     private ArrayList<IPromocion> promociones = new ArrayList<>();
     private HashMap<Integer,Producto> productos = new HashMap<>();
-    private int cantidadMesasHabilitadas;
     private double remuneracionBasica;
 
     //PATRON SINGLETON
@@ -123,14 +123,6 @@ public class Cerveceria {
         this.productos = productos;
     }
 
-    public int getCantidadMesasHabilitadas() {
-        return cantidadMesasHabilitadas;
-    }
-
-    public void setCantidadMesasHabilitadas(int cantidadMesasHabilitadas) {
-        this.cantidadMesasHabilitadas = cantidadMesasHabilitadas;
-    }
-
     //FUNCIONALIDADES
     public Administrador login(String password) throws ErrorDeContrasenaException {
 
@@ -196,7 +188,7 @@ public class Cerveceria {
         assert mesa!=null:"ERROR : La mesa no debe ser null";
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
-        if (this.cantidadMesasHabilitadas<=0)
+        if (this.mesas.size() == 0)
             throw new Exception("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
         if (this.mesasAsignadas.get(mesa) == null)
             throw new Exception("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
@@ -207,11 +199,13 @@ public class Cerveceria {
         if (this.productos.isEmpty())
             throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
 
-        this.comandas.add(new Comanda());
+        Comanda comanda = new Comanda();
+        comanda.setMesa(mesa);
+        this.comandas.add(comanda);
         mesa.ocupar();
     }
     /**
-     * <b>pre:</b> comanda y pedido deben ser distintos de null<br>.
+     * <b>pre:</b> comanda y pedido deben ser distintos de null, El pedido debe tener por lo menos un producto<br>.
      * @param comanda Comanda a la cual se le va a agregar un Pedido
      * @param pedido Pedido que sera agregado a la Comanda
      * @throws Exception Se lanza excepción si la cantidad de Pedido es mayor al Stock del mismo.
@@ -220,6 +214,7 @@ public class Cerveceria {
     public void agregarPedidoAComanda (Comanda comanda,Pedido pedido) throws Exception {
         assert comanda!=null:"ERROR : La comanda no debe ser null";
         assert pedido!=null:"ERROR : El pedido no debe ser null";
+        assert pedido.getProducto()!=null || pedido.getCantidad() != 0 :"ERROR : El pedido no debe ser vacio";
         //verificar que haya stock
         if (pedido.getProducto().getStockInicial() < pedido.getCantidad() )
             throw new Exception("ERROR : No se puede completar pedido. Stock insuficiente");
@@ -264,7 +259,9 @@ public class Cerveceria {
         this.mesas.add(new Mesa());
     }
 
-    public void eliminarMesa(Mesa mesa){
+    public void eliminarMesa(Mesa mesa) throws Exception {
+        if (mesa == null)
+            throw new Exception("Debe seleccionar mesa");
         this.mesas.remove(mesa);
     }
 
@@ -308,7 +305,24 @@ public class Cerveceria {
         return activos;
     }
 
-    private void guardarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+    /**
+     * <b>pre:</b> El pedido no debe ser null <br>.
+     * El metodo setea el Producto y la cantidad de un nuevo pedido
+     * @throws Exception Se lanza excepción si el prodcuto es null
+     * @throws Exception Se lanza excepción si la cantidad es menor o igual a cero
+     * <b>post:</b> Los atributos Pedido y Cantidad del pedido estaran seteados<br>.
+     */
+    public void nuevoPedido(Pedido pedido, Producto producto, int cantidad) throws Exception {
+        assert pedido!=null:"ERROR el pedido no puede der null";
+        if (producto == null)
+            throw new Exception("ERROR : No se puede crear pedido sin producto");
+        if (cantidad <= 0 )
+            throw new Exception("ERROR : No se puede crear pedido con cantidad <=0");
+        pedido.setProducto(producto);
+        pedido.setCantidad(cantidad);
+    }
+
+    public void guardarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
         if (precioVenta>=precioCosto){
             if(precioVenta>0){
                 if(precioCosto>0) {
@@ -340,4 +354,16 @@ public class Cerveceria {
         this.productos.remove(producto);
     }
 
+
+    /**
+     * <b>pre:</b> <br>.
+     * El metodo crea añade una nueva factura a la lista de Facturas
+     * @throws Exception Se lanza excepción si la comanda es null
+     * <b>post:</b> La lista de facturas tendra una nueva<br>.
+     */
+    public void nuevaFactura(Comanda comanda) throws Exception {
+        if (comanda == null)
+            throw new Exception("ERROR : No se puede crear factura sin comanda");
+        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones));
+    }
 }

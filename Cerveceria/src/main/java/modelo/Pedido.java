@@ -31,4 +31,12 @@ public class Pedido {
     public Producto getProducto (){
         return this.producto;
     }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "producto=" + producto +
+                ", cantidad=" + cantidad +
+                '}';
+    }
 }

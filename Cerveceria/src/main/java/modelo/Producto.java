@@ -69,4 +69,12 @@ public class Producto {
     public void setStockInicial(int stockInicial) {
         this.stockInicial = stockInicial;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "nro=" + nro +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

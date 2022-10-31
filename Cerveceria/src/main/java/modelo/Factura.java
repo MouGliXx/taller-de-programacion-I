@@ -69,7 +69,18 @@ public class Factura {
         for ( Pedido pedido:pedidos){
             this.total = pedido.getPrecio();
         }
-
         return this.total;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "fecha=" + fecha +
+                ", mesa=" + mesa +
+                ", pedidos=" + pedidos +
+                ", total=" + total +
+                ", formaDePago='" + formaDePago + '\'' +
+                ", promociones=" + promociones +
+                '}';
     }
 }
