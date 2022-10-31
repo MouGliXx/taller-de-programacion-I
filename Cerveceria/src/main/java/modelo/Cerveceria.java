@@ -259,7 +259,9 @@ public class Cerveceria {
         this.mesas.add(new Mesa());
     }
 
-    public void eliminarMesa(Mesa mesa){
+    public void eliminarMesa(Mesa mesa) throws Exception {
+        if (mesa == null)
+            throw new Exception("Debe seleccionar mesa");
         this.mesas.remove(mesa);
     }
 

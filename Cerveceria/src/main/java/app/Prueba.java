@@ -25,6 +25,18 @@ public class Prueba {
         cerveza.agregarMozo(new Mozo("Ignacio", LocalDate.of (2000,12,12),1,0));
         cerveza.agregarMozo(new Mozo("Tomas", LocalDate.of (2000,12,12),1,0));
 
+
+        System.out.println("AGREGO 3 MOZOS");
+        for (Mozo mozo: cerveza.getMozos()){
+            System.out.println(mozo);
+        }
+        cerveza.eliminarMozo(cerveza.getMozos().get(1));
+        System.out.println("BORRO UNO DE LOS MOZOS");
+        for (Mozo mozo: cerveza.getMozos()){
+            System.out.println(mozo);
+        }
+
+
         cerveza.asignarMesas();
 
         HashMap<Mesa, Mozo> mA = cerveza.getMesasAsignadas();
