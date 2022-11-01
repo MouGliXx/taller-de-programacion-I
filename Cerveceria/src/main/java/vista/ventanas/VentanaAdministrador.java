@@ -5,9 +5,10 @@ import vista.interfaces.IVistaAdministrador;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener {
-    private String entidadSeleccionada;
+    private String tipoEntidadSeleccionada = "Operarios";
     private String promocionSeleccionada;
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
@@ -23,7 +24,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JLabel nombreApellidoLabel;
     private JPanel entidadesPanel;
     private JLabel entidadesLabel;
-    private JList listaEntidades;
+    private JList<Operario> listaOperarios;
     private JButton agregarButton;
     private JButton eliminarButton;
     private JButton modificarButton;
@@ -50,6 +51,14 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JCheckBox promocionesTemporalesCheckBox;
     private JTextField cerveceriaTextField;
     private JTextField remuneracionTextField;
+    private JScrollPane operariosScrollPane;
+    private JTabbedPane entidadesTabbedPane;
+    private JList<Mozo> listaMozos;
+    private JScrollPane mozosScrollPane;
+    private JScrollPane productosScrollPane;
+    private JScrollPane mesasScrollPane;
+    private JList<Producto> listaProductos;
+    private JList<Mesa> listaMesas;
     //MODELOS PARA LISTAS
     DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
@@ -111,6 +120,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         setSize(1280,720); //Dimensiones del JFrame
         setResizable(false); //No redimensionable
         setLocationRelativeTo(null);
+        setModelos();
     }
 
     @Override
@@ -127,22 +137,25 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public void setModelos() {
-
-    }
-
-    @Override
-    public void setModeloEntidad() {
-        switch (this.entidadSeleccionada) {
-            case "Operarios" -> this.listaEntidades.setModel(modeloOperario);
-            case "Mozos" -> this.listaEntidades.setModel(modeloMozo);
-            case "Productos en venta" -> this.listaEntidades.setModel(modeloProducto);
-            case "Mesas del local" -> this.listaEntidades.setModel(modeloMesa);
-        }
+        this.listaOperarios.setModel(modeloOperario);
+        this.listaMozos.setModel(modeloMozo);
+        this.listaProductos.setModel(modeloProducto);
+        this.listaMesas.setModel(modeloMesa);
     }
 
     @Override
     public void inicializarListas() {
+        try {
+            modeloMozo.add(modeloMozo.size(), new Mozo("Lautaro", LocalDate.of (2000,12,12),1,0));
+            modeloMozo.add(modeloMozo.size(), new Mozo("Ignacio", LocalDate.of (2000,12,12),1,0));
+            modeloMozo.add(modeloMozo.size(), new Mozo("Tomas", LocalDate.of (2000,12,12),1,0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        modeloProducto.add(modeloProducto.size(), new Producto(2,"Coca-Cola",150,200,20));
+        modeloProducto.add(modeloProducto.size(), new Producto(3,"Agua",100,150,20));
+        modeloProducto.add(modeloProducto.size(), new Producto(4,"Sprite",250,300,20));
     }
 
     @Override
@@ -157,27 +170,27 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public String getTipoEntidadSeleccionada() {
-        return entidadSeleccionada;
+        return tipoEntidadSeleccionada;
     }
 
     @Override
     public Operario getOperarioSeleccionado() {
-        return (this.listaEntidades == null ? null : (Operario) this.listaEntidades.getSelectedValue());
+        return this.listaOperarios.getSelectedValue();
     }
 
     @Override
     public Mozo getMozoSeleccionado() {
-        return (this.listaEntidades == null ? null : (Mozo) this.listaEntidades.getSelectedValue());
+        return this.listaMozos.getSelectedValue();
     }
 
     @Override
     public Producto getProductoSeleccionado() {
-        return (this.listaEntidades == null ? null : (Producto) this.listaEntidades.getSelectedValue());
+        return this.listaProductos.getSelectedValue();
     }
 
     @Override
     public Mesa getMesaSeleccionado() {
-        return (this.listaEntidades == null ? null : (Mesa) this.listaEntidades.getSelectedValue());
+        return this.listaMesas.getSelectedValue();
     }
 
     @Override
@@ -221,22 +234,25 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                     this.eliminarButton.setEnabled(true);
 
                     if (this.operariosCheckBox.isSelected()) {
-                        this.entidadSeleccionada = "Operario";
+                        this.tipoEntidadSeleccionada = "Operarios";
+                        this.entidadesTabbedPane.setSelectedIndex(0);
                     }
 
                     if (this.mozosCheckBox.isSelected()) {
-                        this.entidadSeleccionada = "Mozo";
+                        this.tipoEntidadSeleccionada = "Mozos";
+                        this.entidadesTabbedPane.setSelectedIndex(1);
                     }
 
                     if (this.productosEnVentaCheckBox.isSelected()) {
-                        this.entidadSeleccionada = "Productos en venta";
+                        this.tipoEntidadSeleccionada = "Productos en venta";
+                        this.entidadesTabbedPane.setSelectedIndex(2);
                     }
 
                     if (this.mesasDelLocalCheckBox.isSelected()) {
-                        this.entidadSeleccionada = "Mesas del local";
+                        this.tipoEntidadSeleccionada = "Mesas del local";
+                        this.entidadesTabbedPane.setSelectedIndex(3);
                     }
 
-                    setModeloEntidad();
                 }
 
                 //PROMOCIONES

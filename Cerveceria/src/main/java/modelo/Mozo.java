@@ -3,14 +3,14 @@ package modelo;
 import java.time.LocalDate;
 
 public class Mozo {
-    private String nombre;
+    private String nombreYApellido;
     private LocalDate fechaNacimiento; //RESOLVER
     private int cantHijos;
     private int estado; // 0-> activo 1->ausente 2->de franco // un invariable podria ser que el estado nunca sea != a 0,1,2
 
     //CONSTRUCTOR
     public Mozo(String nombre, LocalDate fechaNacimiento, int cantHijos, int estado) throws Exception {
-        this.nombre = nombre;
+        this.nombreYApellido = nombre;
         this.estado = estado;
 //        if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
         this.fechaNacimiento = fechaNacimiento;
@@ -26,12 +26,12 @@ public class Mozo {
         return years >= 0 ;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreYApellido() {
+        return nombreYApellido;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreYApellido(String nombreYApellido) {
+        this.nombreYApellido = nombreYApellido;
     }
 
     public LocalDate getFechaNacimiento() {
@@ -75,13 +75,13 @@ public class Mozo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mozo mozo = (Mozo) o;
-        return getCantHijos() == mozo.getCantHijos() && getEstado() == mozo.getEstado() && getNombre().equals(mozo.getNombre()) && getFechaNacimiento().equals(mozo.getFechaNacimiento());
+        return getCantHijos() == mozo.getCantHijos() && getEstado() == mozo.getEstado() && getNombreYApellido().equals(mozo.getNombreYApellido()) && getFechaNacimiento().equals(mozo.getFechaNacimiento());
     }
 
     @Override
     public String toString() {
         return "Mozo{" +
-                "nombre='" + nombre + '\'' +
+                "nombre='" + nombreYApellido + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", cantHijos=" + cantHijos +
                 ", estado=" + estado +

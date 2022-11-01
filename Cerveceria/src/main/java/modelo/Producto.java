@@ -1,11 +1,6 @@
 package modelo;
 
-import excepciones.ErrorCostoMayorAPrecioVenta;
-import excepciones.ErrorPrecioCostoMenorCero;
-import excepciones.ErrorPrecioVentaMenorCero;
-
 public class Producto {
-    //FALTA UNA VARIABLE ESTATICA QUE DETERMINE EL ID (como pasa con Nmero mesa en MESA)
     private static int idProduct=0;
     private int nro;
     private String nombre;
@@ -23,10 +18,10 @@ public class Producto {
 
     public Producto(int nro, String nombre, double precioCosto, double precioVenta, int stockInicial) {
         idProduct++;
-        nro=idProduct;
+        this.nro = idProduct;
         this.nombre = nombre;
-        this.precioCosto=precioCosto;
-        this.precioVenta=precioVenta;
+        this.precioCosto = precioCosto;
+        this.precioVenta = precioVenta;
         this.stockInicial = stockInicial;
     }
 

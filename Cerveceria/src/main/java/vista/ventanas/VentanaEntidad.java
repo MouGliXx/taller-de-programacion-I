@@ -20,11 +20,10 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JPanel mesaPanel;
     private JLabel accionOperarioLabel;
     private JTextField nombreTextField;
-    private JComboBox operarioComboBox;
+    private JComboBox operarioActivoComboBox;
     private JLabel activoLabel;
     private JLabel nombreDeUsuarioLabel;
-    private JLabel nombreLabel;
-    private JLabel apellidoLabel;
+    private JLabel nombreCompletoLabel;
     private JTextField nombreUsuarioTextField;
     private JTextField apellidoTextField;
     private JPanel panelInferior;
@@ -49,7 +48,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JPanel panelPrecios;
     private JPanel panelID;
     private JLabel accionMesaLabel;
-    private JLabel numeoDeMesaLabel;
+    private JLabel numeroDeMesaLabel;
     private JLabel NMesaLabel;
     private JLabel cantidadDeComensalesLabel;
     private JComboBox cantComensalesComboBox;
@@ -61,6 +60,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JComboBox estadoComboBox;
     private JLabel estadoLabel1;
     private JComboBox estadoMesaComboBox;
+    private JTextField nombreCompletoTextField;
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -70,8 +70,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
 
     @Override
     public void setKeyListener() {
-        this.nombreTextField.addKeyListener(this);
-        this.apellidoTextField.addKeyListener(this);
+        this.nombreCompletoTextField.addKeyListener(this);
         this.nombreUsuarioTextField .addKeyListener(this);
         this.contrasenaTextField.addKeyListener(this);
         this.nombreYApellidoTextField .addKeyListener(this);
@@ -139,16 +138,48 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     }
 
     @Override
+    public void setDatosOperario(Operario operario) {
+        this.nombreCompletoTextField.setText(operario.getNombreCompleto());
+        this.nombreUsuarioTextField.setText(operario.getNombreUsuario());
+        this.contrasenaTextField.setText(operario.getContrasena());
+        this.operarioActivoComboBox.setSelectedIndex(operario.isActivo() ? 0 : 1);
+    }
+
+    @Override
+    public void setDatosMozo(Mozo mozo) {
+        this.nombreYApellidoTextField.setText(mozo.getNombreYApellido());
+        //FECHA DE NACIMIENTO
+        this.cantHijosComboBox.setSelectedIndex(mozo.getCantHijos());
+        this.cantHijosComboBox.setSelectedIndex(mozo.getEstado());
+    }
+
+    @Override
+    public void setDatosProducto(Producto producto) {
+        this.IDLabel.setText(String.valueOf(producto.getNro()));
+        this.stockInicialTextField.setText(String.valueOf(producto.getStockInicial()));
+        this.nombreProductoTextField.setText(producto.getNombre());
+        this.precioCostoTextField.setText(String.valueOf(producto.getPrecioCosto()));
+        this.precioVentaTextField.setText(String.valueOf(producto.getPrecioVenta()));
+    }
+
+    @Override
+    public void setDatosMesa(Mesa mesa) {
+        this.NMesaLabel.setText(String.valueOf(mesa.getNro()));
+        this.cantComensalesComboBox.setSelectedIndex(mesa.getCantidadComensales());
+        this.estadoComboBox.setSelectedIndex(mesa.getEstado().equalsIgnoreCase("Libre") ? 0 : 1);
+    }
+
+    @Override
     public String getEntidad() {
         return entidad;
     }
 
     @Override
     public Operario getOperario() {
-        String nombreCompleto = nombreTextField.getText() + " " + apellidoTextField.getText();
+        String nombreCompleto = nombreCompletoLabel.getText();
         String username = nombreUsuarioTextField.getText();
         String password = contrasenaTextField.getText();
-        boolean activo = operarioComboBox.getSelectedIndex() == 0;
+        boolean activo = operarioActivoComboBox.getSelectedIndex() == 0;
 
         return new Operario(nombreCompleto, username, password, activo);
     }

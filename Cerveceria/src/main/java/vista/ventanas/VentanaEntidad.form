@@ -18,7 +18,7 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="true"/>
+          <enabled value="false"/>
           <focusCycleRoot value="false"/>
           <focusable value="false"/>
           <font name="Inter SemiBold" size="12"/>
@@ -69,21 +69,6 @@
                   <text value="Nombre de Usuario:"/>
                 </properties>
               </component>
-              <component id="627a" class="javax.swing.JTextField" binding="nombreTextField">
-                <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="250" height="30"/>
-                    <preferred-size width="250" height="30"/>
-                    <maximum-size width="250" height="30"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <background color="-2500135"/>
-                  <font name="Inter" size="18" style="0"/>
-                  <foreground color="-11053225"/>
-                  <horizontalAlignment value="10"/>
-                </properties>
-              </component>
               <component id="6f5cd" class="javax.swing.JTextField" binding="nombreUsuarioTextField">
                 <constraints>
                   <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
@@ -99,40 +84,14 @@
                   <horizontalAlignment value="10"/>
                 </properties>
               </component>
-              <component id="38920" class="javax.swing.JLabel" binding="nombreLabel">
+              <component id="38920" class="javax.swing.JLabel" binding="nombreCompletoLabel">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Inter SemiBold" size="32"/>
                   <foreground color="-16777216"/>
-                  <text value="Nombre:"/>
-                </properties>
-              </component>
-              <component id="a4997" class="javax.swing.JLabel" binding="apellidoLabel">
-                <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <font name="Inter SemiBold" size="32"/>
-                  <foreground color="-16777216"/>
-                  <text value="Apellido:"/>
-                </properties>
-              </component>
-              <component id="c0ba6" class="javax.swing.JTextField" binding="apellidoTextField">
-                <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="250" height="30"/>
-                    <preferred-size width="250" height="30"/>
-                    <maximum-size width="250" height="30"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <background color="-2500135"/>
-                  <font name="Inter" size="18" style="0"/>
-                  <foreground color="-11053225"/>
-                  <horizontalAlignment value="10"/>
-                  <text value=""/>
+                  <text value="Nombre completo:"/>
                 </properties>
               </component>
               <component id="8b4c5" class="javax.swing.JLabel" binding="activoLabel">
@@ -145,7 +104,7 @@
                   <text value="Activo"/>
                 </properties>
               </component>
-              <component id="baaa7" class="javax.swing.JComboBox" binding="operarioComboBox">
+              <component id="baaa7" class="javax.swing.JComboBox" binding="operarioActivoComboBox">
                 <constraints>
                   <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="200" height="30"/>
@@ -185,6 +144,21 @@
                     <minimum-size width="250" height="30"/>
                     <preferred-size width="250" height="30"/>
                     <maximum-size width="250" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-2500135"/>
+                  <font name="Inter" size="18" style="0"/>
+                  <foreground color="-11053225"/>
+                  <horizontalAlignment value="10"/>
+                </properties>
+              </component>
+              <component id="81409" class="javax.swing.JTextField" binding="nombreCompletoTextField">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="500" height="30"/>
+                    <preferred-size width="500" height="30"/>
+                    <maximum-size width="500" height="30"/>
                   </grid>
                 </constraints>
                 <properties>
@@ -577,14 +551,14 @@
                   <text value="[Accion] mesa"/>
                 </properties>
               </component>
-              <component id="9e24e" class="javax.swing.JLabel" binding="numeoDeMesaLabel">
+              <component id="9e24e" class="javax.swing.JLabel" binding="numeroDeMesaLabel">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Inter SemiBold" size="32"/>
                   <foreground color="-16777216"/>
-                  <text value="Numeo de mesa:"/>
+                  <text value="Numero de mesa:"/>
                 </properties>
               </component>
               <vspacer id="86b9c">

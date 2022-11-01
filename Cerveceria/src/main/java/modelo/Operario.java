@@ -2,17 +2,18 @@ package modelo;
 
 public class Operario {
     private String nombreCompleto;
-    private String username; //(10)
-    private String password; //(12)
+    private String nombreUsuario; //(10)
+    private String contrasena; //(12)
     private boolean activo;
 
-    public Operario(String nombreCompleto, String nombreUsuario, String password, boolean activo) {
+    public Operario(String nombreCompleto, String nombreUsuario, String contrasena, boolean activo) {
         this.nombreCompleto = nombreCompleto;
-        this.username = nombreUsuario;
-        this.password = password;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
         this.activo = activo;
     }
 
+    //GETTERS & SETTERS
     public String getNombreCompleto() {
         return nombreCompleto;
     }
@@ -21,20 +22,20 @@ public class Operario {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public boolean isActivo() {

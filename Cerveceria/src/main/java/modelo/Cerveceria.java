@@ -136,8 +136,8 @@ public class Cerveceria {
     public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
 
         for (Operario operario: operarios) {
-            if (operario.getUsername().equalsIgnoreCase(username)) {
-                if (operario.getPassword().equalsIgnoreCase(password))
+            if (operario.getNombreUsuario().equalsIgnoreCase(username)) {
+                if (operario.getContrasena().equalsIgnoreCase(password))
                     return operario;
 
                 throw new ErrorDeContrasenaException("Contrasena invalida: " + password);

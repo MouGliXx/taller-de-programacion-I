@@ -13,6 +13,14 @@ public interface IVistaEntidad extends IVista {
 
     void setEntidad(String entidad);
 
+    void setDatosOperario(Operario operario);
+
+    void setDatosMozo(Mozo mozo);
+
+    void setDatosProducto(Producto producto);
+
+    void setDatosMesa(Mesa mesa);
+
     String getEntidad();
 
     Operario getOperario();
