@@ -3,11 +3,13 @@ package vista.ventanas;
 import modelo.*;
 import vista.interfaces.IVistaAdministrador;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 
-public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener {
+public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener, ListSelectionListener {
     private String tipoEntidadSeleccionada = "Operarios";
     private String promocionSeleccionada;
     private JPanel panelPrincipal;
@@ -106,6 +108,14 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
+    public void setListSelectionListener() {
+        this.listaOperarios.addListSelectionListener(this);
+        this.listaMozos.addListSelectionListener(this);
+        this.listaProductos.addListSelectionListener(this);
+        this.listaMesas.addListSelectionListener(this);
+    }
+
+    @Override
     public void setWindowListener(WindowListener controlador) {
         this.addWindowListener(controlador);
     }
@@ -141,6 +151,26 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaMozos.setModel(modeloMozo);
         this.listaProductos.setModel(modeloProducto);
         this.listaMesas.setModel(modeloMesa);
+    }
+
+    @Override
+    public void actualizaListaOperarios() {
+        modeloOperario.remove(listaOperarios.getSelectedIndex());
+    }
+
+    @Override
+    public void actualizaListaMozos() {
+        modeloMozo.remove(listaMozos.getSelectedIndex());
+    }
+
+    @Override
+    public void actualizaListaProductos() {
+        modeloProducto.remove(listaProductos.getSelectedIndex());
+    }
+
+    @Override
+    public void actualizaListaMesas() {
+        modeloMesa.remove(listaMesas.getSelectedIndex());
     }
 
     @Override
@@ -230,8 +260,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                 //ENTIDADES
                 if (this.operariosCheckBox.isSelected() || this.mozosCheckBox.isSelected() || this.productosEnVentaCheckBox.isSelected() || this.mesasDelLocalCheckBox.isSelected()) {
                     this.agregarButton.setEnabled(true);
-                    this.modificarButton.setEnabled(true);
-                    this.eliminarButton.setEnabled(true);
+                    this.modificarButton.setEnabled(false);
+                    this.eliminarButton.setEnabled(false);
 
                     if (this.operariosCheckBox.isSelected()) {
                         this.tipoEntidadSeleccionada = "Operarios";
@@ -289,6 +319,17 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
             editarRemuneracionButton.setEnabled(false);
         } else {
             editarRemuneracionButton.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        this.modificarButton.setEnabled(false);
+        this.eliminarButton.setEnabled(false);
+
+        if (listaOperarios.getSelectedValue() != null || listaMozos.getSelectedValue() != null || listaProductos.getSelectedValue() != null || listaMesas.getSelectedValue() != null) {
+            this.modificarButton.setEnabled(true);
+            this.eliminarButton.setEnabled(true);
         }
     }
 

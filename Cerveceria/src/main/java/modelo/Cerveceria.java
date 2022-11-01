@@ -11,8 +11,8 @@ public class Cerveceria {
     public static final int totalMaximoMesas = 50;
     private String nombreDelLocal;
     private Administrador administrador;
-    ArrayList<Operario> operarios = new ArrayList<Operario>();
-    ArrayList<Mozo> mozos = new ArrayList<Mozo>();
+    private ArrayList<Operario> operarios = new ArrayList<Operario>();
+    private ArrayList<Mozo> mozos = new ArrayList<Mozo>();
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
     private HashMap<Mesa,Mozo>mesasAsignadas = new HashMap<Mesa, Mozo>();
@@ -152,9 +152,9 @@ public class Cerveceria {
     }
 
     public void eliminarMozo(Mozo mozoViejo){
-        for (int i = 0 ; i < this.getMozos().size() ; i++){
-            if (this.getMozos().get(i).equals(mozoViejo)) {
-                this.getMozos().remove(i);
+        for (int i = 0 ; i < mozos.size() ; i++){
+            if (this.mozos.get(i).equals(mozoViejo)) {
+                this.mozos.remove(i);
                 break;
             }
         }
@@ -298,10 +298,12 @@ public class Cerveceria {
      */
     private ArrayList<Mozo> mozosActivos(){
         ArrayList<Mozo> activos = new ArrayList<Mozo>();
+
         for (int q = 0 ; q < this.mozos.size(); q++){
             if (mozos.get(q).getEstado() == 0)
                 activos.add(mozos.get(q));
         }
+
         return activos;
     }
 
@@ -342,7 +344,7 @@ public class Cerveceria {
         else throw new Exception("El precio de venta es menor al de costo");
     }
 
-    private void eliminarProducto(Producto producto) throws Exception{
+    public void eliminarProducto(Producto producto) throws Exception{
         for (int i=0;i<comandas.size();i++){
             ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
             for (int j=0;j<pedidos.size();j++){

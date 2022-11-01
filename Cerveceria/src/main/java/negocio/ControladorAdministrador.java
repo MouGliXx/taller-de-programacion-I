@@ -17,6 +17,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
 
         this.vista.setActionListener(this);
         this.vista.setKeyListener();
+        this.vista.setListSelectionListener();
         this.vista.setWindowListener(this);
         this.vista.inicializarListas();
     }
@@ -38,18 +39,27 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Operarios" -> {
                         Operario operario = vista.getOperarioSeleccionado();
                         //REMOVER OPERARIO
+                        vista.actualizaListaOperarios();
                     }
                     case "Mozos" -> {
                         Mozo mozo = vista.getMozoSeleccionado();
-                        //REMOVER MOZO
+                        Cerveceria.getInstance().eliminarMozo(mozo);
+                        vista.actualizaListaMozos();
                     }
                     case "Productos en venta" -> {
                         Producto producto = vista.getProductoSeleccionado();
+                        Cerveceria.getInstance().getProductos().remove(producto.getNro());
                         //REMOVER PRODUCTO
+                        vista.actualizaListaProductos();
                     }
                     case "Mesas del local" -> {
                         Mesa mesa = vista.getMesaSeleccionado();
-                        //REMOVER MESA
+                        try {
+                            Cerveceria.getInstance().eliminarMesa(mesa);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        vista.actualizaListaMesas();
                     }
                 }
             }
