@@ -149,7 +149,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.nombreYApellidoTextField.setText(mozo.getNombreYApellido());
         //FECHA DE NACIMIENTO
         this.cantHijosComboBox.setSelectedIndex(mozo.getCantHijos());
-        this.cantHijosComboBox.setSelectedIndex(mozo.getEstado());
+        //this.cantHijosComboBox.setSelectedIndex(mozo.getEstado());
     }
 
     @Override
