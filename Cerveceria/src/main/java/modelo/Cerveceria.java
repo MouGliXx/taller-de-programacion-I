@@ -22,8 +22,8 @@ public class Cerveceria {
     private double remuneracionBasica;
 
     //PATRON SINGLETON
-    public Cerveceria() {
-        this.nombreDelLocal = "CERVECERIA";
+    private Cerveceria() {
+        this.nombreDelLocal = "Cerveceria";
         this.administrador = new Administrador("ADMIN", "ADMIN1234");
         this.remuneracionBasica = 0;
     }

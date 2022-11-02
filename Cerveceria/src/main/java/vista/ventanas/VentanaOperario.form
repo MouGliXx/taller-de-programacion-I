@@ -173,7 +173,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-2500135"/>
+              <background color="-1"/>
               <borderPainted value="false"/>
               <contentAreaFilled value="true"/>
               <defaultCapable value="true"/>
@@ -193,7 +193,9 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
+          <enabled value="true"/>
           <focusable value="false"/>
+          <font name="Inter SemiBold" size="12"/>
           <inheritsPopupMenu value="false"/>
           <maximumSize width="960" height="720"/>
           <minimumSize width="960" height="720"/>
@@ -776,12 +778,13 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="70526" class="javax.swing.JList" binding="listaComandasAbiertas">
+                  <component id="70526" class="javax.swing.JList" binding="listaComandas">
                     <constraints/>
                     <properties>
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionMode value="0"/>
                     </properties>
                   </component>
                 </children>
@@ -814,6 +817,7 @@
                 <properties>
                   <actionCommand value="Cerrar Comanda"/>
                   <background color="-679164"/>
+                  <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
@@ -831,6 +835,7 @@
                 <properties>
                   <actionCommand value="Editar Comanda"/>
                   <background color="-679164"/>
+                  <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
@@ -915,6 +920,7 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionMode value="0"/>
                     </properties>
                   </component>
                 </children>
@@ -975,6 +981,7 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionMode value="0"/>
                     </properties>
                   </component>
                 </children>
@@ -1011,6 +1018,7 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionMode value="0"/>
                     </properties>
                   </component>
                 </children>

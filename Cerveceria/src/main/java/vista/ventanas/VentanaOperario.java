@@ -4,12 +4,14 @@ import modelo.*;
 import vista.interfaces.IVistaOperario;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-public class VentanaOperario extends JFrame implements IVistaOperario {
+public class VentanaOperario extends JFrame implements IVistaOperario, ListSelectionListener {
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
     private JTabbedPane panelCentral;
@@ -62,10 +64,10 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
     private JLabel promocionesLabel;
     private JLabel listadoDeProductosEnPromocionLabel;
     private JLabel listadoDePromocionesTemporalesLabel;
-    private JList listaComandasAbiertas;
-    private JList listaFacturas;
-    private JList listaProductosEnPromocion;
-    private JList listaPromocionesTemporales;
+    private JList<Comanda> listaComandas;
+    private JList<Factura> listaFacturas;
+    private JList<ProductoEnPromocion> listaProductosEnPromocion;
+    private JList<PromocionTemporal> listaPromocionesTemporales;
     private JLabel fechaHoraLabel2;
     //MODELOS PARA LISTA
     DefaultListModel<Comanda> modeloComanda = new DefaultListModel<>();
@@ -86,6 +88,11 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
         nuevaComandaButton.addActionListener(controlador);
         editarComandaButton.addActionListener(controlador);
         cerrarComandaButton.addActionListener(controlador);
+    }
+
+    @Override
+    public void setListSelectionListener() {
+        this.listaComandas.addListSelectionListener(this);
     }
 
     @Override
@@ -136,7 +143,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
 
     @Override
     public void setModelos() {
-        this.listaComandasAbiertas.setModel(modeloComanda);
+        this.listaComandas.setModel(modeloComanda);
         this.listaFacturas.setModel(modeloFactura);
         this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
         this.listaPromocionesTemporales.setModel(modeloPromocionGeneral);
@@ -147,6 +154,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
         ArrayList<Comanda> comandas = Cerveceria.getInstance().getComandas();
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
         ArrayList<IPromocion> promociones = Cerveceria.getInstance().getPromociones();
+
         comandas.forEach((comanda) -> {
             this.modeloComanda.add(modeloComanda.size(), comanda);
         });
@@ -160,7 +168,22 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
 
     @Override
     public Comanda getComandaSeleccionada() {
-        return (this.listaComandasAbiertas == null ? null : (Comanda) this.listaComandasAbiertas.getSelectedValue());
+        return this.listaComandas.getSelectedValue();
+    }
+
+    @Override
+    public Factura getFacturaSeleccionada() {
+        return this.listaFacturas.getSelectedValue();
+    }
+
+    @Override
+    public ProductoEnPromocion getProductoEnPromocionSeleccionado() {
+        return this.listaProductosEnPromocion.getSelectedValue();
+    }
+
+    @Override
+    public PromocionTemporal getPromocionTemporalSeleccionada() {
+        return this.listaPromocionesTemporales.getSelectedValue();
     }
 
     @Override
@@ -179,6 +202,18 @@ public class VentanaOperario extends JFrame implements IVistaOperario {
             case 2 -> this.comandasButton.setBackground(Color.decode("#FFFFFF"));
             case 3 -> this.facturasButton.setBackground(Color.decode("#FFFFFF"));
             case 4 -> this.promocionesButton.setBackground(Color.decode("#FFFFFF"));
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        //COMANDAS
+        this.editarComandaButton.setEnabled(false);
+        this.cerrarComandaButton.setEnabled(false);
+
+        if (listaComandas.getSelectedValue() != null) {
+            this.editarComandaButton.setEnabled(true);
+            this.cerrarComandaButton.setEnabled(true);
         }
     }
 }
