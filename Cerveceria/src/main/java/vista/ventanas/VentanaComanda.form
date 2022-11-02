@@ -61,6 +61,7 @@
             <properties>
               <actionCommand value="Accion"/>
               <background color="-12417778"/>
+              <enabled value="false"/>
               <focusable value="false"/>
               <font name="Inter" size="32" style="1"/>
               <foreground color="-1"/>
@@ -84,7 +85,7 @@
               <text value="Cancelar"/>
             </properties>
           </component>
-          <scrollpane id="20de0">
+          <scrollpane id="20de0" binding="pedidosScrollPane">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="640" height="180"/>
@@ -105,6 +106,9 @@
                   <font name="Inter" size="20" style="0"/>
                   <foreground color="-16777216"/>
                   <model/>
+                  <selectionBackground color="-533952"/>
+                  <selectionForeground color="-11053225"/>
+                  <selectionMode value="0"/>
                   <valueIsAdjusting value="false"/>
                 </properties>
               </component>
@@ -136,6 +140,7 @@
             </constraints>
             <properties>
               <background color="-679164"/>
+              <enabled value="false"/>
               <focusable value="false"/>
               <font name="Inter" size="20" style="1"/>
               <foreground color="-1"/>
@@ -152,6 +157,7 @@
             </constraints>
             <properties>
               <background color="-679164"/>
+              <enabled value="false"/>
               <focusable value="false"/>
               <font name="Inter" size="20" style="1"/>
               <foreground color="-1"/>
@@ -222,7 +228,7 @@
                   <text value="Mesa:"/>
                 </properties>
               </component>
-              <component id="9582a" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="9582a" class="javax.swing.JComboBox" binding="mesaComboBox">
                 <constraints>
                   <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="100" height="30"/>
@@ -231,7 +237,9 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <actionCommand value="Selecciona Mesa"/>
                   <background color="-2500135"/>
+                  <font name="Inter" size="20" style="1"/>
                 </properties>
               </component>
               <hspacer id="40936">

@@ -68,6 +68,8 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
     private JList<Factura> listaFacturas;
     private JList<ProductoEnPromocion> listaProductosEnPromocion;
     private JList<PromocionTemporal> listaPromocionesTemporales;
+    private JScrollPane productoEnPromocionScrollPane;
+    private JScrollPane promocionesTemporalesScrollPane;
     private JLabel fechaHoraLabel2;
     //MODELOS PARA LISTA
     DefaultListModel<Comanda> modeloComanda = new DefaultListModel<>();
@@ -164,6 +166,11 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
         });
 
         //RESOLVER TEMA PROMOCIONES
+    }
+
+    @Override
+    public void actualizaLista() {
+
     }
 
     @Override

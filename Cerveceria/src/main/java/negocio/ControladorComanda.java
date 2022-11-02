@@ -1,5 +1,6 @@
 package negocio;
 
+import modelo.Cerveceria;
 import modelo.Comanda;
 import modelo.Pedido;
 import vista.interfaces.IVistaComanda;
@@ -16,18 +17,27 @@ public class ControladorComanda implements ActionListener {
         this.vista = vista;
 
         this.vista.setActionListener(this);
+        this.vista.setListSelectionListener();
         this.vista.setFecha(modelo.getFecha());
+        this.vista.inicializaComboBox(Cerveceria.getInstance().getMesas());
         this.vista.inicializarLista(modelo.getPedidos());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Nuevo Pedido" -> creaOtraVentana("Nuevo Pedido");
-            case "Editar Pedido" -> creaOtraVentana("Editar Pedido");
+            case "Nuevo Pedido" -> {
+                creaOtraVentana("Nuevo Pedido");
+                vista.actualizaLista();
+            }
+            case "Editar Pedido" -> {
+                creaOtraVentana("Editar Pedido");
+                vista.actualizaLista();
+            }
             case "Eliminar Pedido" -> {
                 Pedido pedidoSeleccionado = vista.getPedidoSeleccionado();
                 //ACA TENGO QUE ELIMINAR DEL ARRAY EL PEDIDO
+                vista.actualizaLista();
             }
             case "Accion" -> {
                 //ACA DEBO GUARDAR/SOBREESCRIBIR LA COMANDA
