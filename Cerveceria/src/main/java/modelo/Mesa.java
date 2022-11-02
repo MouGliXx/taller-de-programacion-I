@@ -11,8 +11,8 @@ public class Mesa {
         this.estado = "Libre";
     }
 
-    public Mesa(int nro, int cantidadComensales, String estado) {
-        this.nro = nro; //Asigno 'sig' pero desde la ventana
+    public Mesa(int cantidadComensales, String Estado) {
+        //this.nro = nro; //Asigno 'sig' pero desde la ventana
         this.cantidadComensales = cantidadComensales;
         this.estado = estado;
     }

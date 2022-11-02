@@ -31,7 +31,7 @@ public class ControladorFactura implements ActionListener {
     private void crearFactura() {
         String formaDePago = vista.getFormaDePago();
         modelo.setFormaDePago(formaDePago);
-        Cerveceria.getInstance().agregarFactura(modelo);
+        //Cerveceria.getInstance().agregarFactura(modelo);
     }
 }
 

@@ -16,14 +16,14 @@ public class Prueba {
 
         for (int t=0;t<5;t++) {
             try {
-                cerveza.agregarMesa();
+                cerveza.agregarMesa(2, "Activo");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-        cerveza.agregarMozo(new Mozo("Lautaro", LocalDate.of (2000,12,12),1,0));
-        cerveza.agregarMozo(new Mozo("Ignacio", LocalDate.of (2000,12,12),1,0));
-        cerveza.agregarMozo(new Mozo("Tomas", LocalDate.of (2000,12,12),1,0));
+        cerveza.agregarMozo("Lautaro", LocalDate.of (2000,12,12),1,"Activo");
+        cerveza.agregarMozo("Ignacio", LocalDate.of (2000,12,12),1,"Activo");
+        cerveza.agregarMozo("Tomas", LocalDate.of (2000,12,12),1,"Activo");
 
 
         System.out.println("AGREGO 3 MOZOS");
@@ -45,22 +45,22 @@ public class Prueba {
             System.out.println(entry.getKey().toString() + " Asignado " + entry.getValue().toString());
         }
 
-        cerveza.guardarProducto(1,"Cerveza",200,260,2);
-        cerveza.guardarProducto(2,"Coca-Cola",150,200,20);
-        cerveza.guardarProducto(3,"Agua",100,150,20);
-        cerveza.guardarProducto(4,"Sprite",250,300,20);
+        cerveza.agregarProducto(1,"Cerveza",200,260,2);
+        cerveza.agregarProducto(2,"Coca-Cola",150,200,20);
+        cerveza.agregarProducto(3,"Agua",100,150,20);
+        cerveza.agregarProducto(4,"Sprite",250,300,20);
 
         Pedido p1 = new Pedido();
-        cerveza.nuevoPedido(p1,cerveza.getProductos().get(2),2);
+        cerveza.agregarPedido(p1,cerveza.getProductos().get(2),2);
 
         try {
-            cerveza.nuevaComanda(cerveza.getMesas().get(0));
+            cerveza.agregarComanda(cerveza.getMesas().get(0));
             cerveza.agregarPedidoAComanda(cerveza.getComandas().get(0), p1);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-        cerveza.nuevaFactura(cerveza.getComandas().get(0));
+        cerveza.agregarFactura(cerveza.getComandas().get(0));
         cerveza.cerrarComanda(cerveza.getComandas().get(0));
         System.out.println(cerveza.getFacturas().get(0).toString());
 

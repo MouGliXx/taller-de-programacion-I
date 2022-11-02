@@ -2,6 +2,8 @@ package modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -147,19 +149,59 @@ public class Cerveceria {
         throw new ErrorDeUsuarioException("Nombre de usuario invalido: " + username);
     }
 
-    public void agregarMozo(Mozo mozo){
+    // AGREGAR
+
+    public void agregarAdministrador(String nombre, String contrasena) throws Exception{
+        if (nombre.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
+        if (contrasena.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
+        this.administrador = new Administrador(nombre, contrasena);
+    }
+
+    /**
+     * <b>pre:</b> La lista de mesas debe existir <br>.
+     * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
+     * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
+     */
+    public void agregarMesa(int cantidadComensales, String estado) throws Exception{
+        if (this.mesas.size()>= totalMaximoMesas)
+            throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
+        this.mesas.add(new Mesa(cantidadComensales, estado));
+    }
+    public void agregarMozo(String nombre, LocalDate fechaNac, int hijos, String estado ) throws Exception {
+        if (nombre == "")
+            throw new Exception("ERROR : Nombre vacio");
+        if (hijos <0)
+            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+        if (hijos <0)
+            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+        Mozo mozo = new Mozo(nombre, fechaNac, hijos,estado);
         this.getMozos().add(mozo);
     }
 
-    public void eliminarMozo(Mozo mozoViejo){
-        for (int i = 0 ; i < mozos.size() ; i++){
-            if (this.mozos.get(i).equals(mozoViejo)) {
-                this.mozos.remove(i);
-                break;
-            }
-        }
+    public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
+        if (nombre == "")
+            throw new Exception("ERROR : Nombre vacio");
+        if (nombreUsuario.length() < 5)
+            throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
+        if (contrasena.length() < 8)
+            throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
+        Operario operario = new Operario(nombre, nombreUsuario, contrasena, activo);
+        this.getOperarios().add(operario);
     }
-    public boolean hayDosProductosPromocionActiva(){return true;}
+
+    /**
+     * <b>pre:</b> <br>.
+     * El metodo crea añade una nueva factura a la lista de Facturas
+     * @throws Exception Se lanza excepción si la comanda es null
+     * <b>post:</b> La lista de facturas tendra una nueva<br>.
+     */
+    public void agregarFactura(Comanda comanda) throws Exception {
+        if (comanda == null)
+            throw new Exception("ERROR : No se puede crear factura sin comanda");
+        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones));
+    }
 
     // Hay que verificar
     //1. No es posible crear una nueva comanda si el local
@@ -184,7 +226,7 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la lista de productos esta vacia.
      * <b>post:</b> Se agregara a la lista de comandas una nueva y la mesa pasara a estado ocupado<br>.
      */
-    public void nuevaComanda( Mesa mesa) throws Exception {
+    public void agregarComanda( Mesa mesa) throws Exception {
         assert mesa!=null:"ERROR : La mesa no debe ser null";
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
@@ -204,6 +246,7 @@ public class Cerveceria {
         this.comandas.add(comanda);
         mesa.ocupar();
     }
+
     /**
      * <b>pre:</b> comanda y pedido deben ser distintos de null, El pedido debe tener por lo menos un producto<br>.
      * @param comanda Comanda a la cual se le va a agregar un Pedido
@@ -224,6 +267,136 @@ public class Cerveceria {
         pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()-pedido.getCantidad());
 
     }
+
+    /**
+     * <b>pre:</b> El pedido no debe ser null <br>.
+     * El metodo setea el Producto y la cantidad de un nuevo pedido
+     * @throws Exception Se lanza excepción si el prodcuto es null
+     * @throws Exception Se lanza excepción si la cantidad es menor o igual a cero
+     * <b>post:</b> Los atributos Pedido y Cantidad del pedido estaran seteados<br>.
+     */
+    public void agregarPedido(Pedido pedido, Producto producto, int cantidad) throws Exception {
+        assert pedido!=null:"ERROR el pedido no puede der null";
+        if (producto == null)
+            throw new Exception("ERROR : No se puede crear pedido sin producto");
+        if (cantidad <= 0 )
+            throw new Exception("ERROR : No se puede crear pedido con cantidad <=0");
+        pedido.setProducto(producto);
+        pedido.setCantidad(cantidad);
+    }
+
+    public void agregarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+        if (precioVenta>=precioCosto){
+            if(precioVenta>0){
+                if(precioCosto>0) {
+                    if(this.productos.containsKey(nro)){
+                        Producto producto=productos.get(nro);
+                        producto.setNombre(nombre);
+                        producto.setPrecioCosto(precioCosto);
+                        producto.setPrecioVenta(precioVenta);
+                        producto.setStockInicial(stockInicial);
+                    }
+                    else this.productos.put(nro,new Producto(nro, nombre, precioCosto, precioVenta, stockInicial));
+                }
+                else throw new Exception("El precio de costo es menor a cero");
+            }
+            else throw new Exception("El precio de venta es menor a cero");
+        }
+        else throw new Exception("El precio de venta es menor al de costo");
+    }
+
+    // ELIMINAR
+    public void eliminarMozo(Mozo mozoViejo){
+        assert mozoViejo!=null:"ERROR : El mozo no puede ser null";
+        for (int i = 0 ; i < mozos.size() ; i++){
+            if (this.mozos.get(i).equals(mozoViejo)) {
+                this.mozos.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void eliminarMesa(Mesa mesa) throws Exception {
+        assert mesa!=null:"ERROR : La mesa no puede ser null";
+        this.mesas.remove(mesa);
+    }
+
+    public void eliminarOperario(Operario operario) throws Exception {
+        assert operario!=null:"ERROR : El operario no puede ser null";
+        this.operarios.remove(operario);
+    }
+
+    public void eliminarProducto(Producto producto) throws Exception{
+        for (int i=0;i<comandas.size();i++){
+            ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
+            for (int j=0;j<pedidos.size();j++){
+                if(producto.getNro()==pedidos.get(j).getProducto().getNro()){
+                    throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
+                }
+            }
+        }
+        this.productos.remove(producto);
+    }
+
+    // MODIFICAR
+
+    public void modificarAdministrador(Administrador administrador,String nombre, String contrasena) throws Exception{
+        if (nombre.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
+        if (contrasena.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
+        this.administrador.setUsername(nombre);
+        this.administrador.setPassword(contrasena);
+    }
+    public void modificarMesa(Mesa mesa, int cantidadComensales) throws Exception {
+        assert mesa!=null:"ERROR : La mesa no puede ser null";
+        if (cantidadComensales<2)
+            throw new Exception("ERROR : La cantidad de comensales no puede ser menor a 2");
+        mesa.setCantidadComensales(cantidadComensales);
+    }
+
+    public void modificarMozo(Mozo mozo,String nombre, LocalDate fechaNac, int hijos, String estado ) throws Exception {
+        if (nombre == "")
+            throw new Exception("ERROR : Nombre vacio");
+        if (hijos <0)
+            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+        if (hijos <0)
+            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+        mozo.setNombreYApellido(nombre);
+        mozo.setFechaNacimiento(fechaNac);
+        mozo.setEstado(estado);
+        mozo.setCantHijos(hijos);
+    }
+
+    public void modificarOperario(Operario operario,String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
+        if (nombre == "")
+            throw new Exception("ERROR : Nombre vacio");
+        if (nombreUsuario.length() < 5)
+            throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
+        if (contrasena.length() < 8)
+            throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
+        operario.setNombreCompleto(nombre);
+        operario.setNombreUsuario(nombreUsuario);
+        operario.setContrasena(contrasena);
+        operario.setActivo(activo);
+    }
+
+    public void modificarProducto (Producto producto,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+        if (precioVenta>=precioCosto)
+            throw new Exception("El precio de venta es menor al de costo");
+        if(precioCosto>0)
+            throw new Exception("El precio de costo es menor a cero");
+        if(precioVenta>0)
+            throw new Exception("El precio de venta es menor a cero");
+        producto.setNombre(nombre);
+        producto.setPrecioCosto(precioCosto);
+        producto.setPrecioVenta(precioVenta);
+        producto.setStockInicial(stockInicial);
+    }
+
+    public boolean hayDosProductosPromocionActiva(){return true;}
+
+
 
     // TESTEAR -
     // Si se intenta cerrar una comanda que se encuentra cerrada,
@@ -248,26 +421,8 @@ public class Cerveceria {
         this.comandas.remove(comanda);
     }
 
-    /**
-     * <b>pre:</b> La lista de mesas debe existir <br>.
-     * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
-     * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
-     */
-    public void agregarMesa() throws Exception{
-        if (this.mesas.size()>= totalMaximoMesas)
-            throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
-        this.mesas.add(new Mesa());
-    }
 
-    public void eliminarMesa(Mesa mesa) throws Exception {
-        if (mesa == null)
-            throw new Exception("Debe seleccionar mesa");
-        this.mesas.remove(mesa);
-    }
 
-    public void agregarFactura(Factura factura) {
-        facturas.add(factura);
-    }
 
     /**
      * <b>pre:</b> <br>.
@@ -300,72 +455,9 @@ public class Cerveceria {
         ArrayList<Mozo> activos = new ArrayList<Mozo>();
 
         for (int q = 0 ; q < this.mozos.size(); q++){
-            if (mozos.get(q).getEstado() == 0)
+            if (mozos.get(q).getEstado().equalsIgnoreCase("Activo"))
                 activos.add(mozos.get(q));
         }
-
         return activos;
-    }
-
-    /**
-     * <b>pre:</b> El pedido no debe ser null <br>.
-     * El metodo setea el Producto y la cantidad de un nuevo pedido
-     * @throws Exception Se lanza excepción si el prodcuto es null
-     * @throws Exception Se lanza excepción si la cantidad es menor o igual a cero
-     * <b>post:</b> Los atributos Pedido y Cantidad del pedido estaran seteados<br>.
-     */
-    public void nuevoPedido(Pedido pedido, Producto producto, int cantidad) throws Exception {
-        assert pedido!=null:"ERROR el pedido no puede der null";
-        if (producto == null)
-            throw new Exception("ERROR : No se puede crear pedido sin producto");
-        if (cantidad <= 0 )
-            throw new Exception("ERROR : No se puede crear pedido con cantidad <=0");
-        pedido.setProducto(producto);
-        pedido.setCantidad(cantidad);
-    }
-
-    public void guardarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
-        if (precioVenta>=precioCosto){
-            if(precioVenta>0){
-                if(precioCosto>0) {
-                    if(this.productos.containsKey(nro)){
-                        Producto producto=productos.get(nro);
-                        producto.setNombre(nombre);
-                        producto.setPrecioCosto(precioCosto);
-                        producto.setPrecioVenta(precioVenta);
-                        producto.setStockInicial(stockInicial);
-                    }
-                    else this.productos.put(nro,new Producto(nro, nombre, precioCosto, precioVenta, stockInicial));
-                }
-                else throw new Exception("El precio de costo es menor a cero");
-            }
-            else throw new Exception("El precio de venta es menor a cero");
-        }
-        else throw new Exception("El precio de venta es menor al de costo");
-    }
-
-    public void eliminarProducto(Producto producto) throws Exception{
-        for (int i=0;i<comandas.size();i++){
-            ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
-            for (int j=0;j<pedidos.size();j++){
-                if(producto.getNro()==pedidos.get(j).getProducto().getNro()){
-                    throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
-                }
-            }
-        }
-        this.productos.remove(producto);
-    }
-
-
-    /**
-     * <b>pre:</b> <br>.
-     * El metodo crea añade una nueva factura a la lista de Facturas
-     * @throws Exception Se lanza excepción si la comanda es null
-     * <b>post:</b> La lista de facturas tendra una nueva<br>.
-     */
-    public void nuevaFactura(Comanda comanda) throws Exception {
-        if (comanda == null)
-            throw new Exception("ERROR : No se puede crear factura sin comanda");
-        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones));
     }
 }

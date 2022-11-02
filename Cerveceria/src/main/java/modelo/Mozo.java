@@ -1,15 +1,16 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Mozo {
     private String nombreYApellido;
     private LocalDate fechaNacimiento; //RESOLVER
     private int cantHijos;
-    private int estado; // 0-> activo 1->ausente 2->de franco // un invariable podria ser que el estado nunca sea != a 0,1,2
+    private String estado; // 0-> activo 1->ausente 2->de franco // un invariable podria ser que el estado nunca sea != a 0,1,2
 
     //CONSTRUCTOR
-    public Mozo(String nombre, LocalDate fechaNacimiento, int cantHijos, int estado) throws Exception {
+    public Mozo(String nombre, LocalDate fechaNacimiento, int cantHijos, String estado) throws Exception {
         this.nombreYApellido = nombre;
         this.estado = estado;
 //        if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
@@ -20,11 +21,11 @@ public class Mozo {
 
     //@precondion : fechaNacimiento tiene que ser != NULL
     // retorna true si la edad es mayor o igual a 18 anos
-    public boolean esMayorDeEdad(LocalDate fecha){
-        LocalDate start = LocalDate.of( 2010 , 1 , 1 ) ;
-        long years = java.time.temporal.ChronoUnit.YEARS.between( start , fecha );
-        return years >= 0 ;
-    }
+    //public boolean esMayorDeEdad(Date fecha){
+       // Date start = Date.from( 2010 , 1 , 1 ) ;
+        //long years = java.time.temporal.ChronoUnit.YEARS.between( start , fecha );
+        //return years >= 0 ;
+    //}
 
     public String getNombreYApellido() {
         return nombreYApellido;
@@ -50,23 +51,23 @@ public class Mozo {
         this.cantHijos = cantHijos;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
     public void setEstadoActivo(){
-        this.setEstado(0);
+        this.setEstado("Activo");
     }
 
     public void setEstadoAusente(){
-        this.setEstado(1);
+        this.setEstado("Ausente");
     }
 
     public void setEstadoFranco(){
-        this.setEstado(2);
+        this.setEstado("Franco");
     }
 
-    private void setEstado(int estado){
+    public void setEstado(String estado){
         this.estado = estado;
     }
 
