@@ -1,11 +1,7 @@
 package vista.interfaces;
 
-import modelo.Mesa;
-import modelo.Mozo;
-import modelo.Operario;
-import modelo.Producto;
+import modelo.*;
 
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.WindowListener;
 
 public interface IVistaAdministrador extends IVista {
@@ -18,13 +14,7 @@ public interface IVistaAdministrador extends IVista {
 
     void setModelos();
 
-    void actualizaListaOperarios();
-
-    void actualizaListaMozos();
-
-    void actualizaListaProductos();
-
-    void actualizaListaMesas();
+    void actualizaLista(String nombreLista);
 
     void inicializarListas();
 
@@ -44,7 +34,9 @@ public interface IVistaAdministrador extends IVista {
 
     String getTipoPromocionSeleccionada();
 
-    String getPromocionSeleccionada();
+    ProductoEnPromocion getProductoEnPromocionSeleccionado();
+
+    PromocionTemporal getPromocionTemporalSeleccionada();
 
     void cambiarPagina(int pagina);
 }

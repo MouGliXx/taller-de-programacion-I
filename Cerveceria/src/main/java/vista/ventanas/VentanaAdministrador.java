@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener, ListSelectionListener {
     private String tipoEntidadSeleccionada = "Operarios";
-    private String promocionSeleccionada;
+    private String promocionSeleccionada = "Productos en promocion";
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
     private JButton estadisticasButton;
@@ -42,7 +42,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JButton activarButton;
     private JPanel promocionesPanel;
     private JLabel promocionesLabel;
-    private JList listaPromocionesTemporales;
+    private JList<ProductoEnPromocion> listaProductosEnPromocion;
     private JPanel estadisticasPanel;
     private JCheckBox mesasDelLocalCheckBox;
     private JCheckBox productosEnVentaCheckBox;
@@ -61,13 +61,18 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JScrollPane mesasScrollPane;
     private JList<Producto> listaProductos;
     private JList<Mesa> listaMesas;
+    private JTabbedPane promocionesTabbedPane;
+    private JScrollPane productosEnPromocionScrollPane;
+    private JPanel tiposPromocionesPane;
+    private JScrollPane promocionesTemporalesScrollPane;
+    private JList<PromocionTemporal> listaPromocionesTemporales;
     //MODELOS PARA LISTAS
     DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
     DefaultListModel<Producto> modeloProducto = new DefaultListModel<>();
     DefaultListModel<Mesa> modeloMesa = new DefaultListModel<>();
     DefaultListModel<ProductoEnPromocion> modeloProductoEnPromocion = new DefaultListModel<>();
-    DefaultListModel<PromocionTemporal> modeloPromocionGeneral = new DefaultListModel<>();
+    DefaultListModel<PromocionTemporal> modeloPromocionTemporal = new DefaultListModel<>();
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -90,7 +95,9 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.nuevaPromocionButton.addActionListener(controlador);
         this.eliminarPromocionButton.addActionListener(controlador);
         this.activarButton.addActionListener(controlador);
+        this.activarButton.addActionListener(this);
         this.desactivarButton.addActionListener(controlador);
+        this.desactivarButton.addActionListener(this);
         this.generarEstadisticasButton.addActionListener(controlador);
         //CHECKBOXS
         this.operariosCheckBox.addActionListener(this);
@@ -113,6 +120,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaMozos.addListSelectionListener(this);
         this.listaProductos.addListSelectionListener(this);
         this.listaMesas.addListSelectionListener(this);
+        this.listaProductosEnPromocion.addListSelectionListener(this);
+        this.listaPromocionesTemporales.addListSelectionListener(this);
     }
 
     @Override
@@ -151,26 +160,20 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaMozos.setModel(modeloMozo);
         this.listaProductos.setModel(modeloProducto);
         this.listaMesas.setModel(modeloMesa);
+        this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
+        this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
     @Override
-    public void actualizaListaOperarios() {
-        modeloOperario.remove(listaOperarios.getSelectedIndex());
-    }
-
-    @Override
-    public void actualizaListaMozos() {
-        modeloMozo.remove(listaMozos.getSelectedIndex());
-    }
-
-    @Override
-    public void actualizaListaProductos() {
-        modeloProducto.remove(listaProductos.getSelectedIndex());
-    }
-
-    @Override
-    public void actualizaListaMesas() {
-        modeloMesa.remove(listaMesas.getSelectedIndex());
+    public void actualizaLista(String nombreLista) {
+        switch (nombreLista) {
+            case "Operarios" -> modeloOperario.remove(listaOperarios.getSelectedIndex());
+            case "Mozos" -> modeloMozo.remove(listaMozos.getSelectedIndex());
+            case "Productos en venta" -> modeloProducto.remove(listaProductos.getSelectedIndex());
+            case "Mesas del local" -> modeloMesa.remove(listaMesas.getSelectedIndex());
+            case "Productos en promocion" -> modeloProductoEnPromocion.remove(listaProductosEnPromocion.getSelectedIndex());
+            case "Promociones temporales" -> modeloPromocionTemporal.remove(listaPromocionesTemporales.getSelectedIndex());
+        }
     }
 
     @Override
@@ -183,9 +186,13 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
             e.printStackTrace();
         }
 
-        modeloProducto.add(modeloProducto.size(), new Producto(2,"Coca-Cola",150,200,20));
+        Producto p1 = new Producto(2,"Coca-Cola",150,200,20);
+
+        modeloProducto.add(modeloProducto.size(), p1);
         modeloProducto.add(modeloProducto.size(), new Producto(3,"Agua",100,150,20));
         modeloProducto.add(modeloProducto.size(), new Producto(4,"Sprite",250,300,20));
+
+        modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), new ProductoEnPromocion(1, p1, null, true, false, true));
     }
 
     @Override
@@ -229,8 +236,13 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
-    public String getPromocionSeleccionada() {
-        return promocionSeleccionada;
+    public ProductoEnPromocion getProductoEnPromocionSeleccionado() {
+        return this.listaProductosEnPromocion.getSelectedValue();
+    }
+
+    @Override
+    public PromocionTemporal getPromocionTemporalSeleccionada() {
+        return this.listaPromocionesTemporales.getSelectedValue();
     }
 
     @Override
@@ -256,50 +268,54 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         switch (e.getActionCommand()) {
             case "Editar Cerveceria" -> editarTituloButton.setEnabled(false);
             case "Editar Remuneracion" -> editarRemuneracionButton.setEnabled(false);
-            default -> {
-                //ENTIDADES
-                if (this.operariosCheckBox.isSelected() || this.mozosCheckBox.isSelected() || this.productosEnVentaCheckBox.isSelected() || this.mesasDelLocalCheckBox.isSelected()) {
-                    this.agregarButton.setEnabled(true);
-                    this.modificarButton.setEnabled(false);
-                    this.eliminarButton.setEnabled(false);
+            case "Operarios", "Mozos", "Productos en venta", "Mesas del local" -> {
+                this.agregarButton.setEnabled(true);
+                this.modificarButton.setEnabled(false);
+                this.eliminarButton.setEnabled(false);
 
-                    if (this.operariosCheckBox.isSelected()) {
-                        this.tipoEntidadSeleccionada = "Operarios";
-                        this.entidadesTabbedPane.setSelectedIndex(0);
-                    }
-
-                    if (this.mozosCheckBox.isSelected()) {
-                        this.tipoEntidadSeleccionada = "Mozos";
-                        this.entidadesTabbedPane.setSelectedIndex(1);
-                    }
-
-                    if (this.productosEnVentaCheckBox.isSelected()) {
-                        this.tipoEntidadSeleccionada = "Productos en venta";
-                        this.entidadesTabbedPane.setSelectedIndex(2);
-                    }
-
-                    if (this.mesasDelLocalCheckBox.isSelected()) {
-                        this.tipoEntidadSeleccionada = "Mesas del local";
-                        this.entidadesTabbedPane.setSelectedIndex(3);
-                    }
-
+                if (this.operariosCheckBox.isSelected()) {
+                    this.tipoEntidadSeleccionada = "Operarios";
+                    this.entidadesTabbedPane.setSelectedIndex(0);
                 }
 
-                //PROMOCIONES
-                if (this.productosEnPromocionCheckBox.isSelected() || this.promocionesTemporalesCheckBox.isSelected()) {
-                    this.activarButton.setEnabled(true);
-                    this.desactivarButton.setEnabled(true);
-                    this.nuevaPromocionButton.setEnabled(true);
-                    this.eliminarPromocionButton.setEnabled(true);
-
-                    if (this.productosEnPromocionCheckBox.isSelected()) {
-                        this.promocionSeleccionada = "Productos en promocion";
-                    }
-
-                    if (this.promocionesTemporalesCheckBox.isSelected()) {
-                        this.promocionSeleccionada = "Promociones temporales";
-                    }
+                if (this.mozosCheckBox.isSelected()) {
+                    this.tipoEntidadSeleccionada = "Mozos";
+                    this.entidadesTabbedPane.setSelectedIndex(1);
                 }
+
+                if (this.productosEnVentaCheckBox.isSelected()) {
+                    this.tipoEntidadSeleccionada = "Productos en venta";
+                    this.entidadesTabbedPane.setSelectedIndex(2);
+                }
+
+                if (this.mesasDelLocalCheckBox.isSelected()) {
+                    this.tipoEntidadSeleccionada = "Mesas del local";
+                    this.entidadesTabbedPane.setSelectedIndex(3);
+                }
+            }
+            case "Productos en promocion", "Promociones temporales" -> {
+                this.nuevaPromocionButton.setEnabled(true);
+                this.eliminarPromocionButton.setEnabled(false);
+                this.activarButton.setVisible(false);
+                this.desactivarButton.setVisible(false);
+
+                if (this.productosEnPromocionCheckBox.isSelected()) {
+                    this.promocionSeleccionada = "Productos en promocion";
+                    this.promocionesTabbedPane.setSelectedIndex(0);
+                }
+
+                if (this.promocionesTemporalesCheckBox.isSelected()) {
+                    this.promocionSeleccionada = "Promociones temporales";
+                    this.promocionesTabbedPane.setSelectedIndex(1);
+                }
+            }
+            case "Activar Promocion" -> {
+                this.activarButton.setVisible(false);
+                this.desactivarButton.setVisible(true);
+            }
+            case "Desactivar Promocion" -> {
+                this.activarButton.setVisible(true);
+                this.desactivarButton.setVisible(false);
             }
         }
     }
@@ -324,13 +340,42 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        //ENTIDADES
         this.modificarButton.setEnabled(false);
         this.eliminarButton.setEnabled(false);
-
         if (listaOperarios.getSelectedValue() != null || listaMozos.getSelectedValue() != null || listaProductos.getSelectedValue() != null || listaMesas.getSelectedValue() != null) {
             this.modificarButton.setEnabled(true);
             this.eliminarButton.setEnabled(true);
         }
+
+        //PROMOCIONES
+        this.eliminarPromocionButton.setEnabled(false);
+        this.activarButton.setVisible(false);
+        this.desactivarButton.setVisible(false);
+        if (listaProductosEnPromocion.getSelectedValue() != null || listaPromocionesTemporales.getSelectedValue() != null) {
+
+        }
+        if (listaProductosEnPromocion.getSelectedValue() != null) {
+            this.eliminarPromocionButton.setEnabled(true);
+
+            if (listaProductosEnPromocion.getSelectedValue().isActiva()) {
+                this.desactivarButton.setVisible(true);
+            } else {
+                this.activarButton.setVisible(true);
+            }
+        }
+
+        if (listaPromocionesTemporales.getSelectedValue() != null) {
+            this.eliminarPromocionButton.setEnabled(true);
+
+            if (listaPromocionesTemporales.getSelectedValue().isActiva()) {
+                this.desactivarButton.setVisible(true);
+            } else {
+                this.activarButton.setVisible(true);
+            }
+        }
+
+
     }
 
     //METODOS NO USADOS

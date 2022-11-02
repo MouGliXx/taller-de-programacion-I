@@ -1,9 +1,6 @@
 package vista.ventanas;
 
-import modelo.Mesa;
-import modelo.Mozo;
-import modelo.Operario;
-import modelo.Producto;
+import modelo.*;
 import vista.interfaces.IVistaEntidad;
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -128,10 +125,12 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
             case "Producto" -> {
                 this.entidad = "Producto";
                 this.panelCentral.setSelectedIndex(2);
+                this.IDLabel.setText(String.valueOf(Cerveceria.getInstance().getProductos().size()));
             }
             case "Mesa" -> {
                 this.entidad = "Mesa";
                 this.panelCentral.setSelectedIndex(3);
+                this.NMesaLabel.setText(String.valueOf(Cerveceria.getInstance().getMesas().size() + 1) ); //El 0 es la barra
                 accionButton.setEnabled(true); //No borrar
             }
         }

@@ -39,18 +39,18 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Operarios" -> {
                         Operario operario = vista.getOperarioSeleccionado();
                         //REMOVER OPERARIO
-                        vista.actualizaListaOperarios();
+                        vista.actualizaLista("Operarios");
                     }
                     case "Mozos" -> {
                         Mozo mozo = vista.getMozoSeleccionado();
                         Cerveceria.getInstance().eliminarMozo(mozo);
-                        vista.actualizaListaMozos();
+                        vista.actualizaLista("Mozos");
                     }
                     case "Productos en venta" -> {
                         Producto producto = vista.getProductoSeleccionado();
                         Cerveceria.getInstance().getProductos().remove(producto.getNro());
                         //REMOVER PRODUCTO
-                        vista.actualizaListaProductos();
+                        vista.actualizaLista("Productos en venta");
                     }
                     case "Mesas del local" -> {
                         Mesa mesa = vista.getMesaSeleccionado();
@@ -59,19 +59,50 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
-                        vista.actualizaListaMesas();
+                        vista.actualizaLista("Mesas del local");
                     }
                 }
             }
             case "Activar Promocion" -> {
-
+                switch (vista.getTipoPromocionSeleccionada()) {
+                    case "Productos en promocion" -> {
+                        ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
+                        productoEnPromocion.setActiva(true);
+                    }
+                    case "promociones temporales" -> {
+                        PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
+                        promocionTemporal.setActiva(true);
+                    }
+                }
             }
             case "Desactivar Promocion" -> {
+                switch (vista.getTipoPromocionSeleccionada()) {
+                    case "Productos en promocion" -> {
+                        ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
+                        productoEnPromocion.setActiva(false);
 
+                    }
+                    case "promociones temporales" -> {
+                        PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
+                        promocionTemporal.setActiva(false);
+
+                    }
+                }
             }
             case "Nueva Promocion" -> creaOtraVentana("Nueva Promocion");
             case "Eliminar Promocion" -> {
-
+                switch (vista.getTipoPromocionSeleccionada()) {
+                    case "Productos en promocion" -> {
+                        ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
+                        //ELIMINAR PROMOCION
+                        vista.actualizaLista("Productos en promocion");
+                    }
+                    case "promociones temporales" -> {
+                        PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
+                        //ELIMINAR PROMOCION
+                        vista.actualizaLista("Promociones temporales");
+                    }
+                }
             }
             case "Generar Estadistica" -> {
 
