@@ -178,22 +178,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
     @Override
     public void inicializarListas() {
-        try {
-            modeloMozo.add(modeloMozo.size(), new Mozo("Lautaro", LocalDate.of (2000,12,12),1,0));
-            modeloMozo.add(modeloMozo.size(), new Mozo("Ignacio", LocalDate.of (2000,12,12),1,0));
-            modeloMozo.add(modeloMozo.size(), new Mozo("Tomas", LocalDate.of (2000,12,12),1,0));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        Producto p1 = new Producto(2,"Coca-Cola",150,200,20);
-
-        modeloProducto.add(modeloProducto.size(), p1);
-        modeloProducto.add(modeloProducto.size(), new Producto(3,"Agua",100,150,20));
-        modeloProducto.add(modeloProducto.size(), new Producto(4,"Sprite",250,300,20));
-
-        modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), new ProductoEnPromocion(1, p1, null, true, false, true));
-    }
+   }
 
     @Override
     public String getNombreLocal() {

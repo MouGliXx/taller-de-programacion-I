@@ -5,7 +5,6 @@ import modelo.Factura;
 import modelo.ProductoEnPromocion;
 import modelo.PromocionTemporal;
 
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.WindowListener;
 
 public interface IVistaOperario extends IVista{
@@ -22,7 +21,7 @@ public interface IVistaOperario extends IVista{
 
     void inicializarListas();
 
-    void actualizaLista();
+    void eliminaComandaEnLista();
 
     Comanda getComandaSeleccionada();
 

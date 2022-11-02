@@ -1,7 +1,7 @@
 package vista.interfaces;
 
+import modelo.Pedido;
 import modelo.Producto;
-import java.util.HashMap;
 
 public interface IVistaPedido extends IVista {
 
@@ -11,5 +11,9 @@ public interface IVistaPedido extends IVista {
 
     void setModelos();
 
-    void inicializaComboBox(HashMap<Integer, Producto> productos);
+    void inicializaComboBox(Pedido pedido);
+
+    Producto getProductoSeleccionado();
+
+    int getCantidadSeleccionada();
 }

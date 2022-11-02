@@ -1,12 +1,11 @@
 package vista.ventanas;
 
+import modelo.Cerveceria;
+import modelo.Pedido;
 import modelo.Producto;
 import vista.interfaces.IVistaPedido;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.HashMap;
 
 public class VentanaPedido extends JFrame implements IVistaPedido, ActionListener, ItemListener {
@@ -37,6 +36,11 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
     public void setItemListener() {
         this.productoComboBox.addItemListener(this);
 
+    }
+
+    @Override
+    public void setWindowListener(WindowListener controlador) {
+        this.addWindowListener(controlador);
     }
 
     @Override
@@ -77,14 +81,9 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
     }
 
     @Override
-    public void inicializaComboBox(HashMap<Integer, Producto> productos) {
-        Producto p1 = new Producto(2,"Coca-Cola",150,200,5);
-        Producto p2 = new Producto(3,"Agua",100,150,9);
-        Producto p3 = new Producto(4,"Sprite",250,300,100);
+    public void inicializaComboBox(Pedido pedido) {
 
-        productos.put(1, p1);
-        productos.put(2, p2);
-        productos.put(3, p3);
+        HashMap<Integer, Producto> productos = Cerveceria.getInstance().getProductos();
 
         if (!productos.isEmpty()) {
             modeloProductos.addElement(null);
@@ -92,6 +91,21 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
                 modeloProductos.addElement(producto);
             });
         }
+
+        if (pedido != null) {
+            modeloProductos.setSelectedItem(pedido.getProducto());
+            modeloCantidad.setSelectedItem(pedido.getCantidad());
+        }
+    }
+
+    @Override
+    public Producto getProductoSeleccionado() {
+        return modeloProductos.getElementAt(productoComboBox.getSelectedIndex());
+    }
+
+    @Override
+    public int getCantidadSeleccionada() {
+        return Integer.parseInt(modeloCantidad.getElementAt(cantidadComboBox.getSelectedIndex()));
     }
 
     @Override

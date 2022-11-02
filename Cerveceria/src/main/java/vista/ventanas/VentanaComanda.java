@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +52,11 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
     @Override
     public void setListSelectionListener() {
         listaPedidosAsignados.addListSelectionListener(this);
+    }
+
+    @Override
+    public void setWindowListener(WindowListener controlador) {
+        this.addWindowListener(controlador);
     }
 
     @Override
@@ -98,23 +104,54 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
     }
 
     @Override
-    public void inicializaComboBox(ArrayList<Mesa> mesas) {
-        for (Mesa mesa : mesas) {
-            if (mesa.getEstado().equalsIgnoreCase("Libre")) {
-                modeloMesas.addElement(String.valueOf(mesa.getNro()));
+    public void inicializaComboBox(Mesa mesa) {
+        if (mesa != null) {
+            this.mesaComboBox.setEnabled(false);
+            modeloMesas.removeAllElements();
+            modeloMesas.addElement(String.valueOf(mesa.getNro()));
+        } else {
+            ArrayList<Mesa> mesas = Cerveceria.getInstance().getMesas();
+
+            modeloMesas.removeAllElements();
+            for (Mesa mesaActual : mesas) {
+                if (mesaActual.getEstado().equalsIgnoreCase("Libre")) {
+                    modeloMesas.addElement(String.valueOf(mesaActual.getNro()));
+                }
             }
         }
     }
 
     @Override
     public void inicializarLista(ArrayList<Pedido> pedidos) {
-        pedidos.forEach((pedido) -> {
-            modeloPedidos.add(modeloPedidos.size(), pedido);
-        });
+
+        if (!pedidos.isEmpty()) {
+            this.accionButton.setEnabled(true);
+
+            modeloPedidos.removeAllElements();
+            pedidos.forEach((pedido) -> {
+                modeloPedidos.add(modeloPedidos.size(), pedido);
+            });
+        }
     }
 
     @Override
-    public void actualizaLista() {
+    public int getNroMesa() {
+        return Integer.parseInt(modeloMesas.getElementAt(mesaComboBox.getSelectedIndex()));
+    }
+
+    @Override
+    public ArrayList<Pedido> getPedidos() {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+
+        for (int i = 0; i < modeloPedidos.size(); i++) {
+            pedidos.add(modeloPedidos.getElementAt(i));
+        }
+
+        return pedidos;
+    }
+
+    @Override
+    public void eliminaPedidoEnLista() {
         if (!modeloPedidos.isEmpty()) {
             this.listaPedidosAsignados.remove(listaPedidosAsignados.getSelectedIndex());
         }
@@ -146,6 +183,12 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
         if (listaPedidosAsignados.getSelectedValue() != null) {
             this.editarPedidoButton.setEnabled(true);
             this.eliminarPedidoButton.setEnabled(true);
+        }
+
+        this.accionButton.setEnabled(false);
+
+        if (!modeloPedidos.isEmpty()) {
+            this.accionButton.setEnabled(true);
         }
     }
 }

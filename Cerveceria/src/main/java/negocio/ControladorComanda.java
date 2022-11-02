@@ -1,14 +1,15 @@
 package negocio;
 
-import modelo.Cerveceria;
-import modelo.Comanda;
-import modelo.Pedido;
+import modelo.*;
 import vista.interfaces.IVistaComanda;
 import vista.ventanas.VentanaPedido;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
-public class ControladorComanda implements ActionListener {
+public class ControladorComanda implements ActionListener, WindowListener {
     private Comanda modelo;
     private IVistaComanda vista;
 
@@ -19,7 +20,7 @@ public class ControladorComanda implements ActionListener {
         this.vista.setActionListener(this);
         this.vista.setListSelectionListener();
         this.vista.setFecha(modelo.getFecha());
-        this.vista.inicializaComboBox(Cerveceria.getInstance().getMesas());
+        this.vista.inicializaComboBox(modelo.getMesa());
         this.vista.inicializarLista(modelo.getPedidos());
     }
 
@@ -28,40 +29,83 @@ public class ControladorComanda implements ActionListener {
         switch (e.getActionCommand()) {
             case "Nuevo Pedido" -> {
                 creaOtraVentana("Nuevo Pedido");
-                vista.actualizaLista();
             }
             case "Editar Pedido" -> {
                 creaOtraVentana("Editar Pedido");
-                vista.actualizaLista();
             }
             case "Eliminar Pedido" -> {
                 Pedido pedidoSeleccionado = vista.getPedidoSeleccionado();
-                //ACA TENGO QUE ELIMINAR DEL ARRAY EL PEDIDO
-                vista.actualizaLista();
+                modelo.eliminarPedido(pedidoSeleccionado);
+                vista.eliminaPedidoEnLista();
             }
             case "Accion" -> {
-                //ACA DEBO GUARDAR/SOBREESCRIBIR LA COMANDA
+                Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //RESOLVER TEMA BARRA [index = nroMesa???]
+                ArrayList<Pedido> pedidos = vista.getPedidos();
+
+                try {
+                    Cerveceria.getInstance().agregarComanda(mesa, pedidos); //NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
+                } catch (Exception ex) {
+                    vista.lanzarVentanaEmergente(ex.getMessage());
+                }
+
+                vista.cerrarVentana();
             }
             case "Cancelar" -> vista.cerrarVentana();
         }
     }
 
     public void creaOtraVentana(String ventana) {
+        VentanaPedido ventanaPedido = new VentanaPedido();
+        ventanaPedido.setWindowListener(this);
+
         switch (ventana) {
             case "Nuevo Pedido" -> {
-                VentanaPedido ventanaPedido = new VentanaPedido();
                 ventanaPedido.setAccion("Nuevo");
-                Pedido nuevoPedido = new Pedido();
-                ControladorPedido controladorPedido = new ControladorPedido(nuevoPedido, ventanaPedido);
+                ControladorPedido controladorPedido = new ControladorPedido(modelo, null, ventanaPedido);
                 ventanaPedido.ejecutar();
             }
             case "Editar Pedido" -> {
-                VentanaPedido ventanaPedido = new VentanaPedido();
                 ventanaPedido.setAccion("Editar");
                 Pedido pedidoSeleccionado = vista.getPedidoSeleccionado();
-                ControladorPedido controladorPedido = new ControladorPedido(pedidoSeleccionado, ventanaPedido);
+                ControladorPedido controladorPedido = new ControladorPedido(modelo, pedidoSeleccionado, ventanaPedido);
                 ventanaPedido.ejecutar();
             }
         }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        vista.inicializarLista(modelo.getPedidos());
+    }
+
+    //METODOS NO USADOS
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }

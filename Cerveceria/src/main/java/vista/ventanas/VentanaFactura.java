@@ -6,6 +6,7 @@ import vista.interfaces.IVistaFactura;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +44,11 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     public void setActionListener(ActionListener controlador) {
         this.crearButton.addActionListener(controlador);
         this.cancelarButton.addActionListener(controlador);
+    }
+
+    @Override
+    public void setWindowListener(WindowListener controlador) {
+
     }
 
     @Override

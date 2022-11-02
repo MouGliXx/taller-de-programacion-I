@@ -2,7 +2,6 @@ package modelo;
 
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,12 +11,13 @@ public class Cerveceria {
     public static final int totalMaximoMesas = 50;
     private String nombreDelLocal;
     private Administrador administrador;
-    private ArrayList<Operario> operarios = new ArrayList<Operario>();
-    private ArrayList<Mozo> mozos = new ArrayList<Mozo>();
-    private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
-    private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
-    private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<Mesa, Mozo>();
-    private ArrayList<Factura> facturas = new ArrayList<Factura>();
+    private ArrayList<Operario> operarios = new ArrayList<>();
+    private ArrayList<Mozo> mozos = new ArrayList<>();
+    private ArrayList<Mesa> mesas = new ArrayList<>();
+//    private HashMap<Integer, Mesa> mesas = new HashMap<>();
+    private ArrayList<Comanda> comandas = new ArrayList<>();
+    private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
+    private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<IPromocion> promociones = new ArrayList<>();
     private HashMap<Integer,Producto> productos = new HashMap<>();
     private double remuneracionBasica;
@@ -164,18 +164,20 @@ public class Cerveceria {
      * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
      */
     public void agregarMesa(int cantidadComensales, String estado) throws Exception{
-        if (this.mesas.size()>= totalMaximoMesas)
+        if (this.mesas.size() >= totalMaximoMesas)
             throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
+
         this.mesas.add(new Mesa(cantidadComensales, estado));
     }
-    public void agregarMozo(String nombre, LocalDate fechaNac, int hijos, String estado ) throws Exception {
-        if (nombre == "")
+
+    public void agregarMozo(String nombre, int edad, int hijos, String estado) throws Exception {
+        if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
-        if (hijos <0)
+        if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
-        if (hijos <0)
-            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
-        Mozo mozo = new Mozo(nombre, fechaNac, hijos,estado);
+
+        Mozo mozo = new Mozo(nombre, edad, hijos,estado);
+
         this.getMozos().add(mozo);
     }
 
@@ -225,8 +227,9 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la lista de productos esta vacia.
      * <b>post:</b> Se agregara a la lista de comandas una nueva y la mesa pasara a estado ocupado<br>.
      */
-    public void agregarComanda( Mesa mesa) throws Exception {
-        assert mesa!=null:"ERROR : La mesa no debe ser null";
+    public void agregarComanda(Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
+        assert mesa != null : "ERROR : La mesa no debe ser null";
+
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.mesas.size() == 0)
@@ -240,10 +243,12 @@ public class Cerveceria {
         if (this.productos.isEmpty())
             throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
 
+        mesa.ocupar();
         Comanda comanda = new Comanda();
         comanda.setMesa(mesa);
+        comanda.setPedidos(pedidos);
         this.comandas.add(comanda);
-        mesa.ocupar();
+
     }
 
     /**
@@ -354,7 +359,7 @@ public class Cerveceria {
         mesa.setCantidadComensales(cantidadComensales);
     }
 
-    public void modificarMozo(Mozo mozo,String nombre, LocalDate fechaNac, int hijos, String estado ) throws Exception {
+    public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos, String estado ) throws Exception {
         if (nombre == "")
             throw new Exception("ERROR : Nombre vacio");
         if (hijos <0)
@@ -362,7 +367,7 @@ public class Cerveceria {
         if (hijos <0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
         mozo.setNombreYApellido(nombre);
-        mozo.setFechaNacimiento(fechaNac);
+        mozo.setEdad(edad);
         mozo.setEstado(estado);
         mozo.setCantHijos(hijos);
     }
@@ -431,17 +436,19 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si no hay mozos en estado activo
      * <b>post:</b> Cada mesa tendra asignada un mozo (mesasAsignadas)<br>.
      */
-    public void asignarMesas () throws Exception {
+    public void asignarMesas() throws Exception {
         ArrayList<Mozo> listaMozosActivos = mozosActivos();
-        int mozo=0,m,indiceMesa=0;
+        int mozo = 0, indiceMesa=0;
+
         if (this.mesas.isEmpty())
             throw new Exception("No hay mesas habilitadas. NO se puede Asignar mesas");
         if (listaMozosActivos.isEmpty())
             throw new Exception("No hay mozos activos. NO se puede asignar mesas");
-        for (m=0;m<this.mesas.size();m++){
+
+        for (int i = 0; i<this.mesas.size();i++){
             if (mozo >= listaMozosActivos.size())
                 mozo = 0;
-            this.mesasAsignadas.put(this.mesas.get(m),listaMozosActivos.get(mozo++));
+            this.mesasAsignadas.put(this.mesas.get(i),listaMozosActivos.get(mozo++));
         }
     }
 
@@ -450,7 +457,7 @@ public class Cerveceria {
      * estan activos.
      * @return ArrayList<Mozo> Lista de mozos activos
      */
-    private ArrayList<Mozo> mozosActivos(){
+    private ArrayList<Mozo> mozosActivos() {
         ArrayList<Mozo> activos = new ArrayList<Mozo>();
 
         for (int q = 0 ; q < this.mozos.size(); q++){

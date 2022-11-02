@@ -12,11 +12,11 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 public class ControladorOperario implements ActionListener, WindowListener {
-    private Operario operario;
+    private Operario modelo;
     private IVistaOperario vista;
 
     public ControladorOperario(Operario operario, IVistaOperario vista) {
-        this.operario = operario;
+        this.modelo = operario;
         this.vista = vista;
 
         this.vista.setActionListener(this);
@@ -41,7 +41,11 @@ public class ControladorOperario implements ActionListener, WindowListener {
 
             }
             case "Asignar Mesas" -> {
-
+                try {
+                    Cerveceria.getInstance().asignarMesas();
+                } catch (Exception ex) {
+                    vista.lanzarVentanaEmergente(ex.getMessage());
+                }
             }
         }
     }
@@ -59,6 +63,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 ventanaNuevaComanda.setAccion("Nueva");
                 Comanda nuevaComanda = new Comanda();
                 ControladorComanda controladorComanda = new ControladorComanda(nuevaComanda, ventanaNuevaComanda);
+                ventanaNuevaComanda.setWindowListener(this);
                 ventanaNuevaComanda.ejecutar();
             }
             case "Editar Comanda" -> {
@@ -66,6 +71,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 ventanaEditarComanda.setAccion("Editar");
                 Comanda comandaSeleccionada = vista.getComandaSeleccionada();
                 ControladorComanda controladorComanda = new ControladorComanda(comandaSeleccionada, ventanaEditarComanda);
+                ventanaEditarComanda.setWindowListener(this);
                 ventanaEditarComanda.ejecutar();
             }
             case "Nueva factura" -> {
@@ -93,14 +99,14 @@ public class ControladorOperario implements ActionListener, WindowListener {
         //PERSISTIR
     }
 
+    @Override
+    public void windowClosed(WindowEvent e) {
+        this.vista.inicializarListas();
+    }
+
     //METODOS NO USADOS
     @Override
     public void windowOpened(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
 
     }
 

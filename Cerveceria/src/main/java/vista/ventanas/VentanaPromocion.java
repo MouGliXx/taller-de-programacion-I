@@ -5,10 +5,7 @@ import modelo.ProductoEnPromocion;
 import modelo.PromocionTemporal;
 import vista.interfaces.IVistaPromocion;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionListener, KeyListener {
@@ -95,6 +92,11 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
 
         //PAGINA1
         this.nombrePromocionTextField.addKeyListener(this);
+    }
+
+    @Override
+    public void setWindowListener(WindowListener controlador) {
+
     }
 
     @Override

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowListener;
 
 public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener {
     private String entidad;
@@ -76,6 +77,11 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.nombreProductoTextField.addKeyListener(this);
         this.precioVentaTextField.addKeyListener(this);
         this.precioCostoTextField.addKeyListener(this);
+    }
+
+    @Override
+    public void setWindowListener(WindowListener controlador) {
+
     }
 
     @Override
@@ -211,8 +217,10 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         int cantidadComensales = cantComensalesComboBox.getSelectedIndex() + 1;
         String estado = estadoMesaComboBox.getSelectedIndex() == 0 ? "Libre" : "Ocupada";
 
-        return new Mesa(nro,cantidadComensales,estado);
+//        return new Mesa(nro, cantidadComensales, estado);
+        return null;
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {

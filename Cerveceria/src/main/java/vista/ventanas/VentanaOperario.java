@@ -157,10 +157,12 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
         ArrayList<IPromocion> promociones = Cerveceria.getInstance().getPromociones();
 
+        modeloComanda.removeAllElements();
         comandas.forEach((comanda) -> {
             this.modeloComanda.add(modeloComanda.size(), comanda);
         });
 
+        modeloFactura.removeAllElements();
         facturas.forEach((factura) -> {
             this.modeloFactura.add(modeloFactura.size(), factura);
         });
@@ -169,8 +171,10 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
     }
 
     @Override
-    public void actualizaLista() {
-
+    public void eliminaComandaEnLista() {
+        if (!modeloComanda.isEmpty()) {
+            this.listaComandas.remove(listaComandas.getSelectedIndex());
+        }
     }
 
     @Override
