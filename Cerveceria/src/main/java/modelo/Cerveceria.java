@@ -15,7 +15,7 @@ public class Cerveceria {
     private ArrayList<Mozo> mozos = new ArrayList<Mozo>();
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<Comanda> comandas = new ArrayList<Comanda>();
-    private HashMap<Mesa,Mozo>mesasAsignadas = new HashMap<Mesa, Mozo>();
+    private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<Mesa, Mozo>();
     private ArrayList<Factura> facturas = new ArrayList<Factura>();
     private ArrayList<IPromocion> promociones = new ArrayList<>();
     private HashMap<Integer,Producto> productos = new HashMap<>();
@@ -353,6 +353,7 @@ public class Cerveceria {
                 }
             }
         }
+
         this.productos.remove(producto);
     }
 

@@ -30,6 +30,7 @@ public class Comanda {
                 assert estado!=null :"ERROR : El estado no debe ser null";
                 assert estado!="":"ERROR : El estado no debe ser vacio";
                 assert estado!="Abierta" || estado!="Cerrada" :"ERROR : El estado debe ser Ocupado o Libre";
+
                 this.estado = estado;
         }
 
@@ -57,11 +58,22 @@ public class Comanda {
 
         public void cerrarComanda(){
                 assert this.estado.equalsIgnoreCase("Cerrada"):"ERROR: no se puede cerrar una comanda ya cerrada";
+
                 this.estado = "Cerrada";
         }
 
         public void agregarPedido(Pedido pedido){
                 this.pedidos.add(pedido);
+        }
+
+        public double getTotal(){
+                double total = 0;
+
+                for (Pedido pedido : pedidos) {
+                        total = total + pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
+                }
+
+                return total;
         }
 
         @Override
@@ -72,14 +84,6 @@ public class Comanda {
                         ", pedidos=" + pedidos +
                         ", estado='" + estado + '\'' +
                         '}';
-        }
-
-        public double getTotal(){
-                double total = 0;
-                for (Pedido pedido : pedidos) {
-                        total = total + pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
-                }
-                return total;
         }
 }
 
