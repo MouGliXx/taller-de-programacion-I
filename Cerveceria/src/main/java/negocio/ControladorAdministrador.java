@@ -38,7 +38,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                 switch (vista.getTipoEntidadSeleccionada()) {
                     case "Operarios" -> {
                         Operario operario = vista.getOperarioSeleccionado();
-                        //REMOVER OPERARIO
+                        //TODO REMOVER OPERARIO
                         vista.actualizaLista("Operarios");
                     }
                     case "Mozos" -> {
@@ -49,7 +49,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Productos en venta" -> {
                         Producto producto = vista.getProductoSeleccionado();
                         Cerveceria.getInstance().getProductos().remove(producto.getNro());
-                        //REMOVER PRODUCTO
+                        //TODO REMOVER PRODUCTO
                         vista.actualizaLista("Productos en venta");
                     }
                     case "Mesas del local" -> {
@@ -57,7 +57,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         try {
                             Cerveceria.getInstance().eliminarMesa(mesa);
                         } catch (Exception ex) {
-                            ex.printStackTrace();
+                            vista.lanzarVentanaEmergente(ex.getMessage());
                         }
                         vista.actualizaLista("Mesas del local");
                     }
@@ -94,12 +94,12 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                 switch (vista.getTipoPromocionSeleccionada()) {
                     case "Productos en promocion" -> {
                         ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
-                        //ELIMINAR PROMOCION
+                        //TODO ELIMINAR PROMOCION
                         vista.actualizaLista("Productos en promocion");
                     }
                     case "promociones temporales" -> {
                         PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
-                        //ELIMINAR PROMOCION
+                        //TODO ELIMINAR PROMOCION
                         vista.actualizaLista("Promociones temporales");
                     }
                 }
@@ -179,7 +179,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
 
     @Override
     public void windowClosing(WindowEvent e) {
-        //PERSISTIR
+        //TODO PERSISTIR
     }
 
     //METODOS NO USADOS

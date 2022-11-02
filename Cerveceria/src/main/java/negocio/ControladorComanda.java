@@ -30,7 +30,7 @@ public class ControladorComanda implements ActionListener, WindowListener {
             case "Nuevo Pedido" -> {
                 creaOtraVentana("Nuevo Pedido");
             }
-            case "Editar Pedido" -> {
+            case "Editar Pedido" -> { //TODO editar un pedido solo me agrega el pedido de nuevo, NO LO SOBREESCRIBE
                 creaOtraVentana("Editar Pedido");
             }
             case "Eliminar Pedido" -> {
@@ -39,11 +39,11 @@ public class ControladorComanda implements ActionListener, WindowListener {
                 vista.eliminaPedidoEnLista();
             }
             case "Accion" -> {
-                Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //RESOLVER TEMA BARRA [index = nroMesa???]
+                Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //TODO RESOLVER TEMA BARRA [index = nroMesa???]
                 ArrayList<Pedido> pedidos = vista.getPedidos();
 
                 try {
-                    Cerveceria.getInstance().agregarComanda(mesa, pedidos); //NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
+                    Cerveceria.getInstance().agregarComanda(mesa, pedidos); //TODO NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
                 } catch (Exception ex) {
                     vista.lanzarVentanaEmergente(ex.getMessage());
                 }

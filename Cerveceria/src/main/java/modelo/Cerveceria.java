@@ -425,9 +425,6 @@ public class Cerveceria {
         this.comandas.remove(comanda);
     }
 
-
-
-
     /**
      * <b>pre:</b> <br>.
      * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya

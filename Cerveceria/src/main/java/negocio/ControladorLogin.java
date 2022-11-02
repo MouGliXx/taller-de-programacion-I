@@ -8,7 +8,6 @@ import modelo.Operario;
 import vista.interfaces.IVistaLogin;
 import vista.ventanas.VentanaAdministrador;
 import vista.ventanas.VentanaOperario;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -67,10 +66,9 @@ public class ControladorLogin implements ActionListener, WindowListener {
     }
 
     //METODOS NO USADOS
-
     @Override
     public void windowOpened(WindowEvent e) {
-
+        //TODO PERSISTIR
     }
 
     @Override

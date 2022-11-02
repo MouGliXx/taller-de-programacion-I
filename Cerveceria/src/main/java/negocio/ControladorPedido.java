@@ -36,7 +36,7 @@ public class ControladorPedido implements ActionListener {
                     pedido.setCantidad(cantidad);
                 }
 
-                comanda.agregarPedido(pedido); //NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
+                comanda.agregarPedido(pedido); //TODO NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
                 vista.cerrarVentana();
             }
             case "Cancelar" -> vista.cerrarVentana();
