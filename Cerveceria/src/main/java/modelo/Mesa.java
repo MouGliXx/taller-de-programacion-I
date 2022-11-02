@@ -31,6 +31,10 @@ public class Mesa {
         this.nro = nro;
     }
 
+    public String getEstado(){
+        return this.estado;
+    }
+
     public void setEstado(String estado) {
         assert estado!=null :"ERROR : El estado no debe ser null";
         assert estado!="":"ERROR : El estado no debe ser vacio";
@@ -56,10 +60,6 @@ public class Mesa {
 
     public void ocupar () {
         this.estado = "Ocupado";
-    }
-
-    public String getEstado(){
-        return this.estado;
     }
 
     @Override

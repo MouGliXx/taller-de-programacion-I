@@ -784,6 +784,8 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionBackground color="-533952"/>
+                      <selectionForeground color="-11053225"/>
                       <selectionMode value="0"/>
                     </properties>
                   </component>
@@ -803,7 +805,7 @@
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
-                  <text value="Nueva modelo"/>
+                  <text value="Nueva comanda"/>
                 </properties>
               </component>
               <component id="ed844" class="javax.swing.JButton" binding="cerrarComandaButton">
@@ -821,7 +823,7 @@
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
-                  <text value="Cerrar modelo"/>
+                  <text value="Cerrar coamanda"/>
                 </properties>
               </component>
               <component id="66ca4" class="javax.swing.JButton" binding="editarComandaButton">
@@ -920,6 +922,8 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionBackground color="-533952"/>
+                      <selectionForeground color="-11053225"/>
                       <selectionMode value="0"/>
                     </properties>
                   </component>
@@ -962,7 +966,7 @@
                   <text value="Listado de productos en promocion:"/>
                 </properties>
               </component>
-              <scrollpane id="96ebd">
+              <scrollpane id="96ebd" binding="productoEnPromocionScrollPane">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="860" height="150"/>
@@ -981,6 +985,8 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionBackground color="-533952"/>
+                      <selectionForeground color="-11053225"/>
                       <selectionMode value="0"/>
                     </properties>
                   </component>
@@ -999,7 +1005,7 @@
                   <text value="Listado de promociones temporales:"/>
                 </properties>
               </component>
-              <scrollpane id="af241">
+              <scrollpane id="af241" binding="promocionesTemporalesScrollPane">
                 <constraints>
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="860" height="150"/>
@@ -1018,6 +1024,8 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
+                      <selectionBackground color="-533952"/>
+                      <selectionForeground color="-11053225"/>
                       <selectionMode value="0"/>
                     </properties>
                   </component>

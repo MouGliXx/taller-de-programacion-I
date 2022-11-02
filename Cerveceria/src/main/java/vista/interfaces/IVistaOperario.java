@@ -22,6 +22,8 @@ public interface IVistaOperario extends IVista{
 
     void inicializarListas();
 
+    void actualizaLista();
+
     Comanda getComandaSeleccionada();
 
     Factura getFacturaSeleccionada();
