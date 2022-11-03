@@ -75,7 +75,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 ventanaEditarComanda.setWindowListener(this);
                 ventanaEditarComanda.ejecutar();
             }
-            case "Nueva factura" -> {
+            case "Nueva Factura" -> {
                 Comanda comandaSeleccionada = vista.getComandaSeleccionada();
 
                 try {
@@ -90,6 +90,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 Factura nuevaFacura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos(), total, promocionesAplicadas);
                 VentanaFactura ventanaFactura = new VentanaFactura();
                 ControladorFactura controladorFactura = new ControladorFactura(nuevaFacura, ventanaFactura);
+                ventanaFactura.addWindowListener(this);
                 ventanaFactura.ejecutar();
             }
         }

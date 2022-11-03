@@ -48,7 +48,7 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
 
     @Override
     public void setWindowListener(WindowListener controlador) {
-
+        this.addWindowListener(controlador);
     }
 
     @Override
@@ -84,13 +84,17 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
 
     @Override
     public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<IPromocion> promociones) {
-        pedidos.forEach((pedido) -> {
-            modeloProductos.add(modeloProductos.size(), pedido);
-        });
+        if (pedidos != null && !pedidos.isEmpty()) {
+            pedidos.forEach((pedido) -> {
+                modeloProductos.add(modeloProductos.size(), pedido);
+            });
+        }
 
-        promociones.forEach((promocion) -> {
-            modeloPromociones.add(modeloPromociones.size(), promocion);
-        });
+        if (promociones != null && !promociones.isEmpty()) {
+            promociones.forEach((promocion) -> {
+                modeloPromociones.add(modeloPromociones.size(), promocion);
+            });
+        }
     }
 
     @Override
