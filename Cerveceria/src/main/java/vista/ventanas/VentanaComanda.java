@@ -4,7 +4,6 @@ import modelo.Cerveceria;
 import modelo.Mesa;
 import modelo.Pedido;
 import vista.interfaces.IVistaComanda;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,7 +26,6 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
     private JButton accionButton;
     private JList<Pedido> listaPedidosAsignados;
     private JButton nuevoPedidoButton;
-    private JButton editarPedidoButton;
     private JButton eliminarPedidoButton;
     private JPanel fechayMesaPnael;
     private JLabel mesaLabel;
@@ -39,14 +37,13 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
 
     @Override
     public void setActionListener(ActionListener controlador) {
+        //BOTONES
         nuevoPedidoButton.addActionListener(controlador);
-        editarPedidoButton.addActionListener(controlador);
-        editarPedidoButton.addActionListener(this);
         eliminarPedidoButton.addActionListener(controlador);
-        eliminarPedidoButton.addActionListener(this);
         accionButton.addActionListener(controlador);
-        accionButton.addActionListener(this);
         cancelarButton.addActionListener(controlador);
+        //COMBO BOX
+        mesaComboBox.addActionListener(this);
     }
 
     @Override
@@ -107,12 +104,15 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
     public void inicializaComboBox(Mesa mesa) {
         if (mesa != null) {
             this.mesaComboBox.setEnabled(false);
+            this.accionButton.setEnabled(true);
+
             modeloMesas.removeAllElements();
             modeloMesas.addElement(String.valueOf(mesa.getNro()));
         } else {
             ArrayList<Mesa> mesas = Cerveceria.getInstance().getMesas();
 
             modeloMesas.removeAllElements();
+            modeloMesas.addElement(null);
             for (Mesa mesaActual : mesas) {
                 if (mesaActual.getEstado().equalsIgnoreCase("Libre")) {
                     modeloMesas.addElement(String.valueOf(mesaActual.getNro()));
@@ -123,7 +123,6 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
 
     @Override
     public void inicializarLista(ArrayList<Pedido> pedidos) {
-
         if (!pedidos.isEmpty()) {
             this.accionButton.setEnabled(true);
 
@@ -153,7 +152,7 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
     @Override
     public void eliminaPedidoEnLista() {
         if (!modeloPedidos.isEmpty()) {
-            this.listaPedidosAsignados.remove(listaPedidosAsignados.getSelectedIndex());
+            this.modeloPedidos.removeElementAt(listaPedidosAsignados.getSelectedIndex());
         }
     }
 
@@ -164,12 +163,14 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.nuevoPedidoButton.setEnabled(false);
         this.accionButton.setEnabled(false);
 
         switch (e.getActionCommand()) {
             case "Selecciona Mesa" -> {
-                if (this.mesaComboBox.getSelectedIndex() != 0) {
+                if (this.mesaComboBox.getSelectedIndex() != -1) {
                     this.accionButton.setEnabled(true);
+                    this.nuevoPedidoButton.setEnabled(true);
                 }
             }
         }
@@ -177,18 +178,16 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        this.editarPedidoButton.setEnabled(false);
         this.eliminarPedidoButton.setEnabled(false);
+        this.accionButton.setEnabled(false);
 
         if (listaPedidosAsignados.getSelectedValue() != null) {
-            this.editarPedidoButton.setEnabled(true);
             this.eliminarPedidoButton.setEnabled(true);
         }
 
-        this.accionButton.setEnabled(false);
-
-        if (!modeloPedidos.isEmpty()) {
+        if (this.mesaComboBox.getSelectedIndex() != -1) {
             this.accionButton.setEnabled(true);
+            this.nuevoPedidoButton.setEnabled(true);
         }
     }
 }

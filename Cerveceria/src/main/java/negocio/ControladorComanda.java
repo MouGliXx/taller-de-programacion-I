@@ -30,9 +30,6 @@ public class ControladorComanda implements ActionListener, WindowListener {
             case "Nuevo Pedido" -> {
                 creaOtraVentana("Nuevo Pedido");
             }
-            case "Editar Pedido" -> { //TODO editar un pedido solo me agrega el pedido de nuevo, NO LO SOBREESCRIBE
-                creaOtraVentana("Editar Pedido");
-            }
             case "Eliminar Pedido" -> {
                 Pedido pedidoSeleccionado = vista.getPedidoSeleccionado();
                 modelo.eliminarPedido(pedidoSeleccionado);
@@ -42,10 +39,15 @@ public class ControladorComanda implements ActionListener, WindowListener {
                 Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //TODO RESOLVER TEMA BARRA [index = nroMesa???]
                 ArrayList<Pedido> pedidos = vista.getPedidos();
 
-                try {
-                    Cerveceria.getInstance().agregarComanda(mesa, pedidos); //TODO NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
-                } catch (Exception ex) {
-                    vista.lanzarVentanaEmergente(ex.getMessage());
+                if (mesa.getEstado().equals("Libre")) {
+                    try {
+                        Cerveceria.getInstance().agregarComanda(mesa, pedidos);
+                    } catch (Exception ex) {
+                        vista.lanzarVentanaEmergente(ex.getMessage());
+                    }
+                } else {
+                    //TODO METODO EDITAR COMANDA
+                    System.out.println("METODO EDITAR COMANDA");
                 }
 
                 vista.cerrarVentana();
@@ -57,20 +59,8 @@ public class ControladorComanda implements ActionListener, WindowListener {
     public void creaOtraVentana(String ventana) {
         VentanaPedido ventanaPedido = new VentanaPedido();
         ventanaPedido.setWindowListener(this);
-
-        switch (ventana) {
-            case "Nuevo Pedido" -> {
-                ventanaPedido.setAccion("Nuevo");
-                ControladorPedido controladorPedido = new ControladorPedido(modelo, null, ventanaPedido);
-                ventanaPedido.ejecutar();
-            }
-            case "Editar Pedido" -> {
-                ventanaPedido.setAccion("Editar");
-                Pedido pedidoSeleccionado = vista.getPedidoSeleccionado();
-                ControladorPedido controladorPedido = new ControladorPedido(modelo, pedidoSeleccionado, ventanaPedido);
-                ventanaPedido.ejecutar();
-            }
-        }
+        ControladorPedido controladorPedido = new ControladorPedido(modelo, null, ventanaPedido);
+        ventanaPedido.ejecutar();
     }
 
     @Override

@@ -35,7 +35,6 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
     @Override
     public void setItemListener() {
         this.productoComboBox.addItemListener(this);
-
     }
 
     @Override
@@ -69,12 +68,6 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
     }
 
     @Override
-    public void setAccion(String accion) {
-        this.accionPedidoLabel.setText(accion + " pedido");
-        this.accionButton.setText(accion);
-    }
-
-    @Override
     public void setModelos() {
         this.productoComboBox.setModel(modeloProductos);
         this.cantidadComboBox.setModel(modeloCantidad);
@@ -82,7 +75,6 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
 
     @Override
     public void inicializaComboBox(Pedido pedido) {
-
         HashMap<Integer, Producto> productos = Cerveceria.getInstance().getProductos();
 
         if (!productos.isEmpty()) {
@@ -90,11 +82,6 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
             productos.forEach((nro, producto) -> {
                 modeloProductos.addElement(producto);
             });
-        }
-
-        if (pedido != null) {
-            modeloProductos.setSelectedItem(pedido.getProducto());
-            modeloCantidad.setSelectedItem(pedido.getCantidad());
         }
     }
 

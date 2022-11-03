@@ -73,11 +73,11 @@ public class Comanda {
         this.pedidos.add(pedido);
     }
 
-    public void eliminarPedido(Pedido pedido) {
+    public void eliminarPedido(Pedido pedido) { //TODO AL ELIMINAR SE DEBERIA SUMAR LA CANTIDAD AL STOCK
         this.pedidos.remove(pedido);
     }
 
-    public double getTotal() {
+    public double getTotal() { //TODO VER TEMA DE INCLUIR PROMOCIONES
         double total = 0;
 
         for (Pedido pedido : pedidos) {

@@ -248,7 +248,6 @@ public class Cerveceria {
         comanda.setMesa(mesa);
         comanda.setPedidos(pedidos);
         this.comandas.add(comanda);
-
     }
 
     /**

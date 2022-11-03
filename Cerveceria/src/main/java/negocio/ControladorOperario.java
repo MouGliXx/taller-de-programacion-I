@@ -35,7 +35,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
             case "Promociones" -> vista.cambiarPagina(4);
             case "Cerrar Sesion" -> creaOtraVentana("Login");
             case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda"); //TODO No habilitar boton hasta Iniciar Jornada
-            case "Editar Comanda" -> creaOtraVentana("Editar Comanda"); //TODO No me deja editar pq la mesa esta ocupada
+            case "Editar Comanda" -> creaOtraVentana("Editar Comanda");
             case "Cerrar Comanda" -> creaOtraVentana("Nueva Factura");
             case "Iniciar Jornada" -> {
 
@@ -46,6 +46,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 } catch (Exception ex) {
                     vista.lanzarVentanaEmergente(ex.getMessage());
                 }
+                vista.lanzarVentanaEmergente("Mesas asignadas con exito!");
             }
         }
     }

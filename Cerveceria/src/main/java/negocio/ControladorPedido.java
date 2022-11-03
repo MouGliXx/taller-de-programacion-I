@@ -12,31 +12,25 @@ public class ControladorPedido implements ActionListener {
     private Pedido pedido;
     private IVistaPedido vista;
 
-    public ControladorPedido(Comanda comanda, Pedido modelo, IVistaPedido vista) {
+    public ControladorPedido(Comanda comanda, Pedido pedido, IVistaPedido vista) {
         this.comanda = comanda;
-        this.pedido = modelo;
+        this.pedido = pedido;
         this.vista = vista;
 
         this.vista.setActionListener(this);
         this.vista.setItemListener();
-        this.vista.inicializaComboBox(modelo);
+        this.vista.inicializaComboBox(pedido);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Accion" -> {
+            case "Crear" -> {
                 Producto producto = vista.getProductoSeleccionado();
                 int cantidad = vista.getCantidadSeleccionada();
 
-                if (pedido == null) {
-                    pedido = new Pedido(producto, cantidad);
-                } else {
-                    pedido.setProducto(producto);
-                    pedido.setCantidad(cantidad);
-                }
-
-                comanda.agregarPedido(pedido); //TODO NO ME SIRVE, NECESITO QUE ME DISCRIMINE ENTRE UNA NUEVA Y UNA YA EXISTENTE
+                pedido = new Pedido(producto, cantidad);
+                comanda.agregarPedido(pedido);
                 vista.cerrarVentana();
             }
             case "Cancelar" -> vista.cerrarVentana();
