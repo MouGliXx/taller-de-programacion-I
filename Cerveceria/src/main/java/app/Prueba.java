@@ -16,11 +16,12 @@ public class Prueba {
 
         for (int t=0;t<5;t++) {
             try {
-                cerveza.agregarMesa(2, "Activo");
+                cerveza.agregarMesa(t,2, "Activo");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println(cerveza.getMesas().get(1).getEstado());
         cerveza.agregarMozo("Lautaro", LocalDate.of (2000,12,12),1,"Activo");
         cerveza.agregarMozo("Ignacio", LocalDate.of (2000,12,12),1,"Activo");
         cerveza.agregarMozo("Tomas", LocalDate.of (2000,12,12),1,"Activo");
@@ -51,11 +52,11 @@ public class Prueba {
         cerveza.agregarProducto(4,"Sprite",250,300,20);
 
         Pedido p1 = new Pedido();
-        cerveza.agregarPedido(p1,cerveza.getProductos().get(2),2);
+        cerveza.agregarComanda(cerveza.getMesas().get(1));
+        cerveza.getComandas().get(0).nuevoPedido(p1,cerveza.getProductos().get(2),2);
 
         try {
             cerveza.agregarComanda(cerveza.getMesas().get(0));
-            cerveza.agregarPedidoAComanda(cerveza.getComandas().get(0), p1);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

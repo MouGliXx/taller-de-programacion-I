@@ -55,13 +55,12 @@ public class Comanda {
                 return this.pedidos;
         }
 
+        public void setPedidos (ArrayList<Pedido> pedidos){
+                this.pedidos = pedidos;
+        }
         public void cerrarComanda(){
                 assert this.estado.equalsIgnoreCase("Cerrada"):"ERROR: no se puede cerrar una comanda ya cerrada";
                 this.estado = "Cerrada";
-        }
-
-        public void agregarPedido(Pedido pedido){
-                this.pedidos.add(pedido);
         }
 
         @Override
@@ -81,5 +80,29 @@ public class Comanda {
                 }
                 return total;
         }
+
+
+        /**
+         * <b>pre:</b> El pedido no debe ser null <br>.
+         * El metodo setea el Producto y la cantidad de un nuevo pedido
+         * @throws Exception Se lanza excepción si el prodcuto es null
+         * @throws Exception Se lanza excepción si la cantidad es menor o igual a cero
+         * <b>post:</b> Los atributos Pedido y Cantidad del pedido estaran seteados<br>.
+         */
+        public void nuevoPedido(Pedido pedido, Producto producto, int cantidad) throws Exception {
+                assert pedido!=null:"ERROR el pedido no puede der null";
+                assert pedido.getProducto()!=null || pedido.getCantidad() != 0 :"ERROR : El pedido no debe ser vacio";
+                if (pedido.getProducto().getStockInicial() < pedido.getCantidad() )
+                        throw new Exception("ERROR : No se puede completar pedido. Stock insuficiente");
+
+                pedido.setProducto(producto);
+                pedido.setCantidad(cantidad);
+
+                this.pedidos.add(pedido);
+
+                // descuenta Stock
+                pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()-pedido.getCantidad());
+        }
+
 }
 

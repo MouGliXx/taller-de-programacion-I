@@ -164,10 +164,10 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
      * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
      */
-    public void agregarMesa(int cantidadComensales, String estado) throws Exception{
+    public void agregarMesa(int nro,int cantidadComensales, String estado) throws Exception{
         if (this.mesas.size()>= totalMaximoMesas)
             throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
-        this.mesas.add(new Mesa(cantidadComensales, estado));
+        this.mesas.add(new Mesa(nro,cantidadComensales, estado));
     }
     public void agregarMozo(String nombre, LocalDate fechaNac, int hijos, String estado ) throws Exception {
         if (nombre == "")
@@ -247,43 +247,6 @@ public class Cerveceria {
         mesa.ocupar();
     }
 
-    /**
-     * <b>pre:</b> comanda y pedido deben ser distintos de null, El pedido debe tener por lo menos un producto<br>.
-     * @param comanda Comanda a la cual se le va a agregar un Pedido
-     * @param pedido Pedido que sera agregado a la Comanda
-     * @throws Exception Se lanza excepción si la cantidad de Pedido es mayor al Stock del mismo.
-     * <b>post:</b> Se agregara a la Comandas un nuevo pedido y se descontara la cantidad del stock <br>.
-     */
-    public void agregarPedidoAComanda (Comanda comanda,Pedido pedido) throws Exception {
-        assert comanda!=null:"ERROR : La comanda no debe ser null";
-        assert pedido!=null:"ERROR : El pedido no debe ser null";
-        assert pedido.getProducto()!=null || pedido.getCantidad() != 0 :"ERROR : El pedido no debe ser vacio";
-        //verificar que haya stock
-        if (pedido.getProducto().getStockInicial() < pedido.getCantidad() )
-            throw new Exception("ERROR : No se puede completar pedido. Stock insuficiente");
-        comanda.agregarPedido(pedido);
-
-        // descuenta Stock
-        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()-pedido.getCantidad());
-
-    }
-
-    /**
-     * <b>pre:</b> El pedido no debe ser null <br>.
-     * El metodo setea el Producto y la cantidad de un nuevo pedido
-     * @throws Exception Se lanza excepción si el prodcuto es null
-     * @throws Exception Se lanza excepción si la cantidad es menor o igual a cero
-     * <b>post:</b> Los atributos Pedido y Cantidad del pedido estaran seteados<br>.
-     */
-    public void agregarPedido(Pedido pedido, Producto producto, int cantidad) throws Exception {
-        assert pedido!=null:"ERROR el pedido no puede der null";
-        if (producto == null)
-            throw new Exception("ERROR : No se puede crear pedido sin producto");
-        if (cantidad <= 0 )
-            throw new Exception("ERROR : No se puede crear pedido con cantidad <=0");
-        pedido.setProducto(producto);
-        pedido.setCantidad(cantidad);
-    }
 
     public void agregarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
         if (precioVenta>=precioCosto){
@@ -393,6 +356,27 @@ public class Cerveceria {
         producto.setPrecioVenta(precioVenta);
         producto.setStockInicial(stockInicial);
     }
+
+    public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
+        assert mesa!=null:"ERROR : La mesa no debe ser null";
+        if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
+            throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
+        if (this.mesas.size() == 0)
+            throw new Exception("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
+        if (this.mesasAsignadas.get(mesa) == null)
+            throw new Exception("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
+        if (this.mozos.isEmpty())
+            throw new Exception("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
+        if (hayDosProductosPromocionActiva() == false)
+            throw new Exception("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
+        if (this.productos.isEmpty())
+            throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
+
+        comanda.setMesa(mesa);
+        comanda.setPedidos(pedidos);
+        mesa.ocupar();
+    }
+
 
     public boolean hayDosProductosPromocionActiva(){return true;}
 
