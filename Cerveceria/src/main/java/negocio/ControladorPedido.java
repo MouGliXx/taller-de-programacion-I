@@ -1,25 +1,37 @@
 package negocio;
 
+import modelo.Comanda;
 import modelo.Pedido;
-import vista.interfaces.IVista;
+import modelo.Producto;
+import vista.interfaces.IVistaPedido;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorPedido implements ActionListener {
+    private Comanda comanda;
     private Pedido pedido;
-    private IVista vista;
+    private IVistaPedido vista;
 
-    public ControladorPedido(Pedido pedido, IVista vista) {
+    public ControladorPedido(Comanda comanda, Pedido pedido, IVistaPedido vista) {
+        this.comanda = comanda;
         this.pedido = pedido;
         this.vista = vista;
+
         this.vista.setActionListener(this);
+        this.vista.setItemListener();
+        this.vista.inicializaComboBox(pedido);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Accion" -> {
-                //ACA DEBO GUARDAR/SOBREESCRIBIR EL PEDIDO
+            case "Crear" -> {
+                Producto producto = vista.getProductoSeleccionado();
+                int cantidad = vista.getCantidadSeleccionada();
+
+                pedido = new Pedido(producto, cantidad);
+                comanda.agregarPedido(pedido);
+                vista.cerrarVentana();
             }
             case "Cancelar" -> vista.cerrarVentana();
         }

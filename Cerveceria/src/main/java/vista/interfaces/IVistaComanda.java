@@ -15,11 +15,15 @@ public interface IVistaComanda extends IVista{
 
     void setModelos();
 
-    void inicializaComboBox(ArrayList<Mesa> mesas);
+    void inicializaComboBox(Mesa mesa);
 
     void inicializarLista(ArrayList<Pedido> pedidos);
 
-    void actualizaLista();
+    int getNroMesa();
+
+    ArrayList<Pedido> getPedidos();
+
+    void eliminaPedidoEnLista();
 
     Pedido getPedidoSeleccionado();
 }

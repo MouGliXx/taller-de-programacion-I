@@ -7,18 +7,24 @@ public class Pedido {
     //CONSTRUCTOR
     public Pedido() {
     }
+
     public Pedido(Producto producto, int cantidad) {
         this.setProducto(producto);
         this.setCantidad(cantidad);
     }
+
     //GETTERS && SETTERS
     public void setCantidad(int cantidad) {
-        assert cantidad>0:"ERROR : La cantidad debe ser mayor a cero";
+        assert cantidad > 0 : "ERROR : La cantidad debe ser mayor a cero";
+
         this.cantidad = cantidad;
     }
-    public void setProducto (Producto producto){
-        assert producto!=null:"ERROR : El producto no debe der null";
-        this.producto = producto;}
+
+    public void setProducto(Producto producto) {
+        assert producto != null : "ERROR : El producto no debe der null";
+
+        this.producto = producto;
+    }
 
     public int getCantidad(){
         return this.cantidad;

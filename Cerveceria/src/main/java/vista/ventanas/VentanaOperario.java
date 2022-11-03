@@ -7,11 +7,12 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-public class VentanaOperario extends JFrame implements IVistaOperario, ListSelectionListener {
+public class VentanaOperario extends JFrame implements IVistaOperario, ActionListener, ListSelectionListener {
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
     private JTabbedPane panelCentral;
@@ -85,8 +86,10 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
         facturasButton.addActionListener(controlador);
         promocionesButton.addActionListener(controlador);
         IniciarJornadaButton.addActionListener(controlador);
+        IniciarJornadaButton.addActionListener(this);
         cerrarSesionButton.addActionListener(controlador);
         asignarMesasButton.addActionListener(controlador);
+        asignarMesasButton.addActionListener(this);
         nuevaComandaButton.addActionListener(controlador);
         editarComandaButton.addActionListener(controlador);
         cerrarComandaButton.addActionListener(controlador);
@@ -157,10 +160,12 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
         ArrayList<IPromocion> promociones = Cerveceria.getInstance().getPromociones();
 
+        modeloComanda.removeAllElements();
         comandas.forEach((comanda) -> {
             this.modeloComanda.add(modeloComanda.size(), comanda);
         });
 
+        modeloFactura.removeAllElements();
         facturas.forEach((factura) -> {
             this.modeloFactura.add(modeloFactura.size(), factura);
         });
@@ -169,8 +174,10 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
     }
 
     @Override
-    public void actualizaLista() {
-
+    public void eliminaComandaEnLista() {
+        if (!modeloComanda.isEmpty()) {
+            this.listaComandas.remove(listaComandas.getSelectedIndex());
+        }
     }
 
     @Override
@@ -210,6 +217,11 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ListSelec
             case 3 -> this.facturasButton.setBackground(Color.decode("#FFFFFF"));
             case 4 -> this.promocionesButton.setBackground(Color.decode("#FFFFFF"));
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 
     @Override

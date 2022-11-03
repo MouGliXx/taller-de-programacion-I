@@ -21,10 +21,10 @@ public class Prueba {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println(cerveza.getMesas().get(1).getEstado());
-        cerveza.agregarMozo("Lautaro", LocalDate.of (2000,12,12),1,"Activo");
-        cerveza.agregarMozo("Ignacio", LocalDate.of (2000,12,12),1,"Activo");
-        cerveza.agregarMozo("Tomas", LocalDate.of (2000,12,12),1,"Activo");
+        cerveza.agregarMozo("Lautaro", 22,1,"Activo");
+        cerveza.agregarMozo("Ignacio", 26,1,"Activo");
+        cerveza.agregarMozo("Tomas", 33,1,"Activo");
+
 
 
         System.out.println("AGREGO 3 MOZOS");
@@ -36,7 +36,6 @@ public class Prueba {
         for (Mozo mozo: cerveza.getMozos()){
             System.out.println(mozo);
         }
-
 
         cerveza.asignarMesas();
 
@@ -56,6 +55,7 @@ public class Prueba {
         cerveza.getComandas().get(0).nuevoPedido(p1,cerveza.getProductos().get(2),2);
 
         try {
+
             cerveza.agregarComanda(cerveza.getMesas().get(0));
         }catch (Exception e){
             System.out.println(e.getMessage());

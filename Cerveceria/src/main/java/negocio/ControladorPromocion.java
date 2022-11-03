@@ -23,11 +23,11 @@ public class ControladorPromocion implements ActionListener {
                 switch (vista.getTipoPromocion()) {
                     case "Producto en Promocion" -> {
                         ProductoEnPromocion productoEnPromocion = this.vista.getProductoEnPromocion();
-                        //GUARDAR PROMOCION
+                        //TODO GUARDAR PROMOCION
                     }
                     case "Promocion Temporal" -> {
                         PromocionTemporal promocionTemporal = this.vista.getPromocionTemporal();
-                        //GUARDAR PROMOCION
+                        //TODO GUARDAR PROMOCION
                     }
                 }
                 this.vista.cerrarVentana();

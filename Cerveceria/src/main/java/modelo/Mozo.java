@@ -1,20 +1,19 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Mozo {
     private String nombreYApellido;
-    private LocalDate fechaNacimiento; //RESOLVER
+    private int edad;
     private int cantHijos;
-    private String estado; // 0-> activo 1->ausente 2->de franco // un invariable podria ser que el estado nunca sea != a 0,1,2
+    private String estado; // Activo - Ausente - Franco \\ un invariable podria ser que el estado nunca sea != a 0,1,2
 
     //CONSTRUCTOR
-    public Mozo(String nombre, LocalDate fechaNacimiento, int cantHijos, String estado) throws Exception {
+    public Mozo(String nombre, int edad, int cantHijos, String estado) throws Exception {
         this.nombreYApellido = nombre;
         this.estado = estado;
 //        if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
-        this.fechaNacimiento = fechaNacimiento;
+        this.edad = edad;
 //        if (cantHijos < 0) throw new Exception();
         this.cantHijos = cantHijos;
     }
@@ -35,12 +34,12 @@ public class Mozo {
         this.nombreYApellido = nombreYApellido;
     }
 
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
+    public int getEdad() {
+        return edad;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public int getCantHijos() {
@@ -72,21 +71,12 @@ public class Mozo {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Mozo mozo = (Mozo) o;
-        return getCantHijos() == mozo.getCantHijos() && getEstado() == mozo.getEstado() && getNombreYApellido().equals(mozo.getNombreYApellido()) && getFechaNacimiento().equals(mozo.getFechaNacimiento());
-    }
-
-    @Override
     public String toString() {
         return "Mozo{" +
-                "nombre='" + nombreYApellido + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
+                "nombreYApellido='" + nombreYApellido + '\'' +
+                ", edad=" + edad +
                 ", cantHijos=" + cantHijos +
-                ", estado=" + estado +
+                ", estado='" + estado + '\'' +
                 '}';
     }
-
 }

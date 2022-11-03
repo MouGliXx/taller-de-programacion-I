@@ -6,6 +6,7 @@ public class Operario {
     private String contrasena; //(12)
     private boolean activo;
 
+    //CONSTRUCTOR
     public Operario(String nombreCompleto, String nombreUsuario, String contrasena, boolean activo) {
         this.nombreCompleto = nombreCompleto;
         this.nombreUsuario = nombreUsuario;

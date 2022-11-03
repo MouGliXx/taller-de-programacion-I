@@ -6,6 +6,7 @@ import vista.interfaces.IVistaFactura;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +47,11 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     }
 
     @Override
+    public void setWindowListener(WindowListener controlador) {
+        this.addWindowListener(controlador);
+    }
+
+    @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
         pack(); //Coloca los componentes
@@ -78,13 +84,17 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
 
     @Override
     public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<IPromocion> promociones) {
-        pedidos.forEach((pedido) -> {
-            modeloProductos.add(modeloProductos.size(), pedido);
-        });
+        if (pedidos != null && !pedidos.isEmpty()) {
+            pedidos.forEach((pedido) -> {
+                modeloProductos.add(modeloProductos.size(), pedido);
+            });
+        }
 
-        promociones.forEach((promocion) -> {
-            modeloPromociones.add(modeloPromociones.size(), promocion);
-        });
+        if (promociones != null && !promociones.isEmpty()) {
+            promociones.forEach((promocion) -> {
+                modeloPromociones.add(modeloPromociones.size(), promocion);
+            });
+        }
     }
 
     @Override

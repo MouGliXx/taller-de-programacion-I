@@ -4,15 +4,12 @@ public class Mesa {
     private static int sig = 1;
     private int nro;
     private int cantidadComensales;
-    private String estado;
+    private String estado; //Libre - Ocupada
 
     //CONSTRUCTOR
-    public Mesa() { //DUDOSO ESTO
-        this.estado = "Libre";
-    }
-
-    public Mesa(int cantidadComensales, String Estado) {
-        //this.nro = nro; //Asigno 'sig' pero desde la ventana
+    public Mesa(int cantidadComensales, String estado) {
+        this.nro = sig;
+        sig++;
         this.cantidadComensales = cantidadComensales;
         this.estado = estado;
     }
@@ -27,7 +24,8 @@ public class Mesa {
     }
 
     public void setNro(int nro) {
-        assert nro>0:"ERROR : El numero de mesa debe ser mayor a cero";
+        assert nro > 0:"ERROR : El numero de mesa debe ser mayor a cero";
+
         this.nro = nro;
     }
 
@@ -39,6 +37,7 @@ public class Mesa {
         assert estado!=null :"ERROR : El estado no debe ser null";
         assert estado!="":"ERROR : El estado no debe ser vacio";
         assert estado!="Libre" || estado!="Ocupado" :"ERROR : El estado debe ser Ocupado o Libre";
+
         this.estado = estado;
     }
     public int getCantidadComensales() {
@@ -51,6 +50,7 @@ public class Mesa {
             assert cantidadComensales>1:"ERROR: la cantidad de comensales debe ser mayor a 1";
         else
             assert cantidadComensales>0:"ERROR: la cantidad de comensales debe ser mayor a 1";
+
         this.cantidadComensales = cantidadComensales;
     }
 
@@ -64,6 +64,6 @@ public class Mesa {
 
     @Override
     public String toString(){
-        return "Mesa n°"+this.nro;
+        return "Mesa n°" + this.nro;
     }
 }

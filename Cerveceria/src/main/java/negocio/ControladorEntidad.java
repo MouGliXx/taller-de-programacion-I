@@ -25,19 +25,19 @@ public class ControladorEntidad implements ActionListener {
                 switch (vista.getEntidad()) {
                     case "Operario" -> {
                         Operario operario = this.vista.getOperario();
-                        //GUARDAR OPERARIO
+                        //TODO GUARDAR OPERARIO
                     }
                     case "Mozo" -> {
                         Mozo mozo = this.vista.getMozo();
-                        //GUARDAR MOZO
+                        //TODO GUARDAR MOZO
                     }
                     case "Producto" -> {
                         Producto producto = this.vista.getProducto();
-                        //GUARDAR PRODUCTO
+                        //TODO GUARDAR PRODUCTO
                     }
                     case "Mesa" -> {
                         Mesa mesa = this.vista.getMesa();
-                        //GUARDAR MESA
+                        //TODO GUARDAR MESA
                     }
                 }
                 this.vista.cerrarVentana();
