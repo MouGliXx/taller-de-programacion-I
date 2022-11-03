@@ -218,7 +218,7 @@ public class Cerveceria {
     //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
 
     /**
-     * <b>pre:</b> mesa debe ser distinto de null<br>.
+     * <b>pre:</b> mesa y pedidos deben ser distintos de null<br>.
      * @param mesa sobre la cual se va a crear la comanda
      * @throws Exception Se lanza excepción si la mesa esta en estado Ocupado
      * @throws Exception Se lanza excepción si No hay mesas habilitadas en el Negocio
@@ -230,7 +230,7 @@ public class Cerveceria {
      */
     public void agregarComanda(Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
         assert mesa != null : "ERROR : La mesa no debe ser null";
-
+        assert pedidos != null : "ERROR : Pedidos no debe ser null";
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.mesas.size() == 0)
@@ -283,14 +283,19 @@ public class Cerveceria {
         }
     }
 
-    public void eliminarMesa(Mesa mesa) throws Exception {
+    public void eliminarMesa(Mesa mesa){
         assert mesa!=null:"ERROR : La mesa no puede ser null";
         this.mesas.remove(mesa);
     }
 
-    public void eliminarOperario (Operario operario) throws Exception {
+    public void eliminarOperario (Operario operario){
         assert operario!=null:"ERROR : El operario no puede ser null";
         this.operarios.remove(operario);
+    }
+
+    public void eliminarComanda (Comanda comanda){
+        assert comanda!=null:"ERROR : La comanda no puede ser null";
+        this.comandas.remove(comanda);
     }
 
     public void eliminarProducto (Producto producto) throws Exception{
@@ -363,19 +368,8 @@ public class Cerveceria {
 
     public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
         assert mesa!=null:"ERROR : La mesa no debe ser null";
-        if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
-            throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
-        if (this.mesas.size() == 0)
-            throw new Exception("No se puede crear la Comanda : No hay mesas habilitadas"); //1.1 Local sin mesas habilitadas
-        if (this.mesasAsignadas.get(mesa) == null)
-            throw new Exception("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
-        if (this.mozos.isEmpty())
-            throw new Exception("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
-        if (hayDosProductosPromocionActiva() == false)
-            throw new Exception("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
-        if (this.productos.isEmpty())
-            throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
-
+        assert comanda != null : "ERROR : La comanda no debe ser null";
+        assert pedidos != null : "ERROR : Pedidos no debe ser null";
         comanda.setMesa(mesa);
         comanda.setPedidos(pedidos);
         mesa.ocupar();

@@ -89,12 +89,8 @@ public class Comanda {
 
     @Override
     public String toString() {
-        return "Comanda{" +
-                "fecha=" + fecha +
-                ", mesa=" + mesa +
-                ", pedidos=" + pedidos +
-                ", estado='" + estado + '\'' +
-                '}';
+        return fecha +
+                " Mesa=" + mesa + pedidos ;
     }
 }
 

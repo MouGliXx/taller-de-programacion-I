@@ -64,6 +64,6 @@ public class Mesa {
 
     @Override
     public String toString(){
-        return "Mesa n°" + this.nro;
+        return " "+this.nro;
     }
 }
