@@ -8,7 +8,10 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Producto producto, int cantidad) {
+    public Pedido(Producto producto, int cantidad) throws Exception {
+        if (!hayStock(producto,cantidad))
+            throw new Exception("ERROR : No hay stock suficiente");
+        producto.setStockInicial(producto.getStockInicial()-cantidad);
         this.setProducto(producto);
         this.setCantidad(cantidad);
     }
@@ -16,16 +19,17 @@ public class Pedido {
     //GETTERS && SETTERS
     public void setCantidad(int cantidad) {
         assert cantidad > 0 : "ERROR : La cantidad debe ser mayor a cero";
-
         this.cantidad = cantidad;
     }
 
     public void setProducto(Producto producto) {
         assert producto != null : "ERROR : El producto no debe der null";
-
         this.producto = producto;
     }
 
+    public boolean hayStock(Producto producto, int cantidad){
+        return producto.getStockInicial()>=cantidad;
+    }
     public int getCantidad(){
         return this.cantidad;
     }

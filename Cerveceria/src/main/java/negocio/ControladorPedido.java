@@ -4,6 +4,8 @@ import modelo.Comanda;
 import modelo.Pedido;
 import modelo.Producto;
 import vista.interfaces.IVistaPedido;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,8 +30,11 @@ public class ControladorPedido implements ActionListener {
             case "Crear" -> {
                 Producto producto = vista.getProductoSeleccionado();
                 int cantidad = vista.getCantidadSeleccionada();
-
-                pedido = new Pedido(producto, cantidad);
+                try {
+                    pedido = new Pedido(producto, cantidad);
+                } catch (Exception ex) {
+                    vista.lanzarVentanaEmergente(ex.getMessage());
+                }
                 comanda.agregarPedido(pedido);
                 vista.cerrarVentana();
             }

@@ -69,12 +69,13 @@ public class Comanda {
         this.estado = "Cerrada";
     }
 
-    public void agregarPedido(Pedido pedido) {
+    public void agregarPedido(Pedido pedido){
         this.pedidos.add(pedido);
     }
 
     public void eliminarPedido(Pedido pedido) { //TODO AL ELIMINAR SE DEBERIA SUMAR LA CANTIDAD AL STOCK
         this.pedidos.remove(pedido);
+        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()+pedido.getCantidad());
     }
 
     public double getTotal() { //TODO VER TEMA DE INCLUIR PROMOCIONES
