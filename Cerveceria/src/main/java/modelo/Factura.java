@@ -9,15 +9,17 @@ public class Factura {
     private ArrayList<Pedido> pedidos;
     private double total;
     private String formaDePago;
-    private ArrayList<IPromocion> promociones;
+    private ArrayList<ProductoEnPromocion> promocionesProductos;
+    private ArrayList<PromocionTemporal> promocionesTemporales;
 
     //CONSTRUCTOR
-    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total, ArrayList<IPromocion> promociones) {
+    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total,private ArrayList<ProductoEnPromocion> promocionesProductos,  ArrayList<PromocionTemporal> promocionesTemporales) {
         this.fecha = fecha;
         this.mesa = mesa;
         this.pedidos = pedidos;
         this.total = total;
-        this.promociones = promociones;
+        this.promocionesProductos = promocionesProductos;
+        this.promocionesTemporales = promocionesTemporales;
     }
 
     //GETTERS & SETTERS
@@ -57,18 +59,36 @@ public class Factura {
         this.formaDePago = formaDePago;
     }
 
-    public ArrayList<IPromocion> getPromociones() {
-        return promociones;
+    public ArrayList<ProductoEnPromocion> getPromocionesProductos() {
+        return promocionesProductos;
     }
 
-    public void setPromociones(ArrayList<IPromocion> promociones) {
-        this.promociones = promociones;
+    public void setPromocionesProductos(ArrayList<ProductoEnPromocion> promocionesProductos) {
+        this.promocionesProductos = promocionesProductos;
+    }
+
+    public ArrayList<PromocionTemporal> getPromocionesTemporales() {
+        return promocionesTemporales;
+    }
+
+    public void setPromocionesTemporales(ArrayList<PromocionTemporal> promocionesTemporales) {
+        this.promocionesTemporales = promocionesTemporales;
     }
 
     public double getTotal(){
-        for ( Pedido pedido:pedidos){
-            this.total = pedido.getPrecio();
+        //aplicar promociones de producto
+        // recorrer promociones
+        for ( ProductoEnPromocion producto : promocionesProductos){
+            for ( Pedido pedido : pedidos){
+                if (producto).equal(pedido){
+                    total = producto.getPrecio();
+                }
+            }
         }
+            // verificar dentro de la lista de items si coincide con el producto con descuento
+
+
+        // aplicar promociones temporales
         return this.total;
     }
 

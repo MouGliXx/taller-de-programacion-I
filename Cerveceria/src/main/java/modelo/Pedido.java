@@ -34,7 +34,7 @@ public class Pedido {
         return this.cantidad;
     }
 
-    public double getPrecio(){
+    public double getPrecioConjunto(){
         return this.producto.getPrecioVenta() * this.getCantidad();
     }
 

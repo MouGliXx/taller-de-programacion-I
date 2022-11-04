@@ -13,6 +13,7 @@ public class ProductoEnPromocion {
     private double dtoPorCantidad_PrecioUnitario;
     private boolean activa;
 
+
     //CONSTRUCTOR
     public ProductoEnPromocion(int idPromocion, Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario, boolean activa) {
         this.idPromocion = idPromocion;
@@ -34,6 +35,9 @@ public class ProductoEnPromocion {
         this.activa = activa;
     }
 
+    public double getPrecio() {
+        return producto.getPrecioVenta();
+    }
     //GETTERS && SETTERS
     public Producto getProducto() {
         return producto;
