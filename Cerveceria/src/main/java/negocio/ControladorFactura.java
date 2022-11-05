@@ -13,7 +13,7 @@ public class ControladorFactura implements ActionListener {
         this.modelo = modelo;
         this.vista = vista;
 
-        this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getTotal(), modelo.getPromocionesProductos(), modelo.getPromocionesTemporales());
+        this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getTotal(), modelo.getPromocionesAplicadas());
         this.vista.ejecutar();
     }
 

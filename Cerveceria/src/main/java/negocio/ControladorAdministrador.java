@@ -48,7 +48,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     }
                     case "Productos en venta" -> {
                         Producto producto = vista.getProductoSeleccionado();
-                        Cerveceria.getInstance().getProductos().remove(producto.getNro());
+                        Cerveceria.getInstance().getProductos().remove(producto.getIdProducto());
                         //TODO REMOVER PRODUCTO
                         vista.actualizaLista("Productos en venta");
                     }

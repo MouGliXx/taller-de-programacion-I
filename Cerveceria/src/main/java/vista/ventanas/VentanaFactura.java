@@ -1,8 +1,6 @@
 package vista.ventanas;
 
-import modelo.Pedido;
-import modelo.ProductoEnPromocion;
-import modelo.PromocionTemporal;
+import modelo.*;
 import vista.interfaces.IVistaFactura;
 
 import javax.swing.*;
@@ -24,8 +22,8 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     private JLabel listadoDePedidosAsignadosLabel;
     private JLabel promocionesAplicadasLabel;
     private JLabel numeroMesaLabel;
-    private JList listaProductos;
-    private JList listaPromociones;
+    private JList<Pedido> listaProductos;
+    private JList<Promocion> listaPromociones;
     private JScrollPane productosScrollPane;
     private JScrollPane promocionesScrollPane;
     private JComboBox<String> formasDePagoBox;
@@ -36,7 +34,7 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     private JLabel montoLabel;
     //MODELOS PARA LISTA
     DefaultListModel<Pedido> modeloProductos = new DefaultListModel<>();
-    DefaultListModel<IPromocion> modeloPromociones = new DefaultListModel<>();
+    DefaultListModel<Promocion> modeloPromociones = new DefaultListModel<>();
 
     //GETTERS & SETTERS
 
@@ -84,28 +82,28 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     }
 
     @Override
-    public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<ProductoEnPromocion> productosEnPromocion, ArrayList<PromocionTemporal> promocionesTemporales) {
+    public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones) {
         if (pedidos != null && !pedidos.isEmpty()) {
             pedidos.forEach((pedido) -> {
                 modeloProductos.add(modeloProductos.size(), pedido);
             });
         }
 
-        if (productosEnPromocion != null && !productosEnPromocion.isEmpty()) {
-            productosEnPromocion.forEach((promocion) -> {
+        if (promociones != null && !promociones.isEmpty()) {
+            promociones.forEach((promocion) -> {
                 modeloPromociones.add(modeloPromociones.size(), promocion);
             });
         }
     }
 
     @Override
-    public void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<ProductoEnPromocion> productosEnPromocion, ArrayList<PromocionTemporal> promocionesTemporales) {
+    public void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<Promocion> promociones) {
         DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
         String fechaActual = dateFormat.format(fecha);
 
         this.fechaActualLabel.setText(fechaActual);
         this.numeroMesaLabel.setText(String.valueOf(NMesa));
-        inicializarListas(pedidos, productosEnPromocion, promocionesTemporales);
+        inicializarListas(pedidos, promociones);
         this.montoLabel.setText(String.valueOf(total));
     }
 

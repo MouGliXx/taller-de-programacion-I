@@ -77,5 +77,7 @@ public class ProductoEnPromocion extends Promocion {
     }
 
     //FUNCIONALIDADES
-
+    public double getPrecio() {
+        return producto.getPrecioVenta();
+    }
 }

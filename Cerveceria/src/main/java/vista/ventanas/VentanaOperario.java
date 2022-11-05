@@ -158,7 +158,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     public void inicializarListas() {
         ArrayList<Comanda> comandas = Cerveceria.getInstance().getComandas();
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
-        ArrayList<IPromocion> promociones = Cerveceria.getInstance().getPromociones();
+        ArrayList<Promocion> promociones = Cerveceria.getInstance().getPromociones();
 
         modeloComanda.removeAllElements();
         comandas.forEach((comanda) -> {

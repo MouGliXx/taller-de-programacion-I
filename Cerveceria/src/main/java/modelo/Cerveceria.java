@@ -3,7 +3,6 @@ package modelo;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class Cerveceria {
@@ -18,7 +17,7 @@ public class Cerveceria {
     private ArrayList<Comanda> comandas = new ArrayList<>();
     private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
     private ArrayList<Factura> facturas = new ArrayList<>();
-    private ArrayList<IPromocion> promociones = new ArrayList<>();
+    private ArrayList<Promocion> promociones = new ArrayList<>();
     private HashMap<Integer,Producto> productos = new HashMap<>();
     private double remuneracionBasica;
 
@@ -108,11 +107,11 @@ public class Cerveceria {
         this.facturas = facturas;
     }
 
-    public ArrayList<IPromocion> getPromociones() {
+    public ArrayList<Promocion> getPromociones() {
         return promociones;
     }
 
-    public void setPromociones(ArrayList<IPromocion> promociones) {
+    public void setPromociones(ArrayList<Promocion> promociones) {
         this.promociones = promociones;
     }
 
@@ -257,13 +256,13 @@ public class Cerveceria {
             if(precioVenta>0){
                 if(precioCosto>0) {
                     if(this.productos.containsKey(nro)){
-                        Producto producto=productos.get(nro);
+                        Producto producto = productos.get(nro);
                         producto.setNombre(nombre);
                         producto.setPrecioCosto(precioCosto);
                         producto.setPrecioVenta(precioVenta);
                         producto.setStockInicial(stockInicial);
                     }
-                    else this.productos.put(nro,new Producto(nro, nombre, precioCosto, precioVenta, stockInicial));
+                    else this.productos.put(nro,new Producto(nombre, precioCosto, precioVenta, stockInicial));
                 }
                 else throw new Exception("El precio de costo es menor a cero");
             }
@@ -302,7 +301,7 @@ public class Cerveceria {
         for (int i=0;i<comandas.size();i++){
             ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
             for (int j=0;j<pedidos.size();j++){
-                if(producto.getNro()==pedidos.get(j).getProducto().getNro()){
+                if(producto.getIdProducto() == pedidos.get(j).getProducto().getIdProducto()){
                     throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
                 }
             }

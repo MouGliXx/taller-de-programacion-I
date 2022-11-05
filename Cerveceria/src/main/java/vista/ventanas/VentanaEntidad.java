@@ -160,7 +160,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
 
     @Override
     public void setDatosProducto(Producto producto) {
-        this.IDLabel.setText(String.valueOf(producto.getNro()));
+        this.IDLabel.setText(String.valueOf(producto.getIdProducto()));
         this.stockInicialTextField.setText(String.valueOf(producto.getStockInicial()));
         this.nombreProductoTextField.setText(producto.getNombre());
         this.precioCostoTextField.setText(String.valueOf(producto.getPrecioCosto()));
@@ -208,7 +208,8 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         double precioCosto = Double.parseDouble(precioCostoTextField.getText());
         double precioVenta= Double.parseDouble(precioVentaTextField.getText());
 
-        return new Producto(idProduct,nombre, precioCosto, precioVenta, stockInicial);
+//        return new Producto(idProduct,nombre, precioCosto, precioVenta, stockInicial);
+        return null;
     }
 
     @Override

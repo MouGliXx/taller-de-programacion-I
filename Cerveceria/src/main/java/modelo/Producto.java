@@ -1,36 +1,30 @@
 package modelo;
 
 public class Producto {
-    private static int idProduct=0;
-    private int nro;
+    private static int N = 0;
+    private int idProducto;
     private String nombre;
     private double precioCosto;
     private double precioVenta;
     private int stockInicial;
 
-    public int getNro() {
-        return nro;
-    }
-
-    public void setNro(int nro) {
-        this.nro = nro;
-    }
-
-    public Producto(int nro, String nombre, double precioCosto, double precioVenta, int stockInicial) {
-        idProduct++;
-        this.nro = idProduct;
+    //CONSTRUCTOR
+    public Producto(String nombre, double precioCosto, double precioVenta, int stockInicial) {
+        this.idProducto = N;
+        N++;
         this.nombre = nombre;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.stockInicial = stockInicial;
     }
 
-    public int getidProduct() {
-        return idProduct;
+    //GETTERS & SETTERS
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public void setidProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombre() {

@@ -9,17 +9,16 @@ public class Factura {
     private ArrayList<Pedido> pedidos;
     private double total;
     private String formaDePago;
-    private ArrayList<ProductoEnPromocion> promocionesProductos;
-    private ArrayList<PromocionTemporal> promocionesTemporales;
+    private ArrayList<Promocion> promocionesAplicadas;
 
     //CONSTRUCTOR
-    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total, ArrayList<ProductoEnPromocion> promocionesProductos, ArrayList<PromocionTemporal> promocionesTemporales) {
+    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total, ArrayList<Promocion> promocionesAplicadas) {
         this.fecha = fecha;
         this.mesa = mesa;
         this.pedidos = pedidos;
         this.total = total;
-        this.promocionesProductos = promocionesProductos;
-        this.promocionesTemporales = promocionesTemporales;
+        this.formaDePago = null;
+        this.promocionesAplicadas = promocionesAplicadas;
     }
 
     //GETTERS & SETTERS
@@ -59,38 +58,30 @@ public class Factura {
         this.formaDePago = formaDePago;
     }
 
-    public ArrayList<ProductoEnPromocion> getPromocionesProductos() {
-        return promocionesProductos;
+    public ArrayList<Promocion> getPromocionesAplicadas() {
+        return promocionesAplicadas;
     }
 
-    public void setPromocionesProductos(ArrayList<ProductoEnPromocion> promocionesProductos) {
-        this.promocionesProductos = promocionesProductos;
-    }
-
-    public ArrayList<PromocionTemporal> getPromocionesTemporales() {
-        return promocionesTemporales;
-    }
-
-    public void setPromocionesTemporales(ArrayList<PromocionTemporal> promocionesTemporales) {
-        this.promocionesTemporales = promocionesTemporales;
+    public void setPromocionesAplicadas(ArrayList<Promocion> promocionesAplicadas) {
+        this.promocionesAplicadas = promocionesAplicadas;
     }
 
     public double getTotal(){
         //aplicar promociones de producto
         // recorrer promociones
-        for ( ProductoEnPromocion producto : promocionesProductos){
-            for ( Pedido pedido : pedidos){
-                if (producto.equals(pedido)) {
-                    total = producto.getPrecio();
-                }
-            }
-        }
+//        for (ProductoEnPromocion producto : promocionesProductos){ //TODO REFACTORIZAR
+//            for ( Pedido pedido : pedidos){
+//                if (producto.equals(pedido)) {
+//                    total = producto.getPrecio();
+//                }
+//            }
+//        }
             // verificar dentro de la lista de items si coincide con el producto con descuento
-
 
         // aplicar promociones temporales
         return this.total;
     }
+
 
     @Override
     public String toString() {
@@ -100,8 +91,7 @@ public class Factura {
                 ", pedidos=" + pedidos +
                 ", total=" + total +
                 ", formaDePago='" + formaDePago + '\'' +
-                ", promocionesProductos=" + promocionesProductos +
-                ", promocionesTemporales=" + promocionesTemporales +
+                ", promocionesAplicadas=" + promocionesAplicadas +
                 '}';
     }
 }

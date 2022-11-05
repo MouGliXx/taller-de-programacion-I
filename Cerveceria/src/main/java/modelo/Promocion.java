@@ -3,26 +3,26 @@ package modelo;
 import java.util.ArrayList;
 
 public abstract class Promocion {
-    private static int N = 0;
-    private int id;
-    private ArrayList<String> diasPromocion;
-    private boolean activa;
+    protected static int N = 0;
+    protected int idPromocion;
+    protected ArrayList<String> diasPromocion;
+    protected boolean activa;
 
     //CONSTRUCTOR
     public Promocion(ArrayList<String> diasPromocion, boolean activa) {
-        this.id = N;
+        this.idPromocion = N;
         N++;
         this.diasPromocion = diasPromocion;
         this.activa = activa;
     }
 
     //GETTERS && SETTERS
-    public int getId() {
-        return id;
+    public int getIdPromocion() {
+        return idPromocion;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
     public ArrayList<String> getDiasPromocion() {

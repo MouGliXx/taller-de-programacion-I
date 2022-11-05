@@ -85,9 +85,9 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 }
 
                 double total = 0; //TODO METODO EN COMANDA QUE CALCULE EL TOTAL
-                ArrayList<IPromocion> promocionesAplicadas = null; //TODO METODO QUE GESTIONE LAS PROMOCIONES
+                ArrayList<Promocion> promocionesAplicadas = null; //TODO METODO QUE GESTIONE LAS PROMOCIONES
 
-                Factura nuevaFacura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos(), total, promocionesAplicadas);
+                Factura nuevaFacura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos(), total, promocionesAplicadas); //TODO establecer formaDePago
                 VentanaFactura ventanaFactura = new VentanaFactura();
                 ControladorFactura controladorFactura = new ControladorFactura(nuevaFacura, ventanaFactura);
                 ventanaFactura.addWindowListener(this);

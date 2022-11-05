@@ -17,9 +17,8 @@ public class Pedido {
     }
 
     //GETTERS && SETTERS
-    public void setCantidad(int cantidad) {
-        assert cantidad > 0 : "ERROR : La cantidad debe ser mayor a cero";
-        this.cantidad = cantidad;
+    public Producto getProducto (){
+        return this.producto;
     }
 
     public void setProducto(Producto producto) {
@@ -27,19 +26,22 @@ public class Pedido {
         this.producto = producto;
     }
 
-    public boolean hayStock(Producto producto, int cantidad){
-        return producto.getStockInicial()>=cantidad;
-    }
     public int getCantidad(){
         return this.cantidad;
     }
 
-    public double getPrecioConjunto(){
-        return this.producto.getPrecioVenta() * this.getCantidad();
+    public void setCantidad(int cantidad) {
+        assert cantidad > 0 : "ERROR : La cantidad debe ser mayor a cero";
+        this.cantidad = cantidad;
     }
 
-    public Producto getProducto (){
-        return this.producto;
+    //FUNCIONALIDADES
+    public boolean hayStock(Producto producto, int cantidad){
+        return producto.getStockInicial()>=cantidad;
+    }
+
+    public double getPrecioConjunto(){
+        return this.producto.getPrecioVenta() * this.getCantidad();
     }
 
     @Override

@@ -179,8 +179,8 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
 
     @Override
     public ProductoEnPromocion getProductoEnPromocion() {
-        int id = Integer.parseInt(IDLabel.getText());
-        Producto producto = null; //GESTIONAR ESTO
+        int id = Integer.parseInt(IDLabel.getText()); //creo que se puede omitir
+        Producto producto = null; //TODO GESTIONAR ESTO
         ArrayList<String> diasPromocion = generaDiasDePromocion();
         boolean activa = activaCheckBox.isSelected();
         boolean aplicaDosPorUno = aplica2x1CheckBox.isSelected();
@@ -190,9 +190,9 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
             int dtoPorCantidad_CantMinima = Integer.parseInt(cantidadMinimaTextField.getText());
             double dtoPorCantidad_PrecioUnitario = Double.parseDouble(precioUnitarioTextField.getText());
 
-            return new ProductoEnPromocion(id,producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario, activa);
+            return new ProductoEnPromocion(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario, activa);
         } else  {
-            return new ProductoEnPromocion(id,producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, activa);
+            return new ProductoEnPromocion(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, activa);
         }
     }
 
