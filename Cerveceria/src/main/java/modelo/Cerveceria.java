@@ -202,7 +202,7 @@ public class Cerveceria {
     public void agregarFactura(Comanda comanda) throws Exception {
         if (comanda == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
-        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones));
+//        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones)); //TODO corregir
     }
 
     // Hay que verificar

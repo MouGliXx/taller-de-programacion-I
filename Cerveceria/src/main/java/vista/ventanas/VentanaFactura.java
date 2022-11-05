@@ -1,7 +1,8 @@
 package vista.ventanas;
 
-import modelo.IPromocion;
 import modelo.Pedido;
+import modelo.ProductoEnPromocion;
+import modelo.PromocionTemporal;
 import vista.interfaces.IVistaFactura;
 
 import javax.swing.*;
@@ -83,28 +84,28 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     }
 
     @Override
-    public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<IPromocion> promociones) {
+    public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<ProductoEnPromocion> productosEnPromocion, ArrayList<PromocionTemporal> promocionesTemporales) {
         if (pedidos != null && !pedidos.isEmpty()) {
             pedidos.forEach((pedido) -> {
                 modeloProductos.add(modeloProductos.size(), pedido);
             });
         }
 
-        if (promociones != null && !promociones.isEmpty()) {
-            promociones.forEach((promocion) -> {
+        if (productosEnPromocion != null && !productosEnPromocion.isEmpty()) {
+            productosEnPromocion.forEach((promocion) -> {
                 modeloPromociones.add(modeloPromociones.size(), promocion);
             });
         }
     }
 
     @Override
-    public void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<IPromocion> promociones) {
+    public void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<ProductoEnPromocion> productosEnPromocion, ArrayList<PromocionTemporal> promocionesTemporales) {
         DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
         String fechaActual = dateFormat.format(fecha);
 
         this.fechaActualLabel.setText(fechaActual);
         this.numeroMesaLabel.setText(String.valueOf(NMesa));
-        inicializarListas(pedidos, promociones);
+        inicializarListas(pedidos, productosEnPromocion, promocionesTemporales);
         this.montoLabel.setText(String.valueOf(total));
     }
 

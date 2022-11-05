@@ -13,7 +13,7 @@ public class Factura {
     private ArrayList<PromocionTemporal> promocionesTemporales;
 
     //CONSTRUCTOR
-    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total,private ArrayList<ProductoEnPromocion> promocionesProductos,  ArrayList<PromocionTemporal> promocionesTemporales) {
+    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total, ArrayList<ProductoEnPromocion> promocionesProductos, ArrayList<PromocionTemporal> promocionesTemporales) {
         this.fecha = fecha;
         this.mesa = mesa;
         this.pedidos = pedidos;
@@ -80,7 +80,7 @@ public class Factura {
         // recorrer promociones
         for ( ProductoEnPromocion producto : promocionesProductos){
             for ( Pedido pedido : pedidos){
-                if (producto).equal(pedido){
+                if (producto.equals(pedido)) {
                     total = producto.getPrecio();
                 }
             }
@@ -100,7 +100,8 @@ public class Factura {
                 ", pedidos=" + pedidos +
                 ", total=" + total +
                 ", formaDePago='" + formaDePago + '\'' +
-                ", promociones=" + promociones +
+                ", promocionesProductos=" + promocionesProductos +
+                ", promocionesTemporales=" + promocionesTemporales +
                 '}';
     }
 }

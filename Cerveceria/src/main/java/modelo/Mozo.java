@@ -62,6 +62,17 @@ public class Mozo {
         this.estado = estado;
     }
 
+    //FUNCIONALIDADES
+
+//     este metodo podria ir en utils
+//     @precondion : fechaNacimiento tiene que ser != NULL
+//     retorna true si la edad es mayor o igual a 18 anos
+//    public boolean esMayorDeEdad(Date fecha){
+//     Date start = Date.from( 2010 , 1 , 1 ) ;
+//    long years = java.time.temporal.ChronoUnit.YEARS.between( start , fecha );
+//    return years >= 0 ;
+//    }
+
     @Override
     public String toString() {
         return "Mozo{" +
