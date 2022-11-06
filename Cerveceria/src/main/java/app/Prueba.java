@@ -68,7 +68,7 @@ public class Prueba {
             System.out.println(e.getMessage());
         }
         cerveza.getComandas().get(0).agregarPedido(p1);
-        cerveza.agregarFactura(cerveza.getComandas().get(0));
+//        cerveza.agregarFactura(cerveza.getComandas().get(0));
         cerveza.cerrarComanda(cerveza.getComandas().get(0));
         System.out.println(cerveza.getFacturas().get(0).toString());
 

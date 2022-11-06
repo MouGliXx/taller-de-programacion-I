@@ -148,7 +148,6 @@ public class Cerveceria {
     }
 
     // AGREGAR
-
     public void agregarAdministrador(String nombre, String contrasena) throws Exception{
         if (nombre.length()<5)
             throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
