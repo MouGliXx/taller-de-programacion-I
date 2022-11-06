@@ -12,6 +12,7 @@ public class Factura {
     private double total;
     private String formaDePago;
     private ArrayList<Promocion> promocionesAplicadas = new ArrayList<Promocion>();
+
     //CONSTRUCTOR
     public Factura(Mesa mesa, ArrayList<Pedido> pedidos,String formaPago) {
         this.fecha = new Date();
