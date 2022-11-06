@@ -1,6 +1,6 @@
 package negocio;
 
-import modelo.ProductoEnPromocion;
+import modelo.PromocionProducto;
 import modelo.PromocionTemporal;
 import vista.interfaces.IVistaPromocion;
 import java.awt.event.ActionEvent;
@@ -22,7 +22,7 @@ public class ControladorPromocion implements ActionListener {
             case "Establecer" -> {
                 switch (vista.getTipoPromocion()) {
                     case "Producto en Promocion" -> {
-                        ProductoEnPromocion productoEnPromocion = this.vista.getProductoEnPromocion();
+                        PromocionProducto productoEnPromocion = this.vista.getProductoEnPromocion();
                         //TODO GUARDAR PROMOCION
                     }
                     case "Promocion Temporal" -> {

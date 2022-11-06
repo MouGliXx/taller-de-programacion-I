@@ -3,6 +3,8 @@ package vista.interfaces;
 import modelo.Pedido;
 
 import modelo.Promocion;
+import modelo.PromocionTemporal;
+
 import java.util.ArrayList;
 import java.util.Date;
 

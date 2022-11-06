@@ -1,6 +1,6 @@
 package vista.interfaces;
 
-import modelo.ProductoEnPromocion;
+import modelo.PromocionProducto;
 import modelo.PromocionTemporal;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public interface IVistaPromocion extends IVista{
 
     ArrayList<String> generaDiasDePromocion();
 
-    ProductoEnPromocion getProductoEnPromocion();
+    PromocionProducto getProductoEnPromocion();
 
     PromocionTemporal getPromocionTemporal();
 }

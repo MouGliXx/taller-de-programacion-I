@@ -3,6 +3,7 @@ package modelo;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Cerveceria {
@@ -17,7 +18,8 @@ public class Cerveceria {
     private ArrayList<Comanda> comandas = new ArrayList<>();
     private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
     private ArrayList<Factura> facturas = new ArrayList<>();
-    private ArrayList<Promocion> promociones = new ArrayList<>();
+    private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
+    private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private HashMap<Integer,Producto> productos = new HashMap<>();
     private double remuneracionBasica;
 
@@ -107,14 +109,20 @@ public class Cerveceria {
         this.facturas = facturas;
     }
 
-    public ArrayList<Promocion> getPromociones() {
-        return promociones;
+    public ArrayList<PromocionTemporal> getPromocionesTemporales() {
+        return promocionesTemporales;
     }
 
-    public void setPromociones(ArrayList<Promocion> promociones) {
-        this.promociones = promociones;
+    public void setPromocionesTemporales(ArrayList<PromocionTemporal> promocionesTemporales) {
+        this.promocionesTemporales = promocionesTemporales;
+    }
+    public ArrayList<PromocionProducto> getPromocionesProductos() {
+        return promocionesProductos;
     }
 
+    public void setPromocionesProductos(ArrayList<PromocionProducto> promocionesProductos) {
+        this.promocionesProductos = promocionesProductos;
+    }
     public HashMap<Integer,Producto> getProductos() {
         return productos;
     }
@@ -198,10 +206,12 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la comanda es null
      * <b>post:</b> La lista de facturas tendra una nueva<br>.
      */
-    public void agregarFactura(Comanda comanda) throws Exception {
+    public Factura agregarFactura(Comanda comanda, String formaPago) throws Exception {
         if (comanda == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
-//        this.facturas.add(new Factura(new Date(), comanda.getMesa(), comanda.getPedidos(), comanda.getTotal(), this.promociones)); //TODO corregir
+        Factura factura = new Factura(comanda.getMesa(), comanda.getPedidos(),formaPago);
+        this.facturas.add(factura); //TODO corregir
+        return factura;
     }
 
     // Hay que verificar

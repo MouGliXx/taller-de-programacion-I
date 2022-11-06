@@ -1,7 +1,7 @@
 package vista.ventanas;
 
 import modelo.Producto;
-import modelo.ProductoEnPromocion;
+import modelo.PromocionProducto;
 import modelo.PromocionTemporal;
 import vista.interfaces.IVistaPromocion;
 import javax.swing.*;
@@ -178,7 +178,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public ProductoEnPromocion getProductoEnPromocion() {
+    public PromocionProducto getProductoEnPromocion() {
         int id = Integer.parseInt(IDLabel.getText()); //creo que se puede omitir
         Producto producto = null; //TODO GESTIONAR ESTO
         ArrayList<String> diasPromocion = generaDiasDePromocion();
@@ -190,9 +190,9 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
             int dtoPorCantidad_CantMinima = Integer.parseInt(cantidadMinimaTextField.getText());
             double dtoPorCantidad_PrecioUnitario = Double.parseDouble(precioUnitarioTextField.getText());
 
-            return new ProductoEnPromocion(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario, activa);
+            return new PromocionProducto(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario, activa);
         } else  {
-            return new ProductoEnPromocion(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, activa);
+            return new PromocionProducto(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, activa);
         }
     }
 

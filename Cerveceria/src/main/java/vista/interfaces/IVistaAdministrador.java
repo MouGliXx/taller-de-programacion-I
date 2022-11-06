@@ -34,7 +34,7 @@ public interface IVistaAdministrador extends IVista {
 
     String getTipoPromocionSeleccionada();
 
-    ProductoEnPromocion getProductoEnPromocionSeleccionado();
+    PromocionProducto getProductoEnPromocionSeleccionado();
 
     PromocionTemporal getPromocionTemporalSeleccionada();
 
