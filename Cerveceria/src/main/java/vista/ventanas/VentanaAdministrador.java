@@ -7,7 +7,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDate;
 
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener, ListSelectionListener {
     private String tipoEntidadSeleccionada = "Operarios";
@@ -42,7 +41,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JButton activarButton;
     private JPanel promocionesPanel;
     private JLabel promocionesLabel;
-    private JList<ProductoEnPromocion> listaProductosEnPromocion;
+    private JList<PromocionProducto> listaProductosEnPromocion;
     private JPanel estadisticasPanel;
     private JCheckBox mesasDelLocalCheckBox;
     private JCheckBox productosEnVentaCheckBox;
@@ -71,7 +70,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
     DefaultListModel<Producto> modeloProducto = new DefaultListModel<>();
     DefaultListModel<Mesa> modeloMesa = new DefaultListModel<>();
-    DefaultListModel<ProductoEnPromocion> modeloProductoEnPromocion = new DefaultListModel<>();
+    DefaultListModel<PromocionProducto> modeloProductoEnPromocion = new DefaultListModel<>();
     DefaultListModel<PromocionTemporal> modeloPromocionTemporal = new DefaultListModel<>();
 
     @Override
@@ -222,7 +221,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
-    public ProductoEnPromocion getProductoEnPromocionSeleccionado() {
+    public PromocionProducto getProductoEnPromocionSeleccionado() {
         return this.listaProductosEnPromocion.getSelectedValue();
     }
 

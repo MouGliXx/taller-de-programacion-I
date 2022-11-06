@@ -9,16 +9,16 @@ public class Factura {
     private ArrayList<Pedido> pedidos;
     private double total;
     private String formaDePago;
+    private ArrayList<PromocionProducto> promocionesProductosAplicadas;
+    private ArrayList<PromocionTemporal> promocionesTemporalesAplicadas;
     private ArrayList<Promocion> promocionesAplicadas;
-
     //CONSTRUCTOR
-    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos) {
-        this.fecha = fecha;
+    public Factura(Mesa mesa, ArrayList<Pedido> pedidos,String formaPago) {
+        this.fecha = new Date();
         this.mesa = mesa;
         this.pedidos = pedidos;
-        this.total = 0;
-        this.formaDePago = null;
-        this.promocionesAplicadas = null;
+        this.formaDePago = formaPago;
+        this.total = calculaTotal();
     }
 
     //GETTERS & SETTERS
@@ -58,23 +58,41 @@ public class Factura {
         this.formaDePago = formaDePago;
     }
 
+    public ArrayList<PromocionProducto> getPromocionesProductosAplicadas() {
+        return promocionesProductosAplicadas;
+    }
+
+    public void setPromocionesProductosAplicadas(ArrayList<PromocionProducto> promocionesProductosAplicadas) {
+        this.promocionesProductosAplicadas = promocionesProductosAplicadas;
+    }
+
     public ArrayList<Promocion> getPromocionesAplicadas() {
         return promocionesAplicadas;
     }
 
-    public void setPromocionesAplicadas(ArrayList<Promocion> promocionesAplicadas) {
-        this.promocionesAplicadas = promocionesAplicadas;
+    //FUNCIONALIDADES
+    public void aplicarPromocionesTemporales() {
+        ArrayList<PromocionTemporal> promoTempAplicar = new ArrayList<PromocionTemporal>();
+        ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
+        for (PromocionTemporal promos : promoTemp)
+            if (promos.isActiva())
+                promoTempAplicar.add(promos);
     }
 
-    public void verificaPromociones() {
+    private void aplicarPromocionesProductos(){}
 
+    private boolean productoEstaEnPromocion (Producto producto){
+        boolean respuesta = false;
+        int pos = 0;
+        ArrayList<PromocionProducto> promoProd =  Cerveceria.getInstance().getPromocionesProductos();
+        while (!respuesta && pos<promoProd.size()) {
+            if (promoProd.get(pos++).getProducto().equals(producto))
+                respuesta = true;
+        }
+        return respuesta;
     }
 
-    public void calculaTotal() {
-
-    }
-
-    public double getTotal(){ //TODO REFACTORIZAR
+    public double calculaTotal() { //TODO REFACTORIZAR
         //aplicar promociones de producto
         // recorrer promociones
 //        for (ProductoEnPromocion producto : promocionesProductos){
@@ -84,21 +102,22 @@ public class Factura {
 //                }
 //            }
 //        }
-            // verificar dentro de la lista de items si coincide con el producto con descuento
+        // verificar dentro de la lista de items si coincide con el producto con descuento
         // aplicar promociones temporales
+        return 2.2;
+    }
+
+    public double getTotal(){
         return this.total;
     }
 
-
     @Override
     public String toString() {
-        return "Factura{" +
-                "fecha=" + fecha +
+        return  "fecha= " + fecha +
                 ", mesa=" + mesa +
                 ", pedidos=" + pedidos +
                 ", total=" + total +
                 ", formaDePago='" + formaDePago + '\'' +
-                ", promocionesAplicadas=" + promocionesAplicadas +
-                '}';
+                ", promocionesAplicadas=" + promocionesProductosAplicadas + promocionesTemporalesAplicadas;
     }
 }

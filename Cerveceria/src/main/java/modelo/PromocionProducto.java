@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class ProductoEnPromocion extends Promocion {
+public class PromocionProducto extends Promocion {
     private Producto producto;
     private boolean aplicaDosPorUno;
     private boolean aplicaDtoPorCantidad;
@@ -10,7 +10,7 @@ public class ProductoEnPromocion extends Promocion {
     private double dtoPorCantidad_PrecioUnitario;
 
     //CONSTRUCTOR
-    public ProductoEnPromocion(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario) {
+    public PromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario) {
         super(diasPromocion, activa);
         this.producto = producto;
         this.aplicaDosPorUno = aplicaDosPorUno;
@@ -19,7 +19,7 @@ public class ProductoEnPromocion extends Promocion {
         this.dtoPorCantidad_PrecioUnitario = dtoPorCantidad_PrecioUnitario;
     }
 
-    public ProductoEnPromocion(Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario, boolean activa) {
+    public PromocionProducto(Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario, boolean activa) {
         super(diasPromocion, activa);
         this.producto = producto;
         this.aplicaDosPorUno = aplicaDosPorUno;
@@ -28,7 +28,7 @@ public class ProductoEnPromocion extends Promocion {
         this.dtoPorCantidad_PrecioUnitario = dtoPorCantidad_PrecioUnitario;
     }
 
-    public ProductoEnPromocion(Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, boolean activa) {
+    public PromocionProducto(Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, boolean activa) {
         super(diasPromocion, activa);
         this.producto = producto;
         this.aplicaDosPorUno = aplicaDosPorUno;

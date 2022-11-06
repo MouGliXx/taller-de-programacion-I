@@ -65,7 +65,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     private JLabel listadoDePromocionesTemporalesLabel;
     private JList<Comanda> listaComandas;
     private JList<Factura> listaFacturas;
-    private JList<ProductoEnPromocion> listaProductosEnPromocion;
+    private JList<PromocionProducto> listaProductosEnPromocion;
     private JList<PromocionTemporal> listaPromocionesTemporales;
     private JScrollPane productoEnPromocionScrollPane;
     private JScrollPane promocionesTemporalesScrollPane;
@@ -78,7 +78,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     //MODELOS PARA LISTA
     DefaultListModel<Comanda> modeloComanda = new DefaultListModel<>();
     DefaultListModel<Factura> modeloFactura = new DefaultListModel<>();
-    DefaultListModel<ProductoEnPromocion> modeloProductoEnPromocion = new DefaultListModel<>();
+    DefaultListModel<PromocionProducto> modeloProductoEnPromocion = new DefaultListModel<>();
     DefaultListModel<PromocionTemporal> modeloPromocionGeneral = new DefaultListModel<>();
 
     @Override
@@ -207,7 +207,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     public void inicializarListas() {
         ArrayList<Comanda> comandas = Cerveceria.getInstance().getComandas();
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
-        ArrayList<Promocion> promociones = Cerveceria.getInstance().getPromociones();
+        ArrayList<Promocion> promociones = Cerveceria.getInstance().getPromocionesTemporales();
 
         modeloComanda.removeAllElements();
         comandas.forEach((comanda) -> {

@@ -66,7 +66,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
             case "Activar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
                     case "Productos en promocion" -> {
-                        ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
+                        PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
                         productoEnPromocion.setActiva(true);
                     }
                     case "promociones temporales" -> {
@@ -78,7 +78,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
             case "Desactivar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
                     case "Productos en promocion" -> {
-                        ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
+                        PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
                         productoEnPromocion.setActiva(false);
 
                     }
@@ -93,7 +93,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
             case "Eliminar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
                     case "Productos en promocion" -> {
-                        ProductoEnPromocion productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
+                        PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
                         //TODO ELIMINAR PROMOCION
                         vista.actualizaLista("Productos en promocion");
                     }

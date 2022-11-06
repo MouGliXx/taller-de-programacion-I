@@ -5,6 +5,8 @@ import vista.interfaces.IVistaOperario;
 import vista.ventanas.VentanaComanda;
 import vista.ventanas.VentanaFactura;
 import vista.ventanas.VentanaLogin;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -51,7 +53,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
         }
     }
 
-    public void creaOtraVentana(String ventana) {
+    public void creaOtraVentana(String ventana){
         switch (ventana) {
             case "Login" -> {
                 VentanaLogin ventanaLogin = new VentanaLogin();
@@ -80,19 +82,17 @@ public class ControladorOperario implements ActionListener, WindowListener {
 
                 try {
                     Cerveceria.getInstance().cerrarComanda(comandaSeleccionada);
+                    Factura nuevaFactura = Cerveceria.getInstance().agregarFactura(comandaSeleccionada,"");
+                    VentanaFactura ventanaFactura = new VentanaFactura();
+                    ControladorFactura controladorFactura = new ControladorFactura(nuevaFactura, ventanaFactura);
+                    ventanaFactura.addWindowListener(this);
+                    ventanaFactura.ejecutar();
                 } catch (Exception e) {
                     vista.lanzarVentanaEmergente(e.getMessage());
                 }
-
-                Factura nuevaFactura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos());
-
-                nuevaFactura.calculaTotal(); //TODO METODO EN FACTURA QUE CALCULE EL TOTAL
-                nuevaFactura.verificaPromociones(); //TODO METODO EN FACTURA QUE GESTIONE LAS PROMOCIONES
-
-                VentanaFactura ventanaFactura = new VentanaFactura();
-                ControladorFactura controladorFactura = new ControladorFactura(nuevaFactura, ventanaFactura);
-                ventanaFactura.addWindowListener(this);
-                ventanaFactura.ejecutar();
+                //Factura nuevaFactura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos());
+                //nuevaFactura.calculaTotal(); //TODO METODO EN FACTURA QUE CALCULE EL TOTAL
+                //nuevaFactura.verificaPromociones(); //TODO METODO EN FACTURA QUE GESTIONE LAS PROMOCIONES
             }
         }
     }
