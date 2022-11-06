@@ -61,14 +61,11 @@ public class Mozo {
     }
 
     //FUNCIONALIDADES
-
     @Override
     public String toString() {
-        return "Mozo{" +
-                "nombreYApellido='" + nombreYApellido + '\'' +
-                ", edad=" + edad +
-                ", cantHijos=" + cantHijos +
-                ", estado='" + estado + '\'' +
-                '}';
+        return "Nombre y Apellido: '" + nombreYApellido + '\'' +
+                " - Edad: " + edad +
+                " - Hijos: " + cantHijos +
+                " - Estado: " + estado;
     }
 }

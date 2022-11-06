@@ -1,9 +1,6 @@
 package negocio;
 
-import modelo.Mesa;
-import modelo.Mozo;
-import modelo.Operario;
-import modelo.Producto;
+import modelo.*;
 import vista.ventanas.VentanaEntidad;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,20 +21,55 @@ public class ControladorEntidad implements ActionListener {
             case "Accion" -> {
                 switch (vista.getEntidad()) {
                     case "Operario" -> {
-                        Operario operario = this.vista.getOperario();
-                        //TODO GUARDAR OPERARIO
+                        try {
+                            String nombreCompleto = vista.getNombreCompletoOperario();
+                            String nombreUsuario = vista.getNombreDeUsuario();
+                            String contrasena = vista.getContrasena();
+                            boolean estado = vista.getEstadoOperario();
+
+                            Cerveceria.getInstance().agregarOperario(nombreCompleto, nombreUsuario, contrasena, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                        } catch (Exception ex) {
+                            vista.lanzarVentanaEmergente(ex.getMessage());
+                        }
                     }
                     case "Mozo" -> {
-                        Mozo mozo = this.vista.getMozo();
-                        //TODO GUARDAR MOZO
+                        try {
+                            String nombreYApellido = vista.getNombreYApellidoMozo();
+                            int edad = vista.getEdadMozo();
+                            int cantHijos = vista.getCantidadHijosMozo();
+                            String estado = vista.getEstadoMozo();
+
+                            Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                        } catch (NumberFormatException ex) {
+                            vista.lanzarVentanaEmergente(ex.getMessage());
+                        } catch (Exception ex) {
+                            vista.lanzarVentanaEmergente(ex.getMessage());
+                        }
                     }
                     case "Producto" -> {
-                        Producto producto = this.vista.getProducto();
-                        //TODO GUARDAR PRODUCTO
+                        try {
+                           int id = vista.getIDProducto();
+                           int stock = vista.getStockInicial();
+                           String nombre = vista.getNombreProducto();
+                           double precioCosto = vista.getPrecioCosto();
+                           double precioVenta = vista.getPrecioVenta();
+
+                           Cerveceria.getInstance().agregarProducto(id, nombre, precioVenta, precioCosto, stock); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                        } catch (NumberFormatException ex) {
+                            vista.lanzarVentanaEmergente(ex.getMessage());
+                        } catch (Exception ex) {
+                            vista.lanzarVentanaEmergente(ex.getMessage());
+                        }
                     }
                     case "Mesa" -> {
-                        Mesa mesa = this.vista.getMesa();
-                        //TODO GUARDAR MESA
+                        try {
+                            int cantComensales = vista.getCantidadComensales();
+                            String estado = vista.getEstadoMesa();
+
+                            Cerveceria.getInstance().agregarMesa(cantComensales, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                        } catch (Exception ex) {
+                            vista.lanzarVentanaEmergente(ex.getMessage());
+                        }
                     }
                 }
                 this.vista.cerrarVentana();

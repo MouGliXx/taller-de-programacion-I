@@ -19,6 +19,8 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         this.vista.setKeyListener();
         this.vista.setListSelectionListener();
         this.vista.setWindowListener(this);
+        this.vista.setNombreLocal(Cerveceria.getInstance().getNombreDelLocal());
+        this.vista.setRemuneracion(Cerveceria.getInstance().getRemuneracionBasica());
         this.vista.inicializarListas();
     }
 
@@ -38,7 +40,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                 switch (vista.getTipoEntidadSeleccionada()) {
                     case "Operarios" -> {
                         Operario operario = vista.getOperarioSeleccionado();
-                        //TODO REMOVER OPERARIO
+                        Cerveceria.getInstance().eliminarOperario(operario);
                         vista.actualizaLista("Operarios");
                     }
                     case "Mozos" -> {
@@ -47,18 +49,17 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         vista.actualizaLista("Mozos");
                     }
                     case "Productos en venta" -> {
-                        Producto producto = vista.getProductoSeleccionado();
-                        Cerveceria.getInstance().getProductos().remove(producto.getIdProducto());
-                        //TODO REMOVER PRODUCTO
-                        vista.actualizaLista("Productos en venta");
-                    }
-                    case "Mesas del local" -> {
-                        Mesa mesa = vista.getMesaSeleccionado();
                         try {
-                            Cerveceria.getInstance().eliminarMesa(mesa);
+                            Producto producto = vista.getProductoSeleccionado();
+                            Cerveceria.getInstance().eliminarProducto(producto);
+                            vista.actualizaLista("Productos en venta");
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }
+                    }
+                    case "Mesas del local" -> {
+                        Mesa mesa = vista.getMesaSeleccionado();
+                        Cerveceria.getInstance().eliminarMesa(mesa);
                         vista.actualizaLista("Mesas del local");
                     }
                 }
@@ -75,7 +76,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     }
                 }
             }
-            case "Desactivar Promocion" -> {
+            case "Desactivar Promocion" -> { //TODO CHEQUEAR
                 switch (vista.getTipoPromocionSeleccionada()) {
                     case "Productos en promocion" -> {
                         PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
@@ -104,7 +105,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     }
                 }
             }
-            case "Generar Estadistica" -> {
+            case "Generar Estadistica" -> { //TODO GENERAR ESTADISTICAS
 
             }
         }
@@ -128,6 +129,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Mesas del local" -> ventanaEntidad.setEntidad("Mesa");
                 }
                 ControladorEntidad controladorEntidad = new ControladorEntidad(ventanaEntidad);
+                ventanaEntidad.setWindowListener(this);
                 ventanaEntidad.ejecutar();
             }
             case "Modificar Entidad" -> {
@@ -182,14 +184,14 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         //TODO PERSISTIR
     }
 
+    @Override
+    public void windowClosed(WindowEvent e) {
+        vista.inicializarListas();
+    }
+
     //METODOS NO USADOS
     @Override
     public void windowOpened(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
 
     }
 

@@ -46,4 +46,12 @@ public class Operario {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    //FUNCIONALIDADES
+    @Override
+    public String toString() {
+        return "Nombre Completo: '" + nombreCompleto + '\'' +
+                " - Nombre de Usuario: '" + nombreUsuario + '\'' +
+                " - Activo: " + activo;
+    }
 }

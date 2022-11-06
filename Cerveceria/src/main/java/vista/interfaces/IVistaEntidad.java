@@ -23,11 +23,37 @@ public interface IVistaEntidad extends IVista {
 
     String getEntidad();
 
-    Operario getOperario();
+    //OPERARIO
+    String getNombreCompletoOperario();
 
-    Mozo getMozo();
+    String getNombreDeUsuario();
 
-    Producto getProducto();
+    String getContrasena();
 
-    Mesa getMesa();
+    boolean getEstadoOperario();
+
+    //MOZO
+    String getNombreYApellidoMozo();
+
+    int getEdadMozo();
+
+    int getCantidadHijosMozo();
+
+    String getEstadoMozo();
+
+    //PRODUCTO
+    int getIDProducto();
+
+    int getStockInicial();
+
+    String getNombreProducto();
+
+    double getPrecioCosto();
+
+    double getPrecioVenta();
+
+    //MESA
+    int getCantidadComensales();
+
+    String getEstadoMesa();
 }

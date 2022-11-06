@@ -262,18 +262,18 @@ public class Cerveceria {
         this.comandas.add(comanda);
     }
 
-    public void agregarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+    public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
         if (precioVenta >= precioCosto){
             if(precioVenta > 0){
                 if(precioCosto > 0) {
-                    if(this.productos.containsKey(nro)){
-                        Producto producto = productos.get(nro);
+                    if(this.productos.containsKey(ID)){
+                        Producto producto = productos.get(ID);
                         producto.setNombre(nombre);
                         producto.setPrecioCosto(precioCosto);
                         producto.setPrecioVenta(precioVenta);
                         producto.setStockInicial(stockInicial);
                     }
-                    else this.productos.put(nro,new Producto(nombre, precioCosto, precioVenta, stockInicial));
+                    else this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));
                 }
                 else throw new Exception("El precio de costo es menor a cero");
             }
@@ -308,15 +308,17 @@ public class Cerveceria {
         this.comandas.remove(comanda);
     }
 
-    public void eliminarProducto (Producto producto) throws Exception{
-        for (int i=0;i<comandas.size();i++){
-            ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
-            for (int j=0;j<pedidos.size();j++){
+    public void eliminarProducto (Producto producto) throws Exception {
+        for (int i = 0; i < comandas.size(); i++){
+            ArrayList<Pedido> pedidos = comandas.get(i).getPedidos();
+
+            for (int j = 0; j < pedidos.size(); j++){
                 if(producto.getIdProducto() == pedidos.get(j).getProducto().getIdProducto()){
                     throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
                 }
             }
         }
+
         this.productos.remove(producto);
     }
 
@@ -333,7 +335,7 @@ public class Cerveceria {
 
     public void modificarMesa(Mesa mesa, int cantidadComensales) throws Exception {
         assert mesa!=null:"ERROR : La mesa no puede ser null";
-        if (cantidadComensales<2)
+        if (cantidadComensales < 2)
             throw new Exception("ERROR : La cantidad de comensales no puede ser menor a 2");
 
         mesa.setCantidadComensales(cantidadComensales);

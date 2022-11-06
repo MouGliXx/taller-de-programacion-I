@@ -1,7 +1,6 @@
 package vista.interfaces;
 
 import modelo.*;
-
 import java.awt.event.WindowListener;
 
 public interface IVistaAdministrador extends IVista {
@@ -20,7 +19,11 @@ public interface IVistaAdministrador extends IVista {
 
     String getNombreLocal();
 
+    void setNombreLocal(String nombreLocal);
+
     Double getRemuneracion();
+
+    void setRemuneracion(double remuneracion);
 
     String getTipoEntidadSeleccionada();
 

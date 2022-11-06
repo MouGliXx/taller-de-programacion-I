@@ -7,6 +7,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener, ListSelectionListener {
     private String tipoEntidadSeleccionada = "Operarios";
@@ -176,7 +179,43 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
-    public void inicializarListas() {
+    public void inicializarListas() { //TODO RESOLVER TEMA PROMOCIONES
+        ArrayList<Operario> operarios = Cerveceria.getInstance().getOperarios();
+        ArrayList<Mozo> mozos = Cerveceria.getInstance().getMozos();
+        HashMap<Integer,Producto> productos = Cerveceria.getInstance().getProductos();
+        ArrayList<Mesa> mesas = Cerveceria.getInstance().getMesas();
+        ArrayList<PromocionProducto> promocionesProductos = Cerveceria.getInstance().getPromocionesProductos();
+        ArrayList<PromocionTemporal> promocionesTemporales = Cerveceria.getInstance().getPromocionesTemporales();
+
+        modeloOperario.removeAllElements();
+        operarios.forEach((operario) -> {
+            this.modeloOperario.add(modeloOperario.size(), operario);
+        });
+
+        modeloMozo.removeAllElements();
+        mozos.forEach((mozo) -> {
+            this.modeloMozo.add(modeloMozo.size(), mozo);
+        });
+
+        modeloProducto.removeAllElements();
+        productos.forEach((id, producto) -> {
+            this.modeloProducto.add(modeloProducto.size(), producto);
+        });
+
+        modeloMesa.removeAllElements();
+        mesas.forEach((mesa) -> {
+            this.modeloMesa.add(modeloMesa.size(), mesa);
+        });
+
+        modeloProductoEnPromocion.removeAllElements();
+        promocionesProductos.forEach((promocionProducto) -> {
+            this.modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), promocionProducto);
+        });
+
+        modeloPromocionTemporal.removeAllElements();
+        promocionesTemporales.forEach((promocionTemporal) -> {
+            this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal);
+        });
 
    }
 
@@ -186,8 +225,18 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
+    public void setNombreLocal(String nombreLocal) {
+        this.cerveceriaTextField.setText(nombreLocal);
+    }
+
+    @Override
     public Double getRemuneracion() {
         return Double.parseDouble(remuneracionTextField.getText());
+    }
+
+    @Override
+    public void setRemuneracion(double remuneracion) {
+        this.remuneracionTextField.setText(String.valueOf(remuneracion));
     }
 
     @Override
@@ -359,8 +408,6 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                 this.activarButton.setVisible(true);
             }
         }
-
-
     }
 
     //METODOS NO USADOS
