@@ -11,7 +11,9 @@ public class Pedido {
     public Pedido(Producto producto, int cantidad) throws Exception {
         if (!hayStock(producto,cantidad))
             throw new Exception("ERROR : No hay stock suficiente");
-        producto.setStockInicial(producto.getStockInicial()-cantidad);
+
+        producto.setStockInicial(producto.getStockInicial() - cantidad);
+
         this.setProducto(producto);
         this.setCantidad(cantidad);
     }
@@ -37,7 +39,7 @@ public class Pedido {
 
     //FUNCIONALIDADES
     public boolean hayStock(Producto producto, int cantidad){
-        return producto.getStockInicial()>=cantidad;
+        return producto.getStockInicial() >= cantidad;
     }
 
     public double getPrecioConjunto(){
@@ -46,7 +48,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Prod= "+ producto +
-                " Cant= " + cantidad;
+        return "Producto: '" + producto +
+                "' - Cantidad = " + cantidad;
     }
 }

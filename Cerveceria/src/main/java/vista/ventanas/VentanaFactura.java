@@ -103,8 +103,8 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
 
         this.fechaActualLabel.setText(fechaActual);
         this.numeroMesaLabel.setText(String.valueOf(NMesa));
-        inicializarListas(pedidos, promociones);
         this.montoLabel.setText(String.valueOf(total));
+        inicializarListas(pedidos, promociones);
     }
 
     @Override

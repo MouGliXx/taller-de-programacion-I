@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 
 public class ControladorOperario implements ActionListener, WindowListener {
     private Operario modelo;
@@ -20,6 +19,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
         this.vista = vista;
 
         this.vista.setActionListener(this);
+        this.vista.setItemListener();
         this.vista.setListSelectionListener();
         this.vista.setWindowListener(this);
         this.vista.setNombreCompleto(operario.getNombreCompleto());
@@ -84,12 +84,13 @@ public class ControladorOperario implements ActionListener, WindowListener {
                     vista.lanzarVentanaEmergente(e.getMessage());
                 }
 
-                double total = 0; //TODO METODO EN COMANDA QUE CALCULE EL TOTAL
-                ArrayList<Promocion> promocionesAplicadas = null; //TODO METODO QUE GESTIONE LAS PROMOCIONES
+                Factura nuevaFactura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos());
 
-                Factura nuevaFacura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos(), total, promocionesAplicadas); //TODO establecer formaDePago
+                nuevaFactura.calculaTotal(); //TODO METODO EN FACTURA QUE CALCULE EL TOTAL
+                nuevaFactura.verificaPromociones(); //TODO METODO EN FACTURA QUE GESTIONE LAS PROMOCIONES
+
                 VentanaFactura ventanaFactura = new VentanaFactura();
-                ControladorFactura controladorFactura = new ControladorFactura(nuevaFacura, ventanaFactura);
+                ControladorFactura controladorFactura = new ControladorFactura(nuevaFactura, ventanaFactura);
                 ventanaFactura.addWindowListener(this);
                 ventanaFactura.ejecutar();
             }

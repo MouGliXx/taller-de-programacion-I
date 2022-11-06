@@ -188,6 +188,7 @@ public class Cerveceria {
             throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
         if (contrasena.length() < 8)
             throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
+
         Operario operario = new Operario(nombre, nombreUsuario, contrasena, activo);
         this.getOperarios().add(operario);
     }
@@ -201,7 +202,7 @@ public class Cerveceria {
     public void agregarFactura(Comanda comanda) throws Exception {
         if (comanda == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
-//        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones)); //TODO corregir
+//        this.facturas.add(new Factura(new Date(), comanda.getMesa(), comanda.getPedidos(), comanda.getTotal(), this.promociones)); //TODO corregir
     }
 
     // Hay que verificar
@@ -230,6 +231,7 @@ public class Cerveceria {
     public void agregarComanda(Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
         assert mesa != null : "ERROR : La mesa no debe ser null";
         assert pedidos != null : "ERROR : Pedidos no debe ser null";
+
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.mesas.size() == 0)
@@ -250,11 +252,10 @@ public class Cerveceria {
         this.comandas.add(comanda);
     }
 
-
     public void agregarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
-        if (precioVenta>=precioCosto){
-            if(precioVenta>0){
-                if(precioCosto>0) {
+        if (precioVenta >= precioCosto){
+            if(precioVenta > 0){
+                if(precioCosto > 0) {
                     if(this.productos.containsKey(nro)){
                         Producto producto = productos.get(nro);
                         producto.setNombre(nombre);
@@ -273,7 +274,7 @@ public class Cerveceria {
 
     // ELIMINAR
     public void eliminarMozo(Mozo mozoViejo){
-        assert mozoViejo!=null:"ERROR : El mozo no puede ser null";
+        assert mozoViejo != null:"ERROR : El mozo no puede ser null";
         for (int i = 0 ; i < mozos.size() ; i++){
             if (this.mozos.get(i).equals(mozoViejo)) {
                 this.mozos.remove(i);
@@ -310,19 +311,21 @@ public class Cerveceria {
     }
 
     // MODIFICAR
-
     public void modificarAdministrador(Administrador administrador,String nombre, String contrasena) throws Exception{
         if (nombre.length()<5)
             throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
         if (contrasena.length()<5)
             throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
+
         this.administrador.setUsername(nombre);
         this.administrador.setPassword(contrasena);
     }
+
     public void modificarMesa(Mesa mesa, int cantidadComensales) throws Exception {
         assert mesa!=null:"ERROR : La mesa no puede ser null";
         if (cantidadComensales<2)
             throw new Exception("ERROR : La cantidad de comensales no puede ser menor a 2");
+
         mesa.setCantidadComensales(cantidadComensales);
     }
 
@@ -333,6 +336,7 @@ public class Cerveceria {
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
         if (hijos <0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+
         mozo.setNombreYApellido(nombre);
         mozo.setEdad(edad);
         mozo.setEstado(estado);
@@ -359,6 +363,7 @@ public class Cerveceria {
             throw new Exception("El precio de costo es menor a cero");
         if(precioVenta>0)
             throw new Exception("El precio de venta es menor a cero");
+
         producto.setNombre(nombre);
         producto.setPrecioCosto(precioCosto);
         producto.setPrecioVenta(precioVenta);
@@ -369,15 +374,13 @@ public class Cerveceria {
         assert mesa!=null:"ERROR : La mesa no debe ser null";
         assert comanda != null : "ERROR : La comanda no debe ser null";
         assert pedidos != null : "ERROR : Pedidos no debe ser null";
+
         comanda.setMesa(mesa);
         comanda.setPedidos(pedidos);
         mesa.ocupar();
     }
 
-
     public boolean hayDosProductosPromocionActiva(){return true;}
-
-
 
     // TESTEAR -
     // Si se intenta cerrar una comanda que se encuentra cerrada,
@@ -394,11 +397,12 @@ public class Cerveceria {
      */
     public void cerrarComanda(Comanda comanda) throws Exception {
         assert comanda!=null:"ERROR : La comanda no debe ser null";
+
         if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
             throw new Exception("ERROR : No se puede cerrar una comanda ya cerrada");
+
         comanda.cerrarComanda();
         comanda.getMesa().liberar();
-
         this.comandas.remove(comanda);
     }
 
@@ -412,14 +416,14 @@ public class Cerveceria {
      */
     public void asignarMesas() throws Exception {
         ArrayList<Mozo> listaMozosActivos = mozosActivos();
-        int mozo = 0, indiceMesa=0;
+        int mozo = 0;
 
         if (this.mesas.isEmpty())
             throw new Exception("No hay mesas habilitadas. NO se puede Asignar mesas");
         if (listaMozosActivos.isEmpty())
             throw new Exception("No hay mozos activos. NO se puede asignar mesas");
 
-        for (int i = 0; i<this.mesas.size();i++){
+        for (int i = 0; i < this.mesas.size();i++){
             if (mozo >= listaMozosActivos.size())
                 mozo = 0;
             this.mesasAsignadas.put(this.mesas.get(i),listaMozosActivos.get(mozo++));

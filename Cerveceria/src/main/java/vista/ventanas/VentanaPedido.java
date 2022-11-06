@@ -99,7 +99,7 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
     public void actionPerformed(ActionEvent e) {
         this.accionButton.setEnabled(true);
 
-        if (productoComboBox.getSelectedIndex() == 0 || cantidadComboBox.getSelectedIndex() == 0) {
+        if (productoComboBox.getSelectedIndex() == -1 || cantidadComboBox.getSelectedIndex() == -1) {
             this.accionButton.setEnabled(false);
         }
     }
@@ -109,13 +109,18 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
         this.cantidadComboBox.setEnabled(false);
         Producto productoSeleccionado = modeloProductos.getElementAt(productoComboBox.getSelectedIndex());
 
-
         if (productoSeleccionado != null) {
-            this.cantidadComboBox.setEnabled(true);
-
             modeloCantidad.removeAllElements();
-            for (int i = 0; i <= productoSeleccionado.getStockInicial(); i++) {
-                modeloCantidad.addElement(String.valueOf(i));
+            modeloCantidad.addElement(null);
+
+            if (productoSeleccionado.getStockInicial() != 0) {
+                this.cantidadComboBox.setEnabled(true);
+
+                for (int i = 1; i <= productoSeleccionado.getStockInicial(); i++) {
+                    modeloCantidad.addElement(String.valueOf(i));
+                }
+            } else {
+                lanzarVentanaEmergente("El producto seleccionado NO tiene stock disponible");
             }
         } else {
             modeloCantidad.removeAllElements();

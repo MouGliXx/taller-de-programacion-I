@@ -6,15 +6,13 @@ public class Mozo {
     private int edad;
     private String nombre;
     private int cantHijos;
-    private String estado; // Activo - Ausente - Franco \\ un invariable podria ser que el estado nunca sea != a 0,1,2
+    private String estado; // Activo - Ausente - Franco
 
     //CONSTRUCTOR
     public Mozo(String nombre, int edad, int cantHijos, String estado) throws Exception {
         this.nombreYApellido = nombre;
         this.estado = estado;
-//        if (!this.esMayorDeEdad(fechaNacimiento)) throw new Exception();
         this.edad = edad;
-//        if (cantHijos < 0) throw new Exception();
         this.cantHijos = cantHijos;
     }
 
@@ -63,15 +61,6 @@ public class Mozo {
     }
 
     //FUNCIONALIDADES
-
-//     este metodo podria ir en utils
-//     @precondion : fechaNacimiento tiene que ser != NULL
-//     retorna true si la edad es mayor o igual a 18 anos
-//    public boolean esMayorDeEdad(Date fecha){
-//     Date start = Date.from( 2010 , 1 , 1 ) ;
-//    long years = java.time.temporal.ChronoUnit.YEARS.between( start , fecha );
-//    return years >= 0 ;
-//    }
 
     @Override
     public String toString() {

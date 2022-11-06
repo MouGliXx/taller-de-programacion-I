@@ -30,9 +30,9 @@ public class Comanda {
     }
 
     public void setEstado(String estado) {
-        assert estado!=null :"ERROR : El estado no debe ser null";
-        assert estado!="":"ERROR : El estado no debe ser vacio";
-        assert estado!="Abierta" || estado!="Cerrada" :"ERROR : El estado debe ser Ocupado o Libre";
+        assert estado != null :"ERROR : El estado no debe ser null";
+        assert estado != "":"ERROR : El estado no debe ser vacio";
+        assert estado != "Abierta" || estado!="Cerrada" :"ERROR : El estado debe ser Ocupado o Libre";
 
         this.estado = estado;
     }
@@ -90,8 +90,7 @@ public class Comanda {
 
     @Override
     public String toString() {
-        return fecha +
-                " Mesa=" + mesa + pedidos ;
+        return fecha + " Mesa=" + mesa + pedidos ;
     }
 }
 

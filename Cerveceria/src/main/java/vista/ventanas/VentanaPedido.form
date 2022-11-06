@@ -158,6 +158,7 @@
                   <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter SemiBold" size="20"/>
+                  <model/>
                 </properties>
               </component>
             </children>

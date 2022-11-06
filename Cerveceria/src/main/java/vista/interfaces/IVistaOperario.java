@@ -1,17 +1,12 @@
 package vista.interfaces;
 
 import modelo.Comanda;
-import modelo.Factura;
-import modelo.ProductoEnPromocion;
-import modelo.PromocionTemporal;
-
-import java.awt.event.WindowListener;
 
 public interface IVistaOperario extends IVista{
 
-    void setListSelectionListener();
+    void setItemListener();
 
-    void setWindowListener(WindowListener controlador);
+    void setListSelectionListener();
 
     void setNombreLocal();
 
@@ -19,17 +14,13 @@ public interface IVistaOperario extends IVista{
 
     void setModelos();
 
+    void inicializaArrays();
+
+    void inicializarMozos();
+
     void inicializarListas();
 
-    void eliminaComandaEnLista();
-
     Comanda getComandaSeleccionada();
-
-    Factura getFacturaSeleccionada();
-
-    ProductoEnPromocion getProductoEnPromocionSeleccionado();
-
-    PromocionTemporal getPromocionTemporalSeleccionada();
 
     void cambiarPagina(int pagina);
 }

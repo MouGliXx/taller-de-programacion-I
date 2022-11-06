@@ -12,13 +12,13 @@ public class Factura {
     private ArrayList<Promocion> promocionesAplicadas;
 
     //CONSTRUCTOR
-    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total, ArrayList<Promocion> promocionesAplicadas) {
+    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos) {
         this.fecha = fecha;
         this.mesa = mesa;
         this.pedidos = pedidos;
-        this.total = total;
+        this.total = 0;
         this.formaDePago = null;
-        this.promocionesAplicadas = promocionesAplicadas;
+        this.promocionesAplicadas = null;
     }
 
     //GETTERS & SETTERS
@@ -66,10 +66,18 @@ public class Factura {
         this.promocionesAplicadas = promocionesAplicadas;
     }
 
-    public double getTotal(){
+    public void verificaPromociones() {
+
+    }
+
+    public void calculaTotal() {
+
+    }
+
+    public double getTotal(){ //TODO REFACTORIZAR
         //aplicar promociones de producto
         // recorrer promociones
-//        for (ProductoEnPromocion producto : promocionesProductos){ //TODO REFACTORIZAR
+//        for (ProductoEnPromocion producto : promocionesProductos){
 //            for ( Pedido pedido : pedidos){
 //                if (producto.equals(pedido)) {
 //                    total = producto.getPrecio();
@@ -77,7 +85,6 @@ public class Factura {
 //            }
 //        }
             // verificar dentro de la lista de items si coincide con el producto con descuento
-
         // aplicar promociones temporales
         return this.total;
     }
