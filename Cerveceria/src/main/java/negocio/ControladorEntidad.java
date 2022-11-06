@@ -28,6 +28,7 @@ public class ControladorEntidad implements ActionListener {
                             boolean estado = vista.getEstadoOperario();
 
                             Cerveceria.getInstance().agregarOperario(nombreCompleto, nombreUsuario, contrasena, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            this.vista.cerrarVentana();
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }
@@ -40,8 +41,9 @@ public class ControladorEntidad implements ActionListener {
                             String estado = vista.getEstadoMozo();
 
                             Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            this.vista.cerrarVentana();
                         } catch (NumberFormatException ex) {
-                            vista.lanzarVentanaEmergente(ex.getMessage());
+                            vista.lanzarVentanaEmergente("ERROR : " + ex.getMessage());
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }
@@ -54,9 +56,10 @@ public class ControladorEntidad implements ActionListener {
                            double precioCosto = vista.getPrecioCosto();
                            double precioVenta = vista.getPrecioVenta();
 
-                           Cerveceria.getInstance().agregarProducto(id, nombre, precioVenta, precioCosto, stock); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                           Cerveceria.getInstance().agregarProducto(id, nombre, precioCosto, precioVenta, stock); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            this.vista.cerrarVentana();
                         } catch (NumberFormatException ex) {
-                            vista.lanzarVentanaEmergente(ex.getMessage());
+                            vista.lanzarVentanaEmergente("ERROR : " + ex.getMessage());
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }
@@ -67,12 +70,12 @@ public class ControladorEntidad implements ActionListener {
                             String estado = vista.getEstadoMesa();
 
                             Cerveceria.getInstance().agregarMesa(cantComensales, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            this.vista.cerrarVentana();
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }
                     }
                 }
-                this.vista.cerrarVentana();
             }
             case "Cancelar" -> this.vista.cerrarVentana();
         }

@@ -158,6 +158,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     }
                 }
                 ControladorEntidad controladorEntidad = new ControladorEntidad(ventanaEntidad);
+                ventanaEntidad.setWindowListener(this);
                 ventanaEntidad.ejecutar();
             }
             case "Nueva Promocion" -> {

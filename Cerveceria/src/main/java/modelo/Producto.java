@@ -25,10 +25,6 @@ public class Producto {
         return idProducto;
     }
 
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -64,18 +60,5 @@ public class Producto {
     @Override
     public String toString() {
         return  nombre;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Producto producto = (Producto) o;
-        return idProducto == producto.idProducto;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idProducto);
     }
 }

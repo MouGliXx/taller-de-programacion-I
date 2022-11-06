@@ -123,7 +123,7 @@
                     <item value="True"/>
                     <item value="False"/>
                   </model>
-                  <selectedIndex value="-1"/>
+                  <selectedIndex value="0"/>
                 </properties>
               </component>
               <vspacer id="98f96">
@@ -292,7 +292,7 @@
                     <item value="11"/>
                     <item value="12"/>
                   </model>
-                  <selectedIndex value="-1"/>
+                  <selectedIndex value="0"/>
                 </properties>
               </component>
               <component id="b175b" class="javax.swing.JLabel" binding="estadoLabel">
@@ -305,7 +305,7 @@
                   <text value="Estado:"/>
                 </properties>
               </component>
-              <component id="b5c4b" class="javax.swing.JComboBox" binding="estadoComboBox">
+              <component id="b5c4b" class="javax.swing.JComboBox" binding="estadoMozoComboBox">
                 <constraints>
                   <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="200" height="30"/>
@@ -324,7 +324,7 @@
                     <item value="Franco"/>
                     <item value="Ausente"/>
                   </model>
-                  <selectedIndex value="-1"/>
+                  <selectedIndex value="0"/>
                 </properties>
               </component>
               <vspacer id="86180">
