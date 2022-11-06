@@ -178,6 +178,14 @@ public class Cerveceria {
         this.mesas.add(new Mesa(cantidadComensales, estado));
     }
 
+    public void agregarPromocionTemporal(ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
+        this.promocionesTemporales.add(new PromocionTemporal(diasPromocion,activa, nombre,formaDePago,porcentajeDescuento,esAcumulable));
+    }
+
+    public void agregarPromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
+        this.promocionesProductos.add(new PromocionProducto(diasPromocion,activa,producto,aplicaDosPorUno,aplicaDtoPorCantidad,dtoPorCantidad_CantMinima,dtoPorCantidad_PrecioUnitario));
+    }
+
     public void agregarMozo(String nombre, int edad, int hijos, String estado) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
@@ -298,6 +306,16 @@ public class Cerveceria {
         this.mesas.remove(mesa);
     }
 
+    public void eliminarPromocionTemporal(PromocionTemporal promo){
+        assert promo!=null:"ERROR : La promocion no puede ser null";
+        this.promocionesTemporales.remove(promo);
+    }
+
+    public void eliminarPromocionProducto(PromocionProducto promo){
+        assert promo!=null:"ERROR : La promocion no puede ser null";
+        this.promocionesProductos.remove(promo);
+    }
+
     public void eliminarOperario (Operario operario){
         assert operario!=null:"ERROR : El operario no puede ser null";
         this.operarios.remove(operario);
@@ -389,6 +407,26 @@ public class Cerveceria {
         comanda.setPedidos(pedidos);
         mesa.ocupar();
     }
+
+    public void modificarPromocionTemporal(PromocionTemporal promo,ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
+        promo.setDiasPromocion(diasPromocion);
+        promo.setActiva(activa);
+        promo.setNombre(nombre);
+        promo.setFormaDePago(formaDePago);
+        promo.setPorcentajeDescuento(porcentajeDescuento);
+        promo.setEsAcumulable(esAcumulable);
+    }
+
+    public void modificarPromocionProducto(PromocionProducto promo,ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
+        promo.setDiasPromocion(diasPromocion);
+        promo.setActiva(activa);
+        promo.setProducto(producto);
+        promo.setAplicaDosPorUno(aplicaDosPorUno);
+        promo.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
+        promo.setDtoPorCantidad_CantMinima(dtoPorCantidad_CantMinima);
+        promo.setDtoPorCantidad_PrecioUnitario(dtoPorCantidad_PrecioUnitario);
+    }
+
 
     public boolean hayDosProductosPromocionActiva(){return true;}
 
