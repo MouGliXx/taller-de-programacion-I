@@ -39,6 +39,9 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
             case "Iniciar Jornada" -> {
 
             }
+            case "Finalizar Jornada" -> { //TODO por ahi podemos hacer que setee a todos los mozos el estado null
+
+            }
             case "Asignar Mesas" -> {
                 try {
                     Cerveceria.getInstance().asignarMesas();

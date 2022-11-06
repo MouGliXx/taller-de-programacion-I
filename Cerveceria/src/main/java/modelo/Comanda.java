@@ -95,7 +95,9 @@ public class Comanda {
         DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
         String fechaActual = dateFormat.format(fecha);
 
-        return "Fecha: " + fechaActual + "- Mesa: " + mesa.getNro() + "- Pedidos " + pedidos;
+        return "Fecha: " + fechaActual +
+                " - Mesa: " + mesa.getNro() +
+                " - Pedidos: " + pedidos;
     }
 }
 

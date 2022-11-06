@@ -14,7 +14,7 @@ public class ControladorFactura implements ActionListener {
         this.vista = vista;
 
         this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getTotal(), modelo.getPromocionesAplicadas());
-        this.vista.ejecutar();
+        this.vista.setActionListener(this);
     }
 
     @Override

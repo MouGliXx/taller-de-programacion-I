@@ -3,25 +3,24 @@ package modelo;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class Cerveceria {
     private static Cerveceria instance = null;
     public static final int totalMaximoMesas = 50;
     private String nombreDelLocal;
+    private double remuneracionBasica;
     private Administrador administrador;
     private ArrayList<Operario> operarios = new ArrayList<>();
     private ArrayList<Mozo> mozos = new ArrayList<>();
     private ArrayList<Mesa> mesas = new ArrayList<>();
-//    private HashMap<Integer, Mesa> mesas = new HashMap<>();
     private ArrayList<Comanda> comandas = new ArrayList<>();
     private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private HashMap<Integer,Producto> productos = new HashMap<>();
-    private double remuneracionBasica;
+
 
     //PATRON SINGLETON
     private Cerveceria() {
@@ -45,20 +44,20 @@ public class Cerveceria {
         this.nombreDelLocal = nombreDelLocal;
     }
 
-    public Administrador getAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
-    }
-
     public double getRemuneracionBasica() {
         return remuneracionBasica;
     }
 
     public void setRemuneracionBasica(double remuneracionBasica) {
         this.remuneracionBasica = remuneracionBasica;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
     }
 
     public ArrayList<Operario> getOperarios() {
@@ -116,6 +115,7 @@ public class Cerveceria {
     public void setPromocionesTemporales(ArrayList<PromocionTemporal> promocionesTemporales) {
         this.promocionesTemporales = promocionesTemporales;
     }
+
     public ArrayList<PromocionProducto> getPromocionesProductos() {
         return promocionesProductos;
     }
@@ -123,11 +123,12 @@ public class Cerveceria {
     public void setPromocionesProductos(ArrayList<PromocionProducto> promocionesProductos) {
         this.promocionesProductos = promocionesProductos;
     }
-    public HashMap<Integer,Producto> getProductos() {
+
+    public HashMap<Integer, Producto> getProductos() {
         return productos;
     }
 
-    public void setProductos(HashMap<Integer,Producto> productos) {
+    public void setProductos(HashMap<Integer, Producto> productos) {
         this.productos = productos;
     }
 
@@ -155,7 +156,7 @@ public class Cerveceria {
         throw new ErrorDeUsuarioException("Nombre de usuario invalido: " + username);
     }
 
-    // AGREGAR
+    //AGREGAR
     public void agregarAdministrador(String nombre, String contrasena) throws Exception{
         if (nombre.length()<5)
             throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");

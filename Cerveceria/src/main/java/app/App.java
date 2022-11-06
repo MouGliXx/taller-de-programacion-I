@@ -12,9 +12,9 @@ public class App {
 
         //MOZOS
         try {
-            cerveceria.agregarMozo("Lautaro", 18,1,"Activo");
-            cerveceria.agregarMozo("Ignacio", 25,1,"Activo");
-            cerveceria.agregarMozo("Tomas", 33,1,"Activo");
+            cerveceria.agregarMozo("Lautaro", 18,1,null);
+            cerveceria.agregarMozo("Ignacio", 25,1,null);
+            cerveceria.agregarMozo("Tomas", 33,1,null);
         } catch (Exception e) {
             e.printStackTrace();
         }

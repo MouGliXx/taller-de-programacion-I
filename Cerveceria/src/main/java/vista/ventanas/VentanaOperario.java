@@ -299,9 +299,13 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
                 this.nuevaComandaButton.setEnabled(true);
             }
             case "Finalizar Jornada" -> {
-                this.iniciarJornadaButton.setVisible(true);
-                this.finalizarJornadaButton.setVisible(false);
-                this.nuevaComandaButton.setEnabled(false);
+                if (modeloComanda.isEmpty()) {
+                    this.iniciarJornadaButton.setVisible(true);
+                    this.finalizarJornadaButton.setVisible(false);
+                    this.nuevaComandaButton.setEnabled(false);
+                } else {
+                    lanzarVentanaEmergente("Para finalizar la jornada es necesario cerrar todas las comandas primero.");
+                }
             }
         }
     }

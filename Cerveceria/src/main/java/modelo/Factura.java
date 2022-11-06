@@ -1,5 +1,7 @@
 package modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -113,11 +115,14 @@ public class Factura {
 
     @Override
     public String toString() {
-        return  "fecha= " + fecha +
-                ", mesa=" + mesa +
-                ", pedidos=" + pedidos +
-                ", total=" + total +
-                ", formaDePago='" + formaDePago + '\'' +
-                ", promocionesAplicadas=" + promocionesProductosAplicadas + promocionesTemporalesAplicadas;
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
+        String fechaActual = dateFormat.format(fecha);
+
+        return  "Fecha: " + fechaActual +
+                " - Mesa: " + mesa.getNro() +
+                " - Pedidos: " + pedidos +
+                " - Total = " + total +
+                " - FormaDePago: " + formaDePago +
+                " - PromocionesAplicadas:" + promocionesProductosAplicadas + promocionesTemporalesAplicadas;
     }
 }
