@@ -293,8 +293,9 @@ public class Cerveceria {
                         producto.setPrecioCosto(precioCosto);
                         producto.setPrecioVenta(precioVenta);
                         producto.setStockInicial(stockInicial);
+                    } else {
+                        this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));
                     }
-                    else this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));
                 }
                 else throw new Exception("El precio de costo es menor a cero");
             }
@@ -393,6 +394,7 @@ public class Cerveceria {
             throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
         if (contrasena.length() < 8)
             throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
+
         operario.setNombreCompleto(nombre);
         operario.setNombreUsuario(nombreUsuario);
         operario.setContrasena(contrasena);

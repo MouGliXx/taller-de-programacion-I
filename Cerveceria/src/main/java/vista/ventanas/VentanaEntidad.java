@@ -55,7 +55,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JLabel contrasenaLabel;
     private JTextField contrasenaTextField;
     private JComboBox cantHijosComboBox;
-    private JComboBox estadoComboBox;
+    private JComboBox estadoMozoComboBox;
     private JLabel estadoLabel1;
     private JComboBox estadoMesaComboBox;
     private JTextField nombreCompletoTextField;
@@ -153,9 +153,13 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     @Override
     public void setDatosMozo(Mozo mozo) {
         this.nombreYApellidoTextField.setText(mozo.getNombreYApellido());
-        //FECHA DE NACIMIENTO
+        this.edadTextField.setText(String.valueOf(mozo.getEdad()));
         this.cantHijosComboBox.setSelectedIndex(mozo.getCantHijos());
-        //this.cantHijosComboBox.setSelectedIndex(mozo.getEstado());
+        switch (mozo.getEstado()) {
+            case "Activo" -> this.estadoMozoComboBox.setSelectedIndex(0);
+            case "Franco" -> this.estadoMozoComboBox.setSelectedIndex(1);
+            case "Ausente" -> this.estadoMozoComboBox.setSelectedIndex(2);
+        }
     }
 
     @Override
@@ -171,7 +175,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     public void setDatosMesa(Mesa mesa) {
         this.NMesaLabel.setText(String.valueOf(mesa.getNro()));
         this.cantComensalesComboBox.setSelectedIndex(mesa.getCantidadComensales());
-        this.estadoComboBox.setSelectedIndex(mesa.getEstado().equalsIgnoreCase("Libre") ? 0 : 1);
+        this.estadoMozoComboBox.setSelectedIndex(mesa.getEstado().equalsIgnoreCase("Libre") ? 0 : 1);
     }
 
     @Override
@@ -220,7 +224,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     public String getEstadoMozo() {
         String estado = null;
 
-        switch (estadoComboBox.getSelectedIndex()) {
+        switch (estadoMozoComboBox.getSelectedIndex()) {
             case 0 -> estado = "Activo";
             case 1 -> estado = "Franco";
             case 2 -> estado = "Ausente";
@@ -272,7 +276,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
 
         switch (panelCentral.getSelectedIndex()) {
             case 0 -> {
-                if (nombreTextField.getText().isEmpty() || apellidoTextField.getText().isEmpty() || nombreUsuarioTextField.getText().isEmpty() || contrasenaTextField.getText().isEmpty()) {
+                if (nombreCompletoTextField.getText().isEmpty() || nombreUsuarioTextField.getText().isEmpty() || contrasenaTextField.getText().isEmpty()) {
                     accionButton.setEnabled(false);
                 }
             }

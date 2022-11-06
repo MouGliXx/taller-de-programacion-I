@@ -36,9 +36,9 @@ public class App {
         Producto p2 = new Producto("Agua",100,150,9);
         Producto p3 = new Producto("Sprite",250,300,100);
 
-        cerveceria.getProductos().put(1, p1);
-        cerveceria.getProductos().put(2, p2);
-        cerveceria.getProductos().put(3, p3);
+        cerveceria.getProductos().put(p1.getIdProducto(), p1);
+        cerveceria.getProductos().put(p2.getIdProducto(), p2);
+        cerveceria.getProductos().put(p3.getIdProducto(), p3);
 
         //OPERARIOS
         Operario yop = new Operario("Lautaro Bruses","123","123", true);
