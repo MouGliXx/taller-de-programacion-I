@@ -104,6 +104,7 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
     public void inicializaComboBox(Mesa mesa) {
         if (mesa != null) {
             this.mesaComboBox.setEnabled(false);
+            this.nuevoPedidoButton.setEnabled(true);
             this.accionButton.setEnabled(true);
 
             modeloMesas.removeAllElements();

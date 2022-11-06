@@ -691,6 +691,7 @@
                 <properties>
                   <actionCommand value="Asignar Mesas"/>
                   <background color="-679164"/>
+                  <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
@@ -833,6 +834,7 @@
                 <properties>
                   <actionCommand value="Nueva Comanda"/>
                   <background color="-679164"/>
+                  <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>

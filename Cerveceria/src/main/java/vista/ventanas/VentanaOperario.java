@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VentanaOperario extends JFrame implements IVistaOperario, ActionListener, ItemListener, ListSelectionListener {
     private JPanel panelPrincipal;
@@ -94,19 +95,24 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         finalizarJornadaButton.addActionListener(this);
         cerrarSesionButton.addActionListener(controlador);
         asignarMesasButton.addActionListener(controlador);
-        asignarMesasButton.addActionListener(this);
         nuevaComandaButton.addActionListener(controlador);
         editarComandaButton.addActionListener(controlador);
         cerrarComandaButton.addActionListener(controlador);
     }
 
     @Override
-    public void setItemListener() {
+    public void setItemListener(ItemListener controlador) {
+        this.comboBox1.addItemListener(controlador);
         this.comboBox1.addItemListener(this);
+        this.comboBox2.addItemListener(controlador);
         this.comboBox2.addItemListener(this);
+        this.comboBox3.addItemListener(controlador);
         this.comboBox3.addItemListener(this);
+        this.comboBox4.addItemListener(controlador);
         this.comboBox4.addItemListener(this);
+        this.comboBox5.addItemListener(controlador);
         this.comboBox5.addItemListener(this);
+        this.comboBox6.addItemListener(controlador);
         this.comboBox6.addItemListener(this);
     }
 
@@ -171,7 +177,6 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         this.listaPromocionesTemporales.setModel(modeloPromocionGeneral);
     }
 
-    @Override
     public void inicializaArrays() {
         arrayLabels0.add(NPLabel1); arrayLabels0.add(NPLabel2); arrayLabels0.add(NPLabel3);
         arrayLabels0.add(NPLabel4); arrayLabels0.add(NPLabel5); arrayLabels0.add(NPLabel6);
@@ -207,7 +212,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     public void inicializarListas() {
         ArrayList<Comanda> comandas = Cerveceria.getInstance().getComandas();
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
-        ArrayList<Promocion> promociones = Cerveceria.getInstance().getPromocionesTemporales();
+//        ArrayList<Promocion> promociones = Cerveceria.getInstance().getPromocionesTemporales();
 
         modeloComanda.removeAllElements();
         comandas.forEach((comanda) -> {
@@ -220,6 +225,45 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         });
 
         //RESOLVER TEMA PROMOCIONES
+    }
+
+    @Override
+    public void asignarMesas(HashMap<Mesa,Mozo> mesasAsignadas) {
+        this.asignarMesasButton.setEnabled(false);
+        this.iniciarJornadaButton.setEnabled(true);
+
+        for (int i = 0; i < 6; i++) {
+            if (arrayComboBox.get(i).isVisible()) {
+                arrayComboBox.get(i).setEnabled(false);
+                arrayLabels1.get(i).setText("");
+            } else {
+                break;
+            }
+        }
+
+        mesasAsignadas.forEach((mesa, mozo) -> {
+            for (int i = 0; i < arrayLabels0.size(); i++) {
+                if (arrayLabels0.get(i).getText().equals(mozo.getNombreYApellido())) {
+                    String textoAnterior = arrayLabels1.get(i).getText();
+                    arrayLabels1.get(i).setText(textoAnterior + mesa.getNro() + ", ");
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<String> getEstadoMozos() {
+        ArrayList<String> estadoMozos = new ArrayList<>();
+
+        for (JComboBox comboBox : arrayComboBox) {
+            switch (comboBox.getSelectedIndex()) {
+                case 0 -> estadoMozos.add("Activo");
+                case 1 -> estadoMozos.add("Ausente");
+                case 2 -> estadoMozos.add("Franco");
+            }
+        }
+
+        return estadoMozos;
     }
 
     @Override
@@ -252,17 +296,29 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
             case "Iniciar Jornada" -> {
                 this.iniciarJornadaButton.setVisible(false);
                 this.finalizarJornadaButton.setVisible(true);
+                this.nuevaComandaButton.setEnabled(true);
             }
             case "Finalizar Jornada" -> {
                 this.iniciarJornadaButton.setVisible(true);
                 this.finalizarJornadaButton.setVisible(false);
+                this.nuevaComandaButton.setEnabled(false);
             }
         }
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+        this.asignarMesasButton.setEnabled(true);
 
+        for (int i = 0; i < 6; i++) {
+            if (arrayComboBox.get(i).isVisible()) {
+                if (arrayComboBox.get(i).getSelectedIndex() == -1) {
+                    this.asignarMesasButton.setEnabled(false);
+                }
+            } else {
+                break;
+            }
+        }
     }
 
     @Override

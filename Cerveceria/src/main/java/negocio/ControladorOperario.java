@@ -6,13 +6,10 @@ import vista.ventanas.VentanaComanda;
 import vista.ventanas.VentanaFactura;
 import vista.ventanas.VentanaLogin;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
+import java.util.ArrayList;
 
-public class ControladorOperario implements ActionListener, WindowListener {
+public class ControladorOperario implements ActionListener, ItemListener, WindowListener {
     private Operario modelo;
     private IVistaOperario vista;
 
@@ -21,7 +18,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
         this.vista = vista;
 
         this.vista.setActionListener(this);
-        this.vista.setItemListener();
+        this.vista.setItemListener(this);
         this.vista.setListSelectionListener();
         this.vista.setWindowListener(this);
         this.vista.setNombreCompleto(operario.getNombreCompleto());
@@ -36,7 +33,7 @@ public class ControladorOperario implements ActionListener, WindowListener {
             case "Facturas" -> vista.cambiarPagina(3);
             case "Promociones" -> vista.cambiarPagina(4);
             case "Cerrar Sesion" -> creaOtraVentana("Login");
-            case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda"); //TODO No habilitar boton hasta Iniciar Jornada
+            case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda");
             case "Editar Comanda" -> creaOtraVentana("Editar Comanda");
             case "Cerrar Comanda" -> creaOtraVentana("Nueva Factura");
             case "Iniciar Jornada" -> {
@@ -45,10 +42,11 @@ public class ControladorOperario implements ActionListener, WindowListener {
             case "Asignar Mesas" -> {
                 try {
                     Cerveceria.getInstance().asignarMesas();
+                    vista.asignarMesas(Cerveceria.getInstance().getMesasAsignadas());
+                    vista.lanzarVentanaEmergente("Mesas asignadas con exito!");
                 } catch (Exception ex) {
                     vista.lanzarVentanaEmergente(ex.getMessage());
                 }
-                vista.lanzarVentanaEmergente("Mesas asignadas con exito!");
             }
         }
     }
@@ -94,6 +92,16 @@ public class ControladorOperario implements ActionListener, WindowListener {
                 //nuevaFactura.calculaTotal(); //TODO METODO EN FACTURA QUE CALCULE EL TOTAL
                 //nuevaFactura.verificaPromociones(); //TODO METODO EN FACTURA QUE GESTIONE LAS PROMOCIONES
             }
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        ArrayList<String> estados = vista.getEstadoMozos();
+        ArrayList<Mozo> mozos = Cerveceria.getInstance().getMozos();
+
+        for (int i = 0; i < estados.size(); i++) {
+            mozos.get(i).setEstado(estados.get(i));
         }
     }
 

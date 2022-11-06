@@ -432,10 +432,11 @@ public class Cerveceria {
         if (listaMozosActivos.isEmpty())
             throw new Exception("No hay mozos activos. NO se puede asignar mesas");
 
-        for (int i = 0; i < this.mesas.size();i++){
+        for (int i = 0; i < this.mesas.size(); i++){
             if (mozo >= listaMozosActivos.size())
                 mozo = 0;
-            this.mesasAsignadas.put(this.mesas.get(i),listaMozosActivos.get(mozo++));
+            this.mesasAsignadas.put(this.mesas.get(i),listaMozosActivos.get(mozo));
+            mozo++;
         }
     }
 
@@ -447,9 +448,9 @@ public class Cerveceria {
     private ArrayList<Mozo> mozosActivos() {
         ArrayList<Mozo> activos = new ArrayList<Mozo>();
 
-        for (int q = 0 ; q < this.mozos.size(); q++){
-            if (mozos.get(q).getEstado().equalsIgnoreCase("Activo"))
-                activos.add(mozos.get(q));
+        for (int i = 0 ; i < this.mozos.size(); i++){
+            if (mozos.get(i).getEstado().equalsIgnoreCase("Activo"))
+                activos.add(mozos.get(i));
         }
         return activos;
     }

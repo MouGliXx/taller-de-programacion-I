@@ -1,5 +1,7 @@
 package modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -90,7 +92,10 @@ public class Comanda {
 
     @Override
     public String toString() {
-        return fecha + " Mesa=" + mesa + pedidos ;
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
+        String fechaActual = dateFormat.format(fecha);
+
+        return "Fecha: " + fechaActual + "- Mesa: " + mesa.getNro() + "- Pedidos " + pedidos;
     }
 }
 

@@ -1,7 +1,6 @@
 package app;
 
 import modelo.Cerveceria;
-import modelo.Mesa;
 import modelo.Operario;
 import modelo.Producto;
 import negocio.ControladorLogin;
@@ -25,6 +24,9 @@ public class App {
             cerveceria.agregarMesa(2, "Libre");
             cerveceria.agregarMesa(6, "Ocupada");
             cerveceria.agregarMesa(7, "Libre");
+            cerveceria.agregarMesa(8, "Libre");
+            cerveceria.agregarMesa(3, "Libre");
+            cerveceria.agregarMesa(4, "Libre");
         } catch (Exception e) {
             e.printStackTrace();
         }
