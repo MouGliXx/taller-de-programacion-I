@@ -4,6 +4,8 @@ import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Cerveceria {
     private static Cerveceria instance = null;
@@ -20,6 +22,8 @@ public class Cerveceria {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
+    private TreeMap<Mozo,Double> estadisticasMozos = new TreeMap<Mozo,Double>();
+    private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<Mesa, EstadisticaMesa>();
 
     //PATRON SINGLETON
     private Cerveceria() {
@@ -173,8 +177,9 @@ public class Cerveceria {
     public void agregarMesa(int cantidadComensales, String estado) throws Exception{
         if (this.mesas.size() >= totalMaximoMesas)
             throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
-
-        this.mesas.add(new Mesa(cantidadComensales, estado));
+        Mesa mesa = new Mesa(cantidadComensales, estado);
+        this.mesas.add(mesa);
+        this.estadisticasMesas.put(mesa,new EstadisticaMesa());
     }
 
     public void agregarPromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
@@ -223,6 +228,14 @@ public class Cerveceria {
             throw new Exception("ERROR : No se puede crear factura sin comanda");
         Factura factura = new Factura(comanda.getMesa(), comanda.getPedidos(),formaPago);
         this.facturas.add(factura); //TODO corregir
+        Mesa mesa = comanda.getMesa();
+        Mozo mozo = mesasAsignadas.get(mesa);
+        double aux = this.estadisticasMozos.get(mozo) + factura.getTotal();
+        this.estadisticasMozos.replace(mozo, aux);
+        EstadisticaMesa estadisticas = this.estadisticasMesas.get(mesa);
+        estadisticas.setCantidadVentas(estadisticas.getCantidadVentas()+1);
+        estadisticas.setTotalGastado(estadisticas.getTotalGastado()+ factura.getTotal());
+        this.estadisticasMesas.replace(mesa,estadisticas);
         return factura;
     }
 
@@ -435,7 +448,9 @@ public class Cerveceria {
     }
 
 
-    public boolean hayDosProductosPromocionActiva(){return true;}
+    public boolean hayDosProductosPromocionActiva(){
+        return this.promocionesProductos.size()>=2;
+    }
 
     // TESTEAR -
     // Si se intenta cerrar una comanda que se encuentra cerrada,
@@ -501,4 +516,29 @@ public class Cerveceria {
         return activos;
     }
 
+    public void generaEstadisticas (){
+        ArrayList<Mozo> listaMozosActivos = mozosActivos();
+        for( Mozo mozo : listaMozosActivos){
+            this.estadisticasMozos.put(mozo,0.);
+        }
+    }
+
+    public String mostrarEstadisticasMozos(){
+        return "Mozo con mas ventas "+
+                estadisticasMozos.firstEntry().getKey()+
+                " Total de Ventas"+
+                estadisticasMozos.firstEntry().getValue()+""+
+                "Mozo con menos ventas "+
+                estadisticasMozos.lastEntry().getKey()+
+                " Total de Ventas"+
+                estadisticasMozos.lastEntry().getValue();
+    }
+
+    public String mostrarEstadisticasMesas(){
+        String respuesta= "ESTADISTICAS DE MESAS ";
+        for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()){
+            respuesta += "Mesa "+entry.getKey() +" Promedio Ventas"+entry.getValue().getTotalGastado()/entry.getValue().getCantidadVentas();
+        }
+        return respuesta;
+    }
 }
