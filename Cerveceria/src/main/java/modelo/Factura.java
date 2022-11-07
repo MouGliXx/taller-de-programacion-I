@@ -78,10 +78,10 @@ public class Factura {
     public double getTotal(){
         //aplicar promociones de producto
         // recorrer promociones
-        for ( ProductoEnPromocion producto : promocionesProductos){
+        for ( ProductoEnPromocion promociones : promocionesProductos){
             for ( Pedido pedido : pedidos){
-                if (producto).equal(pedido){
-                    total = producto.getPrecio();
+                if (promociones.getProducto().equals(pedido.getProducto())){
+                    this.total += pedido.getProducto().getPrecioVenta()*promociones.getPrecio();
                 }
             }
         }
