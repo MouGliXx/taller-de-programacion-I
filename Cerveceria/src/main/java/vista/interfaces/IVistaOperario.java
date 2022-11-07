@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 public interface IVistaOperario extends IVista{
 
+    void setModelos();
+
     void setItemListener(ItemListener controlador);
 
     void setListSelectionListener();
@@ -16,8 +18,6 @@ public interface IVistaOperario extends IVista{
     void setNombreLocal();
 
     void setNombreCompleto(String nombreCompleto);
-
-    void setModelos();
 
     void inicializarMozos();
 

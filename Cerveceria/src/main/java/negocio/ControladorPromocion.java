@@ -34,6 +34,7 @@ public class ControladorPromocion implements ActionListener {
                             try {
                                 int cantidadMinima = vista.getCantidadMinima();
                                 double precioUnitario = vista.getPrecioUnitario();
+
                                 Cerveceria.getInstance().agregarPromocionProducto(diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad, cantidadMinima, precioUnitario);
                                 this.vista.cerrarVentana();
                             } catch (NumberFormatException ex) {

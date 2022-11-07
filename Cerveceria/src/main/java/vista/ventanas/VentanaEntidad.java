@@ -8,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 
+/**
+ * Clase que representa la interfaz cuando se crea/edita una entidad.<br>
+ * */
 public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener {
     private String entidad;
     private JPanel panelPrincipal;
@@ -60,12 +63,26 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JComboBox<String> estadoMesaComboBox;
     private JTextField nombreCompletoTextField;
 
+    /**
+     * Agrega los ActionListener a los diferentes componentes de la ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un ActionListener a los componentes que lo necesiten.<br>
+     *
+     * @param controlador Es la clase que recibe los eventos de acción de la ventana.
+     */
     @Override
     public void setActionListener(ActionListener controlador) {
         this.accionButton.addActionListener(controlador);
         this.cancelarButton.addActionListener(controlador);
     }
 
+    /**
+     * Agrega los KeyListener especificados a los diferentes JTextField de la ventana.<br>
+     *
+     * <b>pre</b> Deben existir componentes JTextField dentro de la ventana.<br>
+     * <b>post</b> Se ha asignado un KeyListener a los TextField que lo necesiten.<br>
+     */
     @Override
     public void setKeyListener() {
         this.nombreCompletoTextField.addKeyListener(this);
@@ -79,11 +96,23 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.precioCostoTextField.addKeyListener(this);
     }
 
+    /**
+     * Agrega un WindowListener a la ventana, para notificar WindowEvent que ocurran desde esta ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un WindowListener a la ventana<br>
+     * @param controlador Es la clase que recibe los WindowEvent de la ventana.
+     */
     @Override
     public void setWindowListener(WindowListener controlador) {
         this.addWindowListener(controlador);
     }
 
+    /**
+     * Establece las caracteristicas principales que defininen a la ventana.<br>
+     *
+     * <b>post</b> Se ejecuta la ventana.<br>
+     */
     @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
@@ -96,12 +125,24 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Oculta y cierra la ventana.<br>
+     *
+     * <b>post</b> Se detiene la ejecucion de la ventana.<br>
+     */
     @Override
     public void cerrarVentana() {
         setVisible(false); //Oculto la ventana
         dispose(); //Cierro la ventana
     }
 
+    /**
+     * Lanza una pequena ventana con un mensaje y boton de confirmacion.<br>
+     *
+     * <b>pre</b> mensaje distinto de null.<br>
+     * <b>post</b> Se abre un JFrame con un mensaje.<br>
+     * @param mensaje Es el mensaje que se desea mostrar en la ventana.<br>
+     */
     @Override
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();

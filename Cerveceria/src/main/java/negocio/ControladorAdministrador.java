@@ -58,7 +58,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         }
                     }
                     case "Mesas del local" -> {
-                        Mesa mesa = vista.getMesaSeleccionado();
+                        Mesa mesa = vista.getMesaSeleccionada();
                         Cerveceria.getInstance().eliminarMesa(mesa);
                         vista.actualizarLista("Mesas del Local");
                     }
@@ -153,7 +153,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     }
                     case "Mesas del local" -> {
                         ventanaEntidad.setEntidad("Mesa");
-                        Mesa mesa = vista.getMesaSeleccionado();
+                        Mesa mesa = vista.getMesaSeleccionada();
                         ventanaEntidad.setDatosMesa(mesa);
                     }
                 }

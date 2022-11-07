@@ -62,9 +62,7 @@ public class Factura {
 
     public ArrayList<Promocion> getPromocionesAplicadas() {return promocionesAplicadas;}
 
-
     //FUNCIONALIDADES
-
     private void calcularTotalconPromociones(){
         this.aplicarPromocionesProductos();
         this.aplicarPromocionesTemporales();

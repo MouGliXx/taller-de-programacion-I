@@ -7,13 +7,13 @@ import java.util.Date;
 
 public interface IVistaComanda extends IVista{
 
+    void setModelos();
+
     void setListSelectionListener();
 
     void setAccion(String accion);
 
     void setFecha(Date fecha);
-
-    void setModelos();
 
     void inicializaComboBox(Mesa mesa);
 

@@ -1,11 +1,7 @@
 package app;
 
 import modelo.*;
-import negocio.ControladorOperario;
-import vista.ventanas.VentanaOperario;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -70,7 +66,7 @@ public class Prueba {
         cerveza.getComandas().get(0).agregarPedido(p1);
 
 //        cerveza.agregarFactura(cerveza.getComandas().get(0),"Debito");
-        cerveza.cerrarComanda(cerveza.getComandas().get(0));
+        cerveza.eliminarComanda(cerveza.getComandas().get(0));
         System.out.println(cerveza.getFacturas().get(0).toString());
 
     }

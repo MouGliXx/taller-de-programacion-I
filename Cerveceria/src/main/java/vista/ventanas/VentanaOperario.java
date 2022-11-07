@@ -2,7 +2,6 @@ package vista.ventanas;
 
 import modelo.*;
 import vista.interfaces.IVistaOperario;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -11,6 +10,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Clase que representa la interfaz del Operario.<br>
+ */
 public class VentanaOperario extends JFrame implements IVistaOperario, ActionListener, ItemListener, ListSelectionListener {
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
@@ -100,6 +102,14 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         cerrarComandaButton.addActionListener(controlador);
     }
 
+    /**
+     * Agrega los ActionListener a los diferentes componentes de la ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un ActionListener a los componentes que lo necesiten.<br>
+     *
+     * @param controlador Es la clase que recibe los eventos de acción de la ventana.
+     */
     @Override
     public void setItemListener(ItemListener controlador) {
         this.comboBox1.addItemListener(controlador);
@@ -116,16 +126,34 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         this.comboBox6.addItemListener(this);
     }
 
+    /**
+     * Agrega los ListSelectionListener especificados a las diferentes JList de la ventana, para notificar cada vez que ocurra un cambio en la selección.<br>
+     *
+     * <b>pre</b> Deben existir componentes JList dentro de la ventana.<br>
+     * <b>post</b> Se han agregado los ListSelectionListener a los JList especificados.<br>
+     */
     @Override
     public void setListSelectionListener() {
         this.listaComandas.addListSelectionListener(this);
     }
 
+    /**
+     * Agrega un WindowListener a la ventana, para notificar WindowEvent que ocurran desde esta ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un WindowListener a la ventana<br>
+     * @param controlador Es la clase que recibe los WindowEvent de la ventana.
+     */
     @Override
     public void setWindowListener(WindowListener controlador) {
         this.addWindowListener(controlador);
     }
 
+    /**
+     * Establece las caracteristicas principales que defininen a la ventana.<br>
+     *
+     * <b>post</b> Se ejecuta la ventana.<br>
+     */
     @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
@@ -144,16 +172,42 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         inicializarListas();
     }
 
+    /**
+     * Oculta y cierra la ventana.<br>
+     *
+     * <b>post</b> Se detiene la ejecucion de la ventana.<br>
+     */
     @Override
     public void cerrarVentana() {
         setVisible(false); //Oculto la ventana
         dispose(); //Cierro la ventana
     }
 
+    /**
+     * Lanza una pequena ventana con un mensaje y boton de confirmacion.<br>
+     *
+     * <b>pre</b> mensaje distinto de null.<br>
+     * <b>post</b> Se abre un JFrame con un mensaje.<br>
+     * @param mensaje Es el mensaje que se desea mostrar en la ventana.<br>
+     */
     @Override
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, mensaje);
+    }
+
+    /**
+     * Establece los modelos a los diferentes componentes que lo necesiten.<br>
+     *
+     * <b>pre</b> Los modelos deben estar instanciados.<br>
+     * <b>post</b> Los componentes quedan con el modelo acorde establecido.<br>
+     */
+    @Override
+    public void setModelos() {
+        this.listaComandas.setModel(modeloComanda);
+        this.listaFacturas.setModel(modeloFactura);
+        this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
+        this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
     @Override
@@ -167,14 +221,6 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     @Override
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreApellidoLabel.setText(nombreCompleto);
-    }
-
-    @Override
-    public void setModelos() {
-        this.listaComandas.setModel(modeloComanda);
-        this.listaFacturas.setModel(modeloFactura);
-        this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
-        this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
     public void inicializaArrays() {
@@ -208,6 +254,12 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         }
     }
 
+    /**
+     * Inicializa los distintos DefaultListModel con los conjuntos de datos del modelo, pora su visualizacion en las JList.<br>
+     *
+     * <b>pre</b> Los DefaultListModel ya han sido seteados a sus JList.<br>
+     * <b>post</b> Se pueden visualizar las distintas datos en sus respectivas listas.<br>
+     */
     @Override
     public void inicializarListas() {
         ArrayList<Comanda> comandas = Cerveceria.getInstance().getComandas();

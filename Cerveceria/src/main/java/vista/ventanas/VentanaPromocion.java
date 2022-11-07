@@ -7,6 +7,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Clase que representa la interfaz cuando se crea una promocion.<br>
+ */
 public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionListener, KeyListener {
     String promocion;
     private JPanel panelPrincipal;
@@ -56,6 +59,14 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     //MODELO PARA COMBOBOX
     DefaultComboBoxModel<Producto> modeloProducto = new DefaultComboBoxModel<>();
 
+    /**
+     * Agrega los ActionListener a los diferentes componentes de la ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un ActionListener a los componentes que lo necesiten.<br>
+     *
+     * @param controlador Es la clase que recibe los eventos de acción de la ventana.
+     */
     @Override
     public void setActionListener(ActionListener controlador) {
         this.establecerButton.addActionListener(controlador);
@@ -82,6 +93,12 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         this.acumulableCheckBox.addActionListener(this);
     }
 
+    /**
+     * Agrega los KeyListener especificados a los diferentes JTextField de la ventana.<br>
+     *
+     * <b>pre</b> Deben existir componentes JTextField dentro de la ventana.<br>
+     * <b>post</b> Se ha asignado un KeyListener a los TextField que lo necesiten.<br>
+     */
     @Override
     public void setKeyListener() {
         //PAGINA0
@@ -91,11 +108,23 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         this.nombrePromocionTextField.addKeyListener(this);
     }
 
+    /**
+     * Agrega un WindowListener a la ventana, para notificar WindowEvent que ocurran desde esta ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un WindowListener a la ventana.<br>
+     * @param controlador Es la clase que recibe los WindowEvent de la ventana.
+     */
     @Override
     public void setWindowListener(WindowListener controlador) {
         this.addWindowListener(controlador);
     }
 
+    /**
+     * Establece las caracteristicas principales que defininen a la ventana.<br>
+     *
+     * <b>post</b> Se ejecuta la ventana.<br>
+     */
     @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
@@ -109,18 +138,36 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         setModelos();
     }
 
+    /**
+     * Oculta y cierra la ventana.<br>
+     *
+     * <b>post</b> Se detiene la ejecucion de la ventana.<br>
+     */
     @Override
     public void cerrarVentana() {
         setVisible(false); //Oculto la ventana
         dispose(); //Cierro la ventana
     }
 
+    /**
+     * Lanza una pequena ventana con un mensaje y boton de confirmacion.<br>
+     *
+     * <b>pre</b> mensaje distinto de null.<br>
+     * <b>post</b> Se abre un JFrame con un mensaje.<br>
+     * @param mensaje Es el mensaje que se desea mostrar en la ventana.<br>
+     */
     @Override
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, mensaje);
     }
 
+    /**
+     * Establece los modelos a los diferentes componentes que lo necesiten.<br>
+     *
+     * <b>pre</b> Los modelos deben estar instanciados.<br>
+     * <b>post</b> Los componentes quedan con el modelo acorde establecido.<br>
+     */
     @Override
     public void setModelos() {
         this.productosComboBox.setModel(modeloProducto);

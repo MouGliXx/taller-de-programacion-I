@@ -32,7 +32,7 @@ public interface IVistaAdministrador extends IVista {
 
     Producto getProductoSeleccionado();
 
-    Mesa getMesaSeleccionado();
+    Mesa getMesaSeleccionada();
 
     String getTipoPromocionSeleccionada();
 

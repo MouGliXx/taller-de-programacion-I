@@ -22,8 +22,8 @@ public class Cerveceria {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
-    private TreeMap<Mozo,Double> estadisticasMozos = new TreeMap<Mozo,Double>();
-    private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<Mesa, EstadisticaMesa>();
+    private TreeMap<Mozo,Double> estadisticasMozos = new TreeMap<>();
+    private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<>();
 
     //PATRON SINGLETON
     private Cerveceria() {
@@ -223,12 +223,12 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la comanda es null
      * <b>post:</b> La lista de facturas tendra una nueva<br>.
      */
-    public Factura agregarFactura(Comanda comanda, String formaPago) throws Exception {
+    public Factura agregarFactura(Comanda comanda, String formaPago) throws Exception { //TODO MODIFICAR
         if (comanda == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
 
         Factura factura = new Factura(comanda.getMesa(), comanda.getPedidos(),formaPago);
-        this.facturas.add(factura); //TODO corregir
+        this.facturas.add(factura);
         Mesa mesa = comanda.getMesa();
         Mozo mozo = mesasAsignadas.get(mesa);
         double aux = this.estadisticasMozos.get(mozo) + factura.getTotal();
@@ -288,10 +288,10 @@ public class Cerveceria {
     }
 
     public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
-        if (precioVenta >= precioCosto){
-            if(precioVenta > 0){
+        if (precioVenta >= precioCosto) {
+            if(precioVenta > 0) {
                 if(precioCosto > 0) {
-                    if(this.productos.containsKey(ID)){
+                    if(this.productos.containsKey(ID)) {
                         Producto producto = productos.get(ID);
                         producto.setNombre(nombre);
                         producto.setPrecioCosto(precioCosto);
@@ -339,8 +339,20 @@ public class Cerveceria {
         this.operarios.remove(operario);
     }
 
-    public void eliminarComanda (Comanda comanda){
-        assert comanda!=null:"ERROR : La comanda no puede ser null";
+    /**
+     * <b>pre:</b> comanda deben ser distintos de null<br>.
+     * @throws Exception Se lanza excepción si la comanda a cerrar ya esta en estado cerrada.
+     * @param comanda Comanda que se cerrara
+     * <b>post:</b> Se cerrará la comanda. La mesa de la comanda queda en estado Libre. Se creará la factura de la comanda a cerrar. Y se removera la comanda de la lista de comandas<br>.
+     */
+    public void eliminarComanda(Comanda comanda) throws Exception {
+        assert comanda!=null:"ERROR : La comanda no debe ser null";
+
+        if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
+            throw new Exception("ERROR : No se puede cerrar una comanda ya cerrada");
+
+        comanda.cerrarComanda();
+        comanda.getMesa().liberar();
         this.comandas.remove(comanda);
     }
 
@@ -461,23 +473,6 @@ public class Cerveceria {
     //
 
     /**
-     * <b>pre:</b> comanda deben ser distintos de null<br>.
-     * @throws Exception Se lanza excepción si la comanda a cerrar ya esta en estado cerrada.
-     * @param comanda Comanda que se cerrara
-     * <b>post:</b> Se cerrará la comanda. La mesa de la comanda queda en estado Libre. Se creará la factura de la comanda a cerrar. Y se removera la comanda de la lista de comandas<br>.
-     */
-    public void cerrarComanda(Comanda comanda) throws Exception {
-        assert comanda!=null:"ERROR : La comanda no debe ser null";
-
-        if (comanda.getEstado().equalsIgnoreCase("Cerrada"))
-            throw new Exception("ERROR : No se puede cerrar una comanda ya cerrada");
-
-        comanda.cerrarComanda();
-        comanda.getMesa().liberar();
-        this.comandas.remove(comanda);
-    }
-
-    /**
      * <b>pre:</b> <br>.
      * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya
      * mesas y mozos activos para asignar a cada Mesa un mozo
@@ -517,14 +512,15 @@ public class Cerveceria {
         return activos;
     }
 
-    public void generaEstadisticas (){
+    public void generaEstadisticas() {
         ArrayList<Mozo> listaMozosActivos = mozosActivos();
-        for( Mozo mozo : listaMozosActivos){
+
+        for( Mozo mozo : listaMozosActivos) {
             this.estadisticasMozos.put(mozo,0.);
         }
     }
 
-    public String mostrarEstadisticasMozos(){
+    public String mostrarEstadisticasMozos() {
         return "Mozo con mas ventas "+
                 estadisticasMozos.firstEntry().getKey()+
                 " Total de Ventas"+
@@ -535,8 +531,9 @@ public class Cerveceria {
                 estadisticasMozos.lastEntry().getValue();
     }
 
-    public String mostrarEstadisticasMesas(){
-        String respuesta= "ESTADISTICAS DE MESAS ";
+    public String mostrarEstadisticasMesas() {
+        String respuesta = "ESTADISTICAS DE MESAS ";
+
         for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()){
             respuesta += "Mesa "+entry.getKey() +" Promedio Ventas"+entry.getValue().getTotalGastado()/entry.getValue().getCantidadVentas();
         }
