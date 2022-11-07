@@ -69,6 +69,12 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JPanel tiposPromocionesPane;
     private JScrollPane promocionesTemporalesScrollPane;
     private JList<PromocionTemporal> listaPromocionesTemporales;
+    private JLabel estadisticasDeLosMozosLabel;
+    private JScrollPane estadisticasDeLosMozosScrollPane;
+    private JLabel estadisticasDeLasMesasLabel;
+    private JScrollPane estadisticasDeLasMesasScrollpane;
+    private JList listaEstadisticasMozos;
+    private JList listasEstadisticasMesas;
     //MODELOS PARA LISTAS
     DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
