@@ -1,11 +1,12 @@
 package modelo;
 
-public class Mozo {
+public class Mozo implements Comparable {
     private String nombreYApellido;
     private int edad;
     private String nombre;
     private int cantHijos;
-    private String estado; // Activo - Ausente - Franco
+    private String estado;
+    private double sueldo;
 
     //CONSTRUCTOR
     public Mozo(String nombre, int edad, int cantHijos, String estado) throws Exception {
@@ -13,6 +14,7 @@ public class Mozo {
         this.estado = estado;
         this.edad = edad;
         this.cantHijos = cantHijos;
+        this.sueldo = Cerveceria.getInstance().getRemuneracionBasica()*cantHijos;
     }
 
     public String getNombreYApellido() {
@@ -65,6 +67,19 @@ public class Mozo {
         return "Nombre y Apellido: '" + nombreYApellido + '\'' +
                 " - Edad: " + edad +
                 " - Hijos: " + cantHijos +
-                " - Estado: " + estado;
+                " - Estado: " + estado +
+                " - Sueldo: " +sueldo;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Mozo mozo = (Mozo) o;
+        int respuesta;
+        if (Cerveceria.getInstance().getEstadisticasMozos().get(this).getTotalGastado()>=(Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado()))
+            respuesta = 1;
+        else
+            respuesta = -1;
+        return respuesta;
     }
 }

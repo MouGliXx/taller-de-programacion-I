@@ -135,6 +135,8 @@ public class Cerveceria {
         this.productos = productos;
     }
 
+    public TreeMap<Mozo, EstadisticaMozo> getEstadisticasMozos() {return estadisticasMozos;}
+
     //FUNCIONALIDADES
     public Administrador login(String password) throws ErrorDeContrasenaException {
 
