@@ -80,11 +80,7 @@ public class VentanaLogin extends JFrame implements IVistaLogin, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
-            botonLogin.setEnabled(false);
-        } else {
-            botonLogin.setEnabled(true);
-        }
+        botonLogin.setEnabled(!usernameTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty());
     }
 
     //METODOS NO USADOS

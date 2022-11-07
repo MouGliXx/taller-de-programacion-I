@@ -49,15 +49,15 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JLabel numeroDeMesaLabel;
     private JLabel NMesaLabel;
     private JLabel cantidadDeComensalesLabel;
-    private JComboBox cantComensalesComboBox;
+    private JComboBox<String> cantComensalesComboBox;
     private JTextField nombreYApellidoTextField;
     private JTextField edadTextField;
     private JLabel contrasenaLabel;
     private JTextField contrasenaTextField;
-    private JComboBox cantHijosComboBox;
-    private JComboBox estadoMozoComboBox;
+    private JComboBox<String> cantHijosComboBox;
+    private JComboBox<String> estadoMozoComboBox;
     private JLabel estadoLabel1;
-    private JComboBox estadoMesaComboBox;
+    private JComboBox<String> estadoMesaComboBox;
     private JTextField nombreCompletoTextField;
 
     @Override

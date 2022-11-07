@@ -128,9 +128,7 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
             this.accionButton.setEnabled(true);
 
             modeloPedidos.removeAllElements();
-            pedidos.forEach((pedido) -> {
-                modeloPedidos.add(modeloPedidos.size(), pedido);
-            });
+            pedidos.forEach((pedido) -> modeloPedidos.add(modeloPedidos.size(), pedido));
         }
     }
 
@@ -159,7 +157,7 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
 
     @Override
     public Pedido getPedidoSeleccionado() {
-        return (this.listaPedidosAsignados == null ? null : (Pedido) this.listaPedidosAsignados.getSelectedValue());
+        return (this.listaPedidosAsignados == null ? null : this.listaPedidosAsignados.getSelectedValue());
     }
 
     @Override
@@ -167,12 +165,10 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
         this.nuevoPedidoButton.setEnabled(false);
         this.accionButton.setEnabled(false);
 
-        switch (e.getActionCommand()) {
-            case "Selecciona Mesa" -> {
-                if (this.mesaComboBox.getSelectedIndex() != -1) {
-                    this.accionButton.setEnabled(true);
-                    this.nuevoPedidoButton.setEnabled(true);
-                }
+        if (e.getActionCommand().equals("Selecciona Mesa")) {
+            if (this.mesaComboBox.getSelectedIndex() != -1) {
+                this.accionButton.setEnabled(true);
+                this.nuevoPedidoButton.setEnabled(true);
             }
         }
     }

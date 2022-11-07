@@ -226,6 +226,7 @@ public class Cerveceria {
     public Factura agregarFactura(Comanda comanda, String formaPago) throws Exception {
         if (comanda == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
+
         Factura factura = new Factura(comanda.getMesa(), comanda.getPedidos(),formaPago);
         this.facturas.add(factura); //TODO corregir
         Mesa mesa = comanda.getMesa();

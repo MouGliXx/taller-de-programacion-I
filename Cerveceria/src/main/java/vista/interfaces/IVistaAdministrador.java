@@ -1,7 +1,6 @@
 package vista.interfaces;
 
 import modelo.*;
-import java.awt.event.WindowListener;
 
 public interface IVistaAdministrador extends IVista {
 

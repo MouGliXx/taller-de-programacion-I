@@ -20,7 +20,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     private JButton cancelarButton;
     private JLabel idProductoLabel;
     private JLabel IDLabel;
-    private JComboBox productosComboBox;
+    private JComboBox<Producto>productosComboBox;
     private JPanel primerafilaPanel1;
     private JPanel atriibutosEnComunPanel;
     private JCheckBox lunesCheckBox;
@@ -40,7 +40,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     private JLabel cantidadMinimaLabel;
     private JTextField cantidadMinimaTextField;
     private JLabel precioUnitarioLabel;
-    private JComboBox porcentajeComboBox;
+    private JComboBox<String> porcentajeComboBox;
     private JLabel porcentajeDeDescuentoLabel;
     private JLabel nombreLabel;
     private JTextField nombrePromocionTextField;
@@ -132,9 +132,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
 
         if (!productos.isEmpty()) {
             modeloProducto.addElement(null);
-            productos.forEach((nro, producto) -> {
-                modeloProducto.addElement(producto);
-            });
+            productos.forEach((nro, producto) -> modeloProducto.addElement(producto));
         }
     }
 

@@ -79,9 +79,7 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
 
         if (!productos.isEmpty()) {
             modeloProductos.addElement(null);
-            productos.forEach((nro, producto) -> {
-                modeloProductos.addElement(producto);
-            });
+            productos.forEach((nro, producto) -> modeloProductos.addElement(producto));
         }
     }
 
@@ -109,8 +107,8 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
         this.cantidadComboBox.setEnabled(false);
         Producto productoSeleccionado = modeloProductos.getElementAt(productoComboBox.getSelectedIndex());
 
+        modeloCantidad.removeAllElements();
         if (productoSeleccionado != null) {
-            modeloCantidad.removeAllElements();
             modeloCantidad.addElement(null);
 
             if (productoSeleccionado.getStockInicial() != 0) {
@@ -122,8 +120,6 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
             } else {
                 lanzarVentanaEmergente("El producto seleccionado NO tiene stock disponible");
             }
-        } else {
-            modeloCantidad.removeAllElements();
         }
     }
 }

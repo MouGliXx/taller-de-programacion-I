@@ -26,9 +26,6 @@ public abstract class Promocion {
         return idPromocion;
     }
 
-    public void setIdPromocion(int idPromocion) {
-        this.idPromocion = idPromocion;
-    }
 
     public ArrayList<String> getDiasPromocion() {
         return diasPromocion;

@@ -4,8 +4,6 @@ import modelo.Comanda;
 import modelo.Pedido;
 import modelo.Producto;
 import vista.interfaces.IVistaPedido;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -84,15 +84,11 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     @Override
     public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones) {
         if (pedidos != null && !pedidos.isEmpty()) {
-            pedidos.forEach((pedido) -> {
-                modeloProductos.add(modeloProductos.size(), pedido);
-            });
+            pedidos.forEach((pedido) -> modeloProductos.add(modeloProductos.size(), pedido));
         }
 
         if (promociones != null && !promociones.isEmpty()) {
-            promociones.forEach((promocion) -> {
-                modeloPromociones.add(modeloPromociones.size(), promocion);
-            });
+            promociones.forEach((promocion) -> modeloPromociones.add(modeloPromociones.size(), promocion));
         }
     }
 

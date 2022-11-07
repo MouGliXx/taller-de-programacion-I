@@ -186,24 +186,16 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
 
         modeloOperario.removeAllElements();
-        operarios.forEach((operario) -> {
-            this.modeloOperario.add(modeloOperario.size(), operario);
-        });
+        operarios.forEach((operario) -> this.modeloOperario.add(modeloOperario.size(), operario));
 
         modeloMozo.removeAllElements();
-        mozos.forEach((mozo) -> {
-            this.modeloMozo.add(modeloMozo.size(), mozo);
-        });
+        mozos.forEach((mozo) -> this.modeloMozo.add(modeloMozo.size(), mozo));
 
         modeloProducto.removeAllElements();
-        productos.forEach((id, producto) -> {
-            this.modeloProducto.add(modeloProducto.size(), producto);
-        });
+        productos.forEach((id, producto) -> this.modeloProducto.add(modeloProducto.size(), producto));
 
         modeloMesa.removeAllElements();
-        mesas.forEach((mesa) -> {
-            this.modeloMesa.add(modeloMesa.size(), mesa);
-        });
+        mesas.forEach((mesa) -> this.modeloMesa.add(modeloMesa.size(), mesa));
    }
 
     @Override
@@ -212,14 +204,10 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         ArrayList<PromocionTemporal> promocionesTemporales = Cerveceria.getInstance().getPromocionesTemporales();
 
         modeloProductoEnPromocion.removeAllElements();
-        promocionesProductos.forEach((promocionProducto) -> {
-            this.modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), promocionProducto);
-        });
+        promocionesProductos.forEach((promocionProducto) -> this.modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), promocionProducto));
 
         modeloPromocionTemporal.removeAllElements();
-        promocionesTemporales.forEach((promocionTemporal) -> {
-            this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal);
-        });
+        promocionesTemporales.forEach((promocionTemporal) -> this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal));
     }
 
     @Override
@@ -364,17 +352,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         String nombreLocal = Cerveceria.getInstance().getNombreDelLocal();
         String remuneracionBasica = String.valueOf(Cerveceria.getInstance().getRemuneracionBasica());
 
-        if (cerveceriaTextField.getText().equals(nombreLocal)) {
-            editarTituloButton.setEnabled(false);
-        } else {
-            editarTituloButton.setEnabled(true);
-        }
-
-        if (remuneracionTextField.getText().equals(remuneracionBasica)) {
-            editarRemuneracionButton.setEnabled(false);
-        } else {
-            editarRemuneracionButton.setEnabled(true);
-        }
+        editarTituloButton.setEnabled(!cerveceriaTextField.getText().equals(nombreLocal));
+        editarRemuneracionButton.setEnabled(!remuneracionTextField.getText().equals(remuneracionBasica));
     }
 
     @Override

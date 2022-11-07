@@ -11,7 +11,7 @@ public class Factura {
     private ArrayList<Pedido> pedidos;
     private double total;
     private String formaDePago;
-    private ArrayList<Promocion> promocionesAplicadas = new ArrayList<Promocion>();
+    private ArrayList<Promocion> promocionesAplicadas = new ArrayList<>();
 
     //CONSTRUCTOR
     public Factura(Mesa mesa, ArrayList<Pedido> pedidos,String formaPago) {
@@ -96,19 +96,19 @@ public class Factura {
                             this.total += (Math.divideExact(pedido.getCantidad(),2)+(Math.ceilMod(pedido.getCantidad(),2)))*pedido.getProducto().getPrecioVenta();
                             respuesta = true;
                         }
-                        else
-                            if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad()>= promo.getDtoPorCantidad_CantMinima()){
-                                //aplicar Dto por cantidad y sumar al total
-                                this.total += pedido.getProducto().getPrecioVenta()*promo.getDtoPorCantidad_PrecioUnitario()*pedido.getCantidad()/100.;
-                                respuesta = true;
-                            }
+                        else if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad()>= promo.getDtoPorCantidad_CantMinima()) {
+                            //aplicar Dto por cantidad y sumar al total
+                            this.total += pedido.getProducto().getPrecioVenta()*promo.getDtoPorCantidad_PrecioUnitario()*pedido.getCantidad()/100.;
+                            respuesta = true;
+                        }
                     }
                     else
                 pos++;
             }
-            if (respuesta)
-                promocionesAplicadas.add(promoProd.get(pos--));
-            else{
+            if (respuesta) {
+                promocionesAplicadas.add(promoProd.get(pos));
+                pos--;
+            } else {
                 this.total += pedido.getProducto().getPrecioVenta()*pedido.getCantidad();
             }
         }
@@ -117,21 +117,25 @@ public class Factura {
     private boolean coincideDiaSemana(ArrayList<String> dias){
         int dia = new Date().getDay();
         String nombreDia = null;
-        int pos=0;
+        int pos = 0;
         boolean respuesta = false;
-        switch (dia){
-            case 0: nombreDia="Domingo"; break;
-            case 1: nombreDia="Lunes"; break;
-            case 2: nombreDia="Martes"; break;
-            case 3: nombreDia="Miercoles"; break;
-            case 4: nombreDia="Jueves"; break;
-            case 5: nombreDia="Viernes"; break;
-            case 6: nombreDia="Sabado"; break;
+
+        switch (dia) {
+            case 0: nombreDia = "Domingo"; break;
+            case 1: nombreDia = "Lunes"; break;
+            case 2: nombreDia = "Martes"; break;
+            case 3: nombreDia = "Miercoles"; break;
+            case 4: nombreDia = "Jueves"; break;
+            case 5: nombreDia = "Viernes"; break;
+            case 6: nombreDia = "Sabado"; break;
         }
-        while (pos < dias.size() && !respuesta){
-            if (nombreDia.equalsIgnoreCase(dias.get(pos)))
+
+        while (pos < dias.size() && !respuesta) {
+            if (nombreDia.equalsIgnoreCase(dias.get(pos))) {
                 respuesta = true;
+            }
         }
+
         return respuesta;
     }
 //    public double calculaTotal() { //TODO REFACTORIZAR

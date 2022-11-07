@@ -1,6 +1,5 @@
 package modelo;
 
-//Clase de los mozos
 public class Mozo {
     private String nombreYApellido;
     private int edad;

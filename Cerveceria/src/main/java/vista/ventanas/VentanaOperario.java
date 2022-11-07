@@ -34,18 +34,18 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     private JLabel mozosLabel;
     private JLabel nombreYApellidoLabel;
     private JLabel estadoLabel;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
-    private JComboBox comboBox5;
+    private JComboBox<String> comboBox1;
+    private JComboBox<String> comboBox2;
+    private JComboBox<String> comboBox3;
+    private JComboBox<String> comboBox4;
+    private JComboBox<String> comboBox5;
     private JLabel NPLabel1;
     private JLabel NPLabel2;
     private JLabel NPLabel3;
     private JLabel NPLabel4;
     private JLabel NPLabel5;
     private JLabel NPLabel6;
-    private JComboBox comboBox6;
+    private JComboBox<String> comboBox6;
     private JLabel mesasAsignadasLabel;
     private JLabel MA1;
     private JLabel MA2;
@@ -74,13 +74,13 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     private JLabel fechaHoraLabel2;
     //ARRAYLIST DE COMPONENTES PARA MOZOSPANEL
     ArrayList<JLabel> arrayLabels0 = new ArrayList<>(6);
-    ArrayList<JComboBox> arrayComboBox = new ArrayList<>(6);
+    ArrayList<JComboBox<String>> arrayComboBox = new ArrayList<>(6);
     ArrayList<JLabel> arrayLabels1 = new ArrayList<>(6);
     //MODELOS PARA LISTA
     DefaultListModel<Comanda> modeloComanda = new DefaultListModel<>();
     DefaultListModel<Factura> modeloFactura = new DefaultListModel<>();
     DefaultListModel<PromocionProducto> modeloProductoEnPromocion = new DefaultListModel<>();
-    DefaultListModel<PromocionTemporal> modeloPromocionGeneral = new DefaultListModel<>();
+    DefaultListModel<PromocionTemporal> modeloPromocionTemporal = new DefaultListModel<>();
 
     @Override
     public void setActionListener(ActionListener controlador) {
@@ -174,7 +174,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         this.listaComandas.setModel(modeloComanda);
         this.listaFacturas.setModel(modeloFactura);
         this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
-        this.listaPromocionesTemporales.setModel(modeloPromocionGeneral);
+        this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
     public void inicializaArrays() {
@@ -212,19 +212,20 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     public void inicializarListas() {
         ArrayList<Comanda> comandas = Cerveceria.getInstance().getComandas();
         ArrayList<Factura> facturas = Cerveceria.getInstance().getFacturas();
-//        ArrayList<Promocion> promociones = Cerveceria.getInstance().getPromocionesTemporales();
+        ArrayList<PromocionProducto> promocionesProductos = Cerveceria.getInstance().getPromocionesProductos();
+        ArrayList<PromocionTemporal> promocionesTemporales = Cerveceria.getInstance().getPromocionesTemporales();
 
         modeloComanda.removeAllElements();
-        comandas.forEach((comanda) -> {
-            this.modeloComanda.add(modeloComanda.size(), comanda);
-        });
+        comandas.forEach((comanda) -> this.modeloComanda.add(modeloComanda.size(), comanda));
 
         modeloFactura.removeAllElements();
-        facturas.forEach((factura) -> {
-            this.modeloFactura.add(modeloFactura.size(), factura);
-        });
+        facturas.forEach((factura) -> this.modeloFactura.add(modeloFactura.size(), factura));
 
-        //RESOLVER TEMA PROMOCIONES
+        modeloProductoEnPromocion.removeAllElements();
+        promocionesProductos.forEach((promocionProducto) -> this.modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), promocionProducto));
+
+        modeloPromocionTemporal.removeAllElements();
+        promocionesTemporales.forEach((promocionTemporal) -> this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal));
     }
 
     @Override
@@ -255,7 +256,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     public ArrayList<String> getEstadoMozos() {
         ArrayList<String> estadoMozos = new ArrayList<>();
 
-        for (JComboBox comboBox : arrayComboBox) {
+        for (JComboBox<String> comboBox : arrayComboBox) {
             switch (comboBox.getSelectedIndex()) {
                 case 0 -> estadoMozos.add("Activo");
                 case 1 -> estadoMozos.add("Ausente");

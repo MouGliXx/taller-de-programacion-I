@@ -25,25 +25,22 @@ public class ControladorLogin implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "Login" -> {
-                try {
-                    if (vista.getUsername().equals("ADMIN")) {
-                        Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
-                        loguearAdministrador(admin);
-                    } else {
-                        Operario operario = Cerveceria.getInstance().login(vista.getUsername(), vista.getPassword());
-                        loguearOperario(operario);
-                    }
-                } catch (ErrorDeUsuarioException e1) {
-                    vista.lanzarVentanaEmergente(e1.getMessage());
-                    vista.nombreUsuarioInvalido();
-                } catch (ErrorDeContrasenaException e2) {
-                    vista.lanzarVentanaEmergente(e2.getMessage());
-                    vista.contrasenaInvalida();
+        if ("Login".equals(e.getActionCommand())) {
+            try {
+                if (vista.getUsername().equals("ADMIN")) {
+                    Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
+                    loguearAdministrador(admin);
+                } else {
+                    Operario operario = Cerveceria.getInstance().login(vista.getUsername(), vista.getPassword());
+                    loguearOperario(operario);
                 }
+            } catch (ErrorDeUsuarioException e1) {
+                vista.lanzarVentanaEmergente(e1.getMessage());
+                vista.nombreUsuarioInvalido();
+            } catch (ErrorDeContrasenaException e2) {
+                vista.lanzarVentanaEmergente(e2.getMessage());
+                vista.contrasenaInvalida();
             }
-
         }
     }
 

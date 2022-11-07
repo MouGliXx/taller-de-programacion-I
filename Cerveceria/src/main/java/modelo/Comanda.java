@@ -33,8 +33,8 @@ public class Comanda {
 
     public void setEstado(String estado) {
         assert estado != null :"ERROR : El estado no debe ser null";
-        assert estado != "":"ERROR : El estado no debe ser vacio";
-        assert estado != "Abierta" || estado!="Cerrada" :"ERROR : El estado debe ser Ocupado o Libre";
+        assert estado.isEmpty() :"ERROR : El estado no debe ser vacio";
+        assert !estado.equals("Abierta") || !estado.equals("Cerrada") :"ERROR : El estado debe ser Ocupado o Libre";
 
         this.estado = estado;
     }
@@ -77,7 +77,7 @@ public class Comanda {
 
     public void eliminarPedido(Pedido pedido) { //TODO AL ELIMINAR SE DEBERIA SUMAR LA CANTIDAD AL STOCK
         this.pedidos.remove(pedido);
-        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()+pedido.getCantidad());
+        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial() + pedido.getCantidad());
     }
 
     public double getTotal() { //TODO VER TEMA DE INCLUIR PROMOCIONES
