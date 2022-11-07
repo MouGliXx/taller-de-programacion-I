@@ -14,11 +14,11 @@ public class Factura {
     private ArrayList<Promocion> promocionesAplicadas = new ArrayList<>();
 
     //CONSTRUCTOR
-    public Factura(Mesa mesa, ArrayList<Pedido> pedidos,String formaPago) {
+    public Factura(Mesa mesa, ArrayList<Pedido> pedidos) {
         this.fecha = new Date();
         this.mesa = mesa;
         this.pedidos = pedidos;
-        this.formaDePago = formaPago;
+        this.formaDePago = null;
         this.total = 0;
         this.calcularTotalconPromociones();
     }

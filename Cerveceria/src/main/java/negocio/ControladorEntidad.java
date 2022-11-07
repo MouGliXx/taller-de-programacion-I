@@ -6,9 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorEntidad implements ActionListener {
+    Object modelo;
     VentanaEntidad vista;
 
-    public ControladorEntidad(VentanaEntidad vista) {
+    public ControladorEntidad(Object modelo, VentanaEntidad vista) {
+        this.modelo = modelo;
         this.vista = vista;
 
         this.vista.setActionListener(this);
@@ -18,6 +20,7 @@ public class ControladorEntidad implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
+            case "Cancelar" -> this.vista.cerrarVentana();
             case "Accion" -> {
                 switch (vista.getEntidad()) {
                     case "Operario" -> {
@@ -27,7 +30,12 @@ public class ControladorEntidad implements ActionListener {
                             String contrasena = vista.getContrasena();
                             boolean estado = vista.getEstadoOperario();
 
-                            Cerveceria.getInstance().agregarOperario(nombreCompleto, nombreUsuario, contrasena, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            if (modelo == null) { //CREO
+                                Cerveceria.getInstance().agregarOperario(nombreCompleto, nombreUsuario, contrasena, estado);
+                            } else { //MODIFICO
+                                Cerveceria.getInstance().modificarOperario((Operario) modelo, nombreCompleto, nombreUsuario, contrasena, estado);
+                            }
+
                             this.vista.cerrarVentana();
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
@@ -40,7 +48,11 @@ public class ControladorEntidad implements ActionListener {
                             int cantHijos = vista.getCantidadHijosMozo();
                             String estado = vista.getEstadoMozo();
 
-                            Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            if (modelo == null) { //CREO
+                                Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos, estado);
+                            } else { //MODIFICO
+                                Cerveceria.getInstance().modificarMozo((Mozo) modelo, nombreYApellido, edad, cantHijos, estado);
+                            }
                             this.vista.cerrarVentana();
                         } catch (NumberFormatException ex) {
                             vista.lanzarVentanaEmergente("ERROR : " + ex.getMessage());
@@ -56,7 +68,12 @@ public class ControladorEntidad implements ActionListener {
                            double precioCosto = vista.getPrecioCosto();
                            double precioVenta = vista.getPrecioVenta();
 
-                           Cerveceria.getInstance().agregarProducto(id, nombre, precioCosto, precioVenta, stock); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            if (modelo == null) { //CREO
+                                Cerveceria.getInstance().agregarProducto(id, nombre, precioCosto, precioVenta, stock);
+                            } else { //MODIFICO
+                                Cerveceria.getInstance().modificarProducto((Producto) modelo, nombre, precioCosto, precioVenta, stock);
+                            }
+
                             this.vista.cerrarVentana();
                         } catch (NumberFormatException ex) {
                             vista.lanzarVentanaEmergente("ERROR : " + ex.getMessage());
@@ -69,7 +86,12 @@ public class ControladorEntidad implements ActionListener {
                             int cantComensales = vista.getCantidadComensales();
                             String estado = vista.getEstadoMesa();
 
-                            Cerveceria.getInstance().agregarMesa(cantComensales, estado); //TODO UNIFICAR METODOS AGREGAR/MODIFICAR
+                            if (modelo == null) { //CREO
+                                Cerveceria.getInstance().agregarMesa(cantComensales, estado);
+                            } else { //MODIFICO
+                                Cerveceria.getInstance().modificarMesa((Mesa) modelo, cantComensales);
+                            }
+
                             this.vista.cerrarVentana();
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
@@ -77,7 +99,6 @@ public class ControladorEntidad implements ActionListener {
                     }
                 }
             }
-            case "Cancelar" -> this.vista.cerrarVentana();
         }
     }
 }

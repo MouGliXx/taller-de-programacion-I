@@ -75,7 +75,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         promocionTemporal.setActiva(true);
                     }
                 }
-                vista.inicializarListasEntidades();
+                vista.inicializarListasPromociones();
             }
             case "Desactivar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
@@ -88,7 +88,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         promocionTemporal.setActiva(false);
                     }
                 }
-                vista.inicializarListasEntidades();
+                vista.inicializarListasPromociones();
             }
             case "Nueva Promocion" -> creaOtraVentana("Nueva Promocion");
             case "Eliminar Promocion" -> {
@@ -104,9 +104,6 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         vista.actualizarLista("Promociones Temporales");
                     }
                 }
-            }
-            case "Generar Estadistica" -> { //TODO GENERAR ESTADISTICAS
-
             }
         }
     }
@@ -128,7 +125,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Productos en venta" -> ventanaEntidad.setEntidad("Producto");
                     case "Mesas del local" -> ventanaEntidad.setEntidad("Mesa");
                 }
-                ControladorEntidad controladorEntidad = new ControladorEntidad(ventanaEntidad);
+                ControladorEntidad controladorEntidad = new ControladorEntidad(null, ventanaEntidad);
                 ventanaEntidad.setWindowListener(this);
                 ventanaEntidad.ejecutar();
             }
@@ -140,24 +137,27 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                         ventanaEntidad.setEntidad("Operario");
                         Operario operario = vista.getOperarioSeleccionado();
                         ventanaEntidad.setDatosOperario(operario);
+                        ControladorEntidad controladorEntidad = new ControladorEntidad(operario, ventanaEntidad);
                     }
                     case "Mozos" -> {
                         ventanaEntidad.setEntidad("Mozo");
                         Mozo mozo = vista.getMozoSeleccionado();
                         ventanaEntidad.setDatosMozo(mozo);
+                        ControladorEntidad controladorEntidad = new ControladorEntidad(mozo, ventanaEntidad);
                     }
                     case "Productos en venta" -> {
                         ventanaEntidad.setEntidad("Producto");
                         Producto producto = vista.getProductoSeleccionado();
                         ventanaEntidad.setDatosProducto(producto);
+                        ControladorEntidad controladorEntidad = new ControladorEntidad(producto, ventanaEntidad);
                     }
                     case "Mesas del local" -> {
                         ventanaEntidad.setEntidad("Mesa");
                         Mesa mesa = vista.getMesaSeleccionada();
                         ventanaEntidad.setDatosMesa(mesa);
+                        ControladorEntidad controladorEntidad = new ControladorEntidad(mesa, ventanaEntidad);
                     }
                 }
-                ControladorEntidad controladorEntidad = new ControladorEntidad(ventanaEntidad);
                 ventanaEntidad.setWindowListener(this);
                 ventanaEntidad.ejecutar();
             }

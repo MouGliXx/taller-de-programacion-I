@@ -227,7 +227,7 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     //OPERARIO
     @Override
     public String getNombreCompletoOperario() {
-        return nombreCompletoLabel.getText();
+        return nombreCompletoTextField.getText();
     }
 
     @Override
