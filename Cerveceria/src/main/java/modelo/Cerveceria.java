@@ -22,7 +22,7 @@ public class Cerveceria {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
-    private TreeMap<Mozo,Double> estadisticasMozos = new TreeMap<>();
+    private TreeMap<Mozo,EstadisticaMozo> estadisticasMozos = new TreeMap<>();
     private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<>();
 
     //PATRON SINGLETON
@@ -201,8 +201,8 @@ public class Cerveceria {
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
         Mozo mozo = new Mozo(nombre, edad, hijos,estado);
-
         this.getMozos().add(mozo);
+        this.estadisticasMozos.put(mozo,new EstadisticaMozo());
     }
 
     public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
@@ -223,34 +223,26 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la comanda es null
      * <b>post:</b> La lista de facturas tendra una nueva<br>.
      */
-    public Factura agregarFactura(Comanda comanda, String formaPago) throws Exception { //TODO MODIFICAR
-        if (comanda == null)
+    public void agregarFactura(Factura factura, String formaPago) throws Exception { //TODO MODIFICAR
+        if (factura == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
-
-        Factura factura = new Factura(comanda.getMesa(), comanda.getPedidos(),formaPago);
+        factura.setFormaDePago(formaPago);
         this.facturas.add(factura);
-        Mesa mesa = comanda.getMesa();
-        Mozo mozo = mesasAsignadas.get(mesa);
-        double aux = this.estadisticasMozos.get(mozo) + factura.getTotal();
-        this.estadisticasMozos.replace(mozo, aux);
-        EstadisticaMesa estadisticas = this.estadisticasMesas.get(mesa);
-        estadisticas.setCantidadVentas(estadisticas.getCantidadVentas()+1);
-        estadisticas.setTotalGastado(estadisticas.getTotalGastado()+ factura.getTotal());
-        this.estadisticasMesas.replace(mesa,estadisticas);
-        return factura;
+        agregaNuevaEstadistica(factura);
     }
 
-    // Hay que verificar
-    //1. No es posible crear una nueva comanda si el local
-    //1. no tiene mesas habilitadas
-    //2. la mesa asociada debe tener un mozo activo asociado
-    //3. no tiene mozos activos
-    //4. al menos 2 productos están en promoción activa
-    //5. la lista de productos no puede estar vacía
-    // 2. La mesa debe estar en estado libre
-    //3. Al momento de agregar un PEDIDO la cantidad solicitada no puede superar al stock del producto
-    //4. Al momento de guardar la comanda, el estado de la mesa debe pasar a ocupada
-    //5. Al momento de guardar la comanda se debe descontar del stock la cantidad pedida de cada producto.
+    private void agregaNuevaEstadistica(Factura factura){
+        Mesa mesa = factura.getMesa();
+        Mozo mozo = mesasAsignadas.get(mesa);
+        EstadisticaMozo estadisticasMozo = this.estadisticasMozos.get(mozo);
+        estadisticasMozo.setCantidadVentas(estadisticasMozo.getCantidadVentas()+1);
+        estadisticasMozo.setTotalGastado(estadisticasMozo.getTotalGastado()+ factura.getTotal());
+        this.estadisticasMozos.replace(mozo,estadisticasMozo);
+        EstadisticaMesa estadisticasMesa = this.estadisticasMesas.get(mesa);
+        estadisticasMesa.setCantidadVentas(estadisticasMesa.getCantidadVentas()+1);
+        estadisticasMesa.setTotalGastado(estadisticasMesa.getTotalGastado()+ factura.getTotal());
+        this.estadisticasMesas.replace(mesa,estadisticasMesa);
+    }
 
     /**
      * <b>pre:</b> mesa y pedidos deben ser distintos de null<br>.
@@ -512,30 +504,22 @@ public class Cerveceria {
         return activos;
     }
 
-    public void generaEstadisticas() {
-        ArrayList<Mozo> listaMozosActivos = mozosActivos();
-
-        for( Mozo mozo : listaMozosActivos) {
-            this.estadisticasMozos.put(mozo,0.);
+    public ArrayList<String> mostrarEstadisticasMozos() {
+        ArrayList<String> respuesta = new ArrayList<String>();
+        String renglon = null;
+        for (Map.Entry<Mozo,EstadisticaMozo> entry : estadisticasMozos.entrySet()){
+            renglon = "Mozo : "+entry.getKey() +" Cantidad Ventas : "+entry.getValue().getCantidadVentas()+" Total Facturado : "+entry.getValue().getTotalGastado();
+            respuesta.add(renglon);
         }
+        return respuesta;
     }
 
-    public String mostrarEstadisticasMozos() {
-        return "Mozo con mas ventas "+
-                estadisticasMozos.firstEntry().getKey()+
-                " Total de Ventas"+
-                estadisticasMozos.firstEntry().getValue()+""+
-                "Mozo con menos ventas "+
-                estadisticasMozos.lastEntry().getKey()+
-                " Total de Ventas"+
-                estadisticasMozos.lastEntry().getValue();
-    }
-
-    public String mostrarEstadisticasMesas() {
-        String respuesta = "ESTADISTICAS DE MESAS ";
-
+    public ArrayList<String> mostrarEstadisticasMesas() {
+        ArrayList<String> respuesta = new ArrayList<String>();
+        String renglon = null;
         for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()){
-            respuesta += "Mesa "+entry.getKey() +" Promedio Ventas"+entry.getValue().getTotalGastado()/entry.getValue().getCantidadVentas();
+            renglon = "Mesa : "+entry.getKey() +" Promedio Ventas : "+entry.getValue().getTotalGastado()/entry.getValue().getCantidadVentas();
+            respuesta.add(renglon);
         }
         return respuesta;
     }
