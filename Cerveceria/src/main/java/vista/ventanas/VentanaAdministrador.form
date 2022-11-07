@@ -165,7 +165,7 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="false"/>
+          <enabled value="true"/>
           <focusable value="false"/>
           <font name="Inter SemiBold" size="12"/>
           <foreground color="-16777216"/>
@@ -568,8 +568,8 @@
                           <background color="-2500135"/>
                           <font name="Inter" size="20" style="0"/>
                           <foreground color="-16777216"/>
-                          <selectionBackground color="-533952"/>
-                          <selectionForeground color="-11053225"/>
+                          <selectionBackground color="-16423691"/>
+                          <selectionForeground color="-16777216"/>
                           <selectionMode value="0"/>
                           <visible value="true"/>
                         </properties>
@@ -591,8 +591,8 @@
                           <background color="-2500135"/>
                           <font name="Inter" size="20" style="0"/>
                           <foreground color="-16777216"/>
-                          <selectionBackground color="-533952"/>
-                          <selectionForeground color="-11053225"/>
+                          <selectionBackground color="-16423691"/>
+                          <selectionForeground color="-16777216"/>
                           <selectionMode value="0"/>
                           <visible value="true"/>
                         </properties>
@@ -614,8 +614,8 @@
                           <background color="-2500135"/>
                           <font name="Inter" size="20" style="0"/>
                           <foreground color="-16777216"/>
-                          <selectionBackground color="-533952"/>
-                          <selectionForeground color="-11053225"/>
+                          <selectionBackground color="-16423691"/>
+                          <selectionForeground color="-16777216"/>
                           <selectionMode value="0"/>
                           <visible value="true"/>
                         </properties>
@@ -637,8 +637,8 @@
                           <background color="-2500135"/>
                           <font name="Inter" size="20" style="0"/>
                           <foreground color="-16777216"/>
-                          <selectionBackground color="-533952"/>
-                          <selectionForeground color="-11053225"/>
+                          <selectionBackground color="-16423691"/>
+                          <selectionForeground color="-16777216"/>
                           <selectionMode value="0"/>
                           <visible value="true"/>
                         </properties>
@@ -815,8 +815,8 @@
                           <font name="Inter" size="20" style="0"/>
                           <foreground color="-16777216"/>
                           <model/>
-                          <selectionBackground color="-533952"/>
-                          <selectionForeground color="-11053225"/>
+                          <selectionBackground color="-16423691"/>
+                          <selectionForeground color="-16777216"/>
                           <selectionMode value="0"/>
                         </properties>
                       </component>
@@ -839,8 +839,8 @@
                           <font name="Inter" size="20" style="0"/>
                           <foreground color="-16777216"/>
                           <model/>
-                          <selectionBackground color="-533952"/>
-                          <selectionForeground color="-11053225"/>
+                          <selectionBackground color="-16423691"/>
+                          <selectionForeground color="-16777216"/>
                           <selectionMode value="0"/>
                         </properties>
                       </component>
@@ -942,8 +942,8 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
-                      <selectionBackground color="-533952"/>
-                      <selectionForeground color="-11053225"/>
+                      <selectionBackground color="-16423691"/>
+                      <selectionForeground color="-16777216"/>
                       <selectionMode value="0"/>
                     </properties>
                   </component>
@@ -981,8 +981,8 @@
                       <background color="-2500135"/>
                       <font name="Inter" size="20" style="0"/>
                       <foreground color="-16777216"/>
-                      <selectionBackground color="-533952"/>
-                      <selectionForeground color="-11053225"/>
+                      <selectionBackground color="-16423691"/>
+                      <selectionForeground color="-16777216"/>
                       <selectionMode value="0"/>
                     </properties>
                   </component>

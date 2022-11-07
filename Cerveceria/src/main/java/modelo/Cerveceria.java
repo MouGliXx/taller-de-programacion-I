@@ -22,7 +22,7 @@ public class Cerveceria {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
-    private TreeMap<Mozo,EstadisticaMozo> estadisticasMozos = new TreeMap<>();
+    private TreeMap<Mozo, EstadisticaMozo> estadisticasMozos = new TreeMap<>();
     private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<>();
 
     //PATRON SINGLETON
@@ -226,6 +226,7 @@ public class Cerveceria {
     public void agregarFactura(Factura factura, String formaPago) throws Exception { //TODO MODIFICAR
         if (factura == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
+
         factura.setFormaDePago(formaPago);
         this.facturas.add(factura);
         agregaNuevaEstadistica(factura);
@@ -279,7 +280,7 @@ public class Cerveceria {
         this.comandas.add(comanda);
     }
 
-    public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+    public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception { //TODO sacar la parte que modifica
         if (precioVenta >= precioCosto) {
             if(precioVenta > 0) {
                 if(precioCosto > 0) {
@@ -410,11 +411,11 @@ public class Cerveceria {
     }
 
     public void modificarProducto (Producto producto,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
-        if (precioVenta>=precioCosto)
+        if (precioVenta < precioCosto)
             throw new Exception("El precio de venta es menor al de costo");
-        if(precioCosto>0)
+        if(precioCosto < 0)
             throw new Exception("El precio de costo es menor a cero");
-        if(precioVenta>0)
+        if(precioVenta < 0)
             throw new Exception("El precio de venta es menor a cero");
 
         producto.setNombre(nombre);
@@ -424,7 +425,7 @@ public class Cerveceria {
     }
 
     public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
-        assert mesa!=null:"ERROR : La mesa no debe ser null";
+        assert mesa != null : "ERROR : La mesa no debe ser null";
         assert comanda != null : "ERROR : La comanda no debe ser null";
         assert pedidos != null : "ERROR : Pedidos no debe ser null";
 

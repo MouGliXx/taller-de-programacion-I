@@ -48,14 +48,5 @@ public class App {
         VentanaLogin ventanaLogin = new VentanaLogin();
         ControladorLogin controladorLogin = new ControladorLogin(ventanaLogin);
         ventanaLogin.ejecutar();
-
-//        VentanaOperario ventanaOperario = new VentanaOperario();
-//        ControladorOperario controladorOperario = new ControladorOperario(yop, ventanaOperario);
-//        ventanaOperario.ejecutar();
-
-//        VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
-//        Administrador admin = Cerveceria.getInstance().getAdministrador();
-//        ControladorAdministrador controladorAdministrador = new ControladorAdministrador(admin,ventanaAdministrador);
-//        ventanaAdministrador.ejecutar();
     }
 }

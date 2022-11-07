@@ -20,13 +20,17 @@ public class ControladorFactura implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Crear" -> {
-                String formaDePago = vista.getFormaDePago();
-                this.modelo.setFormaDePago(formaDePago);
-//                Cerveceria.getInstance().agregarFactura(modelo); //TODO AGREGAR FACTURA
-                this.vista.cerrarVentana();
-            }
             case "Cancelar" -> vista.cerrarVentana();
+            case "Crear" -> {
+                try {
+                    String formaDePago = vista.getFormaDePago();
+                    Cerveceria.getInstance().agregarFactura(modelo, formaDePago);
+                    this.vista.cerrarVentana();
+                } catch (Exception ex) {
+                    vista.lanzarVentanaEmergente(ex.getMessage());
+                }
+            }
+
         }
     }
 }

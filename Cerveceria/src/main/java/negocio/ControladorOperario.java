@@ -36,7 +36,7 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
             case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda");
             case "Editar Comanda" -> creaOtraVentana("Editar Comanda");
             case "Cerrar Comanda" -> creaOtraVentana("Nueva Factura");
-            case "Iniciar Jornada" -> {
+            case "Iniciar Jornada" -> { //TODO COORDINAR
 
             }
             case "Finalizar Jornada" -> { //TODO por ahi podemos hacer que setee a todos los mozos el estado null
@@ -83,7 +83,7 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
 
                 try {
                     Cerveceria.getInstance().eliminarComanda(comandaSeleccionada);
-                    Factura nuevaFactura = Cerveceria.getInstance().agregarFactura(comandaSeleccionada,"");
+                    Factura nuevaFactura = new Factura(comandaSeleccionada.getMesa(), comandaSeleccionada.getPedidos());
                     VentanaFactura ventanaFactura = new VentanaFactura();
                     ControladorFactura controladorFactura = new ControladorFactura(nuevaFactura, ventanaFactura);
                     ventanaFactura.addWindowListener(this);
@@ -91,9 +91,6 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
                 } catch (Exception e) {
                     vista.lanzarVentanaEmergente(e.getMessage());
                 }
-                //Factura nuevaFactura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos());
-                //nuevaFactura.calculaTotal(); //TODO METODO EN FACTURA QUE CALCULE EL TOTAL
-                //nuevaFactura.verificaPromociones(); //TODO METODO EN FACTURA QUE GESTIONE LAS PROMOCIONES
             }
         }
     }

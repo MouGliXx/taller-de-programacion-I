@@ -27,36 +27,32 @@ public class ControladorComanda implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Nuevo Pedido" -> {
-                creaOtraVentana("Nuevo Pedido");
-            }
+            case "Nuevo Pedido" -> creaOtraVentana();
             case "Eliminar Pedido" -> {
                 Pedido pedidoSeleccionado = vista.getPedidoSeleccionado();
                 modelo.eliminarPedido(pedidoSeleccionado);
                 vista.eliminaPedidoEnLista();
             }
+            case "Cancelar" -> vista.cerrarVentana();
             case "Accion" -> {
                 Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //TODO RESOLVER TEMA BARRA [index = nroMesa???]
                 ArrayList<Pedido> pedidos = vista.getPedidos();
 
-                if (mesa.getEstado().equals("Libre")) {
-                    try {
+                try {
+                    if (mesa.getEstado().equals("Libre")) {
                         Cerveceria.getInstance().agregarComanda(mesa, pedidos);
-                    } catch (Exception ex) {
-                        vista.lanzarVentanaEmergente(ex.getMessage());
+                    } else {
+                        Cerveceria.getInstance().modificarComanda(modelo, mesa, pedidos);
                     }
-                } else {
-                    //TODO METODO EDITAR COMANDA
-                    System.out.println("METODO EDITAR COMANDA");
+                    vista.cerrarVentana();
+                } catch (Exception ex) {
+                    vista.lanzarVentanaEmergente(ex.getMessage());
                 }
-
-                vista.cerrarVentana();
             }
-            case "Cancelar" -> vista.cerrarVentana();
         }
     }
 
-    public void creaOtraVentana(String ventana) {
+    public void creaOtraVentana() {
         VentanaPedido ventanaPedido = new VentanaPedido();
         ventanaPedido.setWindowListener(this);
         ControladorPedido controladorPedido = new ControladorPedido(modelo, null, ventanaPedido);
