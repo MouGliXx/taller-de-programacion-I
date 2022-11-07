@@ -7,13 +7,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener, ListSelectionListener {
     private String tipoEntidadSeleccionada = "Operarios";
-    private String promocionSeleccionada = "Productos en promocion";
+    private String promocionSeleccionada = "Productos en Promocion";
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
     private JButton estadisticasButton;
@@ -167,25 +166,24 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     @Override
-    public void actualizaLista(String nombreLista) {
+    public void actualizarLista(String nombreLista) {
         switch (nombreLista) {
             case "Operarios" -> modeloOperario.remove(listaOperarios.getSelectedIndex());
             case "Mozos" -> modeloMozo.remove(listaMozos.getSelectedIndex());
-            case "Productos en venta" -> modeloProducto.remove(listaProductos.getSelectedIndex());
-            case "Mesas del local" -> modeloMesa.remove(listaMesas.getSelectedIndex());
-            case "Productos en promocion" -> modeloProductoEnPromocion.remove(listaProductosEnPromocion.getSelectedIndex());
-            case "Promociones temporales" -> modeloPromocionTemporal.remove(listaPromocionesTemporales.getSelectedIndex());
+            case "Productos en Venta" -> modeloProducto.remove(listaProductos.getSelectedIndex());
+            case "Mesas del Local" -> modeloMesa.remove(listaMesas.getSelectedIndex());
+            case "Productos en Promocion" -> modeloProductoEnPromocion.remove(listaProductosEnPromocion.getSelectedIndex());
+            case "Promociones Temporales" -> modeloPromocionTemporal.remove(listaPromocionesTemporales.getSelectedIndex());
         }
     }
 
     @Override
-    public void inicializarListas() { //TODO RESOLVER TEMA PROMOCIONES
+    public void inicializarListasEntidades() {
         ArrayList<Operario> operarios = Cerveceria.getInstance().getOperarios();
         ArrayList<Mozo> mozos = Cerveceria.getInstance().getMozos();
         HashMap<Integer,Producto> productos = Cerveceria.getInstance().getProductos();
         ArrayList<Mesa> mesas = Cerveceria.getInstance().getMesas();
-        ArrayList<PromocionProducto> promocionesProductos = Cerveceria.getInstance().getPromocionesProductos();
-        ArrayList<PromocionTemporal> promocionesTemporales = Cerveceria.getInstance().getPromocionesTemporales();
+
 
         modeloOperario.removeAllElements();
         operarios.forEach((operario) -> {
@@ -206,6 +204,12 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         mesas.forEach((mesa) -> {
             this.modeloMesa.add(modeloMesa.size(), mesa);
         });
+   }
+
+    @Override
+    public void inicializarListasPromociones() {
+        ArrayList<PromocionProducto> promocionesProductos = Cerveceria.getInstance().getPromocionesProductos();
+        ArrayList<PromocionTemporal> promocionesTemporales = Cerveceria.getInstance().getPromocionesTemporales();
 
         modeloProductoEnPromocion.removeAllElements();
         promocionesProductos.forEach((promocionProducto) -> {
@@ -216,8 +220,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         promocionesTemporales.forEach((promocionTemporal) -> {
             this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal);
         });
-
-   }
+    }
 
     @Override
     public String getNombreLocal() {
@@ -327,20 +330,22 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                     this.entidadesTabbedPane.setSelectedIndex(3);
                 }
             }
-            case "Productos en promocion", "Promociones temporales" -> {
+            case "Productos en Promocion", "Promociones Temporales" -> {
                 this.nuevaPromocionButton.setEnabled(true);
                 this.eliminarPromocionButton.setEnabled(false);
                 this.activarButton.setVisible(false);
                 this.desactivarButton.setVisible(false);
 
                 if (this.productosEnPromocionCheckBox.isSelected()) {
-                    this.promocionSeleccionada = "Productos en promocion";
+                    this.promocionSeleccionada = "Productos en Promocion";
                     this.promocionesTabbedPane.setSelectedIndex(0);
+                    inicializarListasPromociones();
                 }
 
                 if (this.promocionesTemporalesCheckBox.isSelected()) {
-                    this.promocionSeleccionada = "Promociones temporales";
+                    this.promocionSeleccionada = "Promociones Temporales";
                     this.promocionesTabbedPane.setSelectedIndex(1);
+                    inicializarListasPromociones();
                 }
             }
             case "Activar Promocion" -> {
@@ -377,6 +382,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         //ENTIDADES
         this.modificarButton.setEnabled(false);
         this.eliminarButton.setEnabled(false);
+
         if (listaOperarios.getSelectedValue() != null || listaMozos.getSelectedValue() != null || listaProductos.getSelectedValue() != null || listaMesas.getSelectedValue() != null) {
             this.modificarButton.setEnabled(true);
             this.eliminarButton.setEnabled(true);
@@ -386,9 +392,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.eliminarPromocionButton.setEnabled(false);
         this.activarButton.setVisible(false);
         this.desactivarButton.setVisible(false);
-        if (listaProductosEnPromocion.getSelectedValue() != null || listaPromocionesTemporales.getSelectedValue() != null) {
 
-        }
         if (listaProductosEnPromocion.getSelectedValue() != null) {
             this.eliminarPromocionButton.setEnabled(true);
 

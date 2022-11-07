@@ -21,7 +21,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         this.vista.setWindowListener(this);
         this.vista.setNombreLocal(Cerveceria.getInstance().getNombreDelLocal());
         this.vista.setRemuneracion(Cerveceria.getInstance().getRemuneracionBasica());
-        this.vista.inicializarListas();
+        this.vista.inicializarListasEntidades();
     }
 
     @Override
@@ -41,18 +41,18 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Operarios" -> {
                         Operario operario = vista.getOperarioSeleccionado();
                         Cerveceria.getInstance().eliminarOperario(operario);
-                        vista.actualizaLista("Operarios");
+                        vista.actualizarLista("Operarios");
                     }
                     case "Mozos" -> {
                         Mozo mozo = vista.getMozoSeleccionado();
                         Cerveceria.getInstance().eliminarMozo(mozo);
-                        vista.actualizaLista("Mozos");
+                        vista.actualizarLista("Mozos");
                     }
                     case "Productos en venta" -> {
                         try {
                             Producto producto = vista.getProductoSeleccionado();
                             Cerveceria.getInstance().eliminarProducto(producto);
-                            vista.actualizaLista("Productos en venta");
+                            vista.actualizarLista("Productos en Venta");
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }
@@ -60,48 +60,48 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                     case "Mesas del local" -> {
                         Mesa mesa = vista.getMesaSeleccionado();
                         Cerveceria.getInstance().eliminarMesa(mesa);
-                        vista.actualizaLista("Mesas del local");
+                        vista.actualizarLista("Mesas del Local");
                     }
                 }
             }
             case "Activar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
-                    case "Productos en promocion" -> {
+                    case "Productos en Promocion" -> {
                         PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
                         productoEnPromocion.setActiva(true);
                     }
-                    case "promociones temporales" -> {
+                    case "Promociones Temporales" -> {
                         PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
                         promocionTemporal.setActiva(true);
                     }
                 }
+                vista.inicializarListasEntidades();
             }
-            case "Desactivar Promocion" -> { //TODO CHEQUEAR
+            case "Desactivar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
-                    case "Productos en promocion" -> {
+                    case "Productos en Promocion" -> {
                         PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
                         productoEnPromocion.setActiva(false);
-
                     }
-                    case "promociones temporales" -> {
+                    case "Promociones Temporales" -> {
                         PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
                         promocionTemporal.setActiva(false);
-
                     }
                 }
+                vista.inicializarListasEntidades();
             }
             case "Nueva Promocion" -> creaOtraVentana("Nueva Promocion");
             case "Eliminar Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
-                    case "Productos en promocion" -> {
+                    case "Productos en Promocion" -> {
                         PromocionProducto productoEnPromocion = vista.getProductoEnPromocionSeleccionado();
-                        //TODO ELIMINAR PROMOCION
-                        vista.actualizaLista("Productos en promocion");
+                        Cerveceria.getInstance().eliminarPromocionProducto(productoEnPromocion);
+                        vista.actualizarLista("Productos en Promocion");
                     }
-                    case "promociones temporales" -> {
+                    case "Promociones Temporales" -> {
                         PromocionTemporal promocionTemporal = vista.getPromocionTemporalSeleccionada();
-                        //TODO ELIMINAR PROMOCION
-                        vista.actualizaLista("Promociones temporales");
+                        Cerveceria.getInstance().eliminarPromocionTemporal(promocionTemporal);
+                        vista.actualizarLista("Promociones Temporales");
                     }
                 }
             }
@@ -163,16 +163,20 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
             }
             case "Nueva Promocion" -> {
                 switch (vista.getTipoPromocionSeleccionada()) {
-                    case "Productos en promocion" -> {
+                    case "Productos en Promocion" -> {
                         VentanaPromocion ventanaPromocion = new VentanaPromocion();
                         ventanaPromocion.setPromocion("Producto en Promocion");
-                        ControladorPromocion controladorPromocion = new ControladorPromocion(ventanaPromocion);
+                        PromocionProducto promocionProducto = new PromocionProducto();
+                        ControladorPromocion controladorPromocion = new ControladorPromocion(promocionProducto, ventanaPromocion);
+                        ventanaPromocion.setWindowListener(this);
                         ventanaPromocion.ejecutar();
                     }
-                    case "Promociones temporales" -> {
+                    case "Promociones Temporales" -> {
                         VentanaPromocion ventanaPromocion = new VentanaPromocion();
                         ventanaPromocion.setPromocion("Promocion Temporal");
-                        ControladorPromocion controladorPromocion = new ControladorPromocion(ventanaPromocion);
+                        PromocionTemporal promocionTemporal = new PromocionTemporal();
+                        ControladorPromocion controladorPromocion = new ControladorPromocion(promocionTemporal, ventanaPromocion);
+                        ventanaPromocion.setWindowListener(this);
                         ventanaPromocion.ejecutar();
                     }
                 }
@@ -187,7 +191,8 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
 
     @Override
     public void windowClosed(WindowEvent e) {
-        vista.inicializarListas();
+        vista.inicializarListasEntidades();
+        vista.inicializarListasPromociones();
     }
 
     //METODOS NO USADOS

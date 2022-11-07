@@ -9,6 +9,11 @@ public abstract class Promocion {
     protected boolean activa;
 
     //CONSTRUCTOR
+    public Promocion() {
+        this.idPromocion = N;
+        N++;
+    }
+
     public Promocion(ArrayList<String> diasPromocion, boolean activa) {
         this.idPromocion = N;
         N++;

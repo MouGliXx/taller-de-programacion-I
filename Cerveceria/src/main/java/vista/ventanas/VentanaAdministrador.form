@@ -165,7 +165,7 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="false"/>
+          <enabled value="true"/>
           <focusable value="false"/>
           <font name="Inter SemiBold" size="12"/>
           <foreground color="-16777216"/>
@@ -751,7 +751,7 @@
                       <hideActionText value="true"/>
                       <horizontalAlignment value="0"/>
                       <selected value="true"/>
-                      <text value="Productos en promocion"/>
+                      <text value="Productos en Promocion"/>
                     </properties>
                   </component>
                   <hspacer id="449f6">
@@ -778,7 +778,7 @@
                       <focusable value="false"/>
                       <font name="Inter" size="20" style="1"/>
                       <foreground color="-16777216"/>
-                      <text value="Promociones temporales"/>
+                      <text value="Promociones Temporales"/>
                     </properties>
                   </component>
                 </children>

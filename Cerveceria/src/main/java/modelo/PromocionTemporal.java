@@ -9,6 +9,9 @@ public class PromocionTemporal extends Promocion {
     private boolean esAcumulable;
 
     //CONSTRUCTOR
+    public PromocionTemporal() {
+    }
+
     public PromocionTemporal(ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable) {
         super(diasPromocion, activa);
         this.nombre = nombre;
@@ -52,4 +55,16 @@ public class PromocionTemporal extends Promocion {
 
     //FUNCIONALIDADES
 
+    @Override
+    public String toString() {
+        return "PromocionTemporal{" +
+                "idPromocion=" + idPromocion +
+                ", diasPromocion=" + diasPromocion +
+                ", activa=" + activa +
+                ", nombre='" + nombre + '\'' +
+                ", formaDePago='" + formaDePago + '\'' +
+                ", porcentajeDescuento=" + porcentajeDescuento +
+                ", esAcumulable=" + esAcumulable +
+                '}';
+    }
 }

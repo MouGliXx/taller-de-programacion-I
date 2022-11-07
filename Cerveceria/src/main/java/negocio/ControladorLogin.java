@@ -26,7 +26,7 @@ public class ControladorLogin implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Login":
+            case "Login" -> {
                 try {
                     if (vista.getUsername().equals("ADMIN")) {
                         Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
@@ -42,7 +42,8 @@ public class ControladorLogin implements ActionListener, WindowListener {
                     vista.lanzarVentanaEmergente(e2.getMessage());
                     vista.contrasenaInvalida();
                 }
-                break;
+            }
+
         }
     }
 
@@ -62,13 +63,13 @@ public class ControladorLogin implements ActionListener, WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-
+        //TODO PERSISTIR
     }
 
     //METODOS NO USADOS
     @Override
     public void windowOpened(WindowEvent e) {
-        //TODO PERSISTIR
+
     }
 
     @Override

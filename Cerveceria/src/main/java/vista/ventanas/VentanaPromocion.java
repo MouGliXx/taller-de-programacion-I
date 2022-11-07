@@ -1,12 +1,11 @@
 package vista.ventanas;
 
 import modelo.Producto;
-import modelo.PromocionProducto;
-import modelo.PromocionTemporal;
 import vista.interfaces.IVistaPromocion;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionListener, KeyListener {
     String promocion;
@@ -61,7 +60,6 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     public void setActionListener(ActionListener controlador) {
         this.establecerButton.addActionListener(controlador);
         this.cancelarButton.addActionListener(controlador);
-        this.activaCheckBox.addActionListener(this);
         this.lunesCheckBox.addActionListener(this);
         this.martesCheckBox.addActionListener(this);
         this.miercolesCheckBox.addActionListener(this);
@@ -89,14 +87,13 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         //PAGINA0
         this.cantidadMinimaTextField.addKeyListener(this);
         this.precioUnitarioTextField.addKeyListener(this);
-
         //PAGINA1
         this.nombrePromocionTextField.addKeyListener(this);
     }
 
     @Override
     public void setWindowListener(WindowListener controlador) {
-
+        this.addWindowListener(controlador);
     }
 
     @Override
@@ -130,6 +127,18 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
+    public void setDatos(int id, HashMap<Integer, Producto> productos) {
+        this.IDLabel.setText(String.valueOf(id));
+
+        if (!productos.isEmpty()) {
+            modeloProducto.addElement(null);
+            productos.forEach((nro, producto) -> {
+                modeloProducto.addElement(producto);
+            });
+        }
+    }
+
+    @Override
     public void setPromocion(String promocion) {
         switch (promocion) {
             case "Producto en Promocion" -> {
@@ -148,6 +157,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         return promocion;
     }
 
+    //PROMOCION
     @Override
     public ArrayList<String> generaDiasDePromocion() {
         ArrayList<String> aux = new ArrayList<>();
@@ -178,34 +188,90 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public PromocionProducto getProductoEnPromocion() {
-        int id = Integer.parseInt(IDLabel.getText()); //creo que se puede omitir
-        Producto producto = null; //TODO GESTIONAR ESTO
-        ArrayList<String> diasPromocion = generaDiasDePromocion();
-        boolean activa = activaCheckBox.isSelected();
-        boolean aplicaDosPorUno = aplica2x1CheckBox.isSelected();
-        boolean aplicaDtoPorCantidad = aplicaDescuentoXCantidadCheckBox.isSelected();
+    public boolean isActiva() {
+        return activaCheckBox.isSelected();
+    }
 
-        if (aplicaDtoPorCantidad) {
-            int dtoPorCantidad_CantMinima = Integer.parseInt(cantidadMinimaTextField.getText());
-            double dtoPorCantidad_PrecioUnitario = Double.parseDouble(precioUnitarioTextField.getText());
-
-            return new PromocionProducto(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario, activa);
-        } else  {
-            return new PromocionProducto(producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, activa);
-        }
+    //PRODUCTO EN PROMOCION
+    @Override
+    public Producto getProducto() {
+        return modeloProducto.getElementAt(productosComboBox.getSelectedIndex());
     }
 
     @Override
-    public PromocionTemporal getPromocionTemporal() {
-        return null; //TENGO QUE ESPERAR AL MODELO
+    public boolean getAplica2x1() {
+        return aplica2x1CheckBox.isSelected();
+    }
+
+    @Override
+    public boolean getAplicaDescuentoXCantidad() {
+        return aplicaDescuentoXCantidadCheckBox.isSelected();
+    }
+
+    @Override
+    public int getCantidadMinima() throws NumberFormatException {
+        return Integer.parseInt(cantidadMinimaTextField.getText());
+    }
+
+    @Override
+    public double getPrecioUnitario() throws NumberFormatException {
+        return Double.parseDouble(precioUnitarioTextField.getText());
+    }
+
+    //PROMOCION TEMPORAL
+    @Override
+    public String getNombrePromocion() throws Exception {
+        String nombrePromocion = nombrePromocionTextField.getText();
+
+        if (nombrePromocion.equals(""))
+            throw new Exception();
+
+        return nombrePromocion;
+    }
+
+    @Override
+    public int getPorcentajeDescuento() {
+        int porcentaje = -1;
+
+        switch (porcentajeComboBox.getSelectedIndex()) {
+            case 0 -> porcentaje = 0;
+            case 1 -> porcentaje = 10;
+            case 2 -> porcentaje = 25;
+            case 3 -> porcentaje = 50;
+            case 4 -> porcentaje = 70;
+            case 5 -> porcentaje = 100;
+        }
+
+        return porcentaje;
+    }
+
+    @Override
+    public String getFormaDePago() {
+        String formaDePago = null;
+
+        if (efectivoCheckBox.isSelected()) {
+            formaDePago = "Efectivo";
+        } else if (tarjetaCheckBox.isSelected()) {
+            formaDePago = "Tarjeta";
+        } else if (mercadoPagoCheckBox.isSelected()) {
+            formaDePago = "Mercado Pago";
+        } else if (cuentaDNICheckBox.isSelected()) {
+            formaDePago = "Cuenta DNI";
+        }
+
+        return formaDePago;
+    }
+
+    @Override
+    public boolean isAcumulable() {
+        return acumulableCheckBox.isSelected();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         this.establecerButton.setEnabled(true);
 
-        if ("Aplica descuento x cantidad".equals(e.getActionCommand())) {
+        if (e.getActionCommand().equals("Aplica descuento x cantidad")) {
             if (aplicaDescuentoXCantidadCheckBox.isSelected()) {
                 this.cantidadMinimaTextField.setEnabled(true);
                 this.precioUnitarioTextField.setEnabled(true);
@@ -220,12 +286,19 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         } else {
             switch (panelCentral.getSelectedIndex()) {
                 case 0 -> {
-                    //FALTA CONDICION CON PRODUCTO COMBOBOX
+                    if (productosComboBox.getSelectedIndex() == -1) {
+                        this.establecerButton.setEnabled(false);
+                    }
 
                     if (!aplicaDescuentoXCantidadCheckBox.isSelected() && !aplica2x1CheckBox.isSelected()) {
                         this.establecerButton.setEnabled(false);
                     }
 
+                    if (aplicaDescuentoXCantidadCheckBox.isSelected()) {
+                        if (cantidadMinimaTextField.getText().isEmpty() || precioUnitarioTextField.getText().isEmpty()) {
+                            this.establecerButton.setEnabled(false);
+                        }
+                    }
                 }
                 case 1 -> {
                     if (porcentajeComboBox.getSelectedIndex() == 0) {
@@ -233,6 +306,10 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
                     }
 
                     if (!efectivoCheckBox.isSelected() && !tarjetaCheckBox.isSelected() && !mercadoPagoCheckBox.isSelected() && !cuentaDNICheckBox.isSelected()) {
+                        this.establecerButton.setEnabled(false);
+                    }
+
+                    if (nombrePromocionTextField.getText().isEmpty()) {
                         this.establecerButton.setEnabled(false);
                     }
                 }
@@ -245,7 +322,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {
         this.establecerButton.setEnabled(true);
 
         switch (panelCentral.getSelectedIndex()) {
@@ -255,10 +332,18 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
                 }
             }
             case 1 -> {
-                if (nombrePromocionTextField.getText().isEmpty()) {
+                if (porcentajeComboBox.getSelectedIndex() == 0) {
+                    this.establecerButton.setEnabled(false);
+                }
+
+                if (!efectivoCheckBox.isSelected() && !tarjetaCheckBox.isSelected() && !mercadoPagoCheckBox.isSelected() && !cuentaDNICheckBox.isSelected()) {
                     this.establecerButton.setEnabled(false);
                 }
             }
+        }
+
+        if (!lunesCheckBox.isSelected() && !martesCheckBox.isSelected() && !miercolesCheckBox.isSelected() && !juevesCheckBox.isSelected() && !viernesCheckBox.isSelected() && !sabadoCheckBox.isSelected() && !domingoCheckBox.isSelected()) {
+            this.establecerButton.setEnabled(false);
         }
     }
 
@@ -269,7 +354,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
 
     }
 }

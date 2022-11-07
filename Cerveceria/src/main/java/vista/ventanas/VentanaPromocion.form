@@ -494,6 +494,7 @@
                         <item value="70%"/>
                         <item value="100%"/>
                       </model>
+                      <selectedIndex value="0"/>
                     </properties>
                   </component>
                   <hspacer id="5c0e">

@@ -10,6 +10,9 @@ public class PromocionProducto extends Promocion {
     private double dtoPorCantidad_PrecioUnitario;
 
     //CONSTRUCTOR
+    public PromocionProducto() {
+    }
+
     public PromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario) {
         super(diasPromocion, activa);
         this.producto = producto;
@@ -19,16 +22,7 @@ public class PromocionProducto extends Promocion {
         this.dtoPorCantidad_PrecioUnitario = dtoPorCantidad_PrecioUnitario;
     }
 
-    public PromocionProducto(Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario, boolean activa) {
-        super(diasPromocion, activa);
-        this.producto = producto;
-        this.aplicaDosPorUno = aplicaDosPorUno;
-        this.aplicaDtoPorCantidad = aplicaDtoPorCantidad;
-        this.dtoPorCantidad_CantMinima = dtoPorCantidad_CantMinima;
-        this.dtoPorCantidad_PrecioUnitario = dtoPorCantidad_PrecioUnitario;
-    }
-
-    public PromocionProducto(Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, boolean activa) {
+    public PromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad) {
         super(diasPromocion, activa);
         this.producto = producto;
         this.aplicaDosPorUno = aplicaDosPorUno;
@@ -79,5 +73,19 @@ public class PromocionProducto extends Promocion {
     //FUNCIONALIDADES
     public double getPrecio() {
         return producto.getPrecioVenta();
+    }
+
+    @Override
+    public String toString() {
+        return "PromocionProducto{" +
+                "idPromocion=" + idPromocion +
+                ", diasPromocion=" + diasPromocion +
+                ", activa=" + activa +
+                ", producto=" + producto +
+                ", aplicaDosPorUno=" + aplicaDosPorUno +
+                ", aplicaDtoPorCantidad=" + aplicaDtoPorCantidad +
+                ", dtoPorCantidad_CantMinima=" + dtoPorCantidad_CantMinima +
+                ", dtoPorCantidad_PrecioUnitario=" + dtoPorCantidad_PrecioUnitario +
+                '}';
     }
 }

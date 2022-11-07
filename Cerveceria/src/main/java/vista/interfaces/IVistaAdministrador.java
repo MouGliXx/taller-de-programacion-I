@@ -9,13 +9,13 @@ public interface IVistaAdministrador extends IVista {
 
     void setListSelectionListener();
 
-    void setWindowListener(WindowListener controlador);
-
     void setModelos();
 
-    void actualizaLista(String nombreLista);
+    void actualizarLista(String nombreLista);
 
-    void inicializarListas();
+    void inicializarListasEntidades();
+
+    void inicializarListasPromociones();
 
     String getNombreLocal();
 

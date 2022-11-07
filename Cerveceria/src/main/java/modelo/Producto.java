@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.Objects;
-
 public class Producto {
     private static int N = 0;
     private int idProducto;
