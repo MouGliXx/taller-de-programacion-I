@@ -76,7 +76,8 @@ public class Mozo implements Comparable {
     public int compareTo(Object o) {
         Mozo mozo = (Mozo) o;
         int respuesta;
-        if (Cerveceria.getInstance().getEstadisticasMozos().get(this).getTotalGastado()>=(Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado()))
+        //if (mozo.edad>=this.edad)
+        if (Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado()>=(Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado()))
             respuesta = 1;
         else
             respuesta = -1;
