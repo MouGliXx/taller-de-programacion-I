@@ -119,21 +119,35 @@ public class VentanaPedido extends JFrame implements IVistaPedido, ActionListene
         this.cantidadComboBox.setModel(modeloCantidad);
     }
 
+    /**
+     * Inicializa el DefaultComboBoxModel dependiendo del parametro recibido, pora su visualizacion en la JComboBox.<br>
+     *
+     * <b>pre</b> El DefaultComboBoxModel ya ha sido seteado a su JComboBox.<br>
+     * <b>post</b> Se pueden visualizar los productos almacenados en el sistema en el JComboBox.<br>
+     */
     @Override
-    public void inicializaComboBox(Pedido pedido) {
+    public void inicializaComboBox() {
         HashMap<Integer, Producto> productos = Cerveceria.getInstance().getProductos();
 
-        if (!productos.isEmpty()) {
-            modeloProductos.addElement(null);
-            productos.forEach((nro, producto) -> modeloProductos.addElement(producto));
-        }
+        modeloProductos.addElement(null);
+        productos.forEach((nro, producto) -> modeloProductos.addElement(producto));
     }
 
+    /**
+     * Devuelve el producto seleccionado en la JComboBox.<br>
+     *
+     * @return producto seleccionado.<br>
+     */
     @Override
     public Producto getProductoSeleccionado() {
         return modeloProductos.getElementAt(productoComboBox.getSelectedIndex());
     }
 
+    /**
+     * Devuelve la cantidad seleccionada correspondiente al producto seleccionado en la JComboBox.<br>
+     *
+     * @return cantidad seleccionada.<br>
+     */
     @Override
     public int getCantidadSeleccionada() {
         return Integer.parseInt(modeloCantidad.getElementAt(cantidadComboBox.getSelectedIndex()));

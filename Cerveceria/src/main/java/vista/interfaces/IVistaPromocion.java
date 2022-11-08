@@ -17,7 +17,7 @@ public interface IVistaPromocion extends IVista{
     String getTipoPromocion();
 
     //PROMOCION
-    ArrayList<String> generaDiasDePromocion();
+    ArrayList<String> getDiasDePromocion();
 
     boolean isActiva();
 

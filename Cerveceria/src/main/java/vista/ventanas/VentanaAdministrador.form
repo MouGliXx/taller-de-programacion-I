@@ -165,7 +165,7 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="true"/>
+          <enabled value="false"/>
           <focusable value="false"/>
           <font name="Inter SemiBold" size="12"/>
           <foreground color="-16777216"/>

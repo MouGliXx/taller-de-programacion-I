@@ -149,6 +149,14 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         JOptionPane.showMessageDialog(jFrame, mensaje);
     }
 
+    /**
+     * Establece la accion que sera reflejada en la entidad (crear/editar).<br>
+     *
+     * <b>pre</b> accion distinto de null, solo puede ser 'crear' o 'editar'.<br>
+     * <b>post</b> La ventana se personaliza en base a la accion recibida.<br>
+     *
+     * @param accion Refleja el proposito de la ventana con la entidad.<br>
+     */
     @Override
     public void setAccion(String accion) {
         this.accionOperarioLabel.setText(accion + " operario");
@@ -158,6 +166,14 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.accionButton.setText(accion);
     }
 
+    /**
+     * Establece el tipo de entidad que sera reflejada en la ventana.<br>
+     *
+     * <b>pre</b> entidad distinto de null, solo puede ser 'Operario', 'Mozo', 'Producto' o 'Mesa'.<br>
+     * <b>post</b> La ventana se personaliza en base a la entidad recibida.<br>
+     *
+     * @param entidad Refleja el tipo de entidad que se desea crear/editar.<br>
+     */
     @Override
     public void setEntidad(String entidad) {
         switch (entidad) {
@@ -183,6 +199,14 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         }
     }
 
+    /**
+     * Establece los datos del operario en los componentes de la ventana para asi poder editar sus datos.<br>
+     *
+     * <b>pre</b> operario distinto de null.<br>
+     * <b>post</b> La ventana se personaliza en base al operario recibido.<br>
+     *
+     * @param operario Representa un operario ya existente en el sistema.<br>
+     */
     @Override
     public void setDatosOperario(Operario operario) {
         this.nombreCompletoTextField.setText(operario.getNombreCompleto());
@@ -191,6 +215,14 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.operarioActivoComboBox.setSelectedIndex(operario.isActivo() ? 0 : 1);
     }
 
+    /**
+     * Establece los datos del mozo en los componentes de la ventana para asi poder editar sus datos.<br>
+     *
+     * <b>pre</b> mozo distinto de null.<br>
+     * <b>post</b> La ventana se personaliza en base al mozo recibido.<br>
+     *
+     * @param mozo Representa un mozo ya existente en el sistema.<br>
+     */
     @Override
     public void setDatosMozo(Mozo mozo) {
         this.nombreYApellidoTextField.setText(mozo.getNombreYApellido());
@@ -203,6 +235,14 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         }
     }
 
+    /**
+     * Establece los datos del producto en los componentes de la ventana para asi poder editar sus datos.<br>
+     *
+     * <b>pre</b> producto distinto de null.<br>
+     * <b>post</b> La ventana se personaliza en base al producto recibido.<br>
+     *
+     * @param producto Representa un producto ya existente en el sistema.<br>
+     */
     @Override
     public void setDatosProducto(Producto producto) {
         this.IDLabel.setText(String.valueOf(producto.getIdProducto()));
@@ -212,6 +252,14 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.precioVentaTextField.setText(String.valueOf(producto.getPrecioVenta()));
     }
 
+    /**
+     * Establece los datos de la mesa en los componentes de la ventana para asi poder editar sus datos.<br>
+     *
+     * <b>pre</b> mesa distinto de null.<br>
+     * <b>post</b> La ventana se personaliza en base a la mesa recibido.<br>
+     *
+     * @param mesa Representa una mesa ya existente en el sistema.<br>
+     */
     @Override
     public void setDatosMesa(Mesa mesa) {
         this.NMesaLabel.setText(String.valueOf(mesa.getNro()));
@@ -219,6 +267,11 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.estadoMozoComboBox.setSelectedIndex(mesa.getEstado().equalsIgnoreCase("Libre") ? 0 : 1);
     }
 
+    /**
+     * Devuelve el tipo de entidad para la cual se personalizo la ventana.<br>
+     *
+     * @return Tipo de entidad que se desea crea/editar.<br>
+     */
     @Override
     public String getEntidad() {
         return entidad;
