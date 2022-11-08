@@ -15,6 +15,7 @@ public class ControladorEntidad implements ActionListener {
 
         this.vista.setActionListener(this);
         this.vista.setKeyListener();
+        this.vista.setItemListener();
     }
 
     @Override
@@ -46,12 +47,11 @@ public class ControladorEntidad implements ActionListener {
                             String nombreYApellido = vista.getNombreYApellidoMozo();
                             int edad = vista.getEdadMozo();
                             int cantHijos = vista.getCantidadHijosMozo();
-                            String estado = vista.getEstadoMozo();
 
                             if (modelo == null) { //CREO
-                                Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos, estado);
+                                Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos);
                             } else { //MODIFICO
-                                Cerveceria.getInstance().modificarMozo((Mozo) modelo, nombreYApellido, edad, cantHijos, estado);
+                                Cerveceria.getInstance().modificarMozo((Mozo) modelo, nombreYApellido, edad, cantHijos);
                             }
                             this.vista.cerrarVentana();
                         } catch (NumberFormatException ex) {
@@ -84,10 +84,9 @@ public class ControladorEntidad implements ActionListener {
                     case "Mesa" -> {
                         try {
                             int cantComensales = vista.getCantidadComensales();
-                            String estado = vista.getEstadoMesa();
 
                             if (modelo == null) { //CREO
-                                Cerveceria.getInstance().agregarMesa(cantComensales, estado);
+                                Cerveceria.getInstance().agregarMesa(cantComensales);
                             } else { //MODIFICO
                                 Cerveceria.getInstance().modificarMesa((Mesa) modelo, cantComensales);
                             }

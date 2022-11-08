@@ -87,7 +87,7 @@ public class Comanda {
 
         return "Fecha: " + fechaActual +
                 " - Mesa: " + mesa.getNro() +
-                " - Pedidos: " + pedidos;
+                " - Pedidos: " + (pedidos.isEmpty() ? "Sin pedidos" : pedidos);
     }
 }
 

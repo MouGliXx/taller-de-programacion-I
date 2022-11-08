@@ -9,9 +9,9 @@ public class Mozo implements Comparable {
     private double sueldo;
 
     //CONSTRUCTOR
-    public Mozo(String nombre, int edad, int cantHijos, String estado) throws Exception {
+    public Mozo(String nombre, int edad, int cantHijos) throws Exception {
         this.nombreYApellido = nombre;
-        this.estado = estado;
+        this.estado = null;
         this.edad = edad;
         this.cantHijos = cantHijos;
         this.sueldo = Cerveceria.getInstance().getRemuneracionBasica()*cantHijos;
@@ -67,7 +67,7 @@ public class Mozo implements Comparable {
         return "Nombre y Apellido: '" + nombreYApellido + '\'' +
                 " - Edad: " + edad +
                 " - Hijos: " + cantHijos +
-                " - Estado: " + estado +
+                (estado == null ? "" : " - Estado: " + estado) +
                 " - Sueldo: " + sueldo;
     }
 

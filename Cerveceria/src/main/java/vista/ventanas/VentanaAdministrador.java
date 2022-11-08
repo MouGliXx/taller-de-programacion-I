@@ -471,14 +471,15 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                 if (this.productosEnPromocionCheckBox.isSelected()) {
                     this.promocionSeleccionada = "Productos en Promocion";
                     this.promocionesTabbedPane.setSelectedIndex(0);
-                    inicializarListasPromociones();
+
                 }
 
                 if (this.promocionesTemporalesCheckBox.isSelected()) {
                     this.promocionSeleccionada = "Promociones Temporales";
                     this.promocionesTabbedPane.setSelectedIndex(1);
-                    inicializarListasPromociones();
                 }
+
+                inicializarListasPromociones();
             }
             case "Activar Promocion" -> {
                 this.activarButton.setVisible(false);

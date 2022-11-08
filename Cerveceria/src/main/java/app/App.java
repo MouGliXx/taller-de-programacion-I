@@ -14,21 +14,21 @@ public class App {
 
         //MOZOS
         try {
-            cerveceria.agregarMozo("Lautaro", 18,1,null);
-            cerveceria.agregarMozo("Ignacio", 25,1,null);
-            cerveceria.agregarMozo("Tomas", 33,1,null);
+            cerveceria.agregarMozo("Lautaro", 18,1);
+            cerveceria.agregarMozo("Ignacio", 25,1);
+            cerveceria.agregarMozo("Tomas", 33,1);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         //MESAS
         try {
-            cerveceria.agregarMesa(2, "Libre");
-            cerveceria.agregarMesa(6, "Ocupada");
-            cerveceria.agregarMesa(7, "Libre");
-            cerveceria.agregarMesa(8, "Libre");
-            cerveceria.agregarMesa(3, "Libre");
-            cerveceria.agregarMesa(4, "Libre");
+            cerveceria.agregarMesa(2);
+            cerveceria.agregarMesa(6);
+            cerveceria.agregarMesa(7);
+            cerveceria.agregarMesa(8);
+            cerveceria.agregarMesa(3);
+            cerveceria.agregarMesa(4);
         } catch (Exception e) {
             e.printStackTrace();
         }

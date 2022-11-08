@@ -182,10 +182,10 @@ public class Cerveceria {
      * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
      */
 
-    public void agregarMesa(int cantidadComensales, String estado) throws Exception{
+    public void agregarMesa(int cantidadComensales) throws Exception{
         if (this.mesas.size() >= totalMaximoMesas)
             throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
-        Mesa mesa = new Mesa(cantidadComensales, estado);
+        Mesa mesa = new Mesa(cantidadComensales);
         this.mesas.add(mesa);
         this.estadisticasMesas.put(mesa,new EstadisticaMesa());
     }
@@ -202,13 +202,13 @@ public class Cerveceria {
         this.promocionesTemporales.add(new PromocionTemporal(diasPromocion,activa, nombre,formaDePago,porcentajeDescuento,esAcumulable));
     }
 
-    public void agregarMozo(String nombre, int edad, int hijos, String estado) throws Exception {
+    public void agregarMozo(String nombre, int edad, int hijos) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
         if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
-        Mozo mozo = new Mozo(nombre, edad, hijos, estado);
+        Mozo mozo = new Mozo(nombre, edad, hijos);
         this.mozos.add(mozo);
         this.estadisticasMozos.put(mozo, new EstadisticaMozo());
     }
@@ -358,7 +358,7 @@ public class Cerveceria {
             }
         }
 
-        this.productos.remove(producto);
+        this.productos.remove(producto.getIdProducto());
     }
 
     // MODIFICAR
@@ -380,7 +380,7 @@ public class Cerveceria {
         mesa.setCantidadComensales(cantidadComensales);
     }
 
-    public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos, String estado ) throws Exception {
+    public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos) throws Exception {
         if (nombre == "")
             throw new Exception("ERROR : Nombre vacio");
         if (hijos <0)
@@ -390,7 +390,6 @@ public class Cerveceria {
 
         mozo.setNombreYApellido(nombre);
         mozo.setEdad(edad);
-        mozo.setEstado(estado);
         mozo.setCantHijos(hijos);
     }
 

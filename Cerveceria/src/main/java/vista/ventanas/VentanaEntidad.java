@@ -3,15 +3,12 @@ package vista.ventanas;
 import modelo.*;
 import vista.interfaces.IVistaEntidad;
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 
 /**
  * Clase que representa la interfaz cuando se crea/edita una entidad.<br>
  * */
-public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener {
+public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener, ItemListener {
     private String entidad;
     private JPanel panelPrincipal;
     private JTabbedPane panelCentral;
@@ -33,7 +30,6 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JLabel accionMozoLabel;
     private JLabel nombreYApellidoLabel;
     private JLabel edadLabel;
-    private JLabel estadoLabel;
     private JLabel cantidadDeHijosALabel;
     private JLabel IDLabel;
     private JLabel accionProductoLabel;
@@ -58,9 +54,6 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     private JLabel contrasenaLabel;
     private JTextField contrasenaTextField;
     private JComboBox<String> cantHijosComboBox;
-    private JComboBox<String> estadoMozoComboBox;
-    private JLabel estadoLabel1;
-    private JComboBox<String> estadoMesaComboBox;
     private JTextField nombreCompletoTextField;
 
     /**
@@ -94,6 +87,19 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.nombreProductoTextField.addKeyListener(this);
         this.precioVentaTextField.addKeyListener(this);
         this.precioCostoTextField.addKeyListener(this);
+    }
+
+    /**
+     * Agrega un ItemListener a los diferentes JComboBox de la ventana, para notificar ItemEvents cuando cambia el elemento seleccionado en el JComboBox.
+     *
+     * <b>pre</b> Deben existir componentes JComboBox dentro de la ventana.<br>
+     * <b>post</b> Se han agregado los ItemListener a los JComboBox especificados.<br>
+     */
+    @Override
+    public void setItemListener() {
+        this.operarioActivoComboBox.addItemListener(this);
+        this.cantHijosComboBox.addItemListener(this);
+        this.cantComensalesComboBox.addItemListener(this);
     }
 
     /**
@@ -228,11 +234,6 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         this.nombreYApellidoTextField.setText(mozo.getNombreYApellido());
         this.edadTextField.setText(String.valueOf(mozo.getEdad()));
         this.cantHijosComboBox.setSelectedIndex(mozo.getCantHijos());
-        switch (mozo.getEstado()) {
-            case "Activo" -> this.estadoMozoComboBox.setSelectedIndex(0);
-            case "Franco" -> this.estadoMozoComboBox.setSelectedIndex(1);
-            case "Ausente" -> this.estadoMozoComboBox.setSelectedIndex(2);
-        }
     }
 
     /**
@@ -264,7 +265,6 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     public void setDatosMesa(Mesa mesa) {
         this.NMesaLabel.setText(String.valueOf(mesa.getNro()));
         this.cantComensalesComboBox.setSelectedIndex(mesa.getCantidadComensales());
-        this.estadoMozoComboBox.setSelectedIndex(mesa.getEstado().equalsIgnoreCase("Libre") ? 0 : 1);
     }
 
     /**
@@ -314,19 +314,6 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
         return cantHijosComboBox.getSelectedIndex();
     }
 
-    @Override
-    public String getEstadoMozo() {
-        String estado = null;
-
-        switch (estadoMozoComboBox.getSelectedIndex()) {
-            case 0 -> estado = "Activo";
-            case 1 -> estado = "Franco";
-            case 2 -> estado = "Ausente";
-        }
-
-        return estado;
-    }
-
     //PRODUCTO
     @Override
     public int getIDProducto() {
@@ -360,11 +347,6 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
     }
 
     @Override
-    public String getEstadoMesa() {
-        return estadoMesaComboBox.getSelectedIndex() == 0 ? "Libre" : "Ocupada";
-    }
-
-    @Override
     public void keyReleased(KeyEvent e) {
         accionButton.setEnabled(true);
 
@@ -386,6 +368,30 @@ public class VentanaEntidad extends JFrame implements IVistaEntidad, KeyListener
             }
         }
     }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        accionButton.setEnabled(true);
+
+        switch (panelCentral.getSelectedIndex()) {
+            case 0 -> {
+                if (nombreCompletoTextField.getText().isEmpty() || nombreUsuarioTextField.getText().isEmpty() || contrasenaTextField.getText().isEmpty()) {
+                    accionButton.setEnabled(false);
+                }
+            }
+            case 1 -> {
+                if (nombreYApellidoTextField.getText().isEmpty() || edadTextField.getText().isEmpty()) {
+                    accionButton.setEnabled(false);
+                }
+            }
+            case 2 -> {
+                if (stockInicialTextField.getText().isEmpty() || nombreProductoTextField.getText().isEmpty() || precioVentaTextField.getText().isEmpty() || precioCostoTextField.getText().isEmpty()) {
+                    accionButton.setEnabled(false);
+                }
+            }
+        }
+    }
+
 
     //METODOS NO USADOS
     @Override
