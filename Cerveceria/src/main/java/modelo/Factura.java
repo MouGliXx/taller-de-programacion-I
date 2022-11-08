@@ -63,13 +63,15 @@ public class Factura {
     public ArrayList<Promocion> getPromocionesAplicadas() {return promocionesAplicadas;}
 
     //FUNCIONALIDADES
-    private void calcularTotalconPromociones(){
+    private void calcularTotalconPromociones() {
         this.aplicarPromocionesProductos();
+        System.out.println("paso el primer filtro");
         this.aplicarPromocionesTemporales();
     }
 
     private void aplicarPromocionesTemporales() {
         ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
+
         for (PromocionTemporal promo : promoTemp)
             if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion()) && promo.getFormaDePago().equalsIgnoreCase(this.getFormaDePago()) && promo.isEsAcumulable()) {
                 promocionesAplicadas.add(promo);
@@ -82,10 +84,12 @@ public class Factura {
         boolean respuesta;
         PromocionProducto promo;
         int pos;
+
         for (Pedido pedido : this.pedidos) {
             pos = 0;
             respuesta = false;
             promo = promoProd.get(pos);
+
             while (!respuesta && pos < promoProd.size()) {
                 if (pedido.getProducto().equals(promo.getProducto()))
                     if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion())) {
@@ -103,6 +107,7 @@ public class Factura {
                     else
                 pos++;
             }
+
             if (respuesta) {
                 promocionesAplicadas.add(promoProd.get(pos));
                 pos--;
@@ -119,13 +124,13 @@ public class Factura {
         boolean respuesta = false;
 
         switch (dia) {
-            case 0: nombreDia = "Domingo"; break;
-            case 1: nombreDia = "Lunes"; break;
-            case 2: nombreDia = "Martes"; break;
-            case 3: nombreDia = "Miercoles"; break;
-            case 4: nombreDia = "Jueves"; break;
-            case 5: nombreDia = "Viernes"; break;
-            case 6: nombreDia = "Sabado"; break;
+            case 0 -> nombreDia = "Domingo";
+            case 1 -> nombreDia = "Lunes";
+            case 2 -> nombreDia = "Martes";
+            case 3 -> nombreDia = "Miercoles";
+            case 4 -> nombreDia = "Jueves";
+            case 5 -> nombreDia = "Viernes";
+            case 6 -> nombreDia = "Sabado";
         }
 
         while (pos < dias.size() && !respuesta) {

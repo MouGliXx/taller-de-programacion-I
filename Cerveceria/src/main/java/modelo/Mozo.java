@@ -68,18 +68,20 @@ public class Mozo implements Comparable {
                 " - Edad: " + edad +
                 " - Hijos: " + cantHijos +
                 " - Estado: " + estado +
-                " - Sueldo: " +sueldo;
+                " - Sueldo: " + sueldo;
     }
-
 
     @Override
     public int compareTo(Object o) {
         Mozo mozo = (Mozo) o;
         int respuesta;
-        if (Cerveceria.getInstance().getEstadisticasMozos().get(this).getTotalGastado()>=(Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado()))
+
+        if (mozo.getEdad() >= this.edad)
+//        if (Cerveceria.getInstance().getEstadisticasMozos().get(this).getTotalGastado() >= Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado())
             respuesta = 1;
         else
             respuesta = -1;
+
         return respuesta;
     }
 }
