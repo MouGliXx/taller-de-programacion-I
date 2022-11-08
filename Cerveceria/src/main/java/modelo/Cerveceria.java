@@ -225,7 +225,7 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la comanda es null
      * <b>post:</b> La lista de facturas tendra una nueva<br>.
      */
-    public void agregarFactura(Factura factura, String formaPago) throws Exception { //TODO MODIFICAR
+    public void agregarFactura(Factura factura, String formaPago) throws Exception {
         if (factura == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
 
@@ -282,25 +282,15 @@ public class Cerveceria {
         this.comandas.add(comanda);
     }
 
-    public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception { //TODO sacar la parte que modifica
-        if (precioVenta >= precioCosto) {
-            if(precioVenta > 0) {
-                if(precioCosto > 0) {
-                    if(this.productos.containsKey(ID)) {
-                        Producto producto = productos.get(ID);
-                        producto.setNombre(nombre);
-                        producto.setPrecioCosto(precioCosto);
-                        producto.setPrecioVenta(precioVenta);
-                        producto.setStockInicial(stockInicial);
-                    } else {
-                        this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));
-                    }
-                }
-                else throw new Exception("El precio de costo es menor a cero");
-            }
-            else throw new Exception("El precio de venta es menor a cero");
-        }
-        else throw new Exception("El precio de venta es menor al de costo");
+    public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+        if (precioVenta < precioCosto)
+            throw new Exception("El precio de venta es menor al de costo");
+        if(precioCosto < 0)
+            throw new Exception("El precio de costo es menor a cero");
+        if(precioVenta < 0)
+            throw new Exception("El precio de venta es menor a cero");
+
+        this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));
     }
 
     // ELIMINAR

@@ -75,19 +75,9 @@ public class Comanda {
         this.pedidos.add(pedido);
     }
 
-    public void eliminarPedido(Pedido pedido) { //TODO AL ELIMINAR SE DEBERIA SUMAR LA CANTIDAD AL STOCK
+    public void eliminarPedido(Pedido pedido) {
         this.pedidos.remove(pedido);
         pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial() + pedido.getCantidad());
-    }
-
-    public double getTotal() { //TODO VER TEMA DE INCLUIR PROMOCIONES
-        double total = 0;
-
-        for (Pedido pedido : pedidos) {
-            total = total + pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
-        }
-
-        return total;
     }
 
     @Override

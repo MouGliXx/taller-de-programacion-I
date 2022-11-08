@@ -136,19 +136,6 @@ public class Factura {
 
         return respuesta;
     }
-//    public double calculaTotal() { //TODO REFACTORIZAR
-        //aplicar promociones de producto
-        // recorrer promociones
-//        for (ProductoEnPromocion producto : promocionesProductos){
-//            for ( Pedido pedido : pedidos){
-//                if (producto.equals(pedido)) {
-//                    total = producto.getPrecio();
-//                }
-//            }
-//        }
-        // verificar dentro de la lista de items si coincide con el producto con descuento
-        // aplicar promociones temporales
-//        return 2.2;}
 
     public double getTotal(){
         return this.total;
