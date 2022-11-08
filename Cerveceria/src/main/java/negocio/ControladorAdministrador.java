@@ -120,7 +120,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
                 String nuevaContrasena = this.vista.cambioDeContrasenaObligatorio();
                 if (nuevaContrasena != null && !nuevaContrasena.isEmpty()) {
                     try {
-                        Cerveceria.getInstance().modificarAdministrador(modelo.getUsername(), nuevaContrasena);
+                        Cerveceria.getInstance().modificarAdministrador(nuevaContrasena);
                     } catch (Exception e) {
                         vista.lanzarVentanaEmergente(e.getMessage());
                     }

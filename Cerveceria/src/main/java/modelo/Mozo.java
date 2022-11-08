@@ -14,7 +14,7 @@ public class Mozo implements Comparable {
         this.estado = null;
         this.edad = edad;
         this.cantHijos = cantHijos;
-        this.sueldo = Cerveceria.getInstance().getRemuneracionBasica()*cantHijos;
+        this.sueldo = Cerveceria.getInstance().getRemuneracionBasica() * cantHijos;
     }
 
     public String getNombreYApellido() {

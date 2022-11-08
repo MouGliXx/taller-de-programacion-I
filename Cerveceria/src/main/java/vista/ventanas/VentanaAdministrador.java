@@ -222,7 +222,11 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
-
+    /**
+     * Lanza una pequena ventana con un campo para completar, boton de confirmacion y otro para cancelar.<br>
+     *
+     * @return Nueva contrasena del Administrador.<br>
+     */
     @Override
     public String cambioDeContrasenaObligatorio() {
         return JOptionPane.showInputDialog("Es necesario que cambie la contrasena predeterminada por una nueva: ");

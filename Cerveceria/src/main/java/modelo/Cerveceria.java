@@ -145,7 +145,6 @@ public class Cerveceria {
 
     //FUNCIONALIDADES
     public Administrador login(String password) throws ErrorDeContrasenaException {
-
         if (password.equalsIgnoreCase(administrador.getPassword())) {
             return this.administrador;
         }
@@ -154,11 +153,15 @@ public class Cerveceria {
     }
 
     public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
-
         for (Operario operario: operarios) {
             if (operario.getNombreUsuario().equalsIgnoreCase(username)) {
-                if (operario.getContrasena().equalsIgnoreCase(password))
-                    return operario;
+                if (operario.getContrasena().equalsIgnoreCase(password)) {
+                    if (!operario.isActivo()) {
+                        throw new ErrorDeUsuarioException("El usuario ingresado se encuentra INACTIVO, no puede ingresar al sistema");
+                    }
+
+                   return operario;
+                }
 
                 throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
             }
@@ -167,21 +170,32 @@ public class Cerveceria {
         throw new ErrorDeUsuarioException("Nombre de usuario invalido: " + username);
     }
 
-    //AGREGAR
-    public void agregarAdministrador(String nombre, String contrasena) throws Exception{
-        if (nombre.length()<5)
-            throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
-        if (contrasena.length()<5)
-            throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
-        this.administrador = new Administrador(nombre, contrasena);
+    public boolean contieneDigito(String cadena) {
+        for (int i = 0; i < cadena.length(); i++) {
+            if (cadena.charAt(i) >= '0' && cadena.charAt(i) <= '9') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
+    public boolean contieneMayuscula(String cadena) {
+        for (int i = 0; i < cadena.length(); i++) {
+            if (cadena.charAt(i) >= 'A' && cadena.charAt(i) <= 'Z') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //AGREGAR
     /**
      * <b>pre:</b> La lista de mesas debe existir <br>.
      * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
      * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
      */
-
     public void agregarMesa(int cantidadComensales) throws Exception{
         if (this.mesas.size() >= totalMaximoMesas)
             throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
@@ -216,12 +230,16 @@ public class Cerveceria {
     }
 
     public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
-        if (nombre == "")
-            throw new Exception("ERROR : Nombre vacio");
-        if (nombreUsuario.length() < 5)
-            throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
-        if (contrasena.length() < 8)
-            throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
+        if (nombre.equals(""))
+            throw new Exception("ERROR : Nombre vacio.");
+        if (nombreUsuario.length() < 5 || nombreUsuario.length() > 10)
+            throw new Exception("ERROR : El nombre de Usuario debe tener entre 5 y 10 caracteres.");
+        if (contrasena.length() < 6 || contrasena.length() > 12)
+            throw new Exception("ERROR : La contraseña debe tener entre 6 y 12 caracteres.");
+        if (!contieneDigito(contrasena))
+            throw new Exception("ERROR : La contraseña debe contener al menos un digito.");
+        if (!contieneMayuscula(contrasena))
+            throw new Exception("ERROR : La contraseña debe contener al menos una mayuscula.");
 
         Operario operario = new Operario(nombre, nombreUsuario, contrasena, activo);
         this.operarios.add(operario);
@@ -278,7 +296,7 @@ public class Cerveceria {
             throw new Exception("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
         if (this.mozos.isEmpty())
             throw new Exception("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
-        if (hayDosProductosPromocionActiva() == false)
+        if (!hayDosProductosPromocionActiva())
             throw new Exception("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
         if (this.productos.isEmpty())
             throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
@@ -364,13 +382,14 @@ public class Cerveceria {
     }
 
     // MODIFICAR
-    public void modificarAdministrador(String nombre, String contrasena) throws Exception{
-        if (nombre.length()<5)
-            throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
-        if (contrasena.length()<5)
-            throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
+    public void modificarAdministrador(String contrasena) throws Exception{
+        if (contrasena.length() < 6 || contrasena.length() > 12)
+            throw new Exception("ERROR : La contraseña debe tener entre 6 y 12 caracteres.");
+        if (!contieneDigito(contrasena))
+            throw new Exception("ERROR : La contraseña debe contener al menos un digito.");
+        if (!contieneMayuscula(contrasena))
+            throw new Exception("ERROR : La contraseña debe contener al menos una mayuscula.");
 
-        this.administrador.setUsername(nombre);
         this.administrador.setPassword(contrasena);
     }
 
@@ -383,11 +402,11 @@ public class Cerveceria {
     }
 
     public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos) throws Exception {
-        if (nombre == "")
+        if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
-        if (hijos <0)
+        if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
-        if (hijos <0)
+        if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
         mozo.setNombreYApellido(nombre);
@@ -396,12 +415,16 @@ public class Cerveceria {
     }
 
     public void modificarOperario(Operario operario,String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
-        if (nombre == "")
-            throw new Exception("ERROR : Nombre vacio");
-        if (nombreUsuario.length() < 5)
-            throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
-        if (contrasena.length() < 8)
-            throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
+        if (nombre.equals(""))
+            throw new Exception("ERROR : Nombre vacio.");
+        if (nombreUsuario.length() < 5 || nombreUsuario.length() > 10)
+            throw new Exception("ERROR : El nombre de Usuario debe tener entre 5 y 10 caracteres.");
+        if (contrasena.length() < 6 || contrasena.length() > 12)
+            throw new Exception("ERROR : La contraseña debe tener entre 6 y 12 caracteres.");
+        if (!contieneDigito(contrasena))
+            throw new Exception("ERROR : La contraseña debe contener al menos un digito.");
+        if (!contieneMayuscula(contrasena))
+            throw new Exception("ERROR : La contraseña debe contener al menos una mayuscula.");
 
         operario.setNombreCompleto(nombre);
         operario.setNombreUsuario(nombreUsuario);
@@ -423,7 +446,7 @@ public class Cerveceria {
         producto.setStockInicial(stockInicial);
     }
 
-    public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
+    public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList<Pedido> pedidos) {
         assert mesa != null : "ERROR : La mesa no debe ser null";
         assert comanda != null : "ERROR : La comanda no debe ser null";
         assert pedidos != null : "ERROR : Pedidos no debe ser null";
@@ -433,36 +456,10 @@ public class Cerveceria {
         mesa.ocupar();
     }
 
-    public void modificarPromocionTemporal(PromocionTemporal promo,ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
-        promo.setDiasPromocion(diasPromocion);
-        promo.setActiva(activa);
-        promo.setNombre(nombre);
-        promo.setFormaDePago(formaDePago);
-        promo.setPorcentajeDescuento(porcentajeDescuento);
-        promo.setEsAcumulable(esAcumulable);
-    }
-
-    public void modificarPromocionProducto(PromocionProducto promo,ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
-        promo.setDiasPromocion(diasPromocion);
-        promo.setActiva(activa);
-        promo.setProducto(producto);
-        promo.setAplicaDosPorUno(aplicaDosPorUno);
-        promo.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
-        promo.setDtoPorCantidad_CantMinima(dtoPorCantidad_CantMinima);
-        promo.setDtoPorCantidad_PrecioUnitario(dtoPorCantidad_PrecioUnitario);
-    }
-
-
     public boolean hayDosProductosPromocionActiva(){
-        return this.promocionesProductos.size()>=2;
+        return this.promocionesProductos.size() >= 2;
     }
 
-    // TESTEAR -
-    // Si se intenta cerrar una comanda que se encuentra cerrada,
-    // tiene que lanzar una excepcion
-    // pre condicion -> los metodos de pago tienen que ser validos [mercadopago, efectivo,tarjeta]
-    // Post condicion -> la mesa de la comanda queda en estado libre
-    //
 
     /**
      * <b>pre:</b> <br>.
@@ -495,7 +492,7 @@ public class Cerveceria {
      * @return ArrayList<Mozo> Lista de mozos activos
      */
     private ArrayList<Mozo> mozosActivos() {
-        ArrayList<Mozo> activos = new ArrayList<Mozo>();
+        ArrayList<Mozo> activos = new ArrayList<>();
 
         for (int i = 0 ; i < this.mozos.size(); i++){
             if (mozos.get(i).getEstado().equalsIgnoreCase("Activo"))
@@ -505,7 +502,7 @@ public class Cerveceria {
     }
 
     public ArrayList<String> mostrarEstadisticasMozos() {
-        ArrayList<String> respuesta = new ArrayList<String>();
+        ArrayList<String> respuesta = new ArrayList<>();
         String renglon = null;
         for (Map.Entry<Mozo,EstadisticaMozo> entry : estadisticasMozos.entrySet()){
             renglon = "Mozo : "+entry.getKey() +" Cantidad Ventas : "+entry.getValue().getCantidadVentas()+" Total Facturado : "+entry.getValue().getTotalGastado();
@@ -515,8 +512,8 @@ public class Cerveceria {
     }
 
     public ArrayList<String> mostrarEstadisticasMesas() {
-        ArrayList<String> respuesta = new ArrayList<String>();
-        String renglon = null;
+        ArrayList<String> respuesta = new ArrayList<>();
+        String renglon ;
         for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()){
             renglon = "Mesa : "+entry.getKey() +" Promedio Ventas : "+entry.getValue().getTotalGastado()/entry.getValue().getCantidadVentas();
             respuesta.add(renglon);
