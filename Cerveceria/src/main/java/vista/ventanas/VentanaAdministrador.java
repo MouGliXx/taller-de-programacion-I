@@ -222,6 +222,12 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
+
+    @Override
+    public String cambioDeContrasenaObligatorio() {
+        return JOptionPane.showInputDialog("Es necesario que cambie la contrasena predeterminada por una nueva: ");
+    }
+
     /**
      * Elimina de los modelos el elemento de la lista seleccionado, discriminando por cada lista segun su nombre.<br>
      *

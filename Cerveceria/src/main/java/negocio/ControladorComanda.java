@@ -52,10 +52,14 @@ public class ControladorComanda implements ActionListener, WindowListener {
         }
     }
 
+    /**
+     * Crea y abre una nueva interfaz grafica, junto con su controlador y modelo.<br>
+
+     */
     public void creaOtraVentana() {
         VentanaPedido ventanaPedido = new VentanaPedido();
-        ventanaPedido.setWindowListener(this);
         ControladorPedido controladorPedido = new ControladorPedido(modelo, null, ventanaPedido);
+        ventanaPedido.setWindowListener(this);
         ventanaPedido.ejecutar();
     }
 

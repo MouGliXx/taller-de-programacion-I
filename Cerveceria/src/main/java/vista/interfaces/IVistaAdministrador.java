@@ -10,6 +10,8 @@ public interface IVistaAdministrador extends IVista {
 
     void setModelos();
 
+    String cambioDeContrasenaObligatorio();
+
     void actualizarLista(String nombreLista);
 
     void inicializarListasEntidades();

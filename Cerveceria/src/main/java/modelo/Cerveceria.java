@@ -5,11 +5,11 @@ import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class Cerveceria {
     private static Cerveceria instance = null;
     public static final int totalMaximoMesas = 50;
+    public static final int totalMaximoMozos = 6;
     private String nombreDelLocal;
     private double remuneracionBasica;
     private Administrador administrador;
@@ -203,6 +203,8 @@ public class Cerveceria {
     }
 
     public void agregarMozo(String nombre, int edad, int hijos) throws Exception {
+        if (this.mozos.size() >= totalMaximoMozos)
+            throw new Exception("ERROR : No se pueden dar de alta mas mozos. LLego al nro maximo");
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
         if (hijos < 0)
@@ -362,7 +364,7 @@ public class Cerveceria {
     }
 
     // MODIFICAR
-    public void modificarAdministrador(Administrador administrador,String nombre, String contrasena) throws Exception{
+    public void modificarAdministrador(String nombre, String contrasena) throws Exception{
         if (nombre.length()<5)
             throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
         if (contrasena.length()<5)
