@@ -6,6 +6,8 @@ import modelo.Producto;
 import negocio.ControladorLogin;
 import vista.ventanas.VentanaLogin;
 
+import java.util.ArrayList;
+
 public class App {
     public static void main(String[] args) {
         Cerveceria cerveceria = Cerveceria.getInstance();
@@ -43,6 +45,16 @@ public class App {
         //OPERARIOS
         Operario yop = new Operario("Lautaro Bruses","123","123", true);
         Cerveceria.getInstance().getOperarios().add(yop);
+
+        //PROMOCIONES
+        ArrayList<String> diasSemana = new ArrayList<>();
+        diasSemana.add("Lunes");
+        diasSemana.add("Miercoles");
+
+        Cerveceria.getInstance().agregarPromocionProducto(diasSemana, true, p1, true, false);
+        Cerveceria.getInstance().agregarPromocionProducto(diasSemana, true, p2, true, false);
+
+        Cerveceria.getInstance().agregarPromocionTemporal(diasSemana, true, "Pappy Hour", "Efectivo", 50, true);
 
         //EJECUCION NORMAL
         VentanaLogin ventanaLogin = new VentanaLogin();

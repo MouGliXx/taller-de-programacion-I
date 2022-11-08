@@ -22,7 +22,7 @@ public class Cerveceria {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
-    private TreeMap<Mozo, EstadisticaMozo> estadisticasMozos = new TreeMap<>();
+    private HashMap<Mozo, EstadisticaMozo> estadisticasMozos = new HashMap<>();
     private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<>();
 
     //PATRON SINGLETON
@@ -135,7 +135,13 @@ public class Cerveceria {
         this.productos = productos;
     }
 
-    public TreeMap<Mozo, EstadisticaMozo> getEstadisticasMozos() {return estadisticasMozos;}
+    public HashMap<Mozo, EstadisticaMozo> getEstadisticasMozos() {
+        return estadisticasMozos;
+    }
+
+    public HashMap<Mesa, EstadisticaMesa> getEstadisticasMesas() {
+        return estadisticasMesas;
+    }
 
     //FUNCIONALIDADES
     public Administrador login(String password) throws ErrorDeContrasenaException {
@@ -202,9 +208,9 @@ public class Cerveceria {
         if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
-        Mozo mozo = new Mozo(nombre, edad, hijos,estado);
-        this.getMozos().add(mozo);
-        this.estadisticasMozos.put(mozo,new EstadisticaMozo());
+        Mozo mozo = new Mozo(nombre, edad, hijos, estado);
+        this.mozos.add(mozo);
+        this.estadisticasMozos.put(mozo, new EstadisticaMozo());
     }
 
     public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
@@ -216,7 +222,7 @@ public class Cerveceria {
             throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
 
         Operario operario = new Operario(nombre, nombreUsuario, contrasena, activo);
-        this.getOperarios().add(operario);
+        this.operarios.add(operario);
     }
 
     /**

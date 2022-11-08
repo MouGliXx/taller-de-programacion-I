@@ -35,10 +35,10 @@ public class ControladorComanda implements ActionListener, WindowListener {
             }
             case "Cancelar" -> vista.cerrarVentana();
             case "Accion" -> {
-                Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //TODO RESOLVER TEMA BARRA [index = nroMesa???]
-                ArrayList<Pedido> pedidos = vista.getPedidos();
-
                 try {
+                    Mesa mesa = Cerveceria.getInstance().getMesas().get(vista.getNroMesa() - 1); //TODO RESOLVER TEMA BARRA [index = nroMesa???]
+                    ArrayList<Pedido> pedidos = vista.getPedidos();
+
                     if (mesa.getEstado().equals("Libre")) {
                         Cerveceria.getInstance().agregarComanda(mesa, pedidos);
                     } else {
