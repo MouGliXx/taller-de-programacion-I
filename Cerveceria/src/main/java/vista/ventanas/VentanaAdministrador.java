@@ -407,7 +407,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     /**
-     * Cambia la pagina del JTabbedPane central segun el parametro recibo.<br>
+     * Cambia la pagina del JTabbedPane central segun el parametro recibido.<br>
      *
      * <b>pre</b> pagina distinto de null y en el rango entre 0 y 3.<br>
      * <b>post</b> Se cambia la pagina a la establecida en el parametro.<br>

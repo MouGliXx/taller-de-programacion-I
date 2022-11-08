@@ -173,14 +173,24 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         this.productosComboBox.setModel(modeloProducto);
     }
 
+    /**
+
+
+    /**
+     * Establece los datos de la Promocion en los componentes de la ventana y carga los productos cargados en el sistema, para su visualizacion.<br>
+     *
+     * <b>pre</b> Los DefaultComboBoxModel ya han sido seteados a sus JComboBox.<br>
+     * <b>post</b> La ventana se personaliza con los datos recibidos.<br>
+     *
+     * @param id Id correspondiente a la promocion que se desea crear.<br>
+     * @param productos Productos almacenados en el sistema.<br>
+     */
     @Override
     public void setDatos(int id, HashMap<Integer, Producto> productos) {
         this.IDLabel.setText(String.valueOf(id));
 
-        if (!productos.isEmpty()) {
-            modeloProducto.addElement(null);
-            productos.forEach((nro, producto) -> modeloProducto.addElement(producto));
-        }
+        modeloProducto.addElement(null);
+        productos.forEach((nro, producto) -> modeloProducto.addElement(producto));
     }
 
     @Override
@@ -197,6 +207,11 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         }
     }
 
+    /**
+     * Devuelve el tipo de promocion para la cual se personalizo la ventana.<br>
+     *
+     * @return Tipo de promocion que se desea crea.<br>
+     */
     @Override
     public String getTipoPromocion() {
         return promocion;
@@ -204,7 +219,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
 
     //PROMOCION
     @Override
-    public ArrayList<String> generaDiasDePromocion() {
+    public ArrayList<String> getDiasDePromocion() {
         ArrayList<String> aux = new ArrayList<>();
 
         if (lunesCheckBox.isSelected()) {

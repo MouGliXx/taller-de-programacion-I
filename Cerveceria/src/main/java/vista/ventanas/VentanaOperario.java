@@ -324,6 +324,14 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         return this.listaComandas.getSelectedValue();
     }
 
+    /**
+     * Cambia la pagina del JTabbedPane central segun el parametro recibido.<br>
+     *
+     * <b>pre</b> pagina distinto de null y en el rango entre 0 y 3.<br>
+     * <b>post</b> Se cambia la pagina a la establecida en el parametro.<br>
+     *
+     * @param pagina Numero de pagina al que se quiere cambiar.<br>
+     */
     @Override
     public void cambiarPagina(int pagina) {
         panelCentral.setSelectedIndex(pagina);

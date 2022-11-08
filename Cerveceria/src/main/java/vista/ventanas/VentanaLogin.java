@@ -96,16 +96,29 @@ public class VentanaLogin extends JFrame implements IVistaLogin, KeyListener {
         JOptionPane.showMessageDialog(jFrame, mensaje);
     }
 
+    /**
+     * Devuelve el nombre de usuario escrito por el usuario en el JTextField.<br>
+     *
+     * @return Nombre de usuario.<br>
+     */
     @Override
     public String getUsername() {
         return this.usernameTextField.getText();
     }
 
+    /**
+     * Devuelve la contrasena escrito por el usuario en el JTextField.<br>
+     *
+     * @return Contrasena del usuario.<br>
+     */
     @Override
     public String getPassword() {
         return this.passwordTextField.getText();
     }
 
+    /**
+     * Este metodo se activa como respuesta a un nombre de usuario invalido.<br>
+     */
     @Override
     public void nombreUsuarioInvalido() {
         usernameTextField.setText("");
@@ -113,6 +126,9 @@ public class VentanaLogin extends JFrame implements IVistaLogin, KeyListener {
         botonLogin.setEnabled(false);
     }
 
+    /**
+     * Este metodo se activa como respuesta a una contrasena invalido.<br>
+     */
     @Override
     public void contrasenaInvalida() {
         passwordTextField.setText("");

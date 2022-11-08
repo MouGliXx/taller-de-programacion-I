@@ -19,7 +19,7 @@ public class ControladorPedido implements ActionListener {
 
         this.vista.setActionListener(this);
         this.vista.setItemListener();
-        this.vista.inicializaComboBox(pedido);
+        this.vista.inicializaComboBox();
     }
 
     @Override

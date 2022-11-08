@@ -9,7 +9,7 @@ public interface IVistaPedido extends IVista {
 
     void setModelos();
 
-    void inicializaComboBox(Pedido pedido);
+    void inicializaComboBox();
 
     Producto getProductoSeleccionado();
 

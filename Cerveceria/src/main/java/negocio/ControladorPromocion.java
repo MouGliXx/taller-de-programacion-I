@@ -25,7 +25,7 @@ public class ControladorPromocion implements ActionListener {
             case "Establecer" -> {
                 switch (vista.getTipoPromocion()) {
                     case "Producto en Promocion" -> {
-                        ArrayList<String> diasPromocion = vista.generaDiasDePromocion();
+                        ArrayList<String> diasPromocion = vista.getDiasDePromocion();
                         boolean activa = vista.isActiva();
                         Producto producto = vista.getProducto();
                         boolean aplicaDosPorUno = vista.getAplica2x1();
@@ -47,7 +47,7 @@ public class ControladorPromocion implements ActionListener {
                     }
                     case "Promocion Temporal" -> {
                         try {
-                            ArrayList<String> diasPromocion = vista.generaDiasDePromocion();
+                            ArrayList<String> diasPromocion = vista.getDiasDePromocion();
                             boolean activa = vista.isActiva();
                             String nombre = vista.getNombrePromocion();
                             String formaDePago = vista.getFormaDePago();
