@@ -368,11 +368,11 @@ public class Cerveceria {
     }
 
     public void eliminarProducto (Producto producto) throws Exception {
-        for (int i = 0; i < comandas.size(); i++){
-            ArrayList<Pedido> pedidos = comandas.get(i).getPedidos();
+        for (Comanda comanda : comandas) {
+            ArrayList<Pedido> pedidos = comanda.getPedidos();
 
-            for (int j = 0; j < pedidos.size(); j++){
-                if(producto.getIdProducto() == pedidos.get(j).getProducto().getIdProducto()){
+            for (Pedido pedido : pedidos) {
+                if (producto.getIdProducto() == pedido.getProducto().getIdProducto()) {
                     throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
                 }
             }
@@ -404,8 +404,6 @@ public class Cerveceria {
     public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
-        if (hijos < 0)
-            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
         if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
@@ -478,10 +476,10 @@ public class Cerveceria {
         if (listaMozosActivos.isEmpty())
             throw new Exception("No hay mozos activos. NO se puede asignar mesas");
 
-        for (int i = 0; i < this.mesas.size(); i++){
+        for (Mesa mesa : this.mesas) {
             if (mozo >= listaMozosActivos.size())
                 mozo = 0;
-            this.mesasAsignadas.put(this.mesas.get(i),listaMozosActivos.get(mozo));
+            this.mesasAsignadas.put(mesa, listaMozosActivos.get(mozo));
             mozo++;
         }
     }
@@ -494,9 +492,9 @@ public class Cerveceria {
     private ArrayList<Mozo> mozosActivos() {
         ArrayList<Mozo> activos = new ArrayList<>();
 
-        for (int i = 0 ; i < this.mozos.size(); i++){
-            if (mozos.get(i).getEstado().equalsIgnoreCase("Activo"))
-                activos.add(mozos.get(i));
+        for (Mozo mozo : this.mozos) {
+            if (mozo.getEstado().equalsIgnoreCase("Activo"))
+                activos.add(mozo);
         }
         return activos;
     }

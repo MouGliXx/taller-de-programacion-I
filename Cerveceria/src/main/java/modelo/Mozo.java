@@ -3,7 +3,6 @@ package modelo;
 public class Mozo implements Comparable {
     private String nombreYApellido;
     private int edad;
-    private String nombre;
     private int cantHijos;
     private String estado;
     private double sueldo;
