@@ -1,6 +1,8 @@
 package modelo;
 
-public class Mesa {
+import java.io.Serializable;
+
+public class Mesa implements Serializable {
     private static int sig = 1;
     private int nro;
     private int cantidadComensales;

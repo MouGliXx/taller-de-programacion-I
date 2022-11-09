@@ -41,7 +41,7 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
             case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda");
             case "Editar Comanda" -> creaOtraVentana("Editar Comanda");
             case "Cerrar Comanda" -> creaOtraVentana("Nueva Factura");
-            case "Finalizar Jornada" -> { //TODO DEBERIA INICIALIZAR LA VENTANA MOZOS
+            case "Finalizar Jornada" -> {
                 try {
                     Cerveceria.getInstance().finalizarJornada();
                     vista.finalizarJornada();

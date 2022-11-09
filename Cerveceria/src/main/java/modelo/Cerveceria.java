@@ -230,6 +230,8 @@ public class Cerveceria {
             throw new Exception("ERROR : No se pueden dar de alta mas mozos. LLego al nro maximo");
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
+        if (edad < 18)
+            throw new Exception("ERROR : La edad debe superar los 18 anos.");
         if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
@@ -545,7 +547,7 @@ public class Cerveceria {
         for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()) {
             int cantidadVentas = entry.getValue().getCantidadVentas();
 
-            String renglon = "Mesa : " + entry.getKey() + " Promedio Ventas : " + (cantidadVentas == 0 ? "-" : entry.getValue().getTotalGastado() / cantidadVentas);
+            String renglon = "Mesa : " + entry.getKey() + " |  Promedio Ventas : " + (cantidadVentas == 0 ? "0" : entry.getValue().getTotalGastado() / cantidadVentas);
             respuesta.add(renglon);
         }
 

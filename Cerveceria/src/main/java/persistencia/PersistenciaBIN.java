@@ -17,7 +17,6 @@ public class PersistenciaBIN implements IPersistencia {
     public void abrirInput(String nombre) throws IOException {
         fileinput = new FileInputStream(nombre);
         objectinput = new ObjectInputStream(fileinput);
-
     }
 
     @Override

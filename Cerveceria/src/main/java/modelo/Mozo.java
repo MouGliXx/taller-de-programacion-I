@@ -1,6 +1,8 @@
 package modelo;
 
-public class Mozo implements Comparable {
+import java.io.Serializable;
+
+public class Mozo implements Comparable, Serializable {
     private String nombreYApellido;
     private int edad;
     private int cantHijos;

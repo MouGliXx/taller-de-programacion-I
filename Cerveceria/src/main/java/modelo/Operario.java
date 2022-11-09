@@ -1,6 +1,8 @@
 package modelo;
 
-public class Operario {
+import java.io.Serializable;
+
+public class Operario implements Serializable {
     private String nombreCompleto;
     private String nombreUsuario;
     private String contrasena;

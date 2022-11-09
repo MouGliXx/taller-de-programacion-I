@@ -1,6 +1,8 @@
 package modelo;
 
-public class EstadisticaMozo {
+import java.io.Serializable;
+
+public class EstadisticaMozo implements Serializable {
     private double totalGastado;
     private int mesasAtendidas;
 

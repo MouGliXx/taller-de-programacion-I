@@ -57,7 +57,6 @@ public class Util {
     }
 
     public static void cerveceriaFromCerveceriaDTO(CerveceriaDTO cerveceriaDTO) throws Exception {
-
         String nombreDelLocal;
         double remuneracionBasica;
         Administrador administrador;
@@ -103,5 +102,4 @@ public class Util {
         Cerveceria.getInstance().setEstadisticasMozos(estadisticasMozos);
         Cerveceria.getInstance().setEstadisticasMesas(estadisticasMesas);
     }
-
 }

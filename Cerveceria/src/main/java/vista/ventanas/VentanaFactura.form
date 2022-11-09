@@ -212,7 +212,7 @@
                 <item value="Efectivo"/>
                 <item value="Tarjeta"/>
                 <item value="Mercado Pago"/>
-                <item value="Ceunta DNI"/>
+                <item value="Cuenta DNI"/>
               </model>
             </properties>
           </component>

@@ -1,11 +1,12 @@
 package modelo;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Comanda {
+public class Comanda implements Serializable {
     private Date fecha;
     private Mesa mesa;
     private ArrayList<Pedido> pedidos;
