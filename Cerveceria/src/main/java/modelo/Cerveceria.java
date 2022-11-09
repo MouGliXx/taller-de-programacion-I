@@ -510,11 +510,18 @@ public class Cerveceria {
     }
 
     public ArrayList<String> mostrarEstadisticasMozos() {
-        ArrayList<String> respuesta = new ArrayList<>();
-        String renglon = null;
-        for (Map.Entry<Mozo,EstadisticaMozo> entry : estadisticasMozos.entrySet()){
-            renglon = "Mozo : "+entry.getKey() +" Cantidad Ventas : "+entry.getValue().getCantidadVentas()+" Total Facturado : "+entry.getValue().getTotalGastado();
-            respuesta.add(renglon);
+        ArrayList<String> respuesta = new ArrayList<String>();
+        if (!estadisticasMozos.isEmpty()) {
+            Mozo mozoMaximo = estadisticasMozos.keySet().iterator().next();
+            Mozo mozoMinimo = estadisticasMozos.keySet().iterator().next();
+            for (Map.Entry<Mozo, EstadisticaMozo> entry : estadisticasMozos.entrySet()) {
+                if (entry.getValue().getTotalGastado() > estadisticasMozos.get(mozoMaximo).getTotalGastado())
+                    mozoMaximo = entry.getKey();
+                if (entry.getValue().getTotalGastado() < estadisticasMozos.get(mozoMinimo).getTotalGastado())
+                    mozoMinimo = entry.getKey();
+            }
+            respuesta.add("Mozo Mas Volumen Ventas : " + mozoMaximo.getNombreYApellido() + " Cantidad Ventas : " + estadisticasMozos.get(mozoMaximo).getCantidadVentas() + " Total Facturado : " + estadisticasMozos.get(mozoMaximo).getTotalGastado());
+            respuesta.add("Mozo Menos Volumen Ventas : " + mozoMinimo.getNombreYApellido() + " Cantidad Ventas : " + estadisticasMozos.get(mozoMinimo).getCantidadVentas() + " Total Facturado : " + estadisticasMozos.get(mozoMinimo).getTotalGastado());
         }
         return respuesta;
     }
