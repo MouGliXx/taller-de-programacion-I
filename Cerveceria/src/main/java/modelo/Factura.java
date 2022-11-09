@@ -74,7 +74,7 @@ public class Factura {
         for (PromocionTemporal promo : promoTemp)
             if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion()) && promo.getFormaDePago().equalsIgnoreCase(this.getFormaDePago()) && promo.isEsAcumulable()) {
                 promocionesAplicadas.add(promo);
-                this.total = this.total*promo.getPorcentajeDescuento()/100.;
+                this.total = this.total * promo.getPorcentajeDescuento() / 100.;
             }
     }
 
@@ -93,7 +93,7 @@ public class Factura {
                     if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion())) {
                         if (promo.isAplicaDosPorUno()) {
                             //aplicar 2x1 y sumar al total
-                            this.total += (Math.divideExact(pedido.getCantidad(), 2) + (Math.ceilMod(pedido.getCantidad(), 2))) * pedido.getProducto().getPrecioVenta();
+                            this.total += (Math.divideExact(pedido.getCantidad(), 2) + Math.ceilMod(pedido.getCantidad(), 2)) * pedido.getProducto().getPrecioVenta();
                             respuesta = true;
                         } else if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad() >= promo.getDtoPorCantidad_CantMinima()) {
                             //aplicar Dto por cantidad y sumar al total

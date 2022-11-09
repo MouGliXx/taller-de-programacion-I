@@ -25,6 +25,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         this.vista.setRemuneracion(Cerveceria.getInstance().getRemuneracionBasica());
         this.vista.inicializarListasEntidades();
         this.vista.inicializarListasPromociones();
+        this.vista.inicializarListasEstadisticas();
     }
 
     @Override

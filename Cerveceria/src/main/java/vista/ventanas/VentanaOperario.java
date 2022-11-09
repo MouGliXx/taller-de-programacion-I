@@ -240,6 +240,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         if (mozos != null && !mozos.isEmpty()) {
             for (Mozo mozo : mozos) {
                 arrayLabels0.get(i).setText(mozo.getNombreYApellido());
+                arrayComboBox.get(i).setEnabled(true);
                 i++;
             }
         }
@@ -352,8 +353,11 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     @Override
     public void finalizarJornada() {
         this.iniciarJornadaButton.setVisible(true);
+        this.iniciarJornadaButton.setEnabled(false);
         this.finalizarJornadaButton.setVisible(false);
         this.nuevaComandaButton.setEnabled(false);
+        this.asignarMesasButton.setEnabled(true);
+        inicializarMozos();
     }
 
     @Override

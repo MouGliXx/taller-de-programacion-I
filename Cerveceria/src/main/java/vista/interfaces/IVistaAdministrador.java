@@ -18,6 +18,8 @@ public interface IVistaAdministrador extends IVista {
 
     void inicializarListasPromociones();
 
+    void inicializarListasEstadisticas();
+
     String getNombreLocal();
 
     void setNombreLocal(String nombreLocal);

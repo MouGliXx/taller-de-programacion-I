@@ -34,7 +34,7 @@ public class App {
         }
 
         //PRODUCTOS
-        Producto p1 = new Producto("Coca-Cola",150,200,5);
+        Producto p1 = new Producto("Coca-Cola",150,200,90);
         Producto p2 = new Producto("Agua",100,150,9);
         Producto p3 = new Producto("Sprite",250,300,100);
 

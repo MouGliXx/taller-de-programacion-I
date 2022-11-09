@@ -73,8 +73,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JScrollPane estadisticasDeLosMozosScrollPane;
     private JLabel estadisticasDeLasMesasLabel;
     private JScrollPane estadisticasDeLasMesasScrollpane;
-    private JList listaEstadisticasMozos;
-    private JList listasEstadisticasMesas;
+    private JList<String> listaEstadisticasMozos;
+    private JList<String> listasEstadisticasMesas;
     //MODELOS PARA LISTAS
     DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
@@ -82,6 +82,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     DefaultListModel<Mesa> modeloMesa = new DefaultListModel<>();
     DefaultListModel<PromocionProducto> modeloProductoEnPromocion = new DefaultListModel<>();
     DefaultListModel<PromocionTemporal> modeloPromocionTemporal = new DefaultListModel<>();
+    DefaultListModel<String> modeloEstadisticasMozos = new DefaultListModel<>();
+    DefaultListModel<String> modeloEstadisticasMesas = new DefaultListModel<>();
 
     /**
      * Agrega los ActionListener a los diferentes componentes de la ventana, para notificar ActionEvent que ocurran dentro de la misma.<br>
@@ -220,6 +222,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaMesas.setModel(modeloMesa);
         this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
         this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
+        this.listaEstadisticasMozos.setModel(modeloEstadisticasMozos);
+        this.listasEstadisticasMesas.setModel(modeloEstadisticasMesas);
     }
 
     /**
@@ -294,6 +298,18 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
 
         modeloPromocionTemporal.removeAllElements();
         promocionesTemporales.forEach((promocionTemporal) -> this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal));
+    }
+
+    @Override
+    public void inicializarListasEstadisticas() {
+        ArrayList<String> estadisticaMozos = Cerveceria.getInstance().mostrarEstadisticasMozos();
+        ArrayList<String> estadisticaMesas = Cerveceria.getInstance().mostrarEstadisticasMesas();
+
+        modeloEstadisticasMozos.removeAllElements();
+        estadisticaMozos.forEach((estadisticas) -> modeloEstadisticasMozos.add(modeloEstadisticasMozos.size(), estadisticas));
+
+        modeloEstadisticasMesas.removeAllElements();
+        estadisticaMesas.forEach((estadisticas) -> modeloEstadisticasMesas.add(modeloEstadisticasMesas.size(), estadisticas));
     }
 
     /**

@@ -510,29 +510,36 @@ public class Cerveceria {
     }
 
     public ArrayList<String> mostrarEstadisticasMozos() {
-        ArrayList<String> respuesta = new ArrayList<String>();
+        ArrayList<String> respuesta = new ArrayList<>();
+
         if (!estadisticasMozos.isEmpty()) {
             Mozo mozoMaximo = estadisticasMozos.keySet().iterator().next();
             Mozo mozoMinimo = estadisticasMozos.keySet().iterator().next();
-            for (Map.Entry<Mozo, EstadisticaMozo> entry : estadisticasMozos.entrySet()) {
+
+            for (Map.Entry < Mozo, EstadisticaMozo> entry : estadisticasMozos.entrySet()) {
                 if (entry.getValue().getTotalGastado() > estadisticasMozos.get(mozoMaximo).getTotalGastado())
                     mozoMaximo = entry.getKey();
                 if (entry.getValue().getTotalGastado() < estadisticasMozos.get(mozoMinimo).getTotalGastado())
                     mozoMinimo = entry.getKey();
             }
-            respuesta.add("Mozo Mas Volumen Ventas : " + mozoMaximo.getNombreYApellido() + " Cantidad Ventas : " + estadisticasMozos.get(mozoMaximo).getCantidadVentas() + " Total Facturado : " + estadisticasMozos.get(mozoMaximo).getTotalGastado());
-            respuesta.add("Mozo Menos Volumen Ventas : " + mozoMinimo.getNombreYApellido() + " Cantidad Ventas : " + estadisticasMozos.get(mozoMinimo).getCantidadVentas() + " Total Facturado : " + estadisticasMozos.get(mozoMinimo).getTotalGastado());
+
+            respuesta.add("Mozo con mayor volumen de ventas: '" + mozoMaximo.getNombreYApellido() + "' - Cantidad Ventas = " + estadisticasMozos.get(mozoMaximo).getCantidadVentas() + " - Total Facturado= " + estadisticasMozos.get(mozoMaximo).getTotalGastado());
+            respuesta.add("Mozo con menor volumen de ventas: '" + mozoMinimo.getNombreYApellido() + "' - Cantidad Ventas = " + estadisticasMozos.get(mozoMinimo).getCantidadVentas() + " - Total Facturado= " + estadisticasMozos.get(mozoMinimo).getTotalGastado());
         }
+
         return respuesta;
     }
 
     public ArrayList<String> mostrarEstadisticasMesas() {
         ArrayList<String> respuesta = new ArrayList<>();
-        String renglon ;
-        for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()){
-            renglon = "Mesa : "+entry.getKey() +" Promedio Ventas : "+entry.getValue().getTotalGastado()/entry.getValue().getCantidadVentas();
+
+        for (Map.Entry<Mesa,EstadisticaMesa> entry : estadisticasMesas.entrySet()) {
+            int cantidadVentas = entry.getValue().getCantidadVentas();
+
+            String renglon = "Mesa : " + entry.getKey() + " Promedio Ventas : " + (cantidadVentas == 0 ? "-" : entry.getValue().getTotalGastado() / cantidadVentas);
             respuesta.add(renglon);
         }
+
         return respuesta;
     }
 }
