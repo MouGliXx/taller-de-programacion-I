@@ -1,12 +1,17 @@
 package negocio;
 
 import modelo.*;
+import persistencia.CerveceriaDTO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
+import persistencia.Util;
 import vista.interfaces.IVistaOperario;
 import vista.ventanas.VentanaComanda;
 import vista.ventanas.VentanaFactura;
 import vista.ventanas.VentanaLogin;
 
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ControladorOperario implements ActionListener, ItemListener, WindowListener {
@@ -108,7 +113,15 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
 
     @Override
     public void windowClosing(WindowEvent e) {
-        //TODO PERSISTIR
+        try {
+            IPersistencia bin = new PersistenciaBIN();
+            bin.abrirOutput("Cerveceria.bin");
+            CerveceriaDTO cerveceriaDTO = Util.cerveceriaDTOFromCerveceria(Cerveceria.getInstance());
+            bin.escribir(cerveceriaDTO);
+            bin.cerrarOutput();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

@@ -4,14 +4,36 @@ import modelo.Cerveceria;
 import modelo.Operario;
 import modelo.Producto;
 import negocio.ControladorLogin;
+import persistencia.CerveceriaDTO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
+import persistencia.Util;
 import vista.ventanas.VentanaLogin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
+
+        //CARGO EL SISTEMA CON LOS ARCHIVOS BINARIOS
+        try {
+            IPersistencia bin = new PersistenciaBIN();
+            bin.abrirInput("Cerveceria.bin");
+            CerveceriaDTO cerveceriaDTO = (CerveceriaDTO) bin.leer();
+            Util.cerveceriaFromCerveceriaDTO(cerveceriaDTO);
+        } catch (IOException e) {
+            System.out.println("Se ha creado un archivo binario nuevo");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         Cerveceria cerveceria = Cerveceria.getInstance();
 
+        /*
         //MOZOS
         try {
             cerveceria.agregarMozo("Lautaro", 18,1);
@@ -54,8 +76,8 @@ public class App {
 
         Cerveceria.getInstance().agregarPromocionProducto(diasSemana, true, p1, true, false);
         Cerveceria.getInstance().agregarPromocionProducto(diasSemana, true, p2, true, false);
-
         Cerveceria.getInstance().agregarPromocionTemporal(diasSemana, true, "Pappy Hour", "Efectivo", 50, true);
+         */
 
         //EJECUCION NORMAL
         VentanaLogin ventanaLogin = new VentanaLogin();

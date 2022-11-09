@@ -5,6 +5,10 @@ import excepciones.ErrorDeUsuarioException;
 import modelo.Administrador;
 import modelo.Cerveceria;
 import modelo.Operario;
+import persistencia.CerveceriaDTO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
+import persistencia.Util;
 import vista.interfaces.IVistaLogin;
 import vista.ventanas.VentanaAdministrador;
 import vista.ventanas.VentanaOperario;
@@ -12,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 public class ControladorLogin implements ActionListener, WindowListener {
     private IVistaLogin vista;
@@ -76,7 +81,15 @@ public class ControladorLogin implements ActionListener, WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        //TODO PERSISTIR
+        try {
+            IPersistencia bin = new PersistenciaBIN();
+            bin.abrirOutput("Cerveceria.bin");
+            CerveceriaDTO cerveceriaDTO = Util.cerveceriaDTOFromCerveceria(Cerveceria.getInstance());
+            bin.escribir(cerveceriaDTO);
+            bin.cerrarOutput();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     //METODOS NO USADOS

@@ -39,6 +39,7 @@ public class Cerveceria {
     }
 
     //GETTERS & SETTERS
+
     public String getNombreDelLocal() {
         return nombreDelLocal;
     }
@@ -141,6 +142,14 @@ public class Cerveceria {
 
     public HashMap<Mesa, EstadisticaMesa> getEstadisticasMesas() {
         return estadisticasMesas;
+    }
+
+    public void setEstadisticasMozos(HashMap<Mozo, EstadisticaMozo> estadisticasMozos) {
+        this.estadisticasMozos = estadisticasMozos;
+    }
+
+    public void setEstadisticasMesas(HashMap<Mesa, EstadisticaMesa> estadisticasMesas) {
+        this.estadisticasMesas = estadisticasMesas;
     }
 
     //FUNCIONALIDADES
