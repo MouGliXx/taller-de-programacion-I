@@ -88,32 +88,27 @@ public class Factura {
         for (Pedido pedido : this.pedidos) {
             pos = 0;
             respuesta = false;
-            promo = promoProd.get(pos);
-
-            while (!respuesta && pos < promoProd.size()) {
-                if (pedido.getProducto().equals(promo.getProducto()))
+            while(!respuesta && (pos < promoProd.size())){
+                promo = promoProd.get(pos);
+                if (pedido.getProducto().equals(promo.getProducto())) {
                     if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion())) {
-                        if (promo.isAplicaDosPorUno()){
+                        if (promo.isAplicaDosPorUno()) {
                             //aplicar 2x1 y sumar al total
-                            this.total += (Math.divideExact(pedido.getCantidad(),2)+(Math.ceilMod(pedido.getCantidad(),2)))*pedido.getProducto().getPrecioVenta();
+                            this.total += (Math.divideExact(pedido.getCantidad(), 2) + (Math.ceilMod(pedido.getCantidad(), 2))) * pedido.getProducto().getPrecioVenta();
                             respuesta = true;
-                        }
-                        else if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad()>= promo.getDtoPorCantidad_CantMinima()) {
+                        } else if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad() >= promo.getDtoPorCantidad_CantMinima()) {
                             //aplicar Dto por cantidad y sumar al total
-                            this.total += pedido.getProducto().getPrecioVenta()*promo.getDtoPorCantidad_PrecioUnitario()*pedido.getCantidad()/100.;
+                            this.total += pedido.getProducto().getPrecioVenta() * promo.getDtoPorCantidad_PrecioUnitario() * pedido.getCantidad() / 100.;
                             respuesta = true;
                         }
                     }
-                    else
+                }
                 pos++;
             }
-
-            if (respuesta) {
-                promocionesAplicadas.add(promoProd.get(pos));
-                pos--;
-            } else {
+            if (respuesta)
+                promocionesAplicadas.add(promoProd.get(pos--));
+            else
                 this.total += pedido.getProducto().getPrecioVenta()*pedido.getCantidad();
-            }
         }
     }
 
@@ -134,11 +129,10 @@ public class Factura {
         }
 
         while (pos < dias.size() && !respuesta) {
-            if (nombreDia.equalsIgnoreCase(dias.get(pos))) {
+            if (nombreDia.equalsIgnoreCase(dias.get(pos++))) {
                 respuesta = true;
             }
         }
-
         return respuesta;
     }
 
