@@ -91,10 +91,8 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         comandasButton.addActionListener(controlador);
         facturasButton.addActionListener(controlador);
         promocionesButton.addActionListener(controlador);
-        iniciarJornadaButton.addActionListener(controlador);
         iniciarJornadaButton.addActionListener(this);
         finalizarJornadaButton.addActionListener(controlador);
-        finalizarJornadaButton.addActionListener(this);
         cerrarSesionButton.addActionListener(controlador);
         asignarMesasButton.addActionListener(controlador);
         nuevaComandaButton.addActionListener(controlador);
@@ -352,22 +350,18 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     }
 
     @Override
+    public void finalizarJornada() {
+        this.iniciarJornadaButton.setVisible(true);
+        this.finalizarJornadaButton.setVisible(false);
+        this.nuevaComandaButton.setEnabled(false);
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "Iniciar Jornada" -> {
-                this.iniciarJornadaButton.setVisible(false);
-                this.finalizarJornadaButton.setVisible(true);
-                this.nuevaComandaButton.setEnabled(true);
-            }
-            case "Finalizar Jornada" -> {
-                if (modeloComanda.isEmpty()) {
-                    this.iniciarJornadaButton.setVisible(true);
-                    this.finalizarJornadaButton.setVisible(false);
-                    this.nuevaComandaButton.setEnabled(false);
-                } else {
-                    lanzarVentanaEmergente("Para finalizar la jornada es necesario cerrar todas las comandas primero.");
-                }
-            }
+        if (e.getActionCommand().equals("Iniciar Jornada")) {
+            this.iniciarJornadaButton.setVisible(false);
+            this.finalizarJornadaButton.setVisible(true);
+            this.nuevaComandaButton.setEnabled(true);
         }
     }
 

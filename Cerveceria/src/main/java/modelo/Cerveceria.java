@@ -18,10 +18,10 @@ public class Cerveceria {
     private HashMap<Integer,Producto> productos = new HashMap<>();
     private ArrayList<Mesa> mesas = new ArrayList<>();
     private ArrayList<Comanda> comandas = new ArrayList<>();
-    private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
     private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
+    private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
     private HashMap<Mozo, EstadisticaMozo> estadisticasMozos = new HashMap<>();
     private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<>();
 
@@ -458,7 +458,6 @@ public class Cerveceria {
         return this.promocionesProductos.size() >= 2;
     }
 
-
     /**
      * <b>pre:</b> <br>.
      * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya
@@ -489,7 +488,7 @@ public class Cerveceria {
      * estan activos.
      * @return ArrayList<Mozo> Lista de mozos activos
      */
-    private ArrayList<Mozo> mozosActivos() {
+    public ArrayList<Mozo> mozosActivos() {
         ArrayList<Mozo> activos = new ArrayList<>();
 
         for (Mozo mozo : this.mozos) {
@@ -497,6 +496,17 @@ public class Cerveceria {
                 activos.add(mozo);
         }
         return activos;
+    }
+
+    public void finalizarJornada() throws Exception {
+        if (!comandas.isEmpty())
+            throw new Exception("Es necesario que cierre todas las comandas abiertas para finalizar la jornada.");
+
+        for (Mozo mozo : mozos) {
+            mozo.setEstado(null);
+        }
+
+        mesasAsignadas.clear();
     }
 
     public ArrayList<String> mostrarEstadisticasMozos() {

@@ -30,4 +30,6 @@ public interface IVistaOperario extends IVista{
     Comanda getComandaSeleccionada();
 
     void cambiarPagina(int pagina);
+
+    void finalizarJornada();
 }
