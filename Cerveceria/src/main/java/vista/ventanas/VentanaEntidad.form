@@ -18,7 +18,7 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="true"/>
+          <enabled value="false"/>
           <focusCycleRoot value="false"/>
           <focusable value="false"/>
           <font name="Inter SemiBold" size="12"/>
@@ -181,7 +181,7 @@
             <properties>
               <background color="-1"/>
               <enabled value="true"/>
-              <visible value="false"/>
+              <visible value="true"/>
             </properties>
             <border type="empty">
               <size top="20" left="20" bottom="0" right="20"/>
@@ -508,7 +508,7 @@
             <properties>
               <background color="-1"/>
               <enabled value="true"/>
-              <visible value="true"/>
+              <visible value="false"/>
             </properties>
             <border type="empty">
               <size top="20" left="20" bottom="0" right="20"/>

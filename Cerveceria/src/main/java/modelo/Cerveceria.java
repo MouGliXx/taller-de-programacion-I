@@ -213,16 +213,35 @@ public class Cerveceria {
         this.estadisticasMesas.put(mesa,new EstadisticaMesa());
     }
 
-    public void agregarPromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
-        this.promocionesProductos.add(new PromocionProducto(diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario));
+    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
+        promocionProducto.setDiasPromocion(diasPromocion);
+        promocionProducto.setActiva(activa);
+        promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);
+        promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
+        promocionProducto.setDtoPorCantidad_CantMinima(dtoPorCantidad_CantMinima);
+        promocionProducto.setDtoPorCantidad_PrecioUnitario(dtoPorCantidad_PrecioUnitario);
+
+        this.promocionesProductos.add(promocionProducto);
     }
 
-    public void agregarPromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad){
-        this.promocionesProductos.add(new PromocionProducto(diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad));
+    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad){
+        promocionProducto.setDiasPromocion(diasPromocion);
+        promocionProducto.setActiva(activa);
+        promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);
+        promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
+
+        this.promocionesProductos.add(promocionProducto);
     }
 
-    public void agregarPromocionTemporal(ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
-        this.promocionesTemporales.add(new PromocionTemporal(diasPromocion,activa, nombre,formaDePago,porcentajeDescuento,esAcumulable));
+    public void agregarPromocionTemporal(PromocionTemporal promocionTemporal, ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
+        promocionTemporal.setDiasPromocion(diasPromocion);
+        promocionTemporal.setActiva(activa);
+        promocionTemporal.setNombre(nombre);
+        promocionTemporal.setFormaDePago(formaDePago);
+        promocionTemporal.setPorcentajeDescuento(porcentajeDescuento);
+        promocionTemporal.setEsAcumulable(esAcumulable);
+
+        this.promocionesTemporales.add(promocionTemporal);
     }
 
     public void agregarMozo(String nombre, int edad, int hijos) throws Exception {

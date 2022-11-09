@@ -76,7 +76,7 @@ public class ControladorEntidad implements ActionListener {
 
                             this.vista.cerrarVentana();
                         } catch (NumberFormatException ex) {
-                            vista.lanzarVentanaEmergente("ERROR : " + ex.getMessage());
+                            vista.lanzarVentanaEmergente("ERROR : Ingrese valores validos.");
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente(ex.getMessage());
                         }

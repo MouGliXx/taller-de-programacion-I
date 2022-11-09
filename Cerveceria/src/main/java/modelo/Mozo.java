@@ -76,7 +76,7 @@ public class Mozo implements Comparable, Serializable {
     public int compareTo(Object o) {
         Mozo mozo = (Mozo) o;
         int respuesta;
-        //if (mozo.getEdad() >= this.edad)
+
         if (Cerveceria.getInstance().getEstadisticasMozos().get(this).getTotalGastado() >= Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado())
             respuesta = 1;
         else

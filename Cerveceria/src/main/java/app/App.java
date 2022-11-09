@@ -15,22 +15,6 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
-
-        //CARGO EL SISTEMA CON LOS ARCHIVOS BINARIOS
-        try {
-            IPersistencia bin = new PersistenciaBIN();
-            bin.abrirInput("Cerveceria.bin");
-            CerveceriaDTO cerveceriaDTO = (CerveceriaDTO) bin.leer();
-            Util.cerveceriaFromCerveceriaDTO(cerveceriaDTO);
-        } catch (IOException e) {
-            System.out.println("Se ha creado un archivo binario nuevo");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-
         Cerveceria cerveceria = Cerveceria.getInstance();
 
         /*
@@ -78,6 +62,20 @@ public class App {
         Cerveceria.getInstance().agregarPromocionProducto(diasSemana, true, p2, true, false);
         Cerveceria.getInstance().agregarPromocionTemporal(diasSemana, true, "Pappy Hour", "Efectivo", 50, true);
          */
+
+        //CARGO EL SISTEMA CON LOS ARCHIVOS BINARIOS
+        try {
+            IPersistencia bin = new PersistenciaBIN();
+            bin.abrirInput("Cerveceria.bin");
+            CerveceriaDTO cerveceriaDTO = (CerveceriaDTO) bin.leer();
+            Util.cerveceriaFromCerveceriaDTO(cerveceriaDTO);
+        } catch (IOException e) {
+            System.out.println("Se ha creado un archivo binario nuevo");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         //EJECUCION NORMAL
         VentanaLogin ventanaLogin = new VentanaLogin();

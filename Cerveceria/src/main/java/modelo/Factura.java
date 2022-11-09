@@ -98,7 +98,7 @@ public class Factura implements Serializable {
                             respuesta = true;
                         } else if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad() >= promo.getDtoPorCantidad_CantMinima()) {
                             //aplicar Dto por cantidad y sumar al total
-                            this.total += pedido.getProducto().getPrecioVenta() * promo.getDtoPorCantidad_PrecioUnitario() * pedido.getCantidad() / 100.;
+                            this.total += promo.getDtoPorCantidad_PrecioUnitario() * pedido.getCantidad();
                             respuesta = true;
                         }
                     }

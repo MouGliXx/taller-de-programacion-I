@@ -35,13 +35,13 @@ public class ControladorPromocion implements ActionListener {
                                 int cantidadMinima = vista.getCantidadMinima();
                                 double precioUnitario = vista.getPrecioUnitario();
 
-                                Cerveceria.getInstance().agregarPromocionProducto(diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad, cantidadMinima, precioUnitario);
+                                Cerveceria.getInstance().agregarPromocionProducto((PromocionProducto) modelo, diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad, cantidadMinima, precioUnitario);
                                 this.vista.cerrarVentana();
                             } catch (NumberFormatException ex) {
                                 vista.lanzarVentanaEmergente("ERROR : Ingrese una cantidad o precio valido");
                             }
                         } else {
-                            Cerveceria.getInstance().agregarPromocionProducto(diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad);
+                            Cerveceria.getInstance().agregarPromocionProducto((PromocionProducto) modelo, diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad);
                             this.vista.cerrarVentana();
                         }
                     }
@@ -54,7 +54,7 @@ public class ControladorPromocion implements ActionListener {
                             int porcentajeDescuento = vista.getPorcentajeDescuento();
                             boolean acumulable = vista.isAcumulable();
 
-                            Cerveceria.getInstance().agregarPromocionTemporal(diasPromocion, activa, nombre, formaDePago, porcentajeDescuento, acumulable);
+                            Cerveceria.getInstance().agregarPromocionTemporal((PromocionTemporal) modelo, diasPromocion, activa, nombre, formaDePago, porcentajeDescuento, acumulable);
                             this.vista.cerrarVentana();
                         } catch (Exception ex) {
                             vista.lanzarVentanaEmergente("ERROR : Nombre de la promocion invalido.");

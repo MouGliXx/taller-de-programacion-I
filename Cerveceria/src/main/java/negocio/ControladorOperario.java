@@ -88,10 +88,9 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
             case "Nueva Factura" -> {
                 try {
                     Comanda comandaSeleccionada = vista.getComandaSeleccionada();
-                    Cerveceria.getInstance().eliminarComanda(comandaSeleccionada);
                     Factura nuevaFactura = new Factura(comandaSeleccionada.getMesa(), comandaSeleccionada.getPedidos());
                     VentanaFactura ventanaFactura = new VentanaFactura();
-                    ControladorFactura controladorFactura = new ControladorFactura(nuevaFactura, ventanaFactura);
+                    ControladorFactura controladorFactura = new ControladorFactura(comandaSeleccionada, nuevaFactura, ventanaFactura);
                     ventanaFactura.addWindowListener(this);
                     ventanaFactura.ejecutar();
                 } catch (Exception e) {

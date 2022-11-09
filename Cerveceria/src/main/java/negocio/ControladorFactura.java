@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorFactura implements ActionListener {
+    private Comanda comanda;
     private Factura modelo;
     private IVistaFactura vista;
 
-    public ControladorFactura(Factura modelo, IVistaFactura vista) {
+    public ControladorFactura(Comanda comanda, Factura modelo, IVistaFactura vista) {
+        this.comanda = comanda;
         this.modelo = modelo;
         this.vista = vista;
 
@@ -25,6 +27,7 @@ public class ControladorFactura implements ActionListener {
                 try {
                     String formaDePago = vista.getFormaDePago();
                     Cerveceria.getInstance().agregarFactura(modelo, formaDePago);
+                    Cerveceria.getInstance().eliminarComanda(comanda);
                     this.vista.cerrarVentana();
                 } catch (Exception ex) {
                     vista.lanzarVentanaEmergente(ex.getMessage());
