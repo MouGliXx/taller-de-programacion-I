@@ -21,7 +21,6 @@ public class Factura implements Serializable {
         this.pedidos = pedidos;
         this.formaDePago = null;
         this.total = 0;
-        this.calcularTotalconPromociones();
     }
 
     //GETTERS & SETTERS
@@ -64,7 +63,7 @@ public class Factura implements Serializable {
     public ArrayList<Promocion> getPromocionesAplicadas() {return promocionesAplicadas;}
 
     //FUNCIONALIDADES
-    private void calcularTotalconPromociones() {
+    public void calcularTotalconPromociones() {
         this.aplicarPromocionesProductos();
         this.aplicarPromocionesTemporales();
     }

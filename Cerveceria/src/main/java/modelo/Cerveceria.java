@@ -286,6 +286,7 @@ public class Cerveceria {
             throw new Exception("ERROR : No se puede crear factura sin comanda");
 
         factura.setFormaDePago(formaPago);
+        factura.calcularTotalconPromociones();
         this.facturas.add(factura);
         agregaNuevaEstadistica(factura);
     }
