@@ -362,6 +362,7 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
             this.iniciarJornadaButton.setVisible(false);
             this.finalizarJornadaButton.setVisible(true);
             this.nuevaComandaButton.setEnabled(true);
+            lanzarVentanaEmergente("Se ha habilitado la creacion de comandas.");
         }
     }
 

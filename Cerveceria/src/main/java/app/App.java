@@ -49,6 +49,7 @@ public class App {
         //PROMOCIONES
         ArrayList<String> diasSemana = new ArrayList<>();
         diasSemana.add("Lunes");
+        diasSemana.add("Martes");
         diasSemana.add("Miercoles");
 
         Cerveceria.getInstance().agregarPromocionProducto(diasSemana, true, p1, true, false);

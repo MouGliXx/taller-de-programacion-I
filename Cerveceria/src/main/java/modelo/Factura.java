@@ -65,7 +65,6 @@ public class Factura {
     //FUNCIONALIDADES
     private void calcularTotalconPromociones() {
         this.aplicarPromocionesProductos();
-        System.out.println("paso el primer filtro");
         this.aplicarPromocionesTemporales();
     }
 
@@ -105,10 +104,12 @@ public class Factura {
                 }
                 pos++;
             }
-            if (respuesta)
-                promocionesAplicadas.add(promoProd.get(pos--));
-            else
-                this.total += pedido.getProducto().getPrecioVenta()*pedido.getCantidad();
+            if (respuesta) {
+                pos--;
+                promocionesAplicadas.add(promoProd.get(pos));
+            } else {
+                this.total += pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
+            }
         }
     }
 
