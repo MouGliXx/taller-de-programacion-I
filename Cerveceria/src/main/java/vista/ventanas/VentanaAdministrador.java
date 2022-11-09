@@ -223,6 +223,16 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     }
 
     /**
+     * Lanza una pequena ventana con un campo para completar, boton de confirmacion y otro para cancelar.<br>
+     *
+     * @return Nueva contrasena del Administrador.<br>
+     */
+    @Override
+    public String cambioDeContrasenaObligatorio() {
+        return JOptionPane.showInputDialog("Es necesario que cambie la contrasena predeterminada por una nueva: ");
+    }
+
+    /**
      * Elimina de los modelos el elemento de la lista seleccionado, discriminando por cada lista segun su nombre.<br>
      *
      * <b>pre</b> nombreLista distinto de null.<br>
@@ -471,14 +481,15 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                 if (this.productosEnPromocionCheckBox.isSelected()) {
                     this.promocionSeleccionada = "Productos en Promocion";
                     this.promocionesTabbedPane.setSelectedIndex(0);
-                    inicializarListasPromociones();
+
                 }
 
                 if (this.promocionesTemporalesCheckBox.isSelected()) {
                     this.promocionSeleccionada = "Promociones Temporales";
                     this.promocionesTabbedPane.setSelectedIndex(1);
-                    inicializarListasPromociones();
                 }
+
+                inicializarListasPromociones();
             }
             case "Activar Promocion" -> {
                 this.activarButton.setVisible(false);

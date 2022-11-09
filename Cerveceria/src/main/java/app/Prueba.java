@@ -13,14 +13,14 @@ public class Prueba {
 
         for (int t=0;t<5;t++) {
             try {
-                cerveza.agregarMesa(t, "Activo");
+                cerveza.agregarMesa(t);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-        cerveza.agregarMozo("Lautaro", 22,1,"Activo");
-        cerveza.agregarMozo("Ignacio", 26,1,"Activo");
-        cerveza.agregarMozo("Tomas", 33,1,"Activo");
+        cerveza.agregarMozo("Lautaro", 22,1);
+        cerveza.agregarMozo("Ignacio", 26,1);
+        cerveza.agregarMozo("Tomas", 33,1);
 
 
 
@@ -49,7 +49,7 @@ public class Prueba {
 
         Pedido p1 = new Pedido();
         Pedido p2 = new Pedido();
-        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+        ArrayList<Pedido> pedidos = new ArrayList<>();
         p1.setProducto(cerveza.getProductos().get(1));
         p1.setCantidad(2);
         pedidos.add(p1);

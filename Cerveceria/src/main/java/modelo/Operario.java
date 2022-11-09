@@ -2,8 +2,8 @@ package modelo;
 
 public class Operario {
     private String nombreCompleto;
-    private String nombreUsuario; //(10)
-    private String contrasena; //(12)
+    private String nombreUsuario;
+    private String contrasena;
     private boolean activo;
 
     //CONSTRUCTOR

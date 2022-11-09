@@ -18,6 +18,4 @@ public class EstadisticaMesa {
     public void setTotalGastado(double totalGastado) {this.totalGastado = totalGastado;}
 
     public void setCantidadVentas(int cantidadVentas) {this.cantidadVentas = cantidadVentas;}
-
-
 }

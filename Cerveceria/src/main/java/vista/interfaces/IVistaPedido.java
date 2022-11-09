@@ -1,6 +1,5 @@
 package vista.interfaces;
 
-import modelo.Pedido;
 import modelo.Producto;
 
 public interface IVistaPedido extends IVista {

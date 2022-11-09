@@ -9,6 +9,8 @@ public interface IVistaEntidad extends IVista {
 
     void setKeyListener();
 
+    void setItemListener();
+
     void setAccion(String accion);
 
     void setEntidad(String entidad);
@@ -39,8 +41,6 @@ public interface IVistaEntidad extends IVista {
 
     int getCantidadHijosMozo();
 
-    String getEstadoMozo();
-
     //PRODUCTO
     int getIDProducto();
 
@@ -54,6 +54,4 @@ public interface IVistaEntidad extends IVista {
 
     //MESA
     int getCantidadComensales();
-
-    String getEstadoMesa();
 }

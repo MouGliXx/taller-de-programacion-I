@@ -25,7 +25,7 @@ public class ControladorLogin implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ("Login".equals(e.getActionCommand())) {
+        if (e.getActionCommand().equals("Login")) {
             try {
                 if (vista.getUsername().equals("ADMIN")) {
                     Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
@@ -44,6 +44,14 @@ public class ControladorLogin implements ActionListener, WindowListener {
         }
     }
 
+    /**
+     * Crea y abre una nueva interfaz para el Administrador, junto con su controlador y modelo.<br>
+     *
+     * <b>pre</b> admin distinto de null.<br>
+     * <b>post</b> Una nueva ventana funcional para el Administrador es mostrada por pantalla.<br>
+     *
+     * @param admin Instancia del unico Administrador que se ha logueado en el sistema.<br>
+     */
     public void loguearAdministrador(Administrador admin) {
         VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
         ControladorAdministrador controladorAdministrador = new ControladorAdministrador(admin, ventanaAdministrador);
@@ -51,6 +59,14 @@ public class ControladorLogin implements ActionListener, WindowListener {
         vista.cerrarVentana();
     }
 
+    /**
+     * Crea y abre una nueva interfaz para el Operario, junto con su controlador y modelo.<br>
+     *
+     * <b>pre</b> operario distinto de null.<br>
+     * <b>post</b> Una nueva ventana funcional para el Operario es mostrada por pantalla.<br>
+     *
+     * @param operario Instancia del Operario que se ha logueado en el sistema.<br>
+     */
     public void loguearOperario(Operario operario) {
         VentanaOperario ventanaOperario = new VentanaOperario();
         ControladorOperario controladorOperario = new ControladorOperario(operario, ventanaOperario);

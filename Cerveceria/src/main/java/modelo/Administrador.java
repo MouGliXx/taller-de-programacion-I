@@ -1,8 +1,8 @@
 package modelo;
 
 public class Administrador {
-    private String username; //(10)
-    private String password; //(12)
+    private String username;
+    private String password;
 
     //CONSTRUCTOR
     public Administrador(String username, String password) {

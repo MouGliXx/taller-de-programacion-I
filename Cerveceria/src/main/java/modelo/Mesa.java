@@ -7,11 +7,11 @@ public class Mesa {
     private String estado; //Libre - Ocupada
 
     //CONSTRUCTOR
-    public Mesa(int cantidadComensales, String estado) {
+    public Mesa(int cantidadComensales) {
         this.nro = sig;
         sig++;
         this.cantidadComensales = cantidadComensales;
-        this.estado = estado;
+        this.estado = "Libre";
     }
 
     //GETTERS && SETTERS
@@ -64,6 +64,6 @@ public class Mesa {
 
     @Override
     public String toString(){
-        return " "+this.nro;
+        return " " + nro;
     }
 }

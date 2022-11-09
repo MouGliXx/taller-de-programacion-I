@@ -77,15 +77,13 @@ public class PromocionProducto extends Promocion {
 
     @Override
     public String toString() {
-        return "PromocionProducto{" +
-                "idPromocion=" + idPromocion +
-                ", diasPromocion=" + diasPromocion +
-                ", activa=" + activa +
-                ", producto=" + producto +
-                ", aplicaDosPorUno=" + aplicaDosPorUno +
-                ", aplicaDtoPorCantidad=" + aplicaDtoPorCantidad +
-                ", dtoPorCantidad_CantMinima=" + dtoPorCantidad_CantMinima +
-                ", dtoPorCantidad_PrecioUnitario=" + dtoPorCantidad_PrecioUnitario +
-                '}';
+        return "ID: " + idPromocion +
+                " - diasPromocion: " + diasPromocion +
+                " - activa: " + activa +
+                " - producto: " + producto +
+                " - aplicaDosPorUno: " + aplicaDosPorUno +
+                " - aplicaDtoPorCantidad: " + aplicaDtoPorCantidad +
+                " - dtoPorCantidad_CantMinima: " + dtoPorCantidad_CantMinima +
+                " - dtoPorCantidad_PrecioUnitario: " + dtoPorCantidad_PrecioUnitario;
     }
 }

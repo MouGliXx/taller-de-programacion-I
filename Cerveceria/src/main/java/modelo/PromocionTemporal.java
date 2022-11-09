@@ -54,17 +54,14 @@ public class PromocionTemporal extends Promocion {
     }
 
     //FUNCIONALIDADES
-
     @Override
     public String toString() {
-        return "PromocionTemporal{" +
-                "idPromocion=" + idPromocion +
-                ", diasPromocion=" + diasPromocion +
-                ", activa=" + activa +
-                ", nombre='" + nombre + '\'' +
-                ", formaDePago='" + formaDePago + '\'' +
-                ", porcentajeDescuento=" + porcentajeDescuento +
-                ", esAcumulable=" + esAcumulable +
-                '}';
+        return "ID: " + idPromocion +
+                " - Dias en Promocion:" + diasPromocion +
+                " - Activa: " + activa +
+                " - Nombre: '" + nombre + '\'' +
+                " - Forma de Pago: '" + formaDePago + '\'' +
+                " - Porcentaje de Descuento=" + porcentajeDescuento +
+                " - Acumulable: " + esAcumulable;
     }
 }

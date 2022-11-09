@@ -15,6 +15,8 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         this.modelo = modelo;
         this.vista = vista;
 
+        verificaContrasena();
+
         this.vista.setActionListener(this);
         this.vista.setKeyListener();
         this.vista.setListSelectionListener();
@@ -22,6 +24,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         this.vista.setNombreLocal(Cerveceria.getInstance().getNombreDelLocal());
         this.vista.setRemuneracion(Cerveceria.getInstance().getRemuneracionBasica());
         this.vista.inicializarListasEntidades();
+        this.vista.inicializarListasPromociones();
     }
 
     @Override
@@ -108,6 +111,33 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         }
     }
 
+    /**
+     * Verifica que la contrasena del Administrador se modifique la primera vez que este ingresa al sistema.<br>
+     */
+    public void verificaContrasena() {
+        if (this.modelo.getPassword().equals("ADMIN1234")) {
+            do {
+                String nuevaContrasena = this.vista.cambioDeContrasenaObligatorio();
+                if (nuevaContrasena != null && !nuevaContrasena.isEmpty()) {
+                    try {
+                        Cerveceria.getInstance().modificarAdministrador(nuevaContrasena);
+                    } catch (Exception e) {
+                        vista.lanzarVentanaEmergente(e.getMessage());
+                    }
+                }
+            } while (Cerveceria.getInstance().getAdministrador().getPassword().equals("ADMIN1234"));
+            vista.lanzarVentanaEmergente("Contrasena modificada con exito!");
+        }
+    }
+
+    /**
+     * Crea y abre una nueva interfaz grafica, junto con su controlador y modelo (de ser necesario).<br>
+     *
+     * <b>pre</b> ventana distinto de null, solo puede ser 'Login', 'Agregar Entidad', 'Modificar Entidad' o 'Nueva Promocion'<br>
+     * <b>post</b> Una nueva ventana funcional es mostrada por pantalla.<br>
+     *
+     * @param ventana Nombre de la ventana que se desea abrir.<br>
+     */
     public void creaOtraVentana(String ventana) {
         switch (ventana) {
             case "Login" -> {
