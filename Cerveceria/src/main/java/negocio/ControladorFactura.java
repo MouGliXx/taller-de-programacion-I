@@ -15,7 +15,8 @@ public class ControladorFactura implements ActionListener {
         this.modelo = modelo;
         this.vista = vista;
 
-        this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getTotal(), modelo.getPromocionesAplicadas());
+        this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getPromocionesAplicadas());
+        this.vista.setTotal(modelo.getTotal());
         this.vista.setActionListener(this);
     }
 
@@ -25,7 +26,6 @@ public class ControladorFactura implements ActionListener {
             case "Cancelar" -> vista.cerrarVentana();
             case "Crear" -> {
                 try {
-                    String formaDePago = vista.getFormaDePago();
                     Cerveceria.getInstance().agregarFactura(modelo);
                     Cerveceria.getInstance().eliminarComanda(comanda);
                     this.vista.cerrarVentana();
@@ -33,7 +33,12 @@ public class ControladorFactura implements ActionListener {
                     vista.lanzarVentanaEmergente(ex.getMessage());
                 }
             }
-
+            case "Forma de Pago Seleccionada" -> {
+                String formaDePago = vista.getFormaDePago();
+                this.modelo.setFormaDePago(formaDePago);
+                this.vista.setTotal(modelo.getTotal());
+                this.vista.inicializarListas(modelo.getPedidos(), modelo.getPromocionesAplicadas());
+            }
         }
     }
 }

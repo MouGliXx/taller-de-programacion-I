@@ -12,7 +12,9 @@ public interface IVistaFactura extends IVista{
 
     void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones);
 
-    void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<Promocion> promociones);
+    void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones);
+
+    void setTotal(double total);
 
     String getFormaDePago();
 }

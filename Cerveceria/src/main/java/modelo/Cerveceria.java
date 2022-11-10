@@ -216,6 +216,7 @@ public class Cerveceria {
     public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
         promocionProducto.setDiasPromocion(diasPromocion);
         promocionProducto.setActiva(activa);
+        promocionProducto.setProducto(producto);
         promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);
         promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
         promocionProducto.setDtoPorCantidad_CantMinima(dtoPorCantidad_CantMinima);
@@ -227,6 +228,7 @@ public class Cerveceria {
     public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad){
         promocionProducto.setDiasPromocion(diasPromocion);
         promocionProducto.setActiva(activa);
+        promocionProducto.setProducto(producto);
         promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);
         promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
 

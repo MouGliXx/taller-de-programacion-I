@@ -51,6 +51,7 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
     public void setActionListener(ActionListener controlador) {
         this.crearButton.addActionListener(controlador);
         this.cancelarButton.addActionListener(controlador);
+        this.formasDePagoBox.addActionListener(controlador);
     }
 
     /**
@@ -129,10 +130,12 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
      */
     @Override
     public void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones) {
+        modeloProductos.removeAllElements();
         if (pedidos != null && !pedidos.isEmpty()) {
             pedidos.forEach((pedido) -> modeloProductos.add(modeloProductos.size(), pedido));
         }
 
+        modeloPromociones.removeAllElements();
         if (promociones != null && !promociones.isEmpty()) {
             promociones.forEach((promocion) -> modeloPromociones.add(modeloPromociones.size(), promocion));
         }
@@ -147,18 +150,29 @@ public class VentanaFactura extends JFrame implements IVistaFactura {
      * @param fecha Fecha de la comanda cerrada. Distinto de null e igual a la fecha de la comanda<br>
      * @param NMesa Numero de mesa asociado a la comanda cerrada. Distinto de null e igual al de la comanda<br>
      * @param pedidos Conjunto de pedidos asociados a la comanda cerrada. Distinto de null e igual al de la comanda<br>
-     * @param total Monto total a cobrar a la mesa. Disitinto de null<br>
      * @param promociones Conjunto de promociones que aplican a la factura.<br>
      */
     @Override
-    public void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<Promocion> promociones) {
+    public void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones) {
         DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
         String fechaActual = dateFormat.format(fecha);
 
         this.fechaActualLabel.setText(fechaActual);
         this.numeroMesaLabel.setText(String.valueOf(NMesa));
-        this.montoLabel.setText(String.valueOf(total));
         inicializarListas(pedidos, promociones);
+    }
+
+    /**
+     * Establece el total de la Factura en el JLabel de la ventana, para su visualizacion.<br>
+     *
+     * <b>pre</b> total distinto de null.<br>
+     * <b>post</b> La ventana se personaliza con el total recibidos.<br>
+     *
+     * @param total Monto total a cobrar a la mesa.<br>
+     */
+    @Override
+    public void setTotal(double total) {
+        this.montoLabel.setText(String.valueOf(total));
     }
 
     /**

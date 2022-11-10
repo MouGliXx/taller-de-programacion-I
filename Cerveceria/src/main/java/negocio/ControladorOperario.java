@@ -9,7 +9,6 @@ import vista.interfaces.IVistaOperario;
 import vista.ventanas.VentanaComanda;
 import vista.ventanas.VentanaFactura;
 import vista.ventanas.VentanaLogin;
-
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;

@@ -205,6 +205,7 @@
               </grid>
             </constraints>
             <properties>
+              <actionCommand value="Forma de Pago Seleccionada"/>
               <background color="-2500135"/>
               <font name="Inter SemiBold" size="20"/>
               <foreground color="-16777216"/>

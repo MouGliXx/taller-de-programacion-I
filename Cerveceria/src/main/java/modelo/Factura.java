@@ -21,6 +21,7 @@ public class Factura implements Serializable {
         this.pedidos = pedidos;
         this.formaDePago = null;
         this.total = 0;
+        this.aplicarPromocionesProductos();
     }
 
     //GETTERS & SETTERS
@@ -59,22 +60,22 @@ public class Factura implements Serializable {
     public void setFormaDePago(String formaDePago) {
         this.total = 0.;
         this.formaDePago = formaDePago;
-        this.calcularTotalconPromociones();
-    }
+        this.promocionesAplicadas.clear();
 
-    public ArrayList<Promocion> getPromocionesAplicadas() {return promocionesAplicadas;}
-
-    //FUNCIONALIDADES
-    public void calcularTotalconPromociones() {
         this.aplicarPromocionesProductos();
         this.aplicarPromocionesTemporales();
     }
 
+    public ArrayList<Promocion> getPromocionesAplicadas() {
+        return promocionesAplicadas;
+    }
+
+    //FUNCIONALIDADES
     private void aplicarPromocionesTemporales() {
         ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
 
         for (PromocionTemporal promo : promoTemp)
-            if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion()) && promo.getFormaDePago().equalsIgnoreCase(this.getFormaDePago()) && promo.isEsAcumulable()) {
+            if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion()) && promo.getFormaDePago().equalsIgnoreCase(this.formaDePago) && promo.isEsAcumulable()) {
                 promocionesAplicadas.add(promo);
                 this.total = this.total * promo.getPorcentajeDescuento() / 100.;
             }
