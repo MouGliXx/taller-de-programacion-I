@@ -26,7 +26,7 @@ public class ControladorFactura implements ActionListener {
             case "Crear" -> {
                 try {
                     String formaDePago = vista.getFormaDePago();
-                    Cerveceria.getInstance().agregarFactura(modelo, formaDePago);
+                    Cerveceria.getInstance().agregarFactura(modelo);
                     Cerveceria.getInstance().eliminarComanda(comanda);
                     this.vista.cerrarVentana();
                 } catch (Exception ex) {

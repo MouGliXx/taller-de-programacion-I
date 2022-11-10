@@ -57,7 +57,9 @@ public class Factura implements Serializable {
     }
 
     public void setFormaDePago(String formaDePago) {
+        this.total = 0.;
         this.formaDePago = formaDePago;
+        this.calcularTotalconPromociones();
     }
 
     public ArrayList<Promocion> getPromocionesAplicadas() {return promocionesAplicadas;}

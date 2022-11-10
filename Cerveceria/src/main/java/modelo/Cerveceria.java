@@ -281,12 +281,9 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si la comanda es null
      * <b>post:</b> La lista de facturas tendra una nueva<br>.
      */
-    public void agregarFactura(Factura factura, String formaPago) throws Exception {
+    public void agregarFactura(Factura factura) throws Exception {
         if (factura == null)
             throw new Exception("ERROR : No se puede crear factura sin comanda");
-
-        factura.setFormaDePago(formaPago);
-        factura.calcularTotalconPromociones();
         this.facturas.add(factura);
         agregaNuevaEstadistica(factura);
     }
