@@ -11,7 +11,6 @@ import vista.ventanas.VentanaLogin;
 import vista.ventanas.VentanaPromocion;
 import java.awt.event.*;
 import java.io.IOException;
-import java.io.Serializable;
 
 public class ControladorAdministrador implements ActionListener, WindowListener {
     private Administrador modelo;
