@@ -153,6 +153,14 @@ public class Cerveceria {
     }
 
     //FUNCIONALIDADES
+
+    /**
+     * Verifica la contrasena del administrador para poder acceder al sistema
+     * <b>pre:</b> El administrador debe existir <br>.
+     * @param password contrasena del administrador
+     * @throws ErrorDeContrasenaException Se lanza excepción si la contrasena es invalida
+     * @return Administrador devuelve el objeto administrador
+     */
     public Administrador login(String password) throws ErrorDeContrasenaException {
         if (password.equalsIgnoreCase(administrador.getPassword())) {
             return this.administrador;
@@ -161,6 +169,15 @@ public class Cerveceria {
         throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
     }
 
+
+    /**
+     * Verifica la contrasena del Operario para poder acceder al sistema
+     * <b>pre:</b> La lista de operarios debe existir <br>.
+     * @param password contrasena del administrador
+     * @throws ErrorDeContrasenaException Se lanza excepción si la contrasena es invalida
+     * @throws ErrorDeUsuarioException Se lanza excepción si el Usuario no esta en estado activo o si el nombre no es valido
+     * @return Operario devuelve una instancia del objeto operario
+     */
     public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
         for (Operario operario: operarios) {
             if (operario.getNombreUsuario().equalsIgnoreCase(username)) {
@@ -195,15 +212,16 @@ public class Cerveceria {
                 return true;
             }
         }
-
         return false;
     }
 
-    //AGREGAR
     /**
+     * crea una nueva mesa y la agrega a la coleccion de mesas
+     * Ademas crea un nuevo elemento de la coleccion de estadisticasMesas
      * <b>pre:</b> La lista de mesas debe existir <br>.
+     * @param cantidadComensales cantidad de sillas que tendra la mesa
      * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
-     * <b>post:</b> Se agregara una mesa a la lista de mesas <br>.
+     * <b>post:</b> Se agregaran nuevos elementos a las colecciones de mesa y estadisticas mesa <br>.
      */
     public void agregarMesa(int cantidadComensales) throws Exception{
         if (this.mesas.size() >= totalMaximoMesas)
@@ -213,6 +231,19 @@ public class Cerveceria {
         this.estadisticasMesas.put(mesa,new EstadisticaMesa());
     }
 
+    /**
+     * El metodo setea los valores de la promocion de productos y la agrega a la coleccion de promociones productos
+     * <b>pre:</b> Promocion producto debe ser distinto de null<br>.
+     * @param promocionProducto promocion de un producto a agregar
+     * @param diasPromocion coleccion de dias en los cuales aplica la promocion
+     * @param activa estado de la promocion
+     * @param producto producto que  tendra promocion
+     * @param aplicaDosPorUno valor booleano que indica si aplica 2 x 1
+     * @param aplicaDtoPorCantidad valor booleano que indica si aplica descuento por cantidad
+     * @param dtoPorCantidad_CantMinima cantidad minima para que aplique el descuento por cantidad
+     * @param dtoPorCantidad_PrecioUnitario precio unitario del producto cuando aplica el descuento por cantidad
+     * <b>post:</b> La coleccion de promociones productos tendra un nuevo elemento<br>.
+     */
     public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
         promocionProducto.setDiasPromocion(diasPromocion);
         promocionProducto.setActiva(activa);
@@ -225,16 +256,19 @@ public class Cerveceria {
         this.promocionesProductos.add(promocionProducto);
     }
 
-    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad){
-        promocionProducto.setDiasPromocion(diasPromocion);
-        promocionProducto.setActiva(activa);
-        promocionProducto.setProducto(producto);
-        promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);
-        promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
 
-        this.promocionesProductos.add(promocionProducto);
-    }
-
+    /**
+     * El metodo setea los valores de la promocion temporal y la agrega a la coleccion de promociones temporales
+     * <b>pre:</b> Promocion temporal debe ser distinto de null<br>.
+     * @param promocionTemporal a agregar
+     * @param diasPromocion coleccion de dias en los cuales aplica la promocion
+     * @param activa estado de la promocion
+     * @param nombre de la promocion
+     * @param formaDePago forma de pago con la cual aplica la promocion
+     * @param porcentajeDescuento porcentaje de descuento de la promocion
+     * @param esAcumulable valor booleano que indica si la promocion es acumulable con otras
+     * <b>post:</b> La coleccion de promociones temporales tendra un nuevo elemento<br>.
+     */
     public void agregarPromocionTemporal(PromocionTemporal promocionTemporal, ArrayList<String> diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
         promocionTemporal.setDiasPromocion(diasPromocion);
         promocionTemporal.setActiva(activa);
@@ -246,6 +280,19 @@ public class Cerveceria {
         this.promocionesTemporales.add(promocionTemporal);
     }
 
+    /**
+     * El metodo valida los datos correspondientes para crear un nuevo Mozo y agregarlo a la coleccion de mozos
+     * Ademas crea un nuevo elemento a la coleccion de estadisticasMozo
+     *
+     * @param nombre nombre del mozo
+     * @param edad edad del mozo
+     * @param hijos cantidad de hijos del mozo
+     * @throws Exception Se lanza excepción si numero de mozos llego al maximo (6)
+     * @throws Exception Se lanza excepción si Nombre es vacio
+     * @throws Exception Se lanza excepción si edad es menor 18
+     * @throws Exception Se lanza excepción si cantidad de hijos es menor a cero
+     * <b>post:</b> Las colecciones de mozos y de estadisticas de Mozos tendran un nuevo elemento <br>.
+     */
     public void agregarMozo(String nombre, int edad, int hijos) throws Exception {
         if (this.mozos.size() >= totalMaximoMozos)
             throw new Exception("ERROR : No se pueden dar de alta mas mozos. LLego al nro maximo");
@@ -261,6 +308,20 @@ public class Cerveceria {
         this.estadisticasMozos.put(mozo, new EstadisticaMozo());
     }
 
+    /**
+     * El metodo valida los datos correspondientes para crear un nuevo Operario y agregarlo a la coleccion de operarios
+     * <b>pre:</b> la coleccion de operarios debe existir<br>.
+     * @param nombre nombre del operario
+     * @param nombreUsuario nombre de usuario del operario
+     * @param contrasena constrasena del operario
+     * @param activo estado del operario ( activo / inactivo )
+     * @throws Exception Se lanza excepción si Nombre es vacio
+     * @throws Exception Se lanza excepción si Nombre de Usuario es menor a 5 caracteres o mayor a 10
+     * @throws Exception Se lanza excepción si contresena es menor a 5 caracteres o mayor a 10
+     * @throws Exception Se lanza excepción si constresena no tiene un digito numerico
+     * @throws Exception Se lanza excepción si constrasena no contiene por lo menos una letra mayuscula
+     * <b>post:</b> La coleccion de operarios tendra un nuevo elemento<br>.
+     */
     public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio.");
@@ -278,18 +339,22 @@ public class Cerveceria {
     }
 
     /**
-     * <b>pre:</b> <br>.
-     * El metodo crea añade una nueva factura a la lista de Facturas
-     * @throws Exception Se lanza excepción si la comanda es null
-     * <b>post:</b> La lista de facturas tendra una nueva<br>.
+     * El metodo añade una nueva factura a la lista de Facturas y llama a el metodo agregaNuevaEstadistica
+     * <b>pre:</b> factura debe ser distinto de null<br>.
+     * @param factura que se agregara a la coleccion de facturas
+     * <b>post:</b> La coleccion de facturas tendra una nueva factura<br>.
      */
-    public void agregarFactura(Factura factura) throws Exception {
-        if (factura == null)
-            throw new Exception("ERROR : No se puede crear factura sin comanda");
+    public void agregarFactura(Factura factura){
         this.facturas.add(factura);
         agregaNuevaEstadistica(factura);
     }
 
+    /**
+     * En base a una factura agrega una nueva estadistica a la mesa correspondiente, y otra al mozo que atendio
+     * <b>pre:</b> factura debe ser distinto de null<br>.
+     * @param factura sobre la cual se calculara una nueva estadista tanto de mozo como de mesa.
+     * <b>post:</b> Se agregaran a las colecciones de estadisticasMozos y estadisticasMesas un nuevo dato<br>.
+     */
     private void agregaNuevaEstadistica(Factura factura){
         Mesa mesa = factura.getMesa();
         Mozo mozo = mesasAsignadas.get(mesa);
@@ -306,6 +371,7 @@ public class Cerveceria {
     /**
      * <b>pre:</b> mesa y pedidos deben ser distintos de null<br>.
      * @param mesa sobre la cual se va a crear la comanda
+     * @param pedidos lista de pedidos a agregar a la comanda
      * @throws Exception Se lanza excepción si la mesa esta en estado Ocupado
      * @throws Exception Se lanza excepción si No hay mesas habilitadas en el Negocio
      * @throws Exception Se lanza excepción si la mesa no tiene mozo asignado
@@ -338,6 +404,21 @@ public class Cerveceria {
         this.comandas.add(comanda);
     }
 
+    /**
+     * El metodo valida los datos, crea un nuevo producto y lo agrega a la coleccion de productos
+     *
+     * <b>pre:</b> la coleccion de productos debe existir<br>.
+     * @param ID numero unico de identificacion del producto
+     * @param nombre nombre del producto
+     * @param precioCosto precio de costo del producto
+     * @param precioVenta precio de venta del producto
+     * @param stockInicial stock del producto
+     * @throws Exception Se lanza excepción si el precio de venta es menor al precio de costo
+     * @throws Exception Se lanza excepción si el precio de costo es menor a cero
+     * @throws Exception Se lanza excepción si el precio de venta es menor a cero
+     * <b>post:</b> Se agregara a la lista de productos un nuevo elemento<br>.
+     */
+
     public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
         if (precioVenta < precioCosto)
             throw new Exception("El precio de venta es menor al de costo");
@@ -350,6 +431,15 @@ public class Cerveceria {
     }
 
     // ELIMINAR
+
+    /**
+     * Elimina un mozo determinado
+     *
+     * <b>pre:</b> la coleccion de mozos debe existir<br>.
+     * <b>pre:</b> mozo debe ser distinto de null<br>.
+     * @param mozoViejo mozo que se desea eliminar
+     * <b>post:</b>La lista de mozos tendra un elemento menos<br>.
+     */
     public void eliminarMozo(Mozo mozoViejo){
         assert mozoViejo != null:"ERROR : El mozo no puede ser null";
         for (int i = 0 ; i < mozos.size() ; i++){
@@ -360,31 +450,66 @@ public class Cerveceria {
         }
     }
 
+    /**
+     * Elimina una mesa determinada
+     *
+     * <b>pre:</b> la coleccion de mesas debe existir<br>.
+     * <b>pre:</b> mesa debe ser distinto de null<br>.
+     * @param mesa mesa que se desea eliminar
+     * <b>post:</b> la lista de mesa tendra un elemento menos<br>.
+     */
     public void eliminarMesa(Mesa mesa){
         assert mesa!=null:"ERROR : La mesa no puede ser null";
         this.mesas.remove(mesa);
     }
 
+    /**
+     * Elimina una promocion temporal determinada
+     *
+     * <b>pre:</b> la coleccion de promociones temporales debe existir<br>.
+     * <b>pre:</b> promocion temporal debe ser distinto de null<br>.
+     * @param promo promocion temporal  que se desea eliminar
+     * <b>post:</b> la lista de promociones temporales tendra un elemento menos<br>.
+     */
     public void eliminarPromocionTemporal(PromocionTemporal promo){
         assert promo!=null:"ERROR : La promocion no puede ser null";
         this.promocionesTemporales.remove(promo);
     }
 
+    /**
+     * Elimina una promocion de producto determinada
+     *
+     * <b>pre:</b> la coleccion de promociones producto debe existir<br>.
+     * <b>pre:</b> promocion producto debe ser distinto de null<br>.
+     * @param promo promocion producto  que se desea eliminar
+     * <b>post:</b> la lista de promociones producto tendra un elemento menos<br>.
+     */
     public void eliminarPromocionProducto(PromocionProducto promo){
         assert promo!=null:"ERROR : La promocion no puede ser null";
         this.promocionesProductos.remove(promo);
     }
 
+    /**
+     * Elimina un operario determinada
+     *
+     * <b>pre:</b> la coleccion de operarios debe existir<br>.
+     * <b>pre:</b> operario debe ser distinto de null<br>.
+     * @param operario operario que se desea eliminar
+     * <b>post:</b> la lista de operarios tendra un elemento menos<br>.
+     */
     public void eliminarOperario (Operario operario){
         assert operario!=null:"ERROR : El operario no puede ser null";
         this.operarios.remove(operario);
     }
 
     /**
+     * Elimina una comanda determinada
+     *
      * <b>pre:</b> comanda deben ser distintos de null<br>.
+     * <b>pre:</b> la coleccion de comandas debe existir<br>.
      * @throws Exception Se lanza excepción si la comanda a cerrar ya esta en estado cerrada.
      * @param comanda Comanda que se cerrara
-     * <b>post:</b> Se cerrará la comanda. La mesa de la comanda queda en estado Libre. Se creará la factura de la comanda a cerrar. Y se removera la comanda de la lista de comandas<br>.
+     * <b>post:</b> Se cerrará la comanda. La mesa de la comanda queda en estado Libre. La lista de comandas tendra un elemento menos<br>.
      */
     public void eliminarComanda(Comanda comanda) throws Exception {
         assert comanda!=null:"ERROR : La comanda no debe ser null";
@@ -397,6 +522,15 @@ public class Cerveceria {
         this.comandas.remove(comanda);
     }
 
+    /**
+     * Elimina un producto determinada
+     *
+     * <b>pre:</b> la coleccion de operarios debe existir<br>.
+     * <b>pre:</b> produto debe ser distinto de null<br>.
+     * @param producto producto que se desea eliminar
+     * @throws Exception Se lanza excepción si el producto que se desea eliminar esta asiciado a un pedido
+     * <b>post:</b> la coleccion de productos tendra un elemento menos<br>.
+     */
     public void eliminarProducto (Producto producto) throws Exception {
         for (Comanda comanda : comandas) {
             ArrayList<Pedido> pedidos = comanda.getPedidos();
@@ -412,6 +546,17 @@ public class Cerveceria {
     }
 
     // MODIFICAR
+
+    /**
+     * Modifica la contrasena del administrador
+     *
+     * <b>pre:</b> el administrador debe existir<br>.
+     * @param contrasena nueva contrasena del administrador
+     * @throws Exception Se lanza excepción si la constrasena tiene menos de 6 o mas de 12 digitos
+     * @throws Exception Se lanza excepción si la constrasena no tiene un digito numerico
+     * @throws Exception Se lanza excepción si la constrasena no tiene un digito en mayuscula
+     * <b>post:</b> el administrador tendra nueva contrasena<br>.
+     */
     public void modificarAdministrador(String contrasena) throws Exception{
         if (contrasena.length() < 6 || contrasena.length() > 12)
             throw new Exception("ERROR : La contraseña debe tener entre 6 y 12 caracteres.");
@@ -423,6 +568,15 @@ public class Cerveceria {
         this.administrador.setPassword(contrasena);
     }
 
+    /**
+     * Modifica cantidad de sillas de una mesa determinada
+     *
+     * <b>pre:</b> la mesa debe ser distinto de null<br>.
+     * @param mesa mesa a cambiar parametros
+     * @param cantidadComensales cantidad de sillas que posee la mesa
+     * @throws Exception Se lanza excepción si la cantidad de comensales es menor a 2
+     * <b>post:</b> la mesa tendra nuevo numero de sillas<br>.
+     */
     public void modificarMesa(Mesa mesa, int cantidadComensales) throws Exception {
         assert mesa!=null:"ERROR : La mesa no puede ser null";
         if (cantidadComensales < 2)
@@ -431,17 +585,47 @@ public class Cerveceria {
         mesa.setCantidadComensales(cantidadComensales);
     }
 
+    /**
+     * El metodo valida los datos correspondientes para modificar los paramentros de un  Mozo determinado     *
+     * @param mozo mozo a modificar
+     * @param nombre nombre del mozo
+     * @param edad edad del mozo
+     * @param hijos cantidad de hijos del mozo
+     * @throws Exception Se lanza excepción si Nombre es vacio
+     * @throws Exception Se lanza excepción si edad es menor 18
+     * @throws Exception Se lanza excepción si cantidad de hijos es menor a cero
+     * <b>post:</b> el mozo tendra nuevos valores en sus atributos <br>.
+     */
     public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
         if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+        if (edad < 18)
+            throw new Exception("ERROR : Es menor de edad");
 
         mozo.setNombreYApellido(nombre);
         mozo.setEdad(edad);
         mozo.setCantHijos(hijos);
     }
 
+    /**
+     * El metodo valida los datos correspondientes para modificar un Operario determinar
+     *
+     * <b>pre:</b> operario debe ser distinto de null<br>.
+     *
+     * @param operario operario a modificar
+     * @param nombre nombre del operario
+     * @param nombreUsuario nombre de usuario del operario
+     * @param contrasena constrasena del operario
+     * @param activo estado del operario ( activo / inactivo )
+     * @throws Exception Se lanza excepción si Nombre es vacio
+     * @throws Exception Se lanza excepción si Nombre de Usuario es menor a 5 caracteres o mayor a 10
+     * @throws Exception Se lanza excepción si contresena es menor a 5 caracteres o mayor a 10
+     * @throws Exception Se lanza excepción si constresena no tiene un digito numerico
+     * @throws Exception Se lanza excepción si constrasena no contiene por lo menos una letra mayuscula
+     * <b>post:</b> el operario cambiara el valor de sus atributos<br>.
+     */
     public void modificarOperario(Operario operario,String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio.");
@@ -460,6 +644,21 @@ public class Cerveceria {
         operario.setActivo(activo);
     }
 
+    /**
+     * El metodo valida los datos para modificar un producto determinado
+     *
+     * <b>pre:</b>el producto debe ser distinto de null<br>.
+     *
+     * @param producto producto que se desea modificar
+     * @param nombre nombre del producto
+     * @param precioCosto precio de costo del producto
+     * @param precioVenta precio de venta del producto
+     * @param stockInicial stock del producto
+     * @throws Exception Se lanza excepción si el precio de venta es menor al precio de costo
+     * @throws Exception Se lanza excepción si el precio de costo es menor a cero
+     * @throws Exception Se lanza excepción si el precio de venta es menor a cero
+     * <b>post:</b> el producto cambiara el valor de sus atributos<br>.
+     */
     public void modificarProducto (Producto producto,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
         if (precioVenta < precioCosto)
             throw new Exception("El precio de venta es menor al de costo");
@@ -474,6 +673,19 @@ public class Cerveceria {
         producto.setStockInicial(stockInicial);
     }
 
+    /**
+     * El metodo valida los datos para modificar una comanda determinada
+     *
+     * <b>pre:</b>la comanda debe ser distinto de null<br>.
+     * <b>pre:</b>la mesa debe ser distinto de null<br>.
+     * <b>pre:</b> los pedidos debe ser distinto de null<br>.
+     *
+     * @param comanda comanda que se desea modificar
+     * @param mesa mesa asiciada a la comanda
+     * @param pedidos lista de pedidos de la comanda
+
+     * <b>post:</b> la comanda cambiara el valor de sus atributos<br>.
+     */
     public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList<Pedido> pedidos) {
         assert mesa != null : "ERROR : La mesa no debe ser null";
         assert comanda != null : "ERROR : La comanda no debe ser null";
@@ -484,13 +696,21 @@ public class Cerveceria {
         mesa.ocupar();
     }
 
+    /**
+     * El metodo verifica que haya dos prodcutos en promocion
+     *
+     * <b>pre:</b>la coleccion depromociones productos  debe ser distinto de null<br>.
+     *
+     * @return si es verdadero que hay dos productos en promocion
+     */
     public boolean hayDosProductosPromocionActiva(){
         return this.promocionesProductos.size() >= 2;
     }
 
     /**
+     * * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya
+     *
      * <b>pre:</b> <br>.
-     * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya
      * mesas y mozos activos para asignar a cada Mesa un mozo
      * @throws Exception Se lanza excepción si no hay mesas habilitadas en el Negocio
      * @throws Exception Se lanza excepción si no hay mozos en estado activo
@@ -528,6 +748,12 @@ public class Cerveceria {
         return activos;
     }
 
+
+    /**
+     * * El metodo finaliza una joranada laboral
+     * @throws Exception Se lanza excepción si hay comandas abiertas
+     * <b>post:</b> Cada mozo pasa a estado null<br>.
+     */
     public void finalizarJornada() throws Exception {
         if (!comandas.isEmpty())
             throw new Exception("Es necesario que cierre todas las comandas abiertas para finalizar la jornada.");
@@ -539,6 +765,12 @@ public class Cerveceria {
         mesasAsignadas.clear();
     }
 
+
+    /**
+     * prepara las estadisticas de mozos para mostrarlas
+     *
+     * @return ArrayList<String> devuelve una lista con la estadisticas de los mozos
+     */
     public ArrayList<String> mostrarEstadisticasMozos() {
         ArrayList<String> respuesta = new ArrayList<>();
 
@@ -560,6 +792,12 @@ public class Cerveceria {
         return respuesta;
     }
 
+
+    /**
+     * prepara las estadisticas de mesas para mostrarlas
+     *
+     * @return ArrayList<String> devuelve una lista con la estadisticas de los mesas
+     */
     public ArrayList<String> mostrarEstadisticasMesas() {
         ArrayList<String> respuesta = new ArrayList<>();
 
