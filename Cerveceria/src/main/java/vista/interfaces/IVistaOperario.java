@@ -1,35 +1,35 @@
 package vista.interfaces;
 
 import modelo.Comanda;
-import modelo.Factura;
-import modelo.ProductoEnPromocion;
-import modelo.PromocionTemporal;
-
-import java.awt.event.WindowListener;
+import modelo.Mesa;
+import modelo.Mozo;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface IVistaOperario extends IVista{
 
+    void setModelos();
+
+    void setItemListener(ItemListener controlador);
+
     void setListSelectionListener();
 
-    void setWindowListener(WindowListener controlador);
-
-    void setNombreLocal();
+    void setNombreLocal(String nombreLocal);
 
     void setNombreCompleto(String nombreCompleto);
 
-    void setModelos();
+    void inicializarMozos();
 
     void inicializarListas();
 
-    void eliminaComandaEnLista();
+    void asignarMesas(HashMap<Mesa, Mozo> mesasAsignadas);
+
+    ArrayList<String> getEstadoMozos();
 
     Comanda getComandaSeleccionada();
 
-    Factura getFacturaSeleccionada();
-
-    ProductoEnPromocion getProductoEnPromocionSeleccionado();
-
-    PromocionTemporal getPromocionTemporalSeleccionada();
-
     void cambiarPagina(int pagina);
+
+    void finalizarJornada();
 }

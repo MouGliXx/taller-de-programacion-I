@@ -7,11 +7,15 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+/**
+ * Clase que representa la interfaz del Administrador.<br>
+ * */
 public class VentanaAdministrador extends JFrame implements IVistaAdministrador, ActionListener, KeyListener, ListSelectionListener {
     private String tipoEntidadSeleccionada = "Operarios";
-    private String promocionSeleccionada = "Productos en promocion";
+    private String promocionSeleccionada = "Productos en Promocion";
     private JPanel panelPrincipal;
     private JPanel panelIzquierdo;
     private JButton estadisticasButton;
@@ -42,12 +46,11 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JButton activarButton;
     private JPanel promocionesPanel;
     private JLabel promocionesLabel;
-    private JList<ProductoEnPromocion> listaProductosEnPromocion;
+    private JList<PromocionProducto> listaProductosEnPromocion;
     private JPanel estadisticasPanel;
     private JCheckBox mesasDelLocalCheckBox;
     private JCheckBox productosEnVentaCheckBox;
     private JCheckBox mozosCheckBox;
-    private JButton generarEstadisticasButton;
     private JLabel estadisticasLabel;
     private JCheckBox productosEnPromocionCheckBox;
     private JCheckBox promocionesTemporalesCheckBox;
@@ -66,14 +69,30 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     private JPanel tiposPromocionesPane;
     private JScrollPane promocionesTemporalesScrollPane;
     private JList<PromocionTemporal> listaPromocionesTemporales;
+    private JLabel estadisticasDeLosMozosLabel;
+    private JScrollPane estadisticasDeLosMozosScrollPane;
+    private JLabel estadisticasDeLasMesasLabel;
+    private JScrollPane estadisticasDeLasMesasScrollpane;
+    private JList<String> listaEstadisticasMozos;
+    private JList<String> listasEstadisticasMesas;
     //MODELOS PARA LISTAS
     DefaultListModel<Operario> modeloOperario = new DefaultListModel<>();
     DefaultListModel<Mozo> modeloMozo = new DefaultListModel<>();
     DefaultListModel<Producto> modeloProducto = new DefaultListModel<>();
     DefaultListModel<Mesa> modeloMesa = new DefaultListModel<>();
-    DefaultListModel<ProductoEnPromocion> modeloProductoEnPromocion = new DefaultListModel<>();
+    DefaultListModel<PromocionProducto> modeloProductoEnPromocion = new DefaultListModel<>();
     DefaultListModel<PromocionTemporal> modeloPromocionTemporal = new DefaultListModel<>();
+    DefaultListModel<String> modeloEstadisticasMozos = new DefaultListModel<>();
+    DefaultListModel<String> modeloEstadisticasMesas = new DefaultListModel<>();
 
+    /**
+     * Agrega los ActionListener a los diferentes componentes de la ventana, para notificar ActionEvent que ocurran dentro de la misma.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un ActionListener a los componentes que lo necesiten.<br>
+     *
+     * @param controlador Es la clase que recibe los ActionEvent de la ventana.
+     */
     @Override
     public void setActionListener(ActionListener controlador) {
         //BUTTONS
@@ -98,7 +117,6 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.activarButton.addActionListener(this);
         this.desactivarButton.addActionListener(controlador);
         this.desactivarButton.addActionListener(this);
-        this.generarEstadisticasButton.addActionListener(controlador);
         //CHECKBOXS
         this.operariosCheckBox.addActionListener(this);
         this.mozosCheckBox.addActionListener(this);
@@ -108,12 +126,24 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.promocionesTemporalesCheckBox.addActionListener(this);
     }
 
+    /**
+     * Agrega los KeyListener especificados a los diferentes JTextField de la ventana, para notificar KeyEvent de los JTextField.<br>
+     *
+     * <b>pre</b> Deben existir componentes JTextField dentro de la ventana.<br>
+     * <b>post</b> Se ha asignado un KeyListener a los TextField que lo necesiten.<br>
+     */
     @Override
     public void setKeyListener() {
         this.cerveceriaTextField.addKeyListener(this);
         this.remuneracionTextField.addKeyListener(this);
     }
 
+    /**
+     * Agrega los ListSelectionListener especificados a las diferentes JList de la ventana, para notificar cada vez que ocurra un cambio en la selección.<br>
+     *
+     * <b>pre</b> Deben existir componentes JList dentro de la ventana.<br>
+     * <b>post</b> Se han agregado los ListSelectionListener a los JList especificados.<br>
+     */
     @Override
     public void setListSelectionListener() {
         this.listaOperarios.addListSelectionListener(this);
@@ -124,11 +154,23 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaPromocionesTemporales.addListSelectionListener(this);
     }
 
+    /**
+     * Agrega un WindowListener a la ventana, para notificar WindowEvent que ocurran desde esta ventana.<br>
+     *
+     * <b>pre</b> controlador distinto de null.<br>
+     * <b>post</b> Se ha asignado un WindowListener a la ventana<br>
+     * @param controlador Es la clase que recibe los WindowEvent de la ventana.
+     */
     @Override
     public void setWindowListener(WindowListener controlador) {
         this.addWindowListener(controlador);
     }
 
+    /**
+     * Establece las caracteristicas principales que defininen a la ventana.<br>
+     *
+     * <b>post</b> Se ejecuta la ventana.<br>
+     */
     @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
@@ -142,18 +184,36 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         setModelos();
     }
 
+    /**
+     * Oculta y cierra la ventana.<br>
+     *
+     * <b>post</b> Se detiene la ejecucion de la ventana.<br>
+     */
     @Override
     public void cerrarVentana() {
         setVisible(false); //Oculto la ventana
         dispose(); //Cierro la ventana
     }
 
+    /**
+     * Lanza una pequena ventana con un mensaje y boton de confirmacion.<br>
+     *
+     * <b>pre</b> mensaje distinto de null.<br>
+     * <b>post</b> Se abre un JFrame con un mensaje.<br>
+     * @param mensaje Es el mensaje que se desea mostrar en la ventana.<br>
+     */
     @Override
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, mensaje);
     }
 
+    /**
+     * Establece los modelos a los diferentes componentes que lo necesiten.<br>
+     *
+     * <b>pre</b> Los modelos deben estar instanciados.<br>
+     * <b>post</b> Los componentes quedan con el modelo acorde establecido.<br>
+     */
     @Override
     public void setModelos() {
         this.listaOperarios.setModel(modeloOperario);
@@ -162,75 +222,227 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.listaMesas.setModel(modeloMesa);
         this.listaProductosEnPromocion.setModel(modeloProductoEnPromocion);
         this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
+        this.listaEstadisticasMozos.setModel(modeloEstadisticasMozos);
+        this.listasEstadisticasMesas.setModel(modeloEstadisticasMesas);
     }
 
+    /**
+     * Lanza una pequena ventana con un campo para completar, boton de confirmacion y otro para cancelar.<br>
+     *
+     * @return Nueva contrasena del Administrador.<br>
+     */
     @Override
-    public void actualizaLista(String nombreLista) {
+    public String cambioDeContrasenaObligatorio() {
+        return JOptionPane.showInputDialog("Es necesario que cambie la contrasena predeterminada por una nueva: ");
+    }
+
+    /**
+     * Elimina de los modelos el elemento de la lista seleccionado, discriminando por cada lista segun su nombre.<br>
+     *
+     * <b>pre</b> nombreLista distinto de null.<br>
+     * <b>post</b> Se elimina el elemento seleccionado de la lista.<br>
+     * @param nombreLista Representa el nombre de la lista a la que se le quiere remover el elemento.<br>
+     */
+    @Override
+    public void actualizarLista(String nombreLista) {
         switch (nombreLista) {
             case "Operarios" -> modeloOperario.remove(listaOperarios.getSelectedIndex());
             case "Mozos" -> modeloMozo.remove(listaMozos.getSelectedIndex());
-            case "Productos en venta" -> modeloProducto.remove(listaProductos.getSelectedIndex());
-            case "Mesas del local" -> modeloMesa.remove(listaMesas.getSelectedIndex());
-            case "Productos en promocion" -> modeloProductoEnPromocion.remove(listaProductosEnPromocion.getSelectedIndex());
-            case "Promociones temporales" -> modeloPromocionTemporal.remove(listaPromocionesTemporales.getSelectedIndex());
+            case "Productos en Venta" -> modeloProducto.remove(listaProductos.getSelectedIndex());
+            case "Mesas del Local" -> modeloMesa.remove(listaMesas.getSelectedIndex());
+            case "Productos en Promocion" -> modeloProductoEnPromocion.remove(listaProductosEnPromocion.getSelectedIndex());
+            case "Promociones Temporales" -> modeloPromocionTemporal.remove(listaPromocionesTemporales.getSelectedIndex());
         }
     }
 
+    /**
+     * Inicializa los distintos DefaultListModel de entidades con los conjuntos de datos del modelo, pora su visualizacion en las JList.<br>
+     *
+     * <b>pre</b> Los DefaultListModel ya han sido seteados a sus JList.<br>
+     * <b>post</b> Se pueden visualizar las distintas entidades en sus respectivas listas.<br>
+     */
     @Override
-    public void inicializarListas() {
+    public void inicializarListasEntidades() {
+        ArrayList<Operario> operarios = Cerveceria.getInstance().getOperarios();
+        ArrayList<Mozo> mozos = Cerveceria.getInstance().getMozos();
+        HashMap<Integer,Producto> productos = Cerveceria.getInstance().getProductos();
+        ArrayList<Mesa> mesas = Cerveceria.getInstance().getMesas();
 
+
+        modeloOperario.removeAllElements();
+        operarios.forEach((operario) -> this.modeloOperario.add(modeloOperario.size(), operario));
+
+        modeloMozo.removeAllElements();
+        mozos.forEach((mozo) -> this.modeloMozo.add(modeloMozo.size(), mozo));
+
+        modeloProducto.removeAllElements();
+        productos.forEach((id, producto) -> this.modeloProducto.add(modeloProducto.size(), producto));
+
+        modeloMesa.removeAllElements();
+        mesas.forEach((mesa) -> this.modeloMesa.add(modeloMesa.size(), mesa));
    }
 
+    /**
+     * Inicializa los distintos DefaultListModel de promociones con los conjuntos de datos del modelo, pora su visualizacion en las JList.<br>
+     *
+     * <b>pre</b> Los DefaultListModel ya han sido seteados a sus JList.<br>
+     * <b>post</b> Se pueden visualizar las distintas promociones en sus respectivas listas.<br>
+     */
+    @Override
+    public void inicializarListasPromociones() {
+        ArrayList<PromocionProducto> promocionesProductos = Cerveceria.getInstance().getPromocionesProductos();
+        ArrayList<PromocionTemporal> promocionesTemporales = Cerveceria.getInstance().getPromocionesTemporales();
+
+        modeloProductoEnPromocion.removeAllElements();
+        promocionesProductos.forEach((promocionProducto) -> this.modeloProductoEnPromocion.add(modeloProductoEnPromocion.size(), promocionProducto));
+
+        modeloPromocionTemporal.removeAllElements();
+        promocionesTemporales.forEach((promocionTemporal) -> this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal));
+    }
+
+    @Override
+    public void inicializarListasEstadisticas() {
+        ArrayList<String> estadisticaMozos = Cerveceria.getInstance().mostrarEstadisticasMozos();
+        ArrayList<String> estadisticaMesas = Cerveceria.getInstance().mostrarEstadisticasMesas();
+
+        modeloEstadisticasMozos.removeAllElements();
+        estadisticaMozos.forEach((estadisticas) -> modeloEstadisticasMozos.add(modeloEstadisticasMozos.size(), estadisticas));
+
+        modeloEstadisticasMesas.removeAllElements();
+        estadisticaMesas.forEach((estadisticas) -> modeloEstadisticasMesas.add(modeloEstadisticasMesas.size(), estadisticas));
+    }
+
+    /**
+     * Devuelve el nombre del local de la clase Cerveceria.<br>
+     *
+     * @return Nombre del local.<br>
+     */
     @Override
     public String getNombreLocal() {
         return cerveceriaTextField.getText();
     }
 
+    /**
+     * Establece el nombre del local de la clase Cerveceria.<br>
+     *
+     * <b>pre</b> nombreLocal disitinto de null.<br>
+     * <b>post</b> El nombre del local queda seteado en un JLabel de la vcentana.<br>
+     *
+     * @param nombreLocal Es el nombre de la cerveceria.<br>
+     */
+    @Override
+    public void setNombreLocal(String nombreLocal) {
+        this.cerveceriaTextField.setText(nombreLocal);
+    }
+
+    /**
+     * Devuelve la remuneracion basica de la clase Cerveceria.<br>
+     *
+     * @return Remuneracion basica.<br>
+     */
     @Override
     public Double getRemuneracion() {
         return Double.parseDouble(remuneracionTextField.getText());
     }
 
+    /**
+     * Establece la remuneracion basica de la clase Cerveceria.<br>
+     *
+     * @param remuneracion Es la remuneracion basica de la cerveceria.<br>
+     */
+    @Override
+    public void setRemuneracion(double remuneracion) {
+        this.remuneracionTextField.setText(String.valueOf(remuneracion));
+    }
+
+    /**
+     * Devuelve el tipo de entidad seleccionada en el panel de Entidades.<br>
+     *
+     * @return Tipo de entidad seleccionada.<br>
+     */
     @Override
     public String getTipoEntidadSeleccionada() {
         return tipoEntidadSeleccionada;
     }
 
+    /**
+     * Deveulve el Operario seleccionado en la JList de Operarios.<br>
+     *
+     * @return Operario seleccionado.<br>
+     */
     @Override
     public Operario getOperarioSeleccionado() {
         return this.listaOperarios.getSelectedValue();
     }
 
+    /**
+     * Deveulve el mozo seleccionado en la JList de Mozos.<br>
+     *
+     * @return mozo seleccionado.<br>
+     */
     @Override
     public Mozo getMozoSeleccionado() {
         return this.listaMozos.getSelectedValue();
     }
 
+    /**
+     * Deveulve el Producto seleccionado en la JList de Productos.<br>
+     *
+     * @return Producto seleccionado.<br>
+     */
     @Override
     public Producto getProductoSeleccionado() {
         return this.listaProductos.getSelectedValue();
     }
 
+    /**
+     * Deveulve la Mesa seleccionada en la JList de Mesas.<br>
+     *
+     * @return Mesa seleccionada.<br>
+     */
     @Override
-    public Mesa getMesaSeleccionado() {
+    public Mesa getMesaSeleccionada() {
         return this.listaMesas.getSelectedValue();
     }
 
+    /**
+     * Devuelve el tipo de promocion seleccionada en el panel de Promociones.<br>
+     *
+     * @return Tipo de promocion seleccionada.<br>
+     */
     @Override
     public String getTipoPromocionSeleccionada() {
         return promocionSeleccionada;
     }
 
+    /**
+     * Deveulve la PromocionProducto seleccionada en la JList de ProductosEnPromocion.<br>
+     *
+     * @return PromocionProducto seleccionada.<br>
+     */
     @Override
-    public ProductoEnPromocion getProductoEnPromocionSeleccionado() {
+    public PromocionProducto getProductoEnPromocionSeleccionado() {
         return this.listaProductosEnPromocion.getSelectedValue();
     }
 
+    /**
+     * Deveulve la PromocionTemporal seleccionada en la JList de PromocionesTemporales.<br>
+     *
+     * @return PromocionTemporal seleccionada.<br>
+     */
     @Override
     public PromocionTemporal getPromocionTemporalSeleccionada() {
         return this.listaPromocionesTemporales.getSelectedValue();
     }
 
+    /**
+     * Cambia la pagina del JTabbedPane central segun el parametro recibido.<br>
+     *
+     * <b>pre</b> pagina distinto de null y en el rango entre 0 y 3.<br>
+     * <b>post</b> Se cambia la pagina a la establecida en el parametro.<br>
+     *
+     * @param pagina Numero de pagina al que se quiere cambiar.<br>
+     */
     @Override
     public void cambiarPagina(int pagina) {
         panelCentral.setSelectedIndex(pagina);
@@ -279,21 +491,24 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                     this.entidadesTabbedPane.setSelectedIndex(3);
                 }
             }
-            case "Productos en promocion", "Promociones temporales" -> {
+            case "Productos en Promocion", "Promociones Temporales" -> {
                 this.nuevaPromocionButton.setEnabled(true);
                 this.eliminarPromocionButton.setEnabled(false);
                 this.activarButton.setVisible(false);
                 this.desactivarButton.setVisible(false);
 
                 if (this.productosEnPromocionCheckBox.isSelected()) {
-                    this.promocionSeleccionada = "Productos en promocion";
+                    this.promocionSeleccionada = "Productos en Promocion";
                     this.promocionesTabbedPane.setSelectedIndex(0);
+
                 }
 
                 if (this.promocionesTemporalesCheckBox.isSelected()) {
-                    this.promocionSeleccionada = "Promociones temporales";
+                    this.promocionSeleccionada = "Promociones Temporales";
                     this.promocionesTabbedPane.setSelectedIndex(1);
                 }
+
+                inicializarListasPromociones();
             }
             case "Activar Promocion" -> {
                 this.activarButton.setVisible(false);
@@ -311,17 +526,8 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         String nombreLocal = Cerveceria.getInstance().getNombreDelLocal();
         String remuneracionBasica = String.valueOf(Cerveceria.getInstance().getRemuneracionBasica());
 
-        if (cerveceriaTextField.getText().equals(nombreLocal)) {
-            editarTituloButton.setEnabled(false);
-        } else {
-            editarTituloButton.setEnabled(true);
-        }
-
-        if (remuneracionTextField.getText().equals(remuneracionBasica)) {
-            editarRemuneracionButton.setEnabled(false);
-        } else {
-            editarRemuneracionButton.setEnabled(true);
-        }
+        editarTituloButton.setEnabled(!cerveceriaTextField.getText().equals(nombreLocal));
+        editarRemuneracionButton.setEnabled(!remuneracionTextField.getText().equals(remuneracionBasica));
     }
 
     @Override
@@ -329,6 +535,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         //ENTIDADES
         this.modificarButton.setEnabled(false);
         this.eliminarButton.setEnabled(false);
+
         if (listaOperarios.getSelectedValue() != null || listaMozos.getSelectedValue() != null || listaProductos.getSelectedValue() != null || listaMesas.getSelectedValue() != null) {
             this.modificarButton.setEnabled(true);
             this.eliminarButton.setEnabled(true);
@@ -338,9 +545,7 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.eliminarPromocionButton.setEnabled(false);
         this.activarButton.setVisible(false);
         this.desactivarButton.setVisible(false);
-        if (listaProductosEnPromocion.getSelectedValue() != null || listaPromocionesTemporales.getSelectedValue() != null) {
 
-        }
         if (listaProductosEnPromocion.getSelectedValue() != null) {
             this.eliminarPromocionButton.setEnabled(true);
 
@@ -360,8 +565,6 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
                 this.activarButton.setVisible(true);
             }
         }
-
-
     }
 
     //METODOS NO USADOS
