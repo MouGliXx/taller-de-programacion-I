@@ -325,6 +325,9 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
     /**
      * Establece el nombre del local de la clase Cerveceria.<br>
      *
+     * <b>pre</b> nombreLocal disitinto de null.<br>
+     * <b>post</b> El nombre del local queda seteado en un JLabel de la vcentana.<br>
+     *
      * @param nombreLocal Es el nombre de la cerveceria.<br>
      */
     @Override

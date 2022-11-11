@@ -15,7 +15,7 @@ public interface IVistaOperario extends IVista{
 
     void setListSelectionListener();
 
-    void setNombreLocal();
+    void setNombreLocal(String nombreLocal);
 
     void setNombreCompleto(String nombreCompleto);
 

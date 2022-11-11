@@ -75,9 +75,9 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
     private JButton finalizarJornadaButton;
     private JLabel fechaHoraLabel2;
     //ARRAYLIST DE COMPONENTES PARA MOZOSPANEL
-    ArrayList<JLabel> arrayLabels0 = new ArrayList<>(6);
-    ArrayList<JComboBox<String>> arrayComboBox = new ArrayList<>(6);
-    ArrayList<JLabel> arrayLabels1 = new ArrayList<>(6);
+    ArrayList<JLabel> arrayLabels0 = new ArrayList<>(Cerveceria.totalMaximoMozos);
+    ArrayList<JComboBox<String>> arrayComboBox = new ArrayList<>(Cerveceria.totalMaximoMozos);
+    ArrayList<JLabel> arrayLabels1 = new ArrayList<>(Cerveceria.totalMaximoMozos);
     //MODELOS PARA LISTA
     DefaultListModel<Comanda> modeloComanda = new DefaultListModel<>();
     DefaultListModel<Factura> modeloFactura = new DefaultListModel<>();
@@ -163,7 +163,6 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         setResizable(false); //No redimensionable
         setLocationRelativeTo(null);
 
-        setNombreLocal();
         setModelos();
         inicializaArrays();
         inicializarMozos();
@@ -208,19 +207,35 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         this.listaPromocionesTemporales.setModel(modeloPromocionTemporal);
     }
 
+    /**
+     * Establece el nombre del local de la clase Cerveceria.<br>
+     *
+     * <b>pre</b> nombreLocal disitinto de null.<br>
+     * <b>post</b> El nombre del local queda seteado en un JLabel de la vcentana.<br>
+     *
+     * @param nombreLocal Es el nombre de la cerveceria.<br>
+     */
     @Override
-    public void setNombreLocal() {
-        String nombreLocal = Cerveceria.getInstance().getNombreDelLocal();
-        if (!nombreLocal.isEmpty()) {
-            this.cerveceriaLabel.setText(nombreLocal);
-        }
+    public void setNombreLocal(String nombreLocal) {
+        this.cerveceriaLabel.setText(nombreLocal);
     }
 
+    /**
+     * Establece el nombre completo del Operario en la ventana.<br>
+     *
+     * <b>pre</b> nombreCompleto disitinto de null.<br>
+     * <b>post</b> El nombre del Operario queda seteado en un JLabel de la vcentana.<br>
+     *
+     * @param nombreCompleto Es el nombre completo del operario que ha iniciado sesion en el sistema.<br>
+     */
     @Override
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreApellidoLabel.setText(nombreCompleto);
     }
 
+    /**
+     * Inicializa 3 arrays con los elementos de la pestana de mozos.<br>
+     */
     public void inicializaArrays() {
         arrayLabels0.add(NPLabel1); arrayLabels0.add(NPLabel2); arrayLabels0.add(NPLabel3);
         arrayLabels0.add(NPLabel4); arrayLabels0.add(NPLabel5); arrayLabels0.add(NPLabel6);
@@ -232,6 +247,9 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         arrayLabels1.add(MA4); arrayLabels1.add(MA5); arrayLabels1.add(MA6);
     }
 
+    /**
+     * Inicializa la pestana de mozos con los datos de los mozos almacenados en el sistema.<br>
+     */
     @Override
     public void inicializarMozos() {
         ArrayList<Mozo> mozos = Cerveceria.getInstance().getMozos();
@@ -279,6 +297,14 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         promocionesTemporales.forEach((promocionTemporal) -> this.modeloPromocionTemporal.add(modeloPromocionTemporal.size(), promocionTemporal));
     }
 
+    /**
+     * Muestra las mesas que se le han sido asignadas a cada mozo activo.<br>
+     *
+     * <b>pre</b> mesasAsignadas distinto de null.<br>
+     * <b>post</b> Se muestra en la ventana las mesas que han sido asignadas a cada mozo<br>
+     *
+     * @param mesasAsignadas Es el conjunto de mesas con sus respectivos mozos asignados de la jornada.<br>
+     */
     @Override
     public void asignarMesas(HashMap<Mesa,Mozo> mesasAsignadas) {
         this.asignarMesasButton.setEnabled(false);
@@ -303,6 +329,14 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         });
     }
 
+    /**
+     * Devuelve el conjunto de estados asignados de cada mozo del sistema.<br>
+     *
+     * <b>pre</b> ArrayList de elementos de la pestana mozos inicializado.<br>
+     * <b>post</b> Se procede a asignar los estados seleccionados a los distintos mozos.<br>
+     *
+     * @return ArrayList con los respectivos estados de los mozos.<br>
+     */
     @Override
     public ArrayList<String> getEstadoMozos() {
         ArrayList<String> estadoMozos = new ArrayList<>();
@@ -318,6 +352,11 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         return estadoMozos;
     }
 
+    /**
+     * Devuelve la comanda seleccionada en el panel de Comandas.<br>
+     *
+     * @return Clase comanda seleccionada.<br>
+     */
     @Override
     public Comanda getComandaSeleccionada() {
         return this.listaComandas.getSelectedValue();
@@ -350,6 +389,9 @@ public class VentanaOperario extends JFrame implements IVistaOperario, ActionLis
         }
     }
 
+    /**
+     * Reestablece las caracteristicas de los componentes por defecto, para preparar la ventana para una nueva jornada.<br>
+     */
     @Override
     public void finalizarJornada() {
         this.iniciarJornadaButton.setVisible(true);

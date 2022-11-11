@@ -25,6 +25,7 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
         this.vista.setItemListener(this);
         this.vista.setListSelectionListener();
         this.vista.setWindowListener(this);
+        this.vista.setNombreLocal(Cerveceria.getInstance().getNombreDelLocal());
         this.vista.setNombreCompleto(operario.getNombreCompleto());
     }
 
