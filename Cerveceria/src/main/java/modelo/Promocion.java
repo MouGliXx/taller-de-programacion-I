@@ -43,7 +43,4 @@ public abstract class Promocion implements Serializable {
     public void setActiva(boolean activa) {
         this.activa = activa;
     }
-
-    //FUNCIONALIDADES
-
 }

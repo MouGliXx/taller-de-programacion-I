@@ -244,7 +244,7 @@ public class Cerveceria {
      * @param dtoPorCantidad_PrecioUnitario precio unitario del producto cuando aplica el descuento por cantidad
      * <b>post:</b> La coleccion de promociones productos tendra un nuevo elemento<br>.
      */
-    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario){
+    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario) {
         promocionProducto.setDiasPromocion(diasPromocion);
         promocionProducto.setActiva(activa);
         promocionProducto.setProducto(producto);
@@ -256,6 +256,15 @@ public class Cerveceria {
         this.promocionesProductos.add(promocionProducto);
     }
 
+    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad) {
+        promocionProducto.setDiasPromocion(diasPromocion);
+        promocionProducto.setActiva(activa);
+        promocionProducto.setProducto(producto);
+        promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);
+        promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);
+
+        this.promocionesProductos.add(promocionProducto);
+    }
 
     /**
      * El metodo setea los valores de la promocion temporal y la agrega a la coleccion de promociones temporales

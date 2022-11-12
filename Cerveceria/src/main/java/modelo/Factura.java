@@ -71,7 +71,7 @@ public class Factura implements Serializable {
     }
 
     //FUNCIONALIDADES
-    private void aplicarPromocionesTemporales() {
+    public void aplicarPromocionesTemporales() {
         ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
 
         for (PromocionTemporal promo : promoTemp)
@@ -81,7 +81,7 @@ public class Factura implements Serializable {
             }
     }
 
-    private void aplicarPromocionesProductos (){
+    public void aplicarPromocionesProductos (){
         ArrayList<PromocionProducto> promoProd = Cerveceria.getInstance().getPromocionesProductos();
         boolean respuesta;
         PromocionProducto promo;
@@ -116,7 +116,7 @@ public class Factura implements Serializable {
         }
     }
 
-    private boolean coincideDiaSemana(ArrayList<String> dias){
+    public boolean coincideDiaSemana(ArrayList<String> dias){
         int dia = new Date().getDay();
         String nombreDia = null;
         int pos = 0;
