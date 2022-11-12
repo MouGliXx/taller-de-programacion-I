@@ -193,10 +193,9 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="false"/>
+          <enabled value="true"/>
           <focusable value="false"/>
           <font name="Inter SemiBold" size="12"/>
-          <foreground color="-16777216"/>
           <inheritsPopupMenu value="false"/>
           <maximumSize width="960" height="720"/>
           <minimumSize width="960" height="720"/>
@@ -210,7 +209,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="4505" binding="inicioPanel" layout-manager="GridLayoutManager" row-count="10" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="4505" binding="inicioPanel" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Inicio"/>
@@ -234,7 +233,7 @@
               </component>
               <component id="dfa12" class="javax.swing.JButton" binding="cerrarSesionButton" default-binding="true">
                 <constraints>
-                  <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="400" height="80"/>
                     <preferred-size width="400" height="80"/>
                     <maximum-size width="400" height="80"/>
@@ -262,7 +261,7 @@
                   <text value="Cerveceria"/>
                 </properties>
               </component>
-              <component id="4b3bb" class="javax.swing.JLabel" binding="nombreApellidoLabel">
+              <component id="4b3bb" class="javax.swing.JLabel" binding="NombreApellidoLabel">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -286,7 +285,7 @@
               </vspacer>
               <vspacer id="681bc">
                 <constraints>
-                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
               <vspacer id="5f1e3">
@@ -294,7 +293,7 @@
                   <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
-              <component id="9ff50" class="javax.swing.JButton" binding="iniciarJornadaButton">
+              <component id="9ff50" class="javax.swing.JButton" binding="IniciarJornadaButton">
                 <constraints>
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <minimum-size width="280" height="100"/>
@@ -320,33 +319,6 @@
                   <text value="INICIAR JORNADA"/>
                 </properties>
               </component>
-              <component id="80628" class="javax.swing.JButton" binding="finalizarJornadaButton">
-                <constraints>
-                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="280" height="100"/>
-                    <preferred-size width="280" height="100"/>
-                    <maximum-size width="280" height="100"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <actionCommand value="Finalizar Jornada"/>
-                  <background color="-8057330"/>
-                  <borderPainted value="true"/>
-                  <contentAreaFilled value="true"/>
-                  <defaultCapable value="true"/>
-                  <doubleBuffered value="false"/>
-                  <enabled value="true"/>
-                  <focusPainted value="true"/>
-                  <focusable value="false"/>
-                  <font name="Inter SemiBold" size="20"/>
-                  <foreground color="-983056"/>
-                  <hideActionText value="false"/>
-                  <horizontalTextPosition value="0"/>
-                  <selected value="false"/>
-                  <text value="FINALIZAR JORNADA"/>
-                  <visible value="false"/>
-                </properties>
-              </component>
             </children>
           </grid>
           <grid id="e9bc5" binding="mozosPanel" layout-manager="GridLayoutManager" row-count="21" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -357,7 +329,6 @@
             <properties>
               <background color="-1"/>
               <focusable value="false"/>
-              <opaque value="true"/>
             </properties>
             <border type="empty">
               <size top="50" left="50" bottom="50" right="50"/>
@@ -402,14 +373,11 @@
                   <focusable value="false"/>
                   <font name="Inter" size="20" style="1"/>
                   <model>
+                    <item value=""/>
                     <item value="Activo"/>
                     <item value="Ausente"/>
                     <item value="Franco"/>
                   </model>
-                  <opaque value="true"/>
-                  <popupVisible value="false"/>
-                  <requestFocusEnabled value="true"/>
-                  <selectedIndex value="-1"/>
                 </properties>
               </component>
               <component id="8cf6a" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
@@ -425,11 +393,11 @@
                   <focusable value="false"/>
                   <font name="Inter" size="20" style="1"/>
                   <model>
+                    <item value=""/>
                     <item value="Activo"/>
                     <item value="Ausente"/>
                     <item value="Franco"/>
                   </model>
-                  <selectedIndex value="-1"/>
                 </properties>
               </component>
               <component id="4d39d" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
@@ -445,11 +413,11 @@
                   <focusable value="false"/>
                   <font name="Inter" size="20" style="1"/>
                   <model>
+                    <item value=""/>
                     <item value="Activo"/>
                     <item value="Ausente"/>
                     <item value="Franco"/>
                   </model>
-                  <selectedIndex value="-1"/>
                 </properties>
               </component>
               <component id="516e5" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
@@ -465,11 +433,11 @@
                   <focusable value="false"/>
                   <font name="Inter" size="20" style="1"/>
                   <model>
+                    <item value=""/>
                     <item value="Activo"/>
                     <item value="Ausente"/>
                     <item value="Franco"/>
                   </model>
-                  <selectedIndex value="-1"/>
                 </properties>
               </component>
               <component id="111c1" class="javax.swing.JComboBox" binding="comboBox5" default-binding="true">
@@ -485,11 +453,11 @@
                   <focusable value="false"/>
                   <font name="Inter" size="20" style="1"/>
                   <model>
+                    <item value=""/>
                     <item value="Activo"/>
                     <item value="Ausente"/>
                     <item value="Franco"/>
                   </model>
-                  <selectedIndex value="-1"/>
                 </properties>
               </component>
               <component id="77a29" class="javax.swing.JLabel" binding="nombreYApellidoLabel">
@@ -589,11 +557,11 @@
                   <background color="-2500135"/>
                   <font name="Inter" size="20" style="1"/>
                   <model>
+                    <item value=""/>
                     <item value="Activo"/>
                     <item value="Ausente"/>
                     <item value="Franco"/>
                   </model>
-                  <selectedIndex value="-1"/>
                 </properties>
               </component>
               <component id="c2fd5" class="javax.swing.JLabel" binding="mesasAsignadasLabel">
@@ -618,7 +586,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="-"/>
+                  <text value="X - X"/>
                 </properties>
               </component>
               <component id="c984f" class="javax.swing.JLabel" binding="MA2">
@@ -630,7 +598,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="-"/>
+                  <text value="X - X"/>
                 </properties>
               </component>
               <component id="ee065" class="javax.swing.JLabel" binding="MA3">
@@ -642,7 +610,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="-"/>
+                  <text value="X - X"/>
                 </properties>
               </component>
               <component id="5aba4" class="javax.swing.JLabel" binding="MA4">
@@ -654,7 +622,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="-"/>
+                  <text value="X - X"/>
                 </properties>
               </component>
               <component id="9807f" class="javax.swing.JLabel" binding="MA5">
@@ -666,7 +634,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="-"/>
+                  <text value="X - X"/>
                 </properties>
               </component>
               <component id="51ac6" class="javax.swing.JLabel" binding="MA6">
@@ -678,7 +646,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text value="-"/>
+                  <text value="X - X"/>
                 </properties>
               </component>
               <component id="b909b" class="javax.swing.JButton" binding="asignarMesasButton" default-binding="true">
@@ -692,7 +660,6 @@
                 <properties>
                   <actionCommand value="Asignar Mesas"/>
                   <background color="-679164"/>
-                  <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>
@@ -835,7 +802,6 @@
                 <properties>
                   <actionCommand value="Nueva Comanda"/>
                   <background color="-679164"/>
-                  <enabled value="false"/>
                   <focusable value="false"/>
                   <font name="Inter" size="32" style="1"/>
                   <foreground color="-1"/>

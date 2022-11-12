@@ -1,27 +1,25 @@
 package modelo;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Factura implements Serializable {
+public class Factura {
     private Date fecha;
     private Mesa mesa;
     private ArrayList<Pedido> pedidos;
     private double total;
     private String formaDePago;
-    private ArrayList<Promocion> promocionesAplicadas = new ArrayList<>();
+    private ArrayList<ProductoEnPromocion> promocionesProductos;
+    private ArrayList<PromocionTemporal> promocionesTemporales;
 
     //CONSTRUCTOR
-    public Factura(Mesa mesa, ArrayList<Pedido> pedidos) {
-        this.fecha = new Date();
+    public Factura(Date fecha, Mesa mesa, ArrayList<Pedido> pedidos, double total,private ArrayList<ProductoEnPromocion> promocionesProductos,  ArrayList<PromocionTemporal> promocionesTemporales) {
+        this.fecha = fecha;
         this.mesa = mesa;
         this.pedidos = pedidos;
-        this.formaDePago = null;
-        this.total = 0;
-        this.aplicarPromocionesProductos();
+        this.total = total;
+        this.promocionesProductos = promocionesProductos;
+        this.promocionesTemporales = promocionesTemporales;
     }
 
     //GETTERS & SETTERS
@@ -58,102 +56,51 @@ public class Factura implements Serializable {
     }
 
     public void setFormaDePago(String formaDePago) {
-        this.total = 0.;
         this.formaDePago = formaDePago;
-        this.promocionesAplicadas.clear();
-
-        this.aplicarPromocionesProductos();
-        this.aplicarPromocionesTemporales();
     }
 
-    public ArrayList<Promocion> getPromocionesAplicadas() {
-        return promocionesAplicadas;
+    public ArrayList<ProductoEnPromocion> getPromocionesProductos() {
+        return promocionesProductos;
     }
 
-    //FUNCIONALIDADES
-    private void aplicarPromocionesTemporales() {
-        ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
-
-        for (PromocionTemporal promo : promoTemp)
-            if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion()) && promo.getFormaDePago().equalsIgnoreCase(this.formaDePago) && promo.isEsAcumulable()) {
-                promocionesAplicadas.add(promo);
-                this.total = this.total * promo.getPorcentajeDescuento() / 100.;
-            }
+    public void setPromocionesProductos(ArrayList<ProductoEnPromocion> promocionesProductos) {
+        this.promocionesProductos = promocionesProductos;
     }
 
-    private void aplicarPromocionesProductos (){
-        ArrayList<PromocionProducto> promoProd = Cerveceria.getInstance().getPromocionesProductos();
-        boolean respuesta;
-        PromocionProducto promo;
-        int pos;
-
-        for (Pedido pedido : this.pedidos) {
-            pos = 0;
-            respuesta = false;
-            while(!respuesta && (pos < promoProd.size())){
-                promo = promoProd.get(pos);
-                if (pedido.getProducto().equals(promo.getProducto())) {
-                    if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion())) {
-                        if (promo.isAplicaDosPorUno()) {
-                            //aplicar 2x1 y sumar al total
-                            this.total += (Math.divideExact(pedido.getCantidad(), 2) + Math.ceilMod(pedido.getCantidad(), 2)) * pedido.getProducto().getPrecioVenta();
-                            respuesta = true;
-                        } else if (promo.isAplicaDtoPorCantidad() && pedido.getCantidad() >= promo.getDtoPorCantidad_CantMinima()) {
-                            //aplicar Dto por cantidad y sumar al total
-                            this.total += promo.getDtoPorCantidad_PrecioUnitario() * pedido.getCantidad();
-                            respuesta = true;
-                        }
-                    }
-                }
-                pos++;
-            }
-            if (respuesta) {
-                pos--;
-                promocionesAplicadas.add(promoProd.get(pos));
-            } else {
-                this.total += pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
-            }
-        }
+    public ArrayList<PromocionTemporal> getPromocionesTemporales() {
+        return promocionesTemporales;
     }
 
-    private boolean coincideDiaSemana(ArrayList<String> dias){
-        int dia = new Date().getDay();
-        String nombreDia = null;
-        int pos = 0;
-        boolean respuesta = false;
-
-        switch (dia) {
-            case 0 -> nombreDia = "Domingo";
-            case 1 -> nombreDia = "Lunes";
-            case 2 -> nombreDia = "Martes";
-            case 3 -> nombreDia = "Miercoles";
-            case 4 -> nombreDia = "Jueves";
-            case 5 -> nombreDia = "Viernes";
-            case 6 -> nombreDia = "Sabado";
-        }
-
-        while (pos < dias.size() && !respuesta) {
-            if (nombreDia.equalsIgnoreCase(dias.get(pos++))) {
-                respuesta = true;
-            }
-        }
-        return respuesta;
+    public void setPromocionesTemporales(ArrayList<PromocionTemporal> promocionesTemporales) {
+        this.promocionesTemporales = promocionesTemporales;
     }
 
     public double getTotal(){
+        //aplicar promociones de producto
+        // recorrer promociones
+        for ( ProductoEnPromocion promociones : promocionesProductos){
+            for ( Pedido pedido : pedidos){
+                if (promociones.getProducto().equals(pedido.getProducto())){
+                    this.total += pedido.getProducto().getPrecioVenta()*promociones.getPrecio();
+                }
+            }
+        }
+            // verificar dentro de la lista de items si coincide con el producto con descuento
+
+
+        // aplicar promociones temporales
         return this.total;
     }
 
     @Override
     public String toString() {
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
-        String fechaActual = dateFormat.format(fecha);
-
-        return  "Fecha: " + fechaActual +
-                " - Mesa: " + mesa.getNro() +
-                " - Pedidos: " + pedidos +
-                " - Total = " + total +
-                " - FormaDePago: " + formaDePago +
-                " - PromocionesAplicadas:" + promocionesAplicadas;
+        return "Factura{" +
+                "fecha=" + fecha +
+                ", mesa=" + mesa +
+                ", pedidos=" + pedidos +
+                ", total=" + total +
+                ", formaDePago='" + formaDePago + '\'' +
+                ", promociones=" + promociones +
+                '}';
     }
 }

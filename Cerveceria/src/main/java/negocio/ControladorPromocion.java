@@ -1,22 +1,19 @@
 package negocio;
 
-import modelo.*;
+import modelo.ProductoEnPromocion;
+import modelo.PromocionTemporal;
 import vista.interfaces.IVistaPromocion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ControladorPromocion implements ActionListener {
-    Promocion modelo;
     IVistaPromocion vista;
 
-    public ControladorPromocion(Promocion modelo, IVistaPromocion vista) {
-        this.modelo = modelo;
+    public ControladorPromocion(IVistaPromocion vista) {
         this.vista = vista;
 
         this.vista.setActionListener(this);
         this.vista.setKeyListener();
-        this.vista.setDatos(modelo.getIdPromocion(), Cerveceria.getInstance().getProductos());
     }
 
     @Override
@@ -25,42 +22,15 @@ public class ControladorPromocion implements ActionListener {
             case "Establecer" -> {
                 switch (vista.getTipoPromocion()) {
                     case "Producto en Promocion" -> {
-                        ArrayList<String> diasPromocion = vista.getDiasDePromocion();
-                        boolean activa = vista.isActiva();
-                        Producto producto = vista.getProducto();
-                        boolean aplicaDosPorUno = vista.getAplica2x1();
-                        boolean aplicaDtoPorCantidad = vista.getAplicaDescuentoXCantidad();
-                        if (aplicaDtoPorCantidad) {
-                            try {
-                                int cantidadMinima = vista.getCantidadMinima();
-                                double precioUnitario = vista.getPrecioUnitario();
-
-                                Cerveceria.getInstance().agregarPromocionProducto((PromocionProducto) modelo, diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad, cantidadMinima, precioUnitario);
-                                this.vista.cerrarVentana();
-                            } catch (NumberFormatException ex) {
-                                vista.lanzarVentanaEmergente("ERROR : Ingrese una cantidad o precio valido");
-                            }
-                        } else {
-                            Cerveceria.getInstance().agregarPromocionProducto((PromocionProducto) modelo, diasPromocion, activa, producto, aplicaDosPorUno, aplicaDtoPorCantidad);
-                            this.vista.cerrarVentana();
-                        }
+                        ProductoEnPromocion productoEnPromocion = this.vista.getProductoEnPromocion();
+                        //TODO GUARDAR PROMOCION
                     }
                     case "Promocion Temporal" -> {
-                        try {
-                            ArrayList<String> diasPromocion = vista.getDiasDePromocion();
-                            boolean activa = vista.isActiva();
-                            String nombre = vista.getNombrePromocion();
-                            String formaDePago = vista.getFormaDePago();
-                            int porcentajeDescuento = vista.getPorcentajeDescuento();
-                            boolean acumulable = vista.isAcumulable();
-
-                            Cerveceria.getInstance().agregarPromocionTemporal((PromocionTemporal) modelo, diasPromocion, activa, nombre, formaDePago, porcentajeDescuento, acumulable);
-                            this.vista.cerrarVentana();
-                        } catch (Exception ex) {
-                            vista.lanzarVentanaEmergente("ERROR : Nombre de la promocion invalido.");
-                        }
+                        PromocionTemporal promocionTemporal = this.vista.getPromocionTemporal();
+                        //TODO GUARDAR PROMOCION
                     }
                 }
+                this.vista.cerrarVentana();
             }
             case "Cancelar" -> this.vista.cerrarVentana();
         }

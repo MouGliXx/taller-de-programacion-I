@@ -3,27 +3,24 @@ package modelo;
 import excepciones.ErrorDeContrasenaException;
 import excepciones.ErrorDeUsuarioException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Cerveceria {
     private static Cerveceria instance = null;
     public static final int totalMaximoMesas = 50;
-    public static final int totalMaximoMozos = 6;
     private String nombreDelLocal;
-    private double remuneracionBasica;
     private Administrador administrador;
     private ArrayList<Operario> operarios = new ArrayList<>();
     private ArrayList<Mozo> mozos = new ArrayList<>();
-    private HashMap<Integer,Producto> productos = new HashMap<>();
     private ArrayList<Mesa> mesas = new ArrayList<>();
+//    private HashMap<Integer, Mesa> mesas = new HashMap<>();
     private ArrayList<Comanda> comandas = new ArrayList<>();
-    private ArrayList<Factura> facturas = new ArrayList<>();
-    private ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
-    private ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
     private HashMap<Mesa,Mozo> mesasAsignadas = new HashMap<>();
-    private HashMap<Mozo, EstadisticaMozo> estadisticasMozos = new HashMap<>();
-    private HashMap<Mesa, EstadisticaMesa> estadisticasMesas = new HashMap<>();
+    private ArrayList<Factura> facturas = new ArrayList<>();
+    private ArrayList<IPromocion> promociones = new ArrayList<>();
+    private HashMap<Integer,Producto> productos = new HashMap<>();
+    private double remuneracionBasica;
 
     //PATRON SINGLETON
     private Cerveceria() {
@@ -39,7 +36,6 @@ public class Cerveceria {
     }
 
     //GETTERS & SETTERS
-
     public String getNombreDelLocal() {
         return nombreDelLocal;
     }
@@ -48,20 +44,20 @@ public class Cerveceria {
         this.nombreDelLocal = nombreDelLocal;
     }
 
-    public double getRemuneracionBasica() {
-        return remuneracionBasica;
-    }
-
-    public void setRemuneracionBasica(double remuneracionBasica) {
-        this.remuneracionBasica = remuneracionBasica;
-    }
-
     public Administrador getAdministrador() {
         return administrador;
     }
 
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
+    }
+
+    public double getRemuneracionBasica() {
+        return remuneracionBasica;
+    }
+
+    public void setRemuneracionBasica(double remuneracionBasica) {
+        this.remuneracionBasica = remuneracionBasica;
     }
 
     public ArrayList<Operario> getOperarios() {
@@ -112,44 +108,20 @@ public class Cerveceria {
         this.facturas = facturas;
     }
 
-    public ArrayList<PromocionTemporal> getPromocionesTemporales() {
-        return promocionesTemporales;
+    public ArrayList<IPromocion> getPromociones() {
+        return promociones;
     }
 
-    public void setPromocionesTemporales(ArrayList<PromocionTemporal> promocionesTemporales) {
-        this.promocionesTemporales = promocionesTemporales;
+    public void setPromociones(ArrayList<IPromocion> promociones) {
+        this.promociones = promociones;
     }
 
-    public ArrayList<PromocionProducto> getPromocionesProductos() {
-        return promocionesProductos;
-    }
-
-    public void setPromocionesProductos(ArrayList<PromocionProducto> promocionesProductos) {
-        this.promocionesProductos = promocionesProductos;
-    }
-
-    public HashMap<Integer, Producto> getProductos() {
+    public HashMap<Integer,Producto> getProductos() {
         return productos;
     }
 
-    public void setProductos(HashMap<Integer, Producto> productos) {
+    public void setProductos(HashMap<Integer,Producto> productos) {
         this.productos = productos;
-    }
-
-    public HashMap<Mozo, EstadisticaMozo> getEstadisticasMozos() {
-        return estadisticasMozos;
-    }
-
-    public HashMap<Mesa, EstadisticaMesa> getEstadisticasMesas() {
-        return estadisticasMesas;
-    }
-
-    public void setEstadisticasMozos(HashMap<Mozo, EstadisticaMozo> estadisticasMozos) {
-        this.estadisticasMozos = estadisticasMozos;
-    }
-
-    public void setEstadisticasMesas(HashMap<Mesa, EstadisticaMesa> estadisticasMesas) {
-        this.estadisticasMesas = estadisticasMesas;
     }
 
     //FUNCIONALIDADES
@@ -162,6 +134,7 @@ public class Cerveceria {
      * @return Administrador devuelve el objeto administrador
      */
     public Administrador login(String password) throws ErrorDeContrasenaException {
+
         if (password.equalsIgnoreCase(administrador.getPassword())) {
             return this.administrador;
         }
@@ -179,15 +152,11 @@ public class Cerveceria {
      * @return Operario devuelve una instancia del objeto operario
      */
     public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
+
         for (Operario operario: operarios) {
             if (operario.getNombreUsuario().equalsIgnoreCase(username)) {
-                if (operario.getContrasena().equalsIgnoreCase(password)) {
-                    if (!operario.isActivo()) {
-                        throw new ErrorDeUsuarioException("El usuario ingresado se encuentra INACTIVO, no puede ingresar al sistema");
-                    }
-
-                   return operario;
-                }
+                if (operario.getContrasena().equalsIgnoreCase(password))
+                    return operario;
 
                 throw new ErrorDeContrasenaException("Contrasena invalida: " + password);
             }
@@ -196,14 +165,14 @@ public class Cerveceria {
         throw new ErrorDeUsuarioException("Nombre de usuario invalido: " + username);
     }
 
-    public boolean contieneDigito(String cadena) {
-        for (int i = 0; i < cadena.length(); i++) {
-            if (cadena.charAt(i) >= '0' && cadena.charAt(i) <= '9') {
-                return true;
-            }
-        }
+    // AGREGAR
 
-        return false;
+    public void agregarAdministrador(String nombre, String contrasena) throws Exception{
+        if (nombre.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
+        if (contrasena.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
+        this.administrador = new Administrador(nombre, contrasena);
     }
 
     public boolean contieneMayuscula(String cadena) {
@@ -223,9 +192,11 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
      * <b>post:</b> Se agregaran nuevos elementos a las colecciones de mesa y estadisticas mesa <br>.
      */
-    public void agregarMesa(int cantidadComensales) throws Exception{
+
+    public void agregarMesa(int cantidadComensales, String estado) throws Exception{
         if (this.mesas.size() >= totalMaximoMesas)
             throw new Exception("ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo");
+            
         Mesa mesa = new Mesa(cantidadComensales);
         this.mesas.add(mesa);
         this.estadisticasMesas.put(mesa,new EstadisticaMesa());
@@ -277,7 +248,7 @@ public class Cerveceria {
         promocionTemporal.setPorcentajeDescuento(porcentajeDescuento);
         promocionTemporal.setEsAcumulable(esAcumulable);
 
-        this.promocionesTemporales.add(promocionTemporal);
+        this.mesas.add(new Mesa(cantidadComensales, estado));
     }
 
     /**
@@ -298,14 +269,12 @@ public class Cerveceria {
             throw new Exception("ERROR : No se pueden dar de alta mas mozos. LLego al nro maximo");
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
-        if (edad < 18)
-            throw new Exception("ERROR : La edad debe superar los 18 anos.");
         if (hijos < 0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
 
-        Mozo mozo = new Mozo(nombre, edad, hijos);
-        this.mozos.add(mozo);
-        this.estadisticasMozos.put(mozo, new EstadisticaMozo());
+        Mozo mozo = new Mozo(nombre, edad, hijos,estado);
+
+        this.getMozos().add(mozo);
     }
 
     /**
@@ -323,19 +292,14 @@ public class Cerveceria {
      * <b>post:</b> La coleccion de operarios tendra un nuevo elemento<br>.
      */
     public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
-        if (nombre.equals(""))
-            throw new Exception("ERROR : Nombre vacio.");
-        if (nombreUsuario.length() < 5 || nombreUsuario.length() > 10)
-            throw new Exception("ERROR : El nombre de Usuario debe tener entre 5 y 10 caracteres.");
-        if (contrasena.length() < 6 || contrasena.length() > 12)
-            throw new Exception("ERROR : La contraseña debe tener entre 6 y 12 caracteres.");
-        if (!contieneDigito(contrasena))
-            throw new Exception("ERROR : La contraseña debe contener al menos un digito.");
-        if (!contieneMayuscula(contrasena))
-            throw new Exception("ERROR : La contraseña debe contener al menos una mayuscula.");
-
+        if (nombre == "")
+            throw new Exception("ERROR : Nombre vacio");
+        if (nombreUsuario.length() < 5)
+            throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
+        if (contrasena.length() < 8)
+            throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
         Operario operario = new Operario(nombre, nombreUsuario, contrasena, activo);
-        this.operarios.add(operario);
+        this.getOperarios().add(operario);
     }
 
     /**
@@ -368,6 +332,13 @@ public class Cerveceria {
         this.estadisticasMesas.replace(mesa,estadisticasMesa);
     }
 
+    public void agregarFactura(Comanda comanda) throws Exception {
+        if (comanda == null)
+            throw new Exception("ERROR : No se puede crear factura sin comanda");
+            
+        this.facturas.add(new Factura(new Date(),comanda.getMesa(),comanda.getPedidos(),comanda.getTotal(),this.promociones));
+    }
+
     /**
      * <b>pre:</b> mesa y pedidos deben ser distintos de null<br>.
      * @param mesa sobre la cual se va a crear la comanda
@@ -383,7 +354,6 @@ public class Cerveceria {
     public void agregarComanda(Mesa mesa, ArrayList<Pedido> pedidos) throws Exception {
         assert mesa != null : "ERROR : La mesa no debe ser null";
         assert pedidos != null : "ERROR : Pedidos no debe ser null";
-
         if (mesa.getEstado().equalsIgnoreCase("Ocupado"))
             throw new Exception("No se puede crear la Comanda : Mesa Ocupada"); //2. Mesa ocupada
         if (this.mesas.size() == 0)
@@ -392,7 +362,7 @@ public class Cerveceria {
             throw new Exception("No se puede crear la Comanda : La mesa no esta asignada a ningun mozo"); //1.2 La mesa no esta en el hash de MesasAsignadas -> no tiene mozo
         if (this.mozos.isEmpty())
             throw new Exception("No se puede crear la Comanda : No hay mozos activos"); //1.2 No hay mozos activos
-        if (!hayDosProductosPromocionActiva())
+        if (hayDosProductosPromocionActiva() == false)
             throw new Exception("No se puede crear la Comanda : No hay dos productos en promocion"); //1.4 NO hay 2 productos en promocion activa
         if (this.productos.isEmpty())
             throw new Exception("No se puede crear la Comanda : Lista de productos vacia"); //1.5 lista de productos vacia
@@ -418,7 +388,6 @@ public class Cerveceria {
      * @throws Exception Se lanza excepción si el precio de venta es menor a cero
      * <b>post:</b> Se agregara a la lista de productos un nuevo elemento<br>.
      */
-
     public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
         if (precioVenta < precioCosto)
             throw new Exception("El precio de venta es menor al de costo");
@@ -427,7 +396,24 @@ public class Cerveceria {
         if(precioVenta < 0)
             throw new Exception("El precio de venta es menor a cero");
 
-        this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));
+    public void agregarProducto (int nro,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+        if (precioVenta>=precioCosto){
+            if(precioVenta>0){
+                if(precioCosto>0) {
+                    if(this.productos.containsKey(nro)){
+                        Producto producto=productos.get(nro);
+                        producto.setNombre(nombre);
+                        producto.setPrecioCosto(precioCosto);
+                        producto.setPrecioVenta(precioVenta);
+                        producto.setStockInicial(stockInicial);
+                    }
+                    else this.productos.put(nro,new Producto(nro, nombre, precioCosto, precioVenta, stockInicial));
+                }
+                else throw new Exception("El precio de costo es menor a cero");
+            }
+            else throw new Exception("El precio de venta es menor a cero");
+        }
+        else throw new Exception("El precio de venta es menor al de costo");
     }
 
     // ELIMINAR
@@ -441,7 +427,7 @@ public class Cerveceria {
      * <b>post:</b>La lista de mozos tendra un elemento menos<br>.
      */
     public void eliminarMozo(Mozo mozoViejo){
-        assert mozoViejo != null:"ERROR : El mozo no puede ser null";
+        assert mozoViejo!=null:"ERROR : El mozo no puede ser null";
         for (int i = 0 ; i < mozos.size() ; i++){
             if (this.mozos.get(i).equals(mozoViejo)) {
                 this.mozos.remove(i);
@@ -537,16 +523,25 @@ public class Cerveceria {
 
             for (Pedido pedido : pedidos) {
                 if (producto.getIdProducto() == pedido.getProducto().getIdProducto()) {
+                
+    public void eliminarComanda (Comanda comanda){
+        assert comanda!=null:"ERROR : La comanda no puede ser null";
+        this.comandas.remove(comanda);
+    }
+
+    public void eliminarProducto (Producto producto) throws Exception{
+        for (int i=0;i<comandas.size();i++){
+            ArrayList<Pedido> pedidos=comandas.get(i).getPedidos();
+            for (int j=0;j<pedidos.size();j++){
+                if(producto.getNro()==pedidos.get(j).getProducto().getNro()){
                     throw new Exception("El producto no se puede eliminar debido a que esta asociado a una comanda");
                 }
             }
         }
-
-        this.productos.remove(producto.getIdProducto());
+        this.productos.remove(producto);
     }
 
     // MODIFICAR
-
     /**
      * Modifica la contrasena del administrador
      *
@@ -565,6 +560,12 @@ public class Cerveceria {
         if (!contieneMayuscula(contrasena))
             throw new Exception("ERROR : La contraseña debe contener al menos una mayuscula.");
 
+    public void modificarAdministrador(Administrador administrador,String nombre, String contrasena) throws Exception{
+        if (nombre.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 5 caracteres");
+        if (contrasena.length()<5)
+            throw new Exception("ERROR : El nombre de usuario debe tener al menos 8 caracteres");
+        this.administrador.setUsername(nombre);
         this.administrador.setPassword(contrasena);
     }
 
@@ -579,9 +580,8 @@ public class Cerveceria {
      */
     public void modificarMesa(Mesa mesa, int cantidadComensales) throws Exception {
         assert mesa!=null:"ERROR : La mesa no puede ser null";
-        if (cantidadComensales < 2)
+        if (cantidadComensales<2)
             throw new Exception("ERROR : La cantidad de comensales no puede ser menor a 2");
-
         mesa.setCantidadComensales(cantidadComensales);
     }
 
@@ -599,13 +599,16 @@ public class Cerveceria {
     public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos) throws Exception {
         if (nombre.equals(""))
             throw new Exception("ERROR : Nombre vacio");
-        if (hijos < 0)
+        if (hijos <0)
+            throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
+        if (hijos <0)
             throw new Exception("ERROR : Cantidad de hijos debe ser mayo o igual a cero");
         if (edad < 18)
             throw new Exception("ERROR : Es menor de edad");
 
         mozo.setNombreYApellido(nombre);
         mozo.setEdad(edad);
+        mozo.setEstado(estado);
         mozo.setCantHijos(hijos);
     }
 
@@ -627,17 +630,12 @@ public class Cerveceria {
      * <b>post:</b> el operario cambiara el valor de sus atributos<br>.
      */
     public void modificarOperario(Operario operario,String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
-        if (nombre.equals(""))
-            throw new Exception("ERROR : Nombre vacio.");
-        if (nombreUsuario.length() < 5 || nombreUsuario.length() > 10)
-            throw new Exception("ERROR : El nombre de Usuario debe tener entre 5 y 10 caracteres.");
-        if (contrasena.length() < 6 || contrasena.length() > 12)
-            throw new Exception("ERROR : La contraseña debe tener entre 6 y 12 caracteres.");
-        if (!contieneDigito(contrasena))
-            throw new Exception("ERROR : La contraseña debe contener al menos un digito.");
-        if (!contieneMayuscula(contrasena))
-            throw new Exception("ERROR : La contraseña debe contener al menos una mayuscula.");
-
+        if (nombre == "")
+            throw new Exception("ERROR : Nombre vacio");
+        if (nombreUsuario.length() < 5)
+            throw new Exception("ERROR : El nombre de Usuario debe tener al menos 5 caracteres");
+        if (contrasena.length() < 8)
+            throw new Exception("ERROR : La contraseña debe tener al menos 8 caracteres");
         operario.setNombreCompleto(nombre);
         operario.setNombreUsuario(nombreUsuario);
         operario.setContrasena(contrasena);
@@ -660,13 +658,12 @@ public class Cerveceria {
      * <b>post:</b> el producto cambiara el valor de sus atributos<br>.
      */
     public void modificarProducto (Producto producto,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
-        if (precioVenta < precioCosto)
+        if (precioVenta>=precioCosto)
             throw new Exception("El precio de venta es menor al de costo");
-        if(precioCosto < 0)
+        if(precioCosto>0)
             throw new Exception("El precio de costo es menor a cero");
-        if(precioVenta < 0)
+        if(precioVenta>0)
             throw new Exception("El precio de venta es menor a cero");
-
         producto.setNombre(nombre);
         producto.setPrecioCosto(precioCosto);
         producto.setPrecioVenta(precioVenta);
@@ -690,7 +687,7 @@ public class Cerveceria {
         assert mesa != null : "ERROR : La mesa no debe ser null";
         assert comanda != null : "ERROR : La comanda no debe ser null";
         assert pedidos != null : "ERROR : Pedidos no debe ser null";
-
+        
         comanda.setMesa(mesa);
         comanda.setPedidos(pedidos);
         mesa.ocupar();
@@ -718,18 +715,17 @@ public class Cerveceria {
      */
     public void asignarMesas() throws Exception {
         ArrayList<Mozo> listaMozosActivos = mozosActivos();
-        int mozo = 0;
+        int mozo = 0, indiceMesa=0;
 
         if (this.mesas.isEmpty())
             throw new Exception("No hay mesas habilitadas. NO se puede Asignar mesas");
         if (listaMozosActivos.isEmpty())
             throw new Exception("No hay mozos activos. NO se puede asignar mesas");
 
-        for (Mesa mesa : this.mesas) {
+        for (int i = 0; i<this.mesas.size();i++){
             if (mozo >= listaMozosActivos.size())
                 mozo = 0;
-            this.mesasAsignadas.put(mesa, listaMozosActivos.get(mozo));
-            mozo++;
+            this.mesasAsignadas.put(this.mesas.get(i),listaMozosActivos.get(mozo++));
         }
     }
 
@@ -738,16 +734,15 @@ public class Cerveceria {
      * estan activos.
      * @return ArrayList<Mozo> Lista de mozos activos
      */
-    public ArrayList<Mozo> mozosActivos() {
-        ArrayList<Mozo> activos = new ArrayList<>();
+    private ArrayList<Mozo> mozosActivos() {
+        ArrayList<Mozo> activos = new ArrayList<Mozo>();
 
-        for (Mozo mozo : this.mozos) {
-            if (mozo.getEstado().equalsIgnoreCase("Activo"))
-                activos.add(mozo);
+        for (int q = 0 ; q < this.mozos.size(); q++){
+            if (mozos.get(q).getEstado().equalsIgnoreCase("Activo"))
+                activos.add(mozos.get(q));
         }
         return activos;
     }
-
 
     /**
      * * El metodo finaliza una joranada laboral

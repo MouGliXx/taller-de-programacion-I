@@ -6,40 +6,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorFactura implements ActionListener {
-    private Comanda comanda;
     private Factura modelo;
     private IVistaFactura vista;
 
-    public ControladorFactura(Comanda comanda, Factura modelo, IVistaFactura vista) {
-        this.comanda = comanda;
+    public ControladorFactura(Factura modelo, IVistaFactura vista) {
         this.modelo = modelo;
         this.vista = vista;
 
-        this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getPromocionesAplicadas());
-        this.vista.setTotal(modelo.getTotal());
-        this.vista.setActionListener(this);
+        this.vista.setDatos(modelo.getFecha(), modelo.getMesa().getNro(), modelo.getPedidos(), modelo.getTotal(), modelo.getPromociones());
+        this.vista.ejecutar();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Cancelar" -> vista.cerrarVentana();
             case "Crear" -> {
-                try {
-                    Cerveceria.getInstance().agregarFactura(modelo);
-                    Cerveceria.getInstance().eliminarComanda(comanda);
-                    this.vista.cerrarVentana();
-                } catch (Exception ex) {
-                    vista.lanzarVentanaEmergente(ex.getMessage());
-                }
+                crearFactura();
+                this.vista.cerrarVentana();
             }
-            case "Forma de Pago Seleccionada" -> {
-                String formaDePago = vista.getFormaDePago();
-                this.modelo.setFormaDePago(formaDePago);
-                this.vista.setTotal(modelo.getTotal());
-                this.vista.inicializarListas(modelo.getPedidos(), modelo.getPromocionesAplicadas());
-            }
+            case "Cancelar" -> vista.cerrarVentana();
         }
+    }
+
+    private void crearFactura() {
+        String formaDePago = vista.getFormaDePago();
+        modelo.setFormaDePago(formaDePago);
+        //Cerveceria.getInstance().agregarFactura(modelo);
     }
 }
 

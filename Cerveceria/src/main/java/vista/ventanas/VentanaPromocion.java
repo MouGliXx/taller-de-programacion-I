@@ -1,15 +1,13 @@
 package vista.ventanas;
 
 import modelo.Producto;
+import modelo.ProductoEnPromocion;
+import modelo.PromocionTemporal;
 import vista.interfaces.IVistaPromocion;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-/**
- * Clase que representa la interfaz cuando se crea una promocion.<br>
- */
 public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionListener, KeyListener {
     String promocion;
     private JPanel panelPrincipal;
@@ -23,7 +21,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     private JButton cancelarButton;
     private JLabel idProductoLabel;
     private JLabel IDLabel;
-    private JComboBox<Producto>productosComboBox;
+    private JComboBox productosComboBox;
     private JPanel primerafilaPanel1;
     private JPanel atriibutosEnComunPanel;
     private JCheckBox lunesCheckBox;
@@ -43,7 +41,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     private JLabel cantidadMinimaLabel;
     private JTextField cantidadMinimaTextField;
     private JLabel precioUnitarioLabel;
-    private JComboBox<String> porcentajeComboBox;
+    private JComboBox porcentajeComboBox;
     private JLabel porcentajeDeDescuentoLabel;
     private JLabel nombreLabel;
     private JTextField nombrePromocionTextField;
@@ -59,18 +57,11 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     //MODELO PARA COMBOBOX
     DefaultComboBoxModel<Producto> modeloProducto = new DefaultComboBoxModel<>();
 
-    /**
-     * Agrega los ActionListener a los diferentes componentes de la ventana.<br>
-     *
-     * <b>pre</b> controlador distinto de null.<br>
-     * <b>post</b> Se ha asignado un ActionListener a los componentes que lo necesiten.<br>
-     *
-     * @param controlador Es la clase que recibe los eventos de acción de la ventana.
-     */
     @Override
     public void setActionListener(ActionListener controlador) {
         this.establecerButton.addActionListener(controlador);
         this.cancelarButton.addActionListener(controlador);
+        this.activaCheckBox.addActionListener(this);
         this.lunesCheckBox.addActionListener(this);
         this.martesCheckBox.addActionListener(this);
         this.miercolesCheckBox.addActionListener(this);
@@ -93,38 +84,21 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         this.acumulableCheckBox.addActionListener(this);
     }
 
-    /**
-     * Agrega los KeyListener especificados a los diferentes JTextField de la ventana.<br>
-     *
-     * <b>pre</b> Deben existir componentes JTextField dentro de la ventana.<br>
-     * <b>post</b> Se ha asignado un KeyListener a los TextField que lo necesiten.<br>
-     */
     @Override
     public void setKeyListener() {
         //PAGINA0
         this.cantidadMinimaTextField.addKeyListener(this);
         this.precioUnitarioTextField.addKeyListener(this);
+
         //PAGINA1
         this.nombrePromocionTextField.addKeyListener(this);
     }
 
-    /**
-     * Agrega un WindowListener a la ventana, para notificar WindowEvent que ocurran desde esta ventana.<br>
-     *
-     * <b>pre</b> controlador distinto de null.<br>
-     * <b>post</b> Se ha asignado un WindowListener a la ventana.<br>
-     * @param controlador Es la clase que recibe los WindowEvent de la ventana.
-     */
     @Override
     public void setWindowListener(WindowListener controlador) {
-        this.addWindowListener(controlador);
+
     }
 
-    /**
-     * Establece las caracteristicas principales que defininen a la ventana.<br>
-     *
-     * <b>post</b> Se ejecuta la ventana.<br>
-     */
     @Override
     public void ejecutar() {
         setTitle("Cerveceria - Grupo 1");
@@ -138,59 +112,21 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         setModelos();
     }
 
-    /**
-     * Oculta y cierra la ventana.<br>
-     *
-     * <b>post</b> Se detiene la ejecucion de la ventana.<br>
-     */
     @Override
     public void cerrarVentana() {
         setVisible(false); //Oculto la ventana
         dispose(); //Cierro la ventana
     }
 
-    /**
-     * Lanza una pequena ventana con un mensaje y boton de confirmacion.<br>
-     *
-     * <b>pre</b> mensaje distinto de null.<br>
-     * <b>post</b> Se abre un JFrame con un mensaje.<br>
-     * @param mensaje Es el mensaje que se desea mostrar en la ventana.<br>
-     */
     @Override
     public void lanzarVentanaEmergente(String mensaje) {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, mensaje);
     }
 
-    /**
-     * Establece los modelos a los diferentes componentes que lo necesiten.<br>
-     *
-     * <b>pre</b> Los modelos deben estar instanciados.<br>
-     * <b>post</b> Los componentes quedan con el modelo acorde establecido.<br>
-     */
     @Override
     public void setModelos() {
         this.productosComboBox.setModel(modeloProducto);
-    }
-
-    /**
-
-
-    /**
-     * Establece los datos de la Promocion en los componentes de la ventana y carga los productos cargados en el sistema, para su visualizacion.<br>
-     *
-     * <b>pre</b> Los DefaultComboBoxModel ya han sido seteados a sus JComboBox.<br>
-     * <b>post</b> La ventana se personaliza con los datos recibidos.<br>
-     *
-     * @param id Id correspondiente a la promocion que se desea crear.<br>
-     * @param productos Productos almacenados en el sistema.<br>
-     */
-    @Override
-    public void setDatos(int id, HashMap<Integer, Producto> productos) {
-        this.IDLabel.setText(String.valueOf(id));
-
-        modeloProducto.addElement(null);
-        productos.forEach((nro, producto) -> modeloProducto.addElement(producto));
     }
 
     @Override
@@ -207,19 +143,13 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         }
     }
 
-    /**
-     * Devuelve el tipo de promocion para la cual se personalizo la ventana.<br>
-     *
-     * @return Tipo de promocion que se desea crea.<br>
-     */
     @Override
     public String getTipoPromocion() {
         return promocion;
     }
 
-    //PROMOCION
     @Override
-    public ArrayList<String> getDiasDePromocion() {
+    public ArrayList<String> generaDiasDePromocion() {
         ArrayList<String> aux = new ArrayList<>();
 
         if (lunesCheckBox.isSelected()) {
@@ -248,90 +178,34 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public boolean isActiva() {
-        return activaCheckBox.isSelected();
-    }
+    public ProductoEnPromocion getProductoEnPromocion() {
+        int id = Integer.parseInt(IDLabel.getText());
+        Producto producto = null; //GESTIONAR ESTO
+        ArrayList<String> diasPromocion = generaDiasDePromocion();
+        boolean activa = activaCheckBox.isSelected();
+        boolean aplicaDosPorUno = aplica2x1CheckBox.isSelected();
+        boolean aplicaDtoPorCantidad = aplicaDescuentoXCantidadCheckBox.isSelected();
 
-    //PRODUCTO EN PROMOCION
-    @Override
-    public Producto getProducto() {
-        return modeloProducto.getElementAt(productosComboBox.getSelectedIndex());
-    }
+        if (aplicaDtoPorCantidad) {
+            int dtoPorCantidad_CantMinima = Integer.parseInt(cantidadMinimaTextField.getText());
+            double dtoPorCantidad_PrecioUnitario = Double.parseDouble(precioUnitarioTextField.getText());
 
-    @Override
-    public boolean getAplica2x1() {
-        return aplica2x1CheckBox.isSelected();
-    }
-
-    @Override
-    public boolean getAplicaDescuentoXCantidad() {
-        return aplicaDescuentoXCantidadCheckBox.isSelected();
-    }
-
-    @Override
-    public int getCantidadMinima() throws NumberFormatException {
-        return Integer.parseInt(cantidadMinimaTextField.getText());
-    }
-
-    @Override
-    public double getPrecioUnitario() throws NumberFormatException {
-        return Double.parseDouble(precioUnitarioTextField.getText());
-    }
-
-    //PROMOCION TEMPORAL
-    @Override
-    public String getNombrePromocion() throws Exception {
-        String nombrePromocion = nombrePromocionTextField.getText();
-
-        if (nombrePromocion.equals(""))
-            throw new Exception();
-
-        return nombrePromocion;
-    }
-
-    @Override
-    public int getPorcentajeDescuento() {
-        int porcentaje = -1;
-
-        switch (porcentajeComboBox.getSelectedIndex()) {
-            case 0 -> porcentaje = 0;
-            case 1 -> porcentaje = 10;
-            case 2 -> porcentaje = 25;
-            case 3 -> porcentaje = 50;
-            case 4 -> porcentaje = 70;
-            case 5 -> porcentaje = 100;
+            return new ProductoEnPromocion(id,producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnitario, activa);
+        } else  {
+            return new ProductoEnPromocion(id,producto, diasPromocion, aplicaDosPorUno, aplicaDtoPorCantidad, activa);
         }
-
-        return porcentaje;
     }
 
     @Override
-    public String getFormaDePago() {
-        String formaDePago = null;
-
-        if (efectivoCheckBox.isSelected()) {
-            formaDePago = "Efectivo";
-        } else if (tarjetaCheckBox.isSelected()) {
-            formaDePago = "Tarjeta";
-        } else if (mercadoPagoCheckBox.isSelected()) {
-            formaDePago = "Mercado Pago";
-        } else if (cuentaDNICheckBox.isSelected()) {
-            formaDePago = "Cuenta DNI";
-        }
-
-        return formaDePago;
-    }
-
-    @Override
-    public boolean isAcumulable() {
-        return acumulableCheckBox.isSelected();
+    public PromocionTemporal getPromocionTemporal() {
+        return null; //TENGO QUE ESPERAR AL MODELO
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         this.establecerButton.setEnabled(true);
 
-        if (e.getActionCommand().equals("Aplica descuento x cantidad")) {
+        if ("Aplica descuento x cantidad".equals(e.getActionCommand())) {
             if (aplicaDescuentoXCantidadCheckBox.isSelected()) {
                 this.cantidadMinimaTextField.setEnabled(true);
                 this.precioUnitarioTextField.setEnabled(true);
@@ -346,19 +220,12 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         } else {
             switch (panelCentral.getSelectedIndex()) {
                 case 0 -> {
-                    if (productosComboBox.getSelectedIndex() == -1) {
-                        this.establecerButton.setEnabled(false);
-                    }
+                    //FALTA CONDICION CON PRODUCTO COMBOBOX
 
                     if (!aplicaDescuentoXCantidadCheckBox.isSelected() && !aplica2x1CheckBox.isSelected()) {
                         this.establecerButton.setEnabled(false);
                     }
 
-                    if (aplicaDescuentoXCantidadCheckBox.isSelected()) {
-                        if (cantidadMinimaTextField.getText().isEmpty() || precioUnitarioTextField.getText().isEmpty()) {
-                            this.establecerButton.setEnabled(false);
-                        }
-                    }
                 }
                 case 1 -> {
                     if (porcentajeComboBox.getSelectedIndex() == 0) {
@@ -366,10 +233,6 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
                     }
 
                     if (!efectivoCheckBox.isSelected() && !tarjetaCheckBox.isSelected() && !mercadoPagoCheckBox.isSelected() && !cuentaDNICheckBox.isSelected()) {
-                        this.establecerButton.setEnabled(false);
-                    }
-
-                    if (nombrePromocionTextField.getText().isEmpty()) {
                         this.establecerButton.setEnabled(false);
                     }
                 }
@@ -382,7 +245,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         this.establecerButton.setEnabled(true);
 
         switch (panelCentral.getSelectedIndex()) {
@@ -392,18 +255,10 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
                 }
             }
             case 1 -> {
-                if (porcentajeComboBox.getSelectedIndex() == 0) {
-                    this.establecerButton.setEnabled(false);
-                }
-
-                if (!efectivoCheckBox.isSelected() && !tarjetaCheckBox.isSelected() && !mercadoPagoCheckBox.isSelected() && !cuentaDNICheckBox.isSelected()) {
+                if (nombrePromocionTextField.getText().isEmpty()) {
                     this.establecerButton.setEnabled(false);
                 }
             }
-        }
-
-        if (!lunesCheckBox.isSelected() && !martesCheckBox.isSelected() && !miercolesCheckBox.isSelected() && !juevesCheckBox.isSelected() && !viernesCheckBox.isSelected() && !sabadoCheckBox.isSelected() && !domingoCheckBox.isSelected()) {
-            this.establecerButton.setEnabled(false);
         }
     }
 
@@ -414,7 +269,7 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {
 
     }
 }

@@ -1,7 +1,11 @@
 package app;
 
 import modelo.*;
+import negocio.ControladorOperario;
+import vista.ventanas.VentanaOperario;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,14 +17,14 @@ public class Prueba {
 
         for (int t=0;t<5;t++) {
             try {
-                cerveza.agregarMesa(t);
+                cerveza.agregarMesa(t, "Activo");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-        cerveza.agregarMozo("Lautaro", 22,1);
-        cerveza.agregarMozo("Ignacio", 26,1);
-        cerveza.agregarMozo("Tomas", 33,1);
+        cerveza.agregarMozo("Lautaro", 22,1,"Activo");
+        cerveza.agregarMozo("Ignacio", 26,1,"Activo");
+        cerveza.agregarMozo("Tomas", 33,1,"Activo");
 
 
 
@@ -49,7 +53,7 @@ public class Prueba {
 
         Pedido p1 = new Pedido();
         Pedido p2 = new Pedido();
-        ArrayList<Pedido> pedidos = new ArrayList<>();
+        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
         p1.setProducto(cerveza.getProductos().get(1));
         p1.setCantidad(2);
         pedidos.add(p1);
@@ -64,9 +68,8 @@ public class Prueba {
             System.out.println(e.getMessage());
         }
         cerveza.getComandas().get(0).agregarPedido(p1);
-
-//        cerveza.agregarFactura(cerveza.getComandas().get(0),"Debito");
-        cerveza.eliminarComanda(cerveza.getComandas().get(0));
+        cerveza.agregarFactura(cerveza.getComandas().get(0));
+        cerveza.cerrarComanda(cerveza.getComandas().get(0));
         System.out.println(cerveza.getFacturas().get(0).toString());
 
     }

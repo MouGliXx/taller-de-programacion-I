@@ -1,19 +1,17 @@
 package negocio;
 
 import modelo.*;
-import persistencia.CerveceriaDTO;
-import persistencia.IPersistencia;
-import persistencia.PersistenciaBIN;
-import persistencia.Util;
 import vista.interfaces.IVistaOperario;
 import vista.ventanas.VentanaComanda;
 import vista.ventanas.VentanaFactura;
 import vista.ventanas.VentanaLogin;
-import java.awt.event.*;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-public class ControladorOperario implements ActionListener, ItemListener, WindowListener {
+public class ControladorOperario implements ActionListener, WindowListener {
     private Operario modelo;
     private IVistaOperario vista;
 
@@ -22,7 +20,6 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
         this.vista = vista;
 
         this.vista.setActionListener(this);
-        this.vista.setItemListener(this);
         this.vista.setListSelectionListener();
         this.vista.setWindowListener(this);
         this.vista.setNombreLocal(Cerveceria.getInstance().getNombreDelLocal());
@@ -38,30 +35,24 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
             case "Facturas" -> vista.cambiarPagina(3);
             case "Promociones" -> vista.cambiarPagina(4);
             case "Cerrar Sesion" -> creaOtraVentana("Login");
-            case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda");
+            case "Nueva Comanda" -> creaOtraVentana("Nueva Comanda"); //TODO No habilitar boton hasta Iniciar Jornada
             case "Editar Comanda" -> creaOtraVentana("Editar Comanda");
             case "Cerrar Comanda" -> creaOtraVentana("Nueva Factura");
-            case "Finalizar Jornada" -> {
-                try {
-                    Cerveceria.getInstance().finalizarJornada();
-                    vista.finalizarJornada();
-                } catch (Exception ex) {
-                    vista.lanzarVentanaEmergente(ex.getMessage());
-                }
+            case "Iniciar Jornada" -> {
+
             }
             case "Asignar Mesas" -> {
                 try {
                     Cerveceria.getInstance().asignarMesas();
-                    vista.asignarMesas(Cerveceria.getInstance().getMesasAsignadas());
-                    vista.lanzarVentanaEmergente("Mesas asignadas con exito!");
                 } catch (Exception ex) {
                     vista.lanzarVentanaEmergente(ex.getMessage());
                 }
+                vista.lanzarVentanaEmergente("Mesas asignadas con exito!");
             }
         }
     }
 
-    public void creaOtraVentana(String ventana){
+    public void creaOtraVentana(String ventana) {
         switch (ventana) {
             case "Login" -> {
                 VentanaLogin ventanaLogin = new VentanaLogin();
@@ -86,41 +77,29 @@ public class ControladorOperario implements ActionListener, ItemListener, Window
                 ventanaEditarComanda.ejecutar();
             }
             case "Nueva Factura" -> {
+                Comanda comandaSeleccionada = vista.getComandaSeleccionada();
+
                 try {
-                    Comanda comandaSeleccionada = vista.getComandaSeleccionada();
-                    Factura nuevaFactura = new Factura(comandaSeleccionada.getMesa(), comandaSeleccionada.getPedidos());
-                    VentanaFactura ventanaFactura = new VentanaFactura();
-                    ControladorFactura controladorFactura = new ControladorFactura(comandaSeleccionada, nuevaFactura, ventanaFactura);
-                    ventanaFactura.addWindowListener(this);
-                    ventanaFactura.ejecutar();
+                    Cerveceria.getInstance().cerrarComanda(comandaSeleccionada);
                 } catch (Exception e) {
                     vista.lanzarVentanaEmergente(e.getMessage());
                 }
+
+                double total = 0; //TODO METODO EN COMANDA QUE CALCULE EL TOTAL
+                ArrayList<IPromocion> promocionesAplicadas = null; //TODO METODO QUE GESTIONE LAS PROMOCIONES
+
+                Factura nuevaFacura = new Factura(comandaSeleccionada.getFecha(), comandaSeleccionada.getMesa(),  comandaSeleccionada.getPedidos(), total, promocionesAplicadas);
+                VentanaFactura ventanaFactura = new VentanaFactura();
+                ControladorFactura controladorFactura = new ControladorFactura(nuevaFacura, ventanaFactura);
+                ventanaFactura.addWindowListener(this);
+                ventanaFactura.ejecutar();
             }
         }
     }
 
     @Override
-    public void itemStateChanged(ItemEvent e) {
-        ArrayList<String> estados = vista.getEstadoMozos();
-        ArrayList<Mozo> mozos = Cerveceria.getInstance().getMozos();
-
-        for (int i = 0; i < estados.size(); i++) {
-            mozos.get(i).setEstado(estados.get(i));
-        }
-    }
-
-    @Override
     public void windowClosing(WindowEvent e) {
-        try {
-            IPersistencia bin = new PersistenciaBIN();
-            bin.abrirOutput("Cerveceria.bin");
-            CerveceriaDTO cerveceriaDTO = Util.cerveceriaDTOFromCerveceria(Cerveceria.getInstance());
-            bin.escribir(cerveceriaDTO);
-            bin.cerrarOutput();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        //TODO PERSISTIR
     }
 
     @Override

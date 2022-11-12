@@ -218,7 +218,6 @@
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-1"/>
-          <enabled value="false"/>
           <font name="Inter SemiBold" size="12"/>
           <foreground color="-16777216"/>
         </properties>
@@ -495,7 +494,6 @@
                         <item value="70%"/>
                         <item value="100%"/>
                       </model>
-                      <selectedIndex value="0"/>
                     </properties>
                   </component>
                   <hspacer id="5c0e">

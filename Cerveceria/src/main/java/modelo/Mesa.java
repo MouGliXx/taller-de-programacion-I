@@ -1,19 +1,17 @@
 package modelo;
 
-import java.io.Serializable;
-
-public class Mesa implements Serializable {
+public class Mesa {
     private static int sig = 1;
     private int nro;
     private int cantidadComensales;
     private String estado; //Libre - Ocupada
 
     //CONSTRUCTOR
-    public Mesa(int cantidadComensales) {
+    public Mesa(int cantidadComensales, String estado) {
         this.nro = sig;
         sig++;
         this.cantidadComensales = cantidadComensales;
-        this.estado = "Libre";
+        this.estado = estado;
     }
 
     //GETTERS && SETTERS
@@ -36,9 +34,9 @@ public class Mesa implements Serializable {
     }
 
     public void setEstado(String estado) {
-        assert estado!=null : "ERROR : El estado no debe ser null";
-        assert estado.isEmpty() : "ERROR : El estado no debe ser vacio";
-        assert estado.equals("Libre") || estado.equals("Ocupado") : "ERROR : El estado debe ser Ocupado o Libre";
+        assert estado!=null :"ERROR : El estado no debe ser null";
+        assert estado!="":"ERROR : El estado no debe ser vacio";
+        assert estado!="Libre" || estado!="Ocupado" :"ERROR : El estado debe ser Ocupado o Libre";
 
         this.estado = estado;
     }
@@ -66,6 +64,6 @@ public class Mesa implements Serializable {
 
     @Override
     public String toString(){
-        return " " + nro;
+        return " "+this.nro;
     }
 }

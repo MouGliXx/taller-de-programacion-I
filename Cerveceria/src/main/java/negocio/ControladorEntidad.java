@@ -1,103 +1,48 @@
 package negocio;
 
-import modelo.*;
+import modelo.Mesa;
+import modelo.Mozo;
+import modelo.Operario;
+import modelo.Producto;
 import vista.ventanas.VentanaEntidad;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorEntidad implements ActionListener {
-    Object modelo;
     VentanaEntidad vista;
 
-    public ControladorEntidad(Object modelo, VentanaEntidad vista) {
-        this.modelo = modelo;
+    public ControladorEntidad(VentanaEntidad vista) {
         this.vista = vista;
 
         this.vista.setActionListener(this);
         this.vista.setKeyListener();
-        this.vista.setItemListener();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Cancelar" -> this.vista.cerrarVentana();
             case "Accion" -> {
                 switch (vista.getEntidad()) {
                     case "Operario" -> {
-                        try {
-                            String nombreCompleto = vista.getNombreCompletoOperario();
-                            String nombreUsuario = vista.getNombreDeUsuario();
-                            String contrasena = vista.getContrasena();
-                            boolean estado = vista.getEstadoOperario();
-
-                            if (modelo == null) { //CREO
-                                Cerveceria.getInstance().agregarOperario(nombreCompleto, nombreUsuario, contrasena, estado);
-                            } else { //MODIFICO
-                                Cerveceria.getInstance().modificarOperario((Operario) modelo, nombreCompleto, nombreUsuario, contrasena, estado);
-                            }
-
-                            this.vista.cerrarVentana();
-                        } catch (Exception ex) {
-                            vista.lanzarVentanaEmergente(ex.getMessage());
-                        }
+                        Operario operario = this.vista.getOperario();
+                        //TODO GUARDAR OPERARIO
                     }
                     case "Mozo" -> {
-                        try {
-                            String nombreYApellido = vista.getNombreYApellidoMozo();
-                            int edad = vista.getEdadMozo();
-                            int cantHijos = vista.getCantidadHijosMozo();
-
-                            if (modelo == null) { //CREO
-                                Cerveceria.getInstance().agregarMozo(nombreYApellido, edad, cantHijos);
-                            } else { //MODIFICO
-                                Cerveceria.getInstance().modificarMozo((Mozo) modelo, nombreYApellido, edad, cantHijos);
-                            }
-                            this.vista.cerrarVentana();
-                        } catch (NumberFormatException ex) {
-                            vista.lanzarVentanaEmergente("ERROR : " + ex.getMessage());
-                        } catch (Exception ex) {
-                            vista.lanzarVentanaEmergente(ex.getMessage());
-                        }
+                        Mozo mozo = this.vista.getMozo();
+                        //TODO GUARDAR MOZO
                     }
                     case "Producto" -> {
-                        try {
-                           int id = vista.getIDProducto();
-                           int stock = vista.getStockInicial();
-                           String nombre = vista.getNombreProducto();
-                           double precioCosto = vista.getPrecioCosto();
-                           double precioVenta = vista.getPrecioVenta();
-
-                            if (modelo == null) { //CREO
-                                Cerveceria.getInstance().agregarProducto(id, nombre, precioCosto, precioVenta, stock);
-                            } else { //MODIFICO
-                                Cerveceria.getInstance().modificarProducto((Producto) modelo, nombre, precioCosto, precioVenta, stock);
-                            }
-
-                            this.vista.cerrarVentana();
-                        } catch (NumberFormatException ex) {
-                            vista.lanzarVentanaEmergente("ERROR : Ingrese valores validos.");
-                        } catch (Exception ex) {
-                            vista.lanzarVentanaEmergente(ex.getMessage());
-                        }
+                        Producto producto = this.vista.getProducto();
+                        //TODO GUARDAR PRODUCTO
                     }
                     case "Mesa" -> {
-                        try {
-                            int cantComensales = vista.getCantidadComensales();
-
-                            if (modelo == null) { //CREO
-                                Cerveceria.getInstance().agregarMesa(cantComensales);
-                            } else { //MODIFICO
-                                Cerveceria.getInstance().modificarMesa((Mesa) modelo, cantComensales);
-                            }
-
-                            this.vista.cerrarVentana();
-                        } catch (Exception ex) {
-                            vista.lanzarVentanaEmergente(ex.getMessage());
-                        }
+                        Mesa mesa = this.vista.getMesa();
+                        //TODO GUARDAR MESA
                     }
                 }
+                this.vista.cerrarVentana();
             }
+            case "Cancelar" -> this.vista.cerrarVentana();
         }
     }
 }

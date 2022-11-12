@@ -1,28 +1,36 @@
 package modelo;
 
-import java.io.Serializable;
-
-public class Producto implements Serializable {
-    private static int N = 0;
-    private int idProducto;
+public class Producto {
+    private static int idProduct=0;
+    private int nro;
     private String nombre;
     private double precioCosto;
     private double precioVenta;
     private int stockInicial;
 
-    //CONSTRUCTOR
-    public Producto(String nombre, double precioCosto, double precioVenta, int stockInicial) {
-        this.idProducto = N;
-        N++;
+    public int getNro() {
+        return nro;
+    }
+
+    public void setNro(int nro) {
+        this.nro = nro;
+    }
+
+    public Producto(int nro, String nombre, double precioCosto, double precioVenta, int stockInicial) {
+        idProduct++;
+        this.nro = idProduct;
         this.nombre = nombre;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.stockInicial = stockInicial;
     }
 
-    //GETTERS & SETTERS
-    public int getIdProducto() {
-        return idProducto;
+    public int getidProduct() {
+        return idProduct;
+    }
+
+    public void setidProduct(int idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getNombre() {

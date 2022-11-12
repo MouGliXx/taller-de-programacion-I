@@ -4,6 +4,8 @@ import modelo.Comanda;
 import modelo.Pedido;
 import modelo.Producto;
 import vista.interfaces.IVistaPedido;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +21,7 @@ public class ControladorPedido implements ActionListener {
 
         this.vista.setActionListener(this);
         this.vista.setItemListener();
-        this.vista.inicializaComboBox();
+        this.vista.inicializaComboBox(pedido);
     }
 
     @Override

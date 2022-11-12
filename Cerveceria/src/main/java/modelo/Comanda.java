@@ -1,12 +1,9 @@
 package modelo;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Comanda implements Serializable {
+public class Comanda {
     private Date fecha;
     private Mesa mesa;
     private ArrayList<Pedido> pedidos;
@@ -33,9 +30,9 @@ public class Comanda implements Serializable {
     }
 
     public void setEstado(String estado) {
-        assert estado != null :"ERROR : El estado no debe ser null";
-        assert estado.isEmpty() :"ERROR : El estado no debe ser vacio";
-        assert !estado.equals("Abierta") || !estado.equals("Cerrada") :"ERROR : El estado debe ser Abierta o Cerrada";
+        assert estado!=null :"ERROR : El estado no debe ser null";
+        assert estado!="":"ERROR : El estado no debe ser vacio";
+        assert estado!="Abierta" || estado!="Cerrada" :"ERROR : El estado debe ser Ocupado o Libre";
 
         this.estado = estado;
     }
@@ -76,19 +73,25 @@ public class Comanda implements Serializable {
         this.pedidos.add(pedido);
     }
 
-    public void eliminarPedido(Pedido pedido) {
+    public void eliminarPedido(Pedido pedido) { //TODO AL ELIMINAR SE DEBERIA SUMAR LA CANTIDAD AL STOCK
         this.pedidos.remove(pedido);
-        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial() + pedido.getCantidad());
+        pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial()+pedido.getCantidad());
+    }
+
+    public double getTotal() { //TODO VER TEMA DE INCLUIR PROMOCIONES
+        double total = 0;
+
+        for (Pedido pedido : pedidos) {
+            total = total + pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
+        }
+
+        return total;
     }
 
     @Override
     public String toString() {
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, HH:mm:ss");
-        String fechaActual = dateFormat.format(fecha);
-
-        return "Fecha: " + fechaActual +
-                " - Mesa: " + mesa.getNro() +
-                " - Pedidos: " + (pedidos.isEmpty() ? "Sin pedidos" : pedidos);
+        return fecha +
+                " Mesa=" + mesa + pedidos ;
     }
 }
 

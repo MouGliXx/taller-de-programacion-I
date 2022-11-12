@@ -1,11 +1,9 @@
 package modelo;
 
-import java.io.Serializable;
-
-public class Operario implements Serializable {
+public class Operario {
     private String nombreCompleto;
-    private String nombreUsuario;
-    private String contrasena;
+    private String nombreUsuario; //(10)
+    private String contrasena; //(12)
     private boolean activo;
 
     //CONSTRUCTOR
@@ -47,13 +45,5 @@ public class Operario implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    //FUNCIONALIDADES
-    @Override
-    public String toString() {
-        return "Nombre Completo: '" + nombreCompleto + '\'' +
-                " - Nombre de Usuario: '" + nombreUsuario + '\'' +
-                " - Activo: " + activo;
     }
 }

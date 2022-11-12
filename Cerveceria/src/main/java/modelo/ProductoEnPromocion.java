@@ -2,33 +2,42 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class PromocionProducto extends Promocion {
+public class ProductoEnPromocion {
+    //FALTA VARIABLE ESTATICA QUE HAGA UNICOS LOS IDS
+    private int idPromocion;
     private Producto producto;
+    private ArrayList<String> diasPromocion;
     private boolean aplicaDosPorUno;
     private boolean aplicaDtoPorCantidad;
     private int dtoPorCantidad_CantMinima;
     private double dtoPorCantidad_PrecioUnitario;
+    private boolean activa;
+
 
     //CONSTRUCTOR
-    public PromocionProducto() {
-    }
-
-    public PromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario) {
-        super(diasPromocion, activa);
+    public ProductoEnPromocion(int idPromocion, Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario, boolean activa) {
+        this.idPromocion = idPromocion;
         this.producto = producto;
+        this.diasPromocion = diasPromocion;
         this.aplicaDosPorUno = aplicaDosPorUno;
         this.aplicaDtoPorCantidad = aplicaDtoPorCantidad;
         this.dtoPorCantidad_CantMinima = dtoPorCantidad_CantMinima;
         this.dtoPorCantidad_PrecioUnitario = dtoPorCantidad_PrecioUnitario;
+        this.activa = activa;
     }
 
-    public PromocionProducto(ArrayList<String> diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad) {
-        super(diasPromocion, activa);
+    public ProductoEnPromocion(int idPromocion, Producto producto, ArrayList<String> diasPromocion, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, boolean activa) {
+        this.idPromocion = idPromocion;
         this.producto = producto;
+        this.diasPromocion = diasPromocion;
         this.aplicaDosPorUno = aplicaDosPorUno;
         this.aplicaDtoPorCantidad = aplicaDtoPorCantidad;
+        this.activa = activa;
     }
 
+    public double getPrecio() {
+        return producto.getPrecioVenta();
+    }
     //GETTERS && SETTERS
     public Producto getProducto() {
         return producto;
@@ -36,6 +45,14 @@ public class PromocionProducto extends Promocion {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public ArrayList<String> getDiasPromocion() {
+        return diasPromocion;
+    }
+
+    public void setDiasPromocion(ArrayList<String> diasPromocion) {
+        this.diasPromocion = diasPromocion;
     }
 
     public boolean isAplicaDosPorUno() {
@@ -70,20 +87,14 @@ public class PromocionProducto extends Promocion {
         this.dtoPorCantidad_PrecioUnitario = dtoPorCantidad_PrecioUnitario;
     }
 
-    //FUNCIONALIDADES
-    public double getPrecio() {
-        return producto.getPrecioVenta();
+    public boolean isActiva() {
+        return activa;
     }
 
-    @Override
-    public String toString() {
-        return "ID: " + idPromocion +
-                " - diasPromocion: " + diasPromocion +
-                " - activa: " + activa +
-                " - producto: " + producto +
-                " - aplicaDosPorUno: " + aplicaDosPorUno +
-                " - aplicaDtoPorCantidad: " + aplicaDtoPorCantidad +
-                " - dtoPorCantidad_CantMinima: " + dtoPorCantidad_CantMinima +
-                " - dtoPorCantidad_PrecioUnitario: " + dtoPorCantidad_PrecioUnitario;
+    public void setActiva(boolean activa) {
+        this.activa = activa;
     }
+
+
+    //FUNCIONALIDADES
 }

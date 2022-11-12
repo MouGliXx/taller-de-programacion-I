@@ -9,8 +9,6 @@ public interface IVistaEntidad extends IVista {
 
     void setKeyListener();
 
-    void setItemListener();
-
     void setAccion(String accion);
 
     void setEntidad(String entidad);
@@ -25,33 +23,11 @@ public interface IVistaEntidad extends IVista {
 
     String getEntidad();
 
-    //OPERARIO
-    String getNombreCompletoOperario();
+    Operario getOperario();
 
-    String getNombreDeUsuario();
+    Mozo getMozo();
 
-    String getContrasena();
+    Producto getProducto();
 
-    boolean getEstadoOperario();
-
-    //MOZO
-    String getNombreYApellidoMozo();
-
-    int getEdadMozo();
-
-    int getCantidadHijosMozo();
-
-    //PRODUCTO
-    int getIDProducto();
-
-    int getStockInicial();
-
-    String getNombreProducto();
-
-    double getPrecioCosto();
-
-    double getPrecioVenta();
-
-    //MESA
-    int getCantidadComensales();
+    Mesa getMesa();
 }

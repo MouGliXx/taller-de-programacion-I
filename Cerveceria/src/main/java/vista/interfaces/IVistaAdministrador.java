@@ -2,31 +2,25 @@ package vista.interfaces;
 
 import modelo.*;
 
+import java.awt.event.WindowListener;
+
 public interface IVistaAdministrador extends IVista {
 
     void setKeyListener();
 
     void setListSelectionListener();
 
+    void setWindowListener(WindowListener controlador);
+
     void setModelos();
 
-    String cambioDeContrasenaObligatorio();
+    void actualizaLista(String nombreLista);
 
-    void actualizarLista(String nombreLista);
-
-    void inicializarListasEntidades();
-
-    void inicializarListasPromociones();
-
-    void inicializarListasEstadisticas();
+    void inicializarListas();
 
     String getNombreLocal();
 
-    void setNombreLocal(String nombreLocal);
-
     Double getRemuneracion();
-
-    void setRemuneracion(double remuneracion);
 
     String getTipoEntidadSeleccionada();
 
@@ -36,11 +30,11 @@ public interface IVistaAdministrador extends IVista {
 
     Producto getProductoSeleccionado();
 
-    Mesa getMesaSeleccionada();
+    Mesa getMesaSeleccionado();
 
     String getTipoPromocionSeleccionada();
 
-    PromocionProducto getProductoEnPromocionSeleccionado();
+    ProductoEnPromocion getProductoEnPromocionSeleccionado();
 
     PromocionTemporal getPromocionTemporalSeleccionada();
 

@@ -5,10 +5,6 @@ import excepciones.ErrorDeUsuarioException;
 import modelo.Administrador;
 import modelo.Cerveceria;
 import modelo.Operario;
-import persistencia.CerveceriaDTO;
-import persistencia.IPersistencia;
-import persistencia.PersistenciaBIN;
-import persistencia.Util;
 import vista.interfaces.IVistaLogin;
 import vista.ventanas.VentanaAdministrador;
 import vista.ventanas.VentanaOperario;
@@ -16,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
 
 public class ControladorLogin implements ActionListener, WindowListener {
     private IVistaLogin vista;
@@ -30,33 +25,27 @@ public class ControladorLogin implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Login")) {
-            try {
-                if (vista.getUsername().equals("ADMIN")) {
-                    Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
-                    loguearAdministrador(admin);
-                } else {
-                    Operario operario = Cerveceria.getInstance().login(vista.getUsername(), vista.getPassword());
-                    loguearOperario(operario);
+        switch (e.getActionCommand()) {
+            case "Login":
+                try {
+                    if (vista.getUsername().equals("ADMIN")) {
+                        Administrador admin = Cerveceria.getInstance().login(vista.getPassword());
+                        loguearAdministrador(admin);
+                    } else {
+                        Operario operario = Cerveceria.getInstance().login(vista.getUsername(), vista.getPassword());
+                        loguearOperario(operario);
+                    }
+                } catch (ErrorDeUsuarioException e1) {
+                    vista.lanzarVentanaEmergente(e1.getMessage());
+                    vista.nombreUsuarioInvalido();
+                } catch (ErrorDeContrasenaException e2) {
+                    vista.lanzarVentanaEmergente(e2.getMessage());
+                    vista.contrasenaInvalida();
                 }
-            } catch (ErrorDeUsuarioException e1) {
-                vista.lanzarVentanaEmergente(e1.getMessage());
-                vista.nombreUsuarioInvalido();
-            } catch (ErrorDeContrasenaException e2) {
-                vista.lanzarVentanaEmergente(e2.getMessage());
-                vista.contrasenaInvalida();
-            }
+                break;
         }
     }
 
-    /**
-     * Crea y abre una nueva interfaz para el Administrador, junto con su controlador y modelo.<br>
-     *
-     * <b>pre</b> admin distinto de null.<br>
-     * <b>post</b> Una nueva ventana funcional para el Administrador es mostrada por pantalla.<br>
-     *
-     * @param admin Instancia del unico Administrador que se ha logueado en el sistema.<br>
-     */
     public void loguearAdministrador(Administrador admin) {
         VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
         ControladorAdministrador controladorAdministrador = new ControladorAdministrador(admin, ventanaAdministrador);
@@ -64,14 +53,6 @@ public class ControladorLogin implements ActionListener, WindowListener {
         vista.cerrarVentana();
     }
 
-    /**
-     * Crea y abre una nueva interfaz para el Operario, junto con su controlador y modelo.<br>
-     *
-     * <b>pre</b> operario distinto de null.<br>
-     * <b>post</b> Una nueva ventana funcional para el Operario es mostrada por pantalla.<br>
-     *
-     * @param operario Instancia del Operario que se ha logueado en el sistema.<br>
-     */
     public void loguearOperario(Operario operario) {
         VentanaOperario ventanaOperario = new VentanaOperario();
         ControladorOperario controladorOperario = new ControladorOperario(operario, ventanaOperario);
@@ -81,21 +62,13 @@ public class ControladorLogin implements ActionListener, WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        try {
-            IPersistencia bin = new PersistenciaBIN();
-            bin.abrirOutput("Cerveceria.bin");
-            CerveceriaDTO cerveceriaDTO = Util.cerveceriaDTOFromCerveceria(Cerveceria.getInstance());
-            bin.escribir(cerveceriaDTO);
-            bin.cerrarOutput();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+
     }
 
     //METODOS NO USADOS
     @Override
     public void windowOpened(WindowEvent e) {
-
+        //TODO PERSISTIR
     }
 
     @Override

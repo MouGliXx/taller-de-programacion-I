@@ -205,7 +205,6 @@
               </grid>
             </constraints>
             <properties>
-              <actionCommand value="Forma de Pago Seleccionada"/>
               <background color="-2500135"/>
               <font name="Inter SemiBold" size="20"/>
               <foreground color="-16777216"/>
@@ -213,7 +212,7 @@
                 <item value="Efectivo"/>
                 <item value="Tarjeta"/>
                 <item value="Mercado Pago"/>
-                <item value="Cuenta DNI"/>
+                <item value="Ceunta DNI"/>
               </model>
             </properties>
           </component>

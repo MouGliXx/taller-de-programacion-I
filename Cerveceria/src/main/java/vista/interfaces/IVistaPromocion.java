@@ -1,8 +1,9 @@
 package vista.interfaces;
 
-import modelo.Producto;
+import modelo.ProductoEnPromocion;
+import modelo.PromocionTemporal;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public interface IVistaPromocion extends IVista{
 
@@ -10,34 +11,13 @@ public interface IVistaPromocion extends IVista{
 
     void setModelos();
 
-    void setDatos(int id, HashMap<Integer, Producto> productos);
-
     void setPromocion(String promocion);
 
     String getTipoPromocion();
 
-    //PROMOCION
-    ArrayList<String> getDiasDePromocion();
+    ArrayList<String> generaDiasDePromocion();
 
-    boolean isActiva();
+    ProductoEnPromocion getProductoEnPromocion();
 
-    //PRODUCTO EN PROMOCION
-    Producto getProducto();
-
-    boolean getAplica2x1();
-
-    boolean getAplicaDescuentoXCantidad();
-
-    int getCantidadMinima();
-
-    double getPrecioUnitario();
-
-    //PROMOCION TEMPORAL
-    String getNombrePromocion() throws Exception;
-
-    int getPorcentajeDescuento();
-
-    String getFormaDePago();
-
-    boolean isAcumulable();
+    PromocionTemporal getPromocionTemporal();
 }

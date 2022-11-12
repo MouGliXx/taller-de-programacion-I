@@ -1,8 +1,7 @@
 package vista.interfaces;
 
+import modelo.IPromocion;
 import modelo.Pedido;
-
-import modelo.Promocion;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,11 +9,9 @@ public interface IVistaFactura extends IVista{
 
     void setModelos();
 
-    void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones);
+    void inicializarListas(ArrayList<Pedido> pedidos, ArrayList<IPromocion> promociones);
 
-    void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, ArrayList<Promocion> promociones);
-
-    void setTotal(double total);
+    void setDatos(Date fecha, int NMesa, ArrayList<Pedido> pedidos, double total, ArrayList<IPromocion> promociones);
 
     String getFormaDePago();
 }

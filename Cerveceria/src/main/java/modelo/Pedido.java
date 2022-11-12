@@ -1,8 +1,6 @@
 package modelo;
 
-import java.io.Serializable;
-
-public class Pedido implements Serializable {
+public class Pedido {
     private Producto producto;
     private int cantidad;
 
@@ -13,16 +11,15 @@ public class Pedido implements Serializable {
     public Pedido(Producto producto, int cantidad) throws Exception {
         if (!hayStock(producto,cantidad))
             throw new Exception("ERROR : No hay stock suficiente");
-
-        producto.setStockInicial(producto.getStockInicial() - cantidad);
-
+        producto.setStockInicial(producto.getStockInicial()-cantidad);
         this.setProducto(producto);
         this.setCantidad(cantidad);
     }
 
     //GETTERS && SETTERS
-    public Producto getProducto (){
-        return this.producto;
+    public void setCantidad(int cantidad) {
+        assert cantidad > 0 : "ERROR : La cantidad debe ser mayor a cero";
+        this.cantidad = cantidad;
     }
 
     public void setProducto(Producto producto) {
@@ -30,27 +27,24 @@ public class Pedido implements Serializable {
         this.producto = producto;
     }
 
+    public boolean hayStock(Producto producto, int cantidad){
+        return producto.getStockInicial()>=cantidad;
+    }
     public int getCantidad(){
         return this.cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        assert cantidad > 0 : "ERROR : La cantidad debe ser mayor a cero";
-        this.cantidad = cantidad;
-    }
-
-    //FUNCIONALIDADES
-    public boolean hayStock(Producto producto, int cantidad){
-        return producto.getStockInicial() >= cantidad;
     }
 
     public double getPrecioConjunto(){
         return this.producto.getPrecioVenta() * this.getCantidad();
     }
 
+    public Producto getProducto (){
+        return this.producto;
+    }
+
     @Override
     public String toString() {
-        return "Producto: '" + producto +
-                "' - Cantidad = " + cantidad;
+        return "Prod= "+ producto +
+                " Cant= " + cantidad;
     }
 }
