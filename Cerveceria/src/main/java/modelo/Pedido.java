@@ -40,10 +40,25 @@ public class Pedido implements Serializable {
     }
 
     //FUNCIONALIDADES
+
+    /**
+     * Verifica si hay stock del producto determinado
+     *
+     * <b>pre:</b>producto debe existir y cantidad mayor o igual a cero<br>.
+     * @param producto producto que se desea verificar el stock
+     * @param cantidad cantidad que se requiere del producto
+     * @return valor booleano que indica si hay stock suficiente
+     */
     public boolean hayStock(Producto producto, int cantidad){
         return producto.getStockInicial() >= cantidad;
     }
 
+    /**
+     * determina el valor del pedido, haciendo la multiplicacion del precio unitario por la cantidad
+     *
+     * <b>pre:</b>producto debe existir y cantidad mayor o igual a cero<br>.
+     * @return valor real que representa el precio total del pedido
+     */
     public double getPrecioConjunto(){
         return this.producto.getPrecioVenta() * this.getCantidad();
     }

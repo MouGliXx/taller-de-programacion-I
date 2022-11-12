@@ -57,6 +57,15 @@ public class Factura implements Serializable {
         return formaDePago;
     }
 
+    /**
+     * Cambia la forma de pago de la factura haciendo el calculo del total, llamando a los metodos aplicarPromocionesProductos
+     * y aplicarPromocionesTemporales
+     *
+     * <b>pre:</b>forma de pago distinto de null<br>.
+     * @param formaDePago forma en que se va a pagar la factura
+     *
+     * <b>post:</b> La factura tendra un valor total calculado<br>.
+     */
     public void setFormaDePago(String formaDePago) {
         this.total = 0.;
         this.formaDePago = formaDePago;
@@ -71,6 +80,14 @@ public class Factura implements Serializable {
     }
 
     //FUNCIONALIDADES
+
+    /**
+     * Verifica la existencia de promociones temporales que se puedan aplicarse al total de la  factura
+     *
+     * <b>pre:</b>la coleccion de promociones temporales debe existir<br>.
+     *
+     * <b>post:</b> y la promocion coincide con la factura se agregara un elemento nuevo a la coleccion de promociones aplicadas y se aplicara el descuento<br>.
+     */
     public void aplicarPromocionesTemporales() {
         ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
 
@@ -81,6 +98,14 @@ public class Factura implements Serializable {
             }
     }
 
+    /**
+     * Verifica la existencia de promociones de productos que se puedan aplicarse a los producots  de la  factura
+     *
+     * <b>pre:</b>la coleccion de promociones productos debe existir<br>.
+     *
+     * <b>post:</b> si la promocion coincide con los productos y parametros de la  factura se agregara un elemento
+     * nuevo a la coleccion de promociones aplicadas y se aplicara el descuento<br>.
+     */
     public void aplicarPromocionesProductos (){
         ArrayList<PromocionProducto> promoProd = Cerveceria.getInstance().getPromocionesProductos();
         boolean respuesta;
@@ -116,6 +141,15 @@ public class Factura implements Serializable {
         }
     }
 
+
+    /**
+     * Verifica la coincidencia de un los dias de la semana que aplica una promocion con el dia actual
+     *
+     * <b>pre:</b>la coleccion de promociones productos debe existir<br>.
+     * @param dias coleccion de dias en los cuales aplica la promocion
+     *
+     * @return respuesta valor booleano que indica si coincide el dia o no.
+     */
     public boolean coincideDiaSemana(ArrayList<String> dias){
         int dia = new Date().getDay();
         String nombreDia = null;

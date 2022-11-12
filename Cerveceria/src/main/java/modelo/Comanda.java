@@ -66,16 +66,39 @@ public class Comanda implements Serializable {
         this.pedidos = pedidos;
     }
 
+    /**
+     * cambia el estado de la comanda a "cerrado"
+     *
+     * <b>pre:</b>la comanda debe ser distinto de null<br>.
+     *
+     * <b>post:</b> la comanda pasara a estado cerrada<br>.
+     */
     public void cerrarComanda() {
         assert this.estado.equalsIgnoreCase("Cerrada"):"ERROR: no se puede cerrar una comanda ya cerrada";
 
         this.estado = "Cerrada";
     }
 
+    /**
+     * agrega un pedido a la comanda
+     *
+     * <b>pre:</b>pedido debe ser distinto de null<br>.
+     *
+     * @param pedido pedido que se va a agregar a la comanda
+     * <b>post:</b> la coleccion de pedidos de la comanda tendra un nuevo elemento<br>.
+     */
     public void agregarPedido(Pedido pedido){
         this.pedidos.add(pedido);
     }
 
+    /**
+     * elimina un pedido a la comanda
+     *
+     * <b>pre:</b>pedido debe ser distinto de null<br>.
+     *
+     * @param pedido pedido que se va a eliminar de la comanda
+     * <b>post:</b> la coleccion de pedidos de la comanda tendra un elemento menos y se sumara al stock del producto<br>.
+     */
     public void eliminarPedido(Pedido pedido) {
         this.pedidos.remove(pedido);
         pedido.getProducto().setStockInicial(pedido.getProducto().getStockInicial() + pedido.getCantidad());

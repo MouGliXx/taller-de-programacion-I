@@ -2,7 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
-public class Mozo implements Comparable, Serializable {
+public class Mozo implements  Serializable {
     private String nombreYApellido;
     private int edad;
     private int cantHijos;
@@ -70,18 +70,5 @@ public class Mozo implements Comparable, Serializable {
                 " - Hijos: " + cantHijos +
                 (estado == null ? "" : " - Estado: " + estado) +
                 " - Sueldo: " + sueldo;
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Mozo mozo = (Mozo) o;
-        int respuesta;
-
-        if (Cerveceria.getInstance().getEstadisticasMozos().get(this).getTotalGastado() >= Cerveceria.getInstance().getEstadisticasMozos().get(mozo).getTotalGastado())
-            respuesta = 1;
-        else
-            respuesta = -1;
-
-        return respuesta;
     }
 }
