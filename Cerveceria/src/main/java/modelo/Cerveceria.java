@@ -156,7 +156,7 @@ public class Cerveceria {
 
     /**
      * Verifica la contrasena del administrador para poder acceder al sistema
-     * <b>pre:</b> El administrador debe existir <br>.
+     * <b>pre:</b> El administrador debe existir, password distinto de vacio y null<br>.
      * @param password contrasena del administrador
      * @throws ErrorDeContrasenaException Se lanza excepción si la contrasena es invalida
      * @return Administrador devuelve el objeto administrador
@@ -172,7 +172,7 @@ public class Cerveceria {
 
     /**
      * Verifica la contrasena del Operario para poder acceder al sistema
-     * <b>pre:</b> La lista de operarios debe existir <br>.
+     * <b>pre:</b> La lista de operarios debe existir, username y password distinto de null y vacio<br>.
      * @param password contrasena del administrador
      * @throws ErrorDeContrasenaException Se lanza excepción si la contrasena es invalida
      * @throws ErrorDeUsuarioException Se lanza excepción si el Usuario no esta en estado activo o si el nombre no es valido
@@ -218,7 +218,7 @@ public class Cerveceria {
     /**
      * crea una nueva mesa y la agrega a la coleccion de mesas
      * Ademas crea un nuevo elemento de la coleccion de estadisticasMesas
-     * <b>pre:</b> La lista de mesas debe existir <br>.
+     * <b>pre:</b> La lista de mesas debe existir, cantidadComensales entero positivo<br>.
      * @param cantidadComensales cantidad de sillas que tendra la mesa
      * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
      * <b>post:</b> Se agregaran nuevos elementos a las colecciones de mesa y estadisticas mesa <br>.
@@ -233,7 +233,7 @@ public class Cerveceria {
 
     /**
      * El metodo setea los valores de la promocion de productos y la agrega a la coleccion de promociones productos
-     * <b>pre:</b> Promocion producto debe ser distinto de null<br>.
+     * <b>pre:</b> Promocion producto valido y distinto de null <br>.
      * @param promocionProducto promocion de un producto a agregar
      * @param diasPromocion coleccion de dias en los cuales aplica la promocion
      * @param activa estado de la promocion
@@ -268,7 +268,7 @@ public class Cerveceria {
 
     /**
      * El metodo setea los valores de la promocion temporal y la agrega a la coleccion de promociones temporales
-     * <b>pre:</b> Promocion temporal debe ser distinto de null<br>.
+     * <b>pre:</b> Promocion temporal valida y distinto de null<br>.
      * @param promocionTemporal a agregar
      * @param diasPromocion coleccion de dias en los cuales aplica la promocion
      * @param activa estado de la promocion
@@ -292,6 +292,8 @@ public class Cerveceria {
     /**
      * El metodo valida los datos correspondientes para crear un nuevo Mozo y agregarlo a la coleccion de mozos
      * Ademas crea un nuevo elemento a la coleccion de estadisticasMozo
+     *
+     * <b>pre:</b> La coleccion de mozos debe existir, nombre distinto de null y vacio, hijos y edad entero, <br>.
      *
      * @param nombre nombre del mozo
      * @param edad edad del mozo
