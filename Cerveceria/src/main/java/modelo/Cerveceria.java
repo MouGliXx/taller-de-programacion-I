@@ -796,7 +796,7 @@ public class Cerveceria {
                     mozoMinimo = entry.getKey();
             }
 
-            respuesta.add("Mozo con mayor volumen de ventas: '" + mozoMaximo.getNombreYApellido() + "' - Cantidad Ventas = " + estadisticasMozos.get(mozoMaximo).getCantidadVentas() + " - Total Facturado= " + estadisticasMozos.get(mozoMaximo).getTotalGastado());
+            respuesta.add("Mozo con mayor volumen de ventas: '" + mozoMaximo.getNombreYApellido());
             respuesta.add("Mozo con menor volumen de ventas: '" + mozoMinimo.getNombreYApellido() + "' - Cantidad Ventas = " + estadisticasMozos.get(mozoMinimo).getCantidadVentas() + " - Total Facturado= " + estadisticasMozos.get(mozoMinimo).getTotalGastado());
         }
 

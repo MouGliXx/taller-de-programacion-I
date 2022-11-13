@@ -1,20 +1,18 @@
 package escenarios;
 
 import modelo.Cerveceria;
-import modelo.Mozo;
+import modelo.Producto;
 
-public class EscenarioMozos2 {
+public class EscenarioProductos1 {
 
     public Cerveceria cerveceria;
 
-    public EscenarioMozos2(){
+    public EscenarioProductos1(){
 
         this.cerveceria = Cerveceria.getInstance();
 
         try {
-            for ( int i = 0 ;i < 6; i++){
-                cerveceria.agregarMozo("Tomas", 33, 1);
-            }
+            cerveceria.agregarProducto(2,"Hamburguesa",25,50,2);
         }
         catch (Exception e ){
             System.out.printf(e.getMessage());
