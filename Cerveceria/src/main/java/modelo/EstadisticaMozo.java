@@ -12,6 +12,11 @@ public class EstadisticaMozo implements Serializable {
         this.totalGastado = 0.0;
     }
 
+    public EstadisticaMozo(double totalGastado, int mesasAtendidas) {
+        this.totalGastado = totalGastado;
+        this.mesasAtendidas = mesasAtendidas;
+    }
+
     //GETTER Y SETTERS
     public double getTotalGastado() {return totalGastado;}
 
