@@ -1,10 +1,12 @@
-package modelo;
+package escenarios;
 
-public class EscenarioCerveceria1 {
+import modelo.Cerveceria;
+
+public class EscenarioMozos2 {
 
     Cerveceria cerveceria;
 
-    public EscenarioCerveceria1(){
+    public EscenarioMozos2(){
 
         this.cerveceria = Cerveceria.getInstance();
 
