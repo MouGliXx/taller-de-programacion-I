@@ -4,7 +4,7 @@ import modelo.Cerveceria;
 
 public class EscenarioMozos1 {
 
-    Cerveceria cerveceria;
+    public Cerveceria cerveceria;
 
     public EscenarioMozos1(){
 

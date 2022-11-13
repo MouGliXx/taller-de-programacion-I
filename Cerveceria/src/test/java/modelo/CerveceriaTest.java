@@ -1,5 +1,7 @@
 package modelo;
 
+import escenarios.EscenarioMozos1;
+import escenarios.EscenarioMozos2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.AssertionFailureBuilder.assertionFailure;
 class CerveceriaTest{
 
-    EscenarioCerveceria1 escenario;
+    private EscenarioMozos1 escenario;
 
     @BeforeEach
     public void setUp() {
-        this.escenario = new EscenarioCerveceria1();
+        this.escenario = new EscenarioMozos1();
     }
 
     @DisplayName("Testeando caso con pocos mozos")
