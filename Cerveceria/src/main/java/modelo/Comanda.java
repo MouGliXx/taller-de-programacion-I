@@ -33,8 +33,9 @@ public class Comanda implements Serializable {
     }
 
     public void setEstado(String estado) {
+        System.out.printf(estado.isEmpty() + "nashe");
         assert estado != null :"ERROR : El estado no debe ser null";
-        assert estado.isEmpty() :"ERROR : El estado no debe ser vacio";
+        assert !estado.isEmpty() :"ERROR : El estado no debe ser vacio";
         assert !estado.equals("Abierta") || !estado.equals("Cerrada") :"ERROR : El estado debe ser Abierta o Cerrada";
 
         this.estado = estado;
@@ -46,7 +47,7 @@ public class Comanda implements Serializable {
 
     public void setMesa(Mesa mesa){
         assert mesa!= null :"ERROR : La mesa no debe ser null";
-        assert mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
+        assert !mesa.getEstado().equalsIgnoreCase("Libre") : "ERROR : la mesa debe estar en estado libre";
         this.mesa = mesa;
     }
 
@@ -74,8 +75,6 @@ public class Comanda implements Serializable {
      * <b>post:</b> la comanda pasara a estado cerrada<br>.
      */
     public void cerrarComanda() {
-        assert this.estado.equalsIgnoreCase("Cerrada"):"ERROR: no se puede cerrar una comanda ya cerrada";
-
         this.estado = "Cerrada";
     }
 

@@ -58,7 +58,6 @@ public class Prueba {
 
 
         try {
-
             cerveza.agregarComanda(cerveza.getMesas().get(0),pedidos);
         }catch (Exception e){
             System.out.println(e.getMessage());

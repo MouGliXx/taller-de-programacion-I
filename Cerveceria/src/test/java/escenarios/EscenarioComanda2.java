@@ -1,23 +1,23 @@
 package escenarios;
 
 import modelo.Cerveceria;
-import modelo.Mozo;
 
-public class EscenarioMozos2 {
+public class EscenarioComanda2 {
 
     public Cerveceria cerveceria;
 
-    public EscenarioMozos2(){
+    public EscenarioComanda2(){
 
         this.cerveceria = Cerveceria.getInstance();
 
         try {
-            for ( int i = 0 ;i < 6; i++){
-                cerveceria.agregarMozo("Tomas", 30, 4);
-            }
+            cerveceria.agregarMozo("Lautaro", 22, 1);
+            cerveceria.agregarMozo("Ignacio", 26, 1);
+            cerveceria.agregarMozo("Tomas", 33, 1);
         }
         catch (Exception e ){
             System.out.printf(e.getMessage());
         }
     }
+
 }
