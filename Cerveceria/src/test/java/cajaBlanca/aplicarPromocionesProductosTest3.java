@@ -1,6 +1,9 @@
-package modelo;
+package cajaBlanca;
 
 import escenarios.EscenarioAplicarPromocionesProductos3;
+import modelo.Cerveceria;
+import modelo.Factura;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,11 @@ public class aplicarPromocionesProductosTest3 {
     @BeforeEach
     public void setUp() {
         this.escenario = new EscenarioAplicarPromocionesProductos3();
+    }
+
+    @AfterEach
+    public void tearDown(){
+        Cerveceria.setInstance(null);
     }
 
     @DisplayName("Testeando caso sin promociones de ningun tipo")
