@@ -821,4 +821,8 @@ public class Cerveceria {
 
         return respuesta;
     }
+
+    public static void setInstance(Cerveceria instance) {
+        Cerveceria.instance = instance;
+    }
 }

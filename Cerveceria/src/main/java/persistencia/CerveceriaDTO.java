@@ -4,6 +4,7 @@ import modelo.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CerveceriaDTO implements Serializable {
     private String nombreDelLocal;
@@ -131,5 +132,18 @@ public class CerveceriaDTO implements Serializable {
 
     public void setEstadisticasMesas(HashMap<Mesa, EstadisticaMesa> estadisticasMesas) {
         this.estadisticasMesas = estadisticasMesas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CerveceriaDTO that = (CerveceriaDTO) o;
+        return Double.compare(that.getRemuneracionBasica(), getRemuneracionBasica()) == 0 && Objects.equals(getNombreDelLocal(), that.getNombreDelLocal()) && Objects.equals(getAdministrador(), that.getAdministrador()) && Objects.equals(getOperarios(), that.getOperarios()) && Objects.equals(getMozos(), that.getMozos()) && Objects.equals(getProductos(), that.getProductos()) && Objects.equals(getMesas(), that.getMesas()) && Objects.equals(getComandas(), that.getComandas()) && Objects.equals(getFacturas(), that.getFacturas()) && Objects.equals(getPromocionesProductos(), that.getPromocionesProductos()) && Objects.equals(getPromocionesTemporales(), that.getPromocionesTemporales()) && Objects.equals(getMesasAsignadas(), that.getMesasAsignadas()) && Objects.equals(getEstadisticasMozos(), that.getEstadisticasMozos()) && Objects.equals(getEstadisticasMesas(), that.getEstadisticasMesas());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombreDelLocal(), getRemuneracionBasica(), getAdministrador(), getOperarios(), getMozos(), getProductos(), getMesas(), getComandas(), getFacturas(), getPromocionesProductos(), getPromocionesTemporales(), getMesasAsignadas(), getEstadisticasMozos(), getEstadisticasMesas());
     }
 }
