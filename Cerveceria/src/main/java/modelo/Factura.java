@@ -90,12 +90,12 @@ public class Factura implements Serializable {
      */
     public void aplicarPromocionesTemporales() {
         ArrayList<PromocionTemporal> promoTemp = Cerveceria.getInstance().getPromocionesTemporales();
-
-        for (PromocionTemporal promo : promoTemp)
+        for (PromocionTemporal promo : promoTemp) {
             if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion()) && promo.getFormaDePago().equalsIgnoreCase(this.formaDePago) && promo.isEsAcumulable()) {
                 promocionesAplicadas.add(promo);
-                this.total = this.total * promo.getPorcentajeDescuento() / 100.;
+                this.total = this.total * (1-promo.getPorcentajeDescuento() / 100.);
             }
+        }
     }
 
     /**
