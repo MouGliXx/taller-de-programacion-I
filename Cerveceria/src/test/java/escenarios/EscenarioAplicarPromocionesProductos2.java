@@ -18,8 +18,13 @@ public class EscenarioAplicarPromocionesProductos2 {
             ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
 
             ArrayList<String> diasPromo=new ArrayList<>();
-            diasPromo.add("Domingo");
             diasPromo.add("Lunes");
+            diasPromo.add("Martes");
+            diasPromo.add("Miercoles");
+            diasPromo.add("Jueves");
+            diasPromo.add("Viernes");
+            diasPromo.add("Sabado");
+            diasPromo.add("Domingo");
 
 
             promocionesTemporales.add(new PromocionTemporal(diasPromo,true,"PromoPanchos","Efectivo",25,true));

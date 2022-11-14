@@ -3,6 +3,7 @@ package escenarios;
 import modelo.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EscenarioAplicarPromocionesProductos1 {
     public Cerveceria cerveceria;
@@ -17,6 +18,12 @@ public class EscenarioAplicarPromocionesProductos1 {
 
             ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
             ArrayList<String> diasPromo=new ArrayList<>();
+            diasPromo.add("Lunes");
+            diasPromo.add("Martes");
+            diasPromo.add("Miercoles");
+            diasPromo.add("Jueves");
+            diasPromo.add("Viernes");
+            diasPromo.add("Sabado");
             diasPromo.add("Domingo");
 
             promocionesProductos.add(new PromocionProducto(diasPromo,true,producto,true,false,0,0));
