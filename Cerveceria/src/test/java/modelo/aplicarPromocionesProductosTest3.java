@@ -1,4 +1,4 @@
-package cajaBlanca;
+package modelo;
 
 import escenarios.EscenarioAplicarPromocionesProductos3;
 import modelo.Cerveceria;

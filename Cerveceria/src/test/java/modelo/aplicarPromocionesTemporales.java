@@ -1,8 +1,6 @@
-package cajaBlanca;
+package modelo;
 
-import escenarios.EscenarioAplicarPromocionesProductos2;
-import modelo.Factura;
-import modelo.Cerveceria;
+import escenarios.EscenarioAplicarPromocionesTemporales;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class aplicarPromocionesProductosTest2 {
-    private EscenarioAplicarPromocionesProductos2 escenario;
+public class aplicarPromocionesTemporales {
+    private EscenarioAplicarPromocionesTemporales escenario;
 
     @BeforeEach
     public void setUp() {
-        this.escenario = new EscenarioAplicarPromocionesProductos2();
+        this.escenario = new EscenarioAplicarPromocionesTemporales();
     }
 
     @AfterEach
@@ -26,7 +24,7 @@ public class aplicarPromocionesProductosTest2 {
 
     @DisplayName("Testeando caso con promociones temporales")
     @Test
-    void testAplicarPromocionesProductos2(){
+    void testAplicarPromocionesTemporales(){
 
         try {
             Factura factura=this.escenario.cerveceria.getFacturas().get(0);
