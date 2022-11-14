@@ -1,12 +1,11 @@
 package modelo;
 
 import escenarios.EscenarioMozos1;
-import escenarios.EscenarioMozos2;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.AssertionFailureBuilder.assertionFailure;
-class CerveceriaTest{
+
+class CerveceriaTestEscenario1 {
 
     private EscenarioMozos1 escenario;
 
@@ -17,9 +16,8 @@ class CerveceriaTest{
 
     @AfterEach
     public void tearDown(){
-        System.out.printf( "\n" + this.escenario.cerveceria.getMozos().size()  );
         this.escenario.cerveceria.getMozos().clear();
-
+        this.escenario.cerveceria.getEstadisticasMozos().clear();
     }
 
     @DisplayName("Caso con pocos mozos")
@@ -27,7 +25,7 @@ class CerveceriaTest{
     void testAgregarMozo1(){
 
         try {
-            this.escenario.cerveceria.getMozos();
+            System.out.printf(this.escenario.cerveceria.getMozos().toString());
             this.escenario.cerveceria.agregarMozo("Tomas", 18, 0);
             Mozo mozo = this.escenario.cerveceria.getMozos().get(this.escenario.cerveceria.getMozos().size() - 1 );
             assertEquals("Tomas", mozo.getNombreYApellido());
@@ -35,7 +33,7 @@ class CerveceriaTest{
             assertEquals(0, mozo.getCantHijos());
         }
         catch(Exception e){
-            assertTrue(false,"Fallo el test");
+            assertEquals(false,"Entro en la excepcion ERROR");
         }
     }
 
@@ -54,20 +52,6 @@ class CerveceriaTest{
 
     }
 
-    @Test
-    void testModificarProducto1(){
-        try {
-            Producto producto=new Producto("Hamburgueysa",25,50,2);
-            this.escenario.cerveceria.modificarProducto(producto,"Hamburguesa",30,60,3);
-            Producto producto2=this.escenario.cerveceria.getProductos().get(this.escenario.cerveceria.getProductos().size()-1);
-            assertEquals(producto,producto2);
-        }
-        catch (Exception e){
-            assertTrue(false,"Fallo el test");
-        }
-    }
-
-
     @DisplayName("Caso mozo con cantHijos < 0")
     @Test
     void testAgregarMozo4(){
@@ -81,4 +65,5 @@ class CerveceriaTest{
             assertEquals("ERROR : Cantidad de hijos debe ser mayo o igual a cero",e.getMessage());
         }
     }
+
 }

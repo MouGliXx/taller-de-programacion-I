@@ -1,6 +1,7 @@
 package modelo;
 
 import escenarios.EscenarioMozos2;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,12 +18,17 @@ public class CerveceriaTestEscenario2 {
         this.escenario = new EscenarioMozos2();
     }
 
+    @AfterEach
+    public void tearDown(){
+        this.escenario.cerveceria.getMozos().clear();
+        this.escenario.cerveceria.getEstadisticasMozos().clear();
+    }
+
     @DisplayName("Caso mozos completos")
     @Test
     void testAgregarMozo3(){
 
         try {
-            this.escenario.cerveceria.getMozos();
             this.escenario.cerveceria.agregarMozo("Tomas", 18, 2);
             assertTrue(false,"No salto la excepcion");
         }

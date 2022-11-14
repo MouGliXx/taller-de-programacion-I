@@ -21,7 +21,7 @@ public class EscenarioMostrarEstadisticaMozo2 {
             HashMap<Mozo, EstadisticaMozo> estadisticasMozos = new HashMap<>();
             estadisticasMozos.put(mozos.get(0),new EstadisticaMozo(15000,4));
             estadisticasMozos.put(mozos.get(1),new EstadisticaMozo(12000,2));
-            cerveceria.setEstadisticasMozos(estadisticasMozos);
+            this.cerveceria.setEstadisticasMozos(estadisticasMozos);
         }
         catch (Exception e ) {
             System.out.printf(e.getMessage());

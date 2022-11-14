@@ -22,14 +22,21 @@ public class EliminarComanda1 {
     public void tearDown(){
 //        System.out.printf( "\n" + this.escenario.cerveza.getMozos().size()  );
 //        this.escenario.cerveza.getMozos().clear();
-        this.escenario = null;
+        this.escenario.cerveza.getComandas().clear();
+        this.escenario.cerveza.getMozos().clear();
+        this.escenario.cerveza.getMesas().clear();
+        this.escenario.cerveza.getProductos().clear();
+        this.escenario.cerveza.getPromocionesProductos().clear();
+        this.escenario.cerveza.getEstadisticasMozos().clear();
     }
 
 
     @Test
     public void eliminarComanda() {
         try {
+            System.out.printf("\n" + this.escenario.cerveza.getComandas().size());
             this.escenario.cerveza.eliminarComanda(this.escenario.cerveza.getComandas().get(0));
+            System.out.printf("\n" + this.escenario.cerveza.getComandas().size());
             assertEquals(true,this.escenario.cerveza.getComandas().isEmpty());
         }
         catch(Exception e){

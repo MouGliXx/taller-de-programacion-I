@@ -1,5 +1,6 @@
 package modelo;
 import escenarios.EscenarioProductos1;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,18 @@ public class modificarProductoTest {
     @BeforeEach
     public void setUp() {
         this.escenario = new EscenarioProductos1();
+    }
+
+    @AfterEach
+    public void tearDown(){
+//        System.out.printf( "\n" + this.escenario.cerveza.getMozos().size()  );
+//        this.escenario.cerveza.getMozos().clear();
+        this.escenario.cerveceria.getComandas().clear();
+        this.escenario.cerveceria.getMozos().clear();
+        this.escenario.cerveceria.getMesas().clear();
+        this.escenario.cerveceria.getProductos().clear();
+        this.escenario.cerveceria.getPromocionesProductos().clear();
+        this.escenario.cerveceria.getEstadisticasMozos().clear();
     }
 
     @DisplayName("Testeando caso con producto distinto de null")
