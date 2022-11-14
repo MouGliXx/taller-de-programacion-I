@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class PersistenciaBIN implements IPersistencia {
     private FileOutputStream fileoutput = null;
     private FileInputStream fileinput = null;
-    private ObjectOutputStream objectoutput = null;
+    public ObjectOutputStream objectoutput = null;
     private ObjectInputStream objectinput = null;
 
     @Override
@@ -30,7 +30,9 @@ public class PersistenciaBIN implements IPersistencia {
     public void cerrarOutput() throws IOException {
         if (objectoutput != null)
             objectoutput.close();
-
+        else {
+            throw new IOException();
+        }
     }
 
     @Override
