@@ -17,13 +17,13 @@ public class CerveceriaTestEscenario2 {
         this.escenario = new EscenarioMozos2();
     }
 
-    @DisplayName("Testeando caso con mozos completos")
+    @DisplayName("Caso mozos completos")
     @Test
     void testAgregarMozo3(){
 
         try {
             this.escenario.cerveceria.getMozos();
-            this.escenario.cerveceria.agregarMozo("Tomas", 18, 0);
+            this.escenario.cerveceria.agregarMozo("Tomas", 18, 2);
             assertTrue(false,"No salto la excepcion");
         }
         catch(Exception e){
@@ -32,8 +32,4 @@ public class CerveceriaTestEscenario2 {
     }
 
 
-    @Test
-    void testAgregarMozo2(){
-
-    }
 }

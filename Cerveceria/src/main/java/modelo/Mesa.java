@@ -37,8 +37,7 @@ public class Mesa implements Serializable {
 
     public void setEstado(String estado) {
         assert estado!=null : "ERROR : El estado no debe ser null";
-        assert estado.isEmpty() : "ERROR : El estado no debe ser vacio";
-        assert estado.equals("Libre") || estado.equals("Ocupado") : "ERROR : El estado debe ser Ocupado o Libre";
+        assert !estado.equals("Libre") || !estado.equals("Ocupado") : "ERROR : El estado debe ser Ocupado o Libre";
 
         this.estado = estado;
     }
