@@ -30,7 +30,7 @@ class CerveceriaTest{
             assertEquals(0, mozo.getCantHijos());
         }
         catch(Exception e){
-            assertTrue(false,"Entro en la excepcion");
+            assertTrue(false,"Fallo el test");
         }
     }
 
@@ -39,4 +39,19 @@ class CerveceriaTest{
     void testAgregarMozo2(){
 
     }
+
+    @Test
+    void testModificarProducto1(){
+        try {
+            Producto producto=new Producto("Hamburgueysa",25,50,2);
+            this.escenario.cerveceria.modificarProducto(producto,"Hamburguesa",30,60,3);
+            Producto producto2=this.escenario.cerveceria.getProductos().get(this.escenario.cerveceria.getProductos().size()-1);
+            assertEquals(producto,producto2);
+        }
+        catch (Exception e){
+            assertTrue(false,"Fallo el test");
+        }
+    }
+
+
 }
