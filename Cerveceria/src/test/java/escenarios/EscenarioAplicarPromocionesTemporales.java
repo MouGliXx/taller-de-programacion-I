@@ -4,9 +4,9 @@ import modelo.*;
 
 import java.util.ArrayList;
 
-public class EscenarioAplicarPromocionesProductos2 {
+public class EscenarioAplicarPromocionesTemporales {
     public Cerveceria cerveceria;
-    public EscenarioAplicarPromocionesProductos2() {
+    public EscenarioAplicarPromocionesTemporales() {
         this.cerveceria=Cerveceria.getInstance();
         try{
             Mesa mesa=new Mesa(8);
