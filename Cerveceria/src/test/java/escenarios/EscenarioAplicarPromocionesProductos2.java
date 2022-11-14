@@ -4,23 +4,26 @@ import modelo.*;
 
 import java.util.ArrayList;
 
-public class EscenarioAplicarPromocionesProductos {
+public class EscenarioAplicarPromocionesProductos2 {
     public Cerveceria cerveceria;
-    public EscenarioAplicarPromocionesProductos() {
+    public EscenarioAplicarPromocionesProductos2() {
         this.cerveceria=Cerveceria.getInstance();
         try{
             Mesa mesa=new Mesa(8);
             ArrayList<Pedido> pedidos=new ArrayList<>();
             Producto producto=new Producto("Hamburguesa",20,40,5);
             pedidos.add(new Pedido(producto,2));
-            pedidos.add(new Pedido(new Producto("Pancho",10,20,17),3));
+            pedidos.add(new Pedido(new Producto("Pancho",10,20,17),5));
 
-            ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
+            ArrayList<PromocionTemporal> promocionesTemporales = new ArrayList<>();
+
             ArrayList<String> diasPromo=new ArrayList<>();
             diasPromo.add("Domingo");
+            diasPromo.add("Lunes");
 
-            promocionesProductos.add(new PromocionProducto(diasPromo,true,producto,true,false,0,0));
-            cerveceria.setPromocionesProductos(promocionesProductos);
+
+            promocionesTemporales.add(new PromocionTemporal(diasPromo,true,"PromoPanchos","Efectivo",25,true));
+            cerveceria.setPromocionesTemporales(promocionesTemporales);
 
             Factura factura=new Factura(mesa,pedidos);
             cerveceria.getFacturas().add(factura);
