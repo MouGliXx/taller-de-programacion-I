@@ -112,14 +112,14 @@ public class Factura implements Serializable {
         PromocionProducto promo;
         int pos;
 
+
         for (Pedido pedido : this.pedidos) {
+            System.out.println(promoProd.size());
             pos = 0;
             respuesta = false;
             while(!respuesta && (pos < promoProd.size())){
                 promo = promoProd.get(pos);
-                System.out.println("ENTRE1");
                 if (pedido.getProducto().equals(promo.getProducto())) {
-                    System.out.println("ENTRE2");
                     if (promo.isActiva() && coincideDiaSemana(promo.getDiasPromocion())) {
                         if (promo.isAplicaDosPorUno()) {
                             //aplicar 2x1 y sumar al total
@@ -138,9 +138,7 @@ public class Factura implements Serializable {
                 pos--;
                 promocionesAplicadas.add(promoProd.get(pos));
             } else {
-                System.out.println(pedido.getProducto().getNombre()+pedido.getCantidad()+": ");
                 this.total += pedido.getProducto().getPrecioVenta() * pedido.getCantidad();
-                System.out.println(this.total);
             }
         }
     }

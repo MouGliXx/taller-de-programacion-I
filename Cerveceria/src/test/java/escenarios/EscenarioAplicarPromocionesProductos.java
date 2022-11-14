@@ -11,8 +11,16 @@ public class EscenarioAplicarPromocionesProductos {
         try{
             Mesa mesa=new Mesa(8);
             ArrayList<Pedido> pedidos=new ArrayList<>();
-            pedidos.add(new Pedido(new Producto("Hamburguesa",20,40,5),2));
+            Producto producto=new Producto("Hamburguesa",20,40,5);
+            pedidos.add(new Pedido(producto,2));
             pedidos.add(new Pedido(new Producto("Pancho",10,20,17),3));
+
+            ArrayList<PromocionProducto> promocionesProductos = new ArrayList<>();
+            ArrayList<String> diasPromo=new ArrayList<>();
+            diasPromo.add("Domingo");
+
+            promocionesProductos.add(new PromocionProducto(diasPromo,true,producto,true,false,0,0));
+            cerveceria.setPromocionesProductos(promocionesProductos);
 
             Factura factura=new Factura(mesa,pedidos);
             cerveceria.getFacturas().add(factura);

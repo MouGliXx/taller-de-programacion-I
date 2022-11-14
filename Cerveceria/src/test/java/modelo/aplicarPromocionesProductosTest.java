@@ -25,7 +25,7 @@ public class aplicarPromocionesProductosTest {
             Factura factura=this.escenario.cerveceria.getFacturas().get(0);
             System.out.println(factura);
 
-            assertEquals(140.0,factura.getTotal());
+            assertEquals(100.0,factura.getTotal());
 
         }
         catch(Exception e){
