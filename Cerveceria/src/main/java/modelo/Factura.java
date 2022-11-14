@@ -112,7 +112,9 @@ public class Factura implements Serializable {
         PromocionProducto promo;
         int pos;
 
+
         for (Pedido pedido : this.pedidos) {
+            System.out.println(promoProd.size());
             pos = 0;
             respuesta = false;
             while(!respuesta && (pos < promoProd.size())){
