@@ -17,9 +17,8 @@ class CerveceriaTest{
 
     @AfterEach
     public void tearDown(){
-        System.out.printf( "\n" + this.escenario.cerveceria.getMozos().size()  );
         this.escenario.cerveceria.getMozos().clear();
-
+        this.escenario.cerveceria.getEstadisticasMozos().clear();
     }
 
     @DisplayName("Caso con pocos mozos")
@@ -27,7 +26,7 @@ class CerveceriaTest{
     void testAgregarMozo1(){
 
         try {
-            this.escenario.cerveceria.getMozos();
+            System.out.printf(this.escenario.cerveceria.getMozos().toString());
             this.escenario.cerveceria.agregarMozo("Tomas", 18, 0);
             Mozo mozo = this.escenario.cerveceria.getMozos().get(this.escenario.cerveceria.getMozos().size() - 1 );
             assertEquals("Tomas", mozo.getNombreYApellido());
@@ -35,7 +34,7 @@ class CerveceriaTest{
             assertEquals(0, mozo.getCantHijos());
         }
         catch(Exception e){
-            assertEquals(false,"Entro en la excepcion");
+            assertEquals(false,"Entro en la excepcion ERROR");
         }
     }
 

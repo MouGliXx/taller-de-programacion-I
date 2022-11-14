@@ -13,7 +13,8 @@ public class EscenarioMostrarEstadisticaMozo1 {
     public EscenarioMostrarEstadisticaMozo1() {
 
         this.cerveceria = Cerveceria.getInstance();
-        cerveceria.setMozos(new ArrayList<>());
+        ArrayList<Mozo> mozo = new ArrayList<>();
+        this.cerveceria.setMozos(mozo);
     }
 
 
