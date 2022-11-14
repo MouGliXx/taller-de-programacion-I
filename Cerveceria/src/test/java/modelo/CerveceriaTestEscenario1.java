@@ -1,12 +1,11 @@
 package modelo;
 
 import escenarios.EscenarioMozos1;
-import escenarios.EscenarioMozos2;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.AssertionFailureBuilder.assertionFailure;
-class CerveceriaTest{
+
+class CerveceriaTestEscenario1 {
 
     private EscenarioMozos1 escenario;
 

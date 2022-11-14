@@ -1,17 +1,13 @@
 package modelo;
 
 import escenarios.EscenarioMostrarEstadisticaMozo1;
-import escenarios.EscenarioMostrarEstadisticaMozo2;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
-class mostrarEstadisticaMozoTest1 {
+class MostrarEstadisticaMozoTest {
 
     private EscenarioMostrarEstadisticaMozo1 escenario;
 
