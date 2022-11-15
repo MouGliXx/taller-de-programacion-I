@@ -91,6 +91,8 @@ public class VentanaPromocion extends JFrame implements IVistaPromocion, ActionL
         this.mercadoPagoCheckBox.addActionListener(this);
         this.cuentaDNICheckBox.addActionListener(this);
         this.acumulableCheckBox.addActionListener(this);
+
+
     }
 
     /**

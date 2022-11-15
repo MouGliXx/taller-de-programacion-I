@@ -2,6 +2,8 @@ package vista.ventanas;
 
 import modelo.*;
 import vista.interfaces.IVistaAdministrador;
+import vista.interfaces.IVistaLogin;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -124,6 +126,14 @@ public class VentanaAdministrador extends JFrame implements IVistaAdministrador,
         this.mesasDelLocalCheckBox.addActionListener(this);
         this.productosEnPromocionCheckBox.addActionListener(this);
         this.promocionesTemporalesCheckBox.addActionListener(this);
+
+        this.cerveceriaTextField.setName("cerveceriaTextField");
+        this.editarTituloButton.setName("editarTituloButton");
+        this.estadisticasButton.setName("estadisticasButton");
+        this.promocionesButton.setName("promocionesButton");
+        this.entidadesButton.setName("entidadesButton");
+        this.inicioButton.setName("inicioButton");
+        this.cerrarSesionButton.setName("cerrarSesionButton");
     }
 
     /**
