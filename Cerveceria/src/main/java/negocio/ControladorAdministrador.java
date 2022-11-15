@@ -6,6 +6,9 @@ import persistencia.IPersistencia;
 import persistencia.PersistenciaBIN;
 import persistencia.Util;
 import vista.interfaces.IVistaAdministrador;
+import vista.interfaces.IVistaEntidad;
+import vista.interfaces.IVistaLogin;
+import vista.interfaces.IVistaPromocion;
 import vista.ventanas.VentanaEntidad;
 import vista.ventanas.VentanaLogin;
 import vista.ventanas.VentanaPromocion;
@@ -15,12 +18,17 @@ import java.io.IOException;
 public class ControladorAdministrador implements ActionListener, WindowListener {
     private Administrador modelo;
     private IVistaAdministrador vista;
+    public IVistaLogin vistaLogin=null;
+    public IVistaPromocion vistaPromocion=null;
+    public IVistaEntidad vistaEntidad=null;
+    public int pagina=-1;
 
     public ControladorAdministrador(Administrador modelo, IVistaAdministrador vista) {
         this.modelo = modelo;
         this.vista = vista;
 
-        verificaContrasena();
+        //verificaContrasena();
+
 
         this.vista.setActionListener(this);
         this.vista.setKeyListener();
@@ -36,10 +44,18 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Inicio" -> vista.cambiarPagina(0);
-            case "Entidades" -> vista.cambiarPagina(1);
-            case "Promociones" -> vista.cambiarPagina(2);
-            case "Estadisticas" -> vista.cambiarPagina(3);
+            case "Inicio" -> {
+                vista.cambiarPagina(0);
+                this.pagina=0;}
+            case "Entidades" -> {
+                vista.cambiarPagina(1);
+                this.pagina=1;}
+            case "Promociones" -> {
+                vista.cambiarPagina(2);
+                this.pagina=2;}
+            case "Estadisticas" -> {
+                vista.cambiarPagina(3);
+                this.pagina=3;}
             case "Editar Cerveceria" -> Cerveceria.getInstance().setNombreDelLocal(vista.getNombreLocal());
             case "Editar Remuneracion" -> Cerveceria.getInstance().setRemuneracionBasica(vista.getRemuneracion());
             case "Cerrar Sesion" -> creaOtraVentana("Login");
@@ -117,6 +133,14 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         }
     }
 
+    public IVistaAdministrador getVista() {
+        return vista;
+    }
+
+    public void setVista(IVistaAdministrador vista) {
+        this.vista = vista;
+    }
+
     /**
      * Verifica que la contrasena del Administrador se modifique la primera vez que este ingresa al sistema.<br>
      */
@@ -148,6 +172,7 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
         switch (ventana) {
             case "Login" -> {
                 VentanaLogin ventanaLogin = new VentanaLogin();
+                this.vistaLogin=ventanaLogin;
                 ControladorLogin controladorLogin = new ControladorLogin(ventanaLogin);
                 ventanaLogin.ejecutar();
                 vista.cerrarVentana();
@@ -263,5 +288,13 @@ public class ControladorAdministrador implements ActionListener, WindowListener 
     @Override
     public void windowDeactivated(WindowEvent e) {
 
+    }
+
+    public int getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(int pagina) {
+        this.pagina = pagina;
     }
 }

@@ -98,21 +98,6 @@
                   <text value="Mesa:"/>
                 </properties>
               </component>
-              <component id="9582a" class="javax.swing.JComboBox" binding="mesaComboBox">
-                <constraints>
-                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="100" height="30"/>
-                    <preferred-size width="100" height="30"/>
-                    <maximum-size width="100" height="30"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <actionCommand value="Selecciona Mesa"/>
-                  <background color="-2500135"/>
-                  <font name="Inter" size="20" style="1"/>
-                  <model/>
-                </properties>
-              </component>
               <hspacer id="40936">
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -128,6 +113,21 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
+              <component id="9582a" class="javax.swing.JComboBox" binding="mesaComboBox">
+                <constraints>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="30"/>
+                    <preferred-size width="100" height="30"/>
+                    <maximum-size width="100" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Selecciona Mesa"/>
+                  <background color="-2500135"/>
+                  <font name="Inter" size="20" style="1"/>
+                  <model/>
+                </properties>
+              </component>
             </children>
           </grid>
           <component id="b5fda" class="javax.swing.JLabel" binding="accionComandaLabel">

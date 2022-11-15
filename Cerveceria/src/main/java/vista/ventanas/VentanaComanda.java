@@ -55,6 +55,16 @@ public class VentanaComanda extends JFrame implements IVistaComanda, ActionListe
         cancelarButton.addActionListener(controlador);
         //COMBO BOX
         mesaComboBox.addActionListener(this);
+
+        this.accionComandaLabel.setName("accionComanda");
+        this.mesaComboBox.setName("mesaComboBox");
+        this.fechaActualLabel.setName("fechaActualLabel");
+        this.listaPedidosAsignados.setName("listaPedidosAsignados");
+        this.nuevoPedidoButton.setName("nuevoPedidoButton");
+        this.eliminarPedidoButton.setName("eliminarPedidoButton");
+        this.accionButton.setName("accionButton");
+        this.cancelarButton.setName("cancelarButton");
+
     }
 
     /**
