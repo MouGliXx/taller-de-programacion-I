@@ -35,8 +35,6 @@ public class modificarProductoTest {
 
         try {
             Producto producto=this.escenario.cerveceria.getProductos().get(2);
-            System.out.println(producto);
-
             this.escenario.cerveceria.modificarProducto(producto,"Hamburguesa", 30, 60, 3);
             assertEquals("Hamburguesa",producto.getNombre());
             assertEquals(30,producto.getPrecioCosto());

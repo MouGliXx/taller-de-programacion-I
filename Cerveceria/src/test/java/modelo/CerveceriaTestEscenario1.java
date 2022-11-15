@@ -25,7 +25,6 @@ class CerveceriaTestEscenario1 {
     void testAgregarMozo1(){
 
         try {
-            System.out.printf(this.escenario.cerveceria.getMozos().toString());
             this.escenario.cerveceria.agregarMozo("Tomas", 18, 0);
             Mozo mozo = this.escenario.cerveceria.getMozos().get(this.escenario.cerveceria.getMozos().size() - 1 );
             assertEquals("Tomas", mozo.getNombreYApellido());

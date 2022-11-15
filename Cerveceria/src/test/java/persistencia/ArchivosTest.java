@@ -104,7 +104,7 @@ public class ArchivosTest {
 
     }
 
-    @DisplayName("Verificando si se lanza excepcion si creamos archivo inexistente")
+    @DisplayName("Verificando si se lanza excepcion si cerramos archivo inexistente")
     @Test
     public void testDespersitirSinArchivo()
     {

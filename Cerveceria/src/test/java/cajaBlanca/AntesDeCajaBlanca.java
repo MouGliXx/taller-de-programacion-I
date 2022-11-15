@@ -1,6 +1,5 @@
-package modelo;
+package cajaBlanca;
 
-import escenarios.EscenarioAplicarPromocionesProductos1;
 import escenarios.EscenarioAplicarPromocionesProductos2;
 import modelo.Cerveceria;
 import modelo.Factura;
@@ -12,8 +11,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class aplicarPromocionesProductosTest2 {
-    private EscenarioAplicarPromocionesProductos2 escenario;
+public class AntesDeCajaBlanca {
+
+    EscenarioAplicarPromocionesProductos2 escenario;
 
     @BeforeEach
     public void setUp() {
@@ -32,7 +32,6 @@ public class aplicarPromocionesProductosTest2 {
         try {
             Factura factura=this.escenario.cerveceria.getFacturas().get(0);
             System.out.println(factura);
-
             assertEquals(235.0,factura.getTotal());
 
         }
@@ -40,4 +39,6 @@ public class aplicarPromocionesProductosTest2 {
             assertTrue(false);
         }
     }
+
+
 }

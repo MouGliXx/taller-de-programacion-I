@@ -88,7 +88,6 @@ public class GuiTest {
         JButton entidades = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "inicioButton");
         //lleno los JTextField
         TestUtils.clickComponent(entidades, robot);
-        System.out.println(controlador.getPagina());
         assertFalse(controlador.getPagina()!=0,"La ventana no cambio a inicio");
         //verifico los resultados
 
@@ -102,7 +101,6 @@ public class GuiTest {
         JButton entidades = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "entidadesButton");
         //lleno los JTextField
         TestUtils.clickComponent(entidades, robot);
-        System.out.println(controlador.getPagina());
         assertFalse(controlador.getPagina()!=1,"La ventana no cambio a entidades");
         //verifico los resultados
 
@@ -116,7 +114,6 @@ public class GuiTest {
         JButton entidades = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "promocionesButton");
         //lleno los JTextField
         TestUtils.clickComponent(entidades, robot);
-        System.out.println(controlador.getPagina());
         assertFalse(controlador.getPagina()!=2,"La ventana no cambio a promociones");
         //verifico los resultados
 
@@ -130,7 +127,6 @@ public class GuiTest {
         JButton entidades = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "estadisticasButton");
         //lleno los JTextField
         TestUtils.clickComponent(entidades, robot);
-        System.out.println(controlador.getPagina());
         assertFalse(controlador.getPagina()!=3,"La ventana no cambio a estadisticas");
         //verifico los resultados
 

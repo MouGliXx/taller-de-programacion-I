@@ -32,7 +32,6 @@ class MostrarEstadisticaMozoTest {
 
         try {
             this.escenario.cerveceria.getEstadisticasMozos();
-            System.out.printf(this.escenario.cerveceria.getMozos().toString());
             assertEquals(0, this.escenario.cerveceria.getEstadisticasMozos().size());
         } catch (Exception e) {
             assertTrue(false, "Entro en la excepcion");

@@ -85,7 +85,6 @@ public class TestIntegracion {
         pedidos.add(p1);
         p2.setProducto(this.escenario.cerveza.getProductos().get(2));
         p2.setCantidad(3);
-        System.out.printf(this.escenario.cerveza.getMesas().toString());
 
         try {
             this.escenario.cerveza.agregarComanda(this.escenario.cerveza.getMesas().get(1), pedidos);

@@ -20,8 +20,6 @@ public class EliminarComanda1 {
 
     @AfterEach
     public void tearDown(){
-//        System.out.printf( "\n" + this.escenario.cerveza.getMozos().size()  );
-//        this.escenario.cerveza.getMozos().clear();
         this.escenario.cerveza.getComandas().clear();
         this.escenario.cerveza.getMozos().clear();
         this.escenario.cerveza.getMesas().clear();
@@ -34,9 +32,7 @@ public class EliminarComanda1 {
     @Test
     public void eliminarComanda() {
         try {
-            System.out.printf("\n" + this.escenario.cerveza.getComandas().size());
             this.escenario.cerveza.eliminarComanda(this.escenario.cerveza.getComandas().get(0));
-            System.out.printf("\n" + this.escenario.cerveza.getComandas().size());
             assertEquals(true,this.escenario.cerveza.getComandas().isEmpty());
         }
         catch(Exception e){

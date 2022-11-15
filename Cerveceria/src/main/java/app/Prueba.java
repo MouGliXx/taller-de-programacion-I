@@ -17,15 +17,8 @@ public class Prueba {
         cerveza.setAdministrador(admin);
 
 
-        System.out.println("AGREGO 3 MOZOS");
-        for (Mozo mozo: cerveza.getMozos()){
-            System.out.println(mozo);
-        }
         cerveza.eliminarMozo(cerveza.getMozos().get(1));
-        System.out.println("BORRO UNO DE LOS MOZOS");
-        for (Mozo mozo: cerveza.getMozos()){
-            System.out.println(mozo);
-        }
+
 
         cerveza.asignarMesas();
 
