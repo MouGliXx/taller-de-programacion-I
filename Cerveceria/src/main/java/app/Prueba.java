@@ -11,17 +11,10 @@ public class Prueba {
 
         Cerveceria cerveza = Cerveceria.getInstance();
 
-        for (int t=0;t<5;t++) {
-            try {
-                cerveza.agregarMesa(t);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        cerveza.agregarMozo("Lautaro", 22,1);
-        cerveza.agregarMozo("Ignacio", 26,1);
-        cerveza.agregarMozo("Tomas", 33,1);
 
+
+        Administrador admin = new Administrador("ADMIN","ADMIN1234");
+        cerveza.setAdministrador(admin);
 
 
         System.out.println("AGREGO 3 MOZOS");

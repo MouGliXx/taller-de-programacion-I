@@ -1,0 +1,933 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Cerveceria</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">modelo</a>
+</div>
+
+<h1>Coverage Summary for Class: Cerveceria (modelo)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Cerveceria</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (26/65)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36,7%
+  </span>
+  <span class="absValue">
+    (102/278)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package modelo;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import excepciones.ErrorDeContrasenaException;
+<i class="no-highlight">4</i>&nbsp;import excepciones.ErrorDeUsuarioException;
+<i class="no-highlight">5</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">6</i>&nbsp;import java.util.HashMap;
+<i class="no-highlight">7</i>&nbsp;import java.util.Map;
+<i class="no-highlight">8</i>&nbsp;
+<b class="fc"><i class="no-highlight">9</i>&nbsp;public class Cerveceria {</b>
+<b class="fc"><i class="no-highlight">10</i>&nbsp;    private static Cerveceria instance = null;</b>
+<i class="no-highlight">11</i>&nbsp;    public static final int totalMaximoMesas = 50;
+<i class="no-highlight">12</i>&nbsp;    public static final int totalMaximoMozos = 6;
+<i class="no-highlight">13</i>&nbsp;    private String nombreDelLocal;
+<i class="no-highlight">14</i>&nbsp;    private double remuneracionBasica;
+<i class="no-highlight">15</i>&nbsp;    private Administrador administrador;
+<b class="fc"><i class="no-highlight">16</i>&nbsp;    private ArrayList&lt;Operario&gt; operarios = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;    private ArrayList&lt;Mozo&gt; mozos = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    private HashMap&lt;Integer,Producto&gt; productos = new HashMap&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;    private ArrayList&lt;Mesa&gt; mesas = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;    private ArrayList&lt;Comanda&gt; comandas = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">21</i>&nbsp;    private ArrayList&lt;Factura&gt; facturas = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">22</i>&nbsp;    private ArrayList&lt;PromocionProducto&gt; promocionesProductos = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">23</i>&nbsp;    private ArrayList&lt;PromocionTemporal&gt; promocionesTemporales = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">24</i>&nbsp;    private HashMap&lt;Mesa,Mozo&gt; mesasAsignadas = new HashMap&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;    private HashMap&lt;Mozo, EstadisticaMozo&gt; estadisticasMozos = new HashMap&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;    private HashMap&lt;Mesa, EstadisticaMesa&gt; estadisticasMesas = new HashMap&lt;&gt;();</b>
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    //PATRON SINGLETON
+<b class="fc"><i class="no-highlight">29</i>&nbsp;    private Cerveceria() {</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        this.nombreDelLocal = &quot;Cerveceria&quot;;</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        this.administrador = new Administrador(&quot;ADMIN&quot;, &quot;ADMIN1234&quot;);</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        this.remuneracionBasica = 0;</b>
+<i class="no-highlight">33</i>&nbsp;    }
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    public static Cerveceria getInstance() {
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        if (instance == null)</b>
+<b class="fc"><i class="no-highlight">37</i>&nbsp;            instance = new Cerveceria();</b>
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        return instance;</b>
+<i class="no-highlight">39</i>&nbsp;    }
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;    //GETTERS &amp; SETTERS
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    public String getNombreDelLocal() {
+<b class="nc"><i class="no-highlight">44</i>&nbsp;        return nombreDelLocal;</b>
+<i class="no-highlight">45</i>&nbsp;    }
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    public void setNombreDelLocal(String nombreDelLocal) {
+<b class="nc"><i class="no-highlight">48</i>&nbsp;        this.nombreDelLocal = nombreDelLocal;</b>
+<i class="no-highlight">49</i>&nbsp;    }
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    public double getRemuneracionBasica() {
+<b class="fc"><i class="no-highlight">52</i>&nbsp;        return remuneracionBasica;</b>
+<i class="no-highlight">53</i>&nbsp;    }
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    public void setRemuneracionBasica(double remuneracionBasica) {
+<b class="nc"><i class="no-highlight">56</i>&nbsp;        this.remuneracionBasica = remuneracionBasica;</b>
+<i class="no-highlight">57</i>&nbsp;    }
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;    public Administrador getAdministrador() {
+<b class="nc"><i class="no-highlight">60</i>&nbsp;        return administrador;</b>
+<i class="no-highlight">61</i>&nbsp;    }
+<i class="no-highlight">62</i>&nbsp;
+<i class="no-highlight">63</i>&nbsp;    public void setAdministrador(Administrador administrador) {
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        this.administrador = administrador;</b>
+<i class="no-highlight">65</i>&nbsp;    }
+<i class="no-highlight">66</i>&nbsp;
+<i class="no-highlight">67</i>&nbsp;    public ArrayList&lt;Operario&gt; getOperarios() {
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        return operarios;</b>
+<i class="no-highlight">69</i>&nbsp;    }
+<i class="no-highlight">70</i>&nbsp;
+<i class="no-highlight">71</i>&nbsp;    public void setOperarios(ArrayList&lt;Operario&gt; operarios) {
+<b class="nc"><i class="no-highlight">72</i>&nbsp;        this.operarios = operarios;</b>
+<i class="no-highlight">73</i>&nbsp;    }
+<i class="no-highlight">74</i>&nbsp;
+<i class="no-highlight">75</i>&nbsp;    public ArrayList&lt;Mozo&gt; getMozos() {
+<b class="fc"><i class="no-highlight">76</i>&nbsp;        return mozos;</b>
+<i class="no-highlight">77</i>&nbsp;    }
+<i class="no-highlight">78</i>&nbsp;
+<i class="no-highlight">79</i>&nbsp;    public void setMozos(ArrayList&lt;Mozo&gt; mozos) {
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        this.mozos = mozos;</b>
+<i class="no-highlight">81</i>&nbsp;    }
+<i class="no-highlight">82</i>&nbsp;
+<i class="no-highlight">83</i>&nbsp;    public ArrayList&lt;Mesa&gt; getMesas() {
+<b class="fc"><i class="no-highlight">84</i>&nbsp;        return mesas;</b>
+<i class="no-highlight">85</i>&nbsp;    }
+<i class="no-highlight">86</i>&nbsp;
+<i class="no-highlight">87</i>&nbsp;    public void setMesas(ArrayList&lt;Mesa&gt; mesas) {
+<b class="nc"><i class="no-highlight">88</i>&nbsp;        this.mesas = mesas;</b>
+<i class="no-highlight">89</i>&nbsp;    }
+<i class="no-highlight">90</i>&nbsp;
+<i class="no-highlight">91</i>&nbsp;    public ArrayList&lt;Comanda&gt; getComandas() {
+<b class="fc"><i class="no-highlight">92</i>&nbsp;        return comandas;</b>
+<i class="no-highlight">93</i>&nbsp;    }
+<i class="no-highlight">94</i>&nbsp;
+<i class="no-highlight">95</i>&nbsp;    public void setComandas(ArrayList&lt;Comanda&gt; comandas) {
+<b class="nc"><i class="no-highlight">96</i>&nbsp;        this.comandas = comandas;</b>
+<i class="no-highlight">97</i>&nbsp;    }
+<i class="no-highlight">98</i>&nbsp;
+<i class="no-highlight">99</i>&nbsp;    public HashMap&lt;Mesa, Mozo&gt; getMesasAsignadas() {
+<b class="fc"><i class="no-highlight">100</i>&nbsp;        return mesasAsignadas;</b>
+<i class="no-highlight">101</i>&nbsp;    }
+<i class="no-highlight">102</i>&nbsp;
+<i class="no-highlight">103</i>&nbsp;    public void setMesasAsignadas(HashMap&lt;Mesa, Mozo&gt; mesasAsignadas) {
+<b class="nc"><i class="no-highlight">104</i>&nbsp;        this.mesasAsignadas = mesasAsignadas;</b>
+<i class="no-highlight">105</i>&nbsp;    }
+<i class="no-highlight">106</i>&nbsp;
+<i class="no-highlight">107</i>&nbsp;    public ArrayList&lt;Factura&gt; getFacturas() {
+<b class="fc"><i class="no-highlight">108</i>&nbsp;        return facturas;</b>
+<i class="no-highlight">109</i>&nbsp;    }
+<i class="no-highlight">110</i>&nbsp;
+<i class="no-highlight">111</i>&nbsp;    public void setFacturas(ArrayList&lt;Factura&gt; facturas) {
+<b class="nc"><i class="no-highlight">112</i>&nbsp;        this.facturas = facturas;</b>
+<i class="no-highlight">113</i>&nbsp;    }
+<i class="no-highlight">114</i>&nbsp;
+<i class="no-highlight">115</i>&nbsp;    public ArrayList&lt;PromocionTemporal&gt; getPromocionesTemporales() {
+<b class="fc"><i class="no-highlight">116</i>&nbsp;        return promocionesTemporales;</b>
+<i class="no-highlight">117</i>&nbsp;    }
+<i class="no-highlight">118</i>&nbsp;
+<i class="no-highlight">119</i>&nbsp;    public void setPromocionesTemporales(ArrayList&lt;PromocionTemporal&gt; promocionesTemporales) {
+<b class="fc"><i class="no-highlight">120</i>&nbsp;        this.promocionesTemporales = promocionesTemporales;</b>
+<i class="no-highlight">121</i>&nbsp;    }
+<i class="no-highlight">122</i>&nbsp;
+<i class="no-highlight">123</i>&nbsp;    public ArrayList&lt;PromocionProducto&gt; getPromocionesProductos() {
+<b class="fc"><i class="no-highlight">124</i>&nbsp;        return promocionesProductos;</b>
+<i class="no-highlight">125</i>&nbsp;    }
+<i class="no-highlight">126</i>&nbsp;
+<i class="no-highlight">127</i>&nbsp;    public void setPromocionesProductos(ArrayList&lt;PromocionProducto&gt; promocionesProductos) {
+<b class="fc"><i class="no-highlight">128</i>&nbsp;        this.promocionesProductos = promocionesProductos;</b>
+<i class="no-highlight">129</i>&nbsp;    }
+<i class="no-highlight">130</i>&nbsp;
+<i class="no-highlight">131</i>&nbsp;    public HashMap&lt;Integer, Producto&gt; getProductos() {
+<b class="fc"><i class="no-highlight">132</i>&nbsp;        return productos;</b>
+<i class="no-highlight">133</i>&nbsp;    }
+<i class="no-highlight">134</i>&nbsp;
+<i class="no-highlight">135</i>&nbsp;    public void setProductos(HashMap&lt;Integer, Producto&gt; productos) {
+<b class="nc"><i class="no-highlight">136</i>&nbsp;        this.productos = productos;</b>
+<i class="no-highlight">137</i>&nbsp;    }
+<i class="no-highlight">138</i>&nbsp;
+<i class="no-highlight">139</i>&nbsp;    public HashMap&lt;Mozo, EstadisticaMozo&gt; getEstadisticasMozos() {
+<b class="fc"><i class="no-highlight">140</i>&nbsp;        return estadisticasMozos;</b>
+<i class="no-highlight">141</i>&nbsp;    }
+<i class="no-highlight">142</i>&nbsp;
+<i class="no-highlight">143</i>&nbsp;    public HashMap&lt;Mesa, EstadisticaMesa&gt; getEstadisticasMesas() {
+<b class="nc"><i class="no-highlight">144</i>&nbsp;        return estadisticasMesas;</b>
+<i class="no-highlight">145</i>&nbsp;    }
+<i class="no-highlight">146</i>&nbsp;
+<i class="no-highlight">147</i>&nbsp;    public void setEstadisticasMozos(HashMap&lt;Mozo, EstadisticaMozo&gt; estadisticasMozos) {
+<b class="nc"><i class="no-highlight">148</i>&nbsp;        this.estadisticasMozos = estadisticasMozos;</b>
+<i class="no-highlight">149</i>&nbsp;    }
+<i class="no-highlight">150</i>&nbsp;
+<i class="no-highlight">151</i>&nbsp;    public void setEstadisticasMesas(HashMap&lt;Mesa, EstadisticaMesa&gt; estadisticasMesas) {
+<b class="nc"><i class="no-highlight">152</i>&nbsp;        this.estadisticasMesas = estadisticasMesas;</b>
+<i class="no-highlight">153</i>&nbsp;    }
+<i class="no-highlight">154</i>&nbsp;
+<i class="no-highlight">155</i>&nbsp;    //FUNCIONALIDADES
+<i class="no-highlight">156</i>&nbsp;
+<i class="no-highlight">157</i>&nbsp;    /**
+<i class="no-highlight">158</i>&nbsp;     * Verifica la contrasena del administrador para poder acceder al sistema
+<i class="no-highlight">159</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; El administrador debe existir, password distinto de vacio y null&lt;br&gt;.
+<i class="no-highlight">160</i>&nbsp;     * @param password contrasena del administrador
+<i class="no-highlight">161</i>&nbsp;     * @throws ErrorDeContrasenaException Se lanza excepción si la contrasena es invalida
+<i class="no-highlight">162</i>&nbsp;     * @return Administrador devuelve el objeto administrador
+<i class="no-highlight">163</i>&nbsp;     */
+<i class="no-highlight">164</i>&nbsp;    public Administrador login(String password) throws ErrorDeContrasenaException {
+<b class="nc"><i class="no-highlight">165</i>&nbsp;        if (password.equalsIgnoreCase(administrador.getPassword())) {</b>
+<b class="nc"><i class="no-highlight">166</i>&nbsp;            return this.administrador;</b>
+<i class="no-highlight">167</i>&nbsp;        }
+<i class="no-highlight">168</i>&nbsp;
+<b class="nc"><i class="no-highlight">169</i>&nbsp;        throw new ErrorDeContrasenaException(&quot;Contrasena invalida: &quot; + password);</b>
+<i class="no-highlight">170</i>&nbsp;    }
+<i class="no-highlight">171</i>&nbsp;
+<i class="no-highlight">172</i>&nbsp;
+<i class="no-highlight">173</i>&nbsp;    /**
+<i class="no-highlight">174</i>&nbsp;     * Verifica la contrasena del Operario para poder acceder al sistema
+<i class="no-highlight">175</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; La lista de operarios debe existir, username y password distinto de null y vacio&lt;br&gt;.
+<i class="no-highlight">176</i>&nbsp;     * @param password contrasena del administrador
+<i class="no-highlight">177</i>&nbsp;     * @throws ErrorDeContrasenaException Se lanza excepción si la contrasena es invalida
+<i class="no-highlight">178</i>&nbsp;     * @throws ErrorDeUsuarioException Se lanza excepción si el Usuario no esta en estado activo o si el nombre no es valido
+<i class="no-highlight">179</i>&nbsp;     * @return Operario devuelve una instancia del objeto operario
+<i class="no-highlight">180</i>&nbsp;     */
+<i class="no-highlight">181</i>&nbsp;    public Operario login(String username, String password) throws ErrorDeUsuarioException, ErrorDeContrasenaException {
+<b class="nc"><i class="no-highlight">182</i>&nbsp;        for (Operario operario: operarios) {</b>
+<b class="nc"><i class="no-highlight">183</i>&nbsp;            if (operario.getNombreUsuario().equalsIgnoreCase(username)) {</b>
+<b class="nc"><i class="no-highlight">184</i>&nbsp;                if (operario.getContrasena().equalsIgnoreCase(password)) {</b>
+<b class="nc"><i class="no-highlight">185</i>&nbsp;                    if (!operario.isActivo()) {</b>
+<b class="nc"><i class="no-highlight">186</i>&nbsp;                        throw new ErrorDeUsuarioException(&quot;El usuario ingresado se encuentra INACTIVO, no puede ingresar al sistema&quot;);</b>
+<i class="no-highlight">187</i>&nbsp;                    }
+<i class="no-highlight">188</i>&nbsp;
+<b class="nc"><i class="no-highlight">189</i>&nbsp;                   return operario;</b>
+<i class="no-highlight">190</i>&nbsp;                }
+<i class="no-highlight">191</i>&nbsp;
+<b class="nc"><i class="no-highlight">192</i>&nbsp;                throw new ErrorDeContrasenaException(&quot;Contrasena invalida: &quot; + password);</b>
+<i class="no-highlight">193</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">194</i>&nbsp;        }</b>
+<i class="no-highlight">195</i>&nbsp;
+<b class="nc"><i class="no-highlight">196</i>&nbsp;        throw new ErrorDeUsuarioException(&quot;Nombre de usuario invalido: &quot; + username);</b>
+<i class="no-highlight">197</i>&nbsp;    }
+<i class="no-highlight">198</i>&nbsp;
+<i class="no-highlight">199</i>&nbsp;    public boolean contieneDigito(String cadena) {
+<b class="nc"><i class="no-highlight">200</i>&nbsp;        for (int i = 0; i &lt; cadena.length(); i++) {</b>
+<b class="nc"><i class="no-highlight">201</i>&nbsp;            if (cadena.charAt(i) &gt;= &#39;0&#39; &amp;&amp; cadena.charAt(i) &lt;= &#39;9&#39;) {</b>
+<b class="nc"><i class="no-highlight">202</i>&nbsp;                return true;</b>
+<i class="no-highlight">203</i>&nbsp;            }
+<i class="no-highlight">204</i>&nbsp;        }
+<i class="no-highlight">205</i>&nbsp;
+<b class="nc"><i class="no-highlight">206</i>&nbsp;        return false;</b>
+<i class="no-highlight">207</i>&nbsp;    }
+<i class="no-highlight">208</i>&nbsp;
+<i class="no-highlight">209</i>&nbsp;    public boolean contieneMayuscula(String cadena) {
+<b class="nc"><i class="no-highlight">210</i>&nbsp;        for (int i = 0; i &lt; cadena.length(); i++) {</b>
+<b class="nc"><i class="no-highlight">211</i>&nbsp;            if (cadena.charAt(i) &gt;= &#39;A&#39; &amp;&amp; cadena.charAt(i) &lt;= &#39;Z&#39;) {</b>
+<b class="nc"><i class="no-highlight">212</i>&nbsp;                return true;</b>
+<i class="no-highlight">213</i>&nbsp;            }
+<i class="no-highlight">214</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">215</i>&nbsp;        return false;</b>
+<i class="no-highlight">216</i>&nbsp;    }
+<i class="no-highlight">217</i>&nbsp;
+<i class="no-highlight">218</i>&nbsp;    /**
+<i class="no-highlight">219</i>&nbsp;     * crea una nueva mesa y la agrega a la coleccion de mesas
+<i class="no-highlight">220</i>&nbsp;     * Ademas crea un nuevo elemento de la coleccion de estadisticasMesas
+<i class="no-highlight">221</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; La lista de mesas debe existir, cantidadComensales entero positivo&lt;br&gt;.
+<i class="no-highlight">222</i>&nbsp;     * @param cantidadComensales cantidad de sillas que tendra la mesa
+<i class="no-highlight">223</i>&nbsp;     * @throws Exception Se lanza excepción si supera el numero maximo de mesas permitidas
+<i class="no-highlight">224</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Se agregaran nuevos elementos a las colecciones de mesa y estadisticas mesa &lt;br&gt;.
+<i class="no-highlight">225</i>&nbsp;     */
+<i class="no-highlight">226</i>&nbsp;    public void agregarMesa(int cantidadComensales) throws Exception{
+<b class="fc"><i class="no-highlight">227</i>&nbsp;        if (this.mesas.size() &gt;= totalMaximoMesas)</b>
+<b class="nc"><i class="no-highlight">228</i>&nbsp;            throw new Exception(&quot;ERROR : No se pueden dar de alta mas mesas. LLego al nro maximo&quot;);</b>
+<b class="fc"><i class="no-highlight">229</i>&nbsp;        Mesa mesa = new Mesa(cantidadComensales);</b>
+<b class="fc"><i class="no-highlight">230</i>&nbsp;        this.mesas.add(mesa);</b>
+<b class="fc"><i class="no-highlight">231</i>&nbsp;        this.estadisticasMesas.put(mesa,new EstadisticaMesa());</b>
+<i class="no-highlight">232</i>&nbsp;    }
+<i class="no-highlight">233</i>&nbsp;
+<i class="no-highlight">234</i>&nbsp;    /**
+<i class="no-highlight">235</i>&nbsp;     * El metodo setea los valores de la promocion de productos y la agrega a la coleccion de promociones productos
+<i class="no-highlight">236</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; Promocion producto valido y distinto de null &lt;br&gt;.
+<i class="no-highlight">237</i>&nbsp;     * @param promocionProducto promocion de un producto a agregar
+<i class="no-highlight">238</i>&nbsp;     * @param diasPromocion coleccion de dias en los cuales aplica la promocion
+<i class="no-highlight">239</i>&nbsp;     * @param activa estado de la promocion
+<i class="no-highlight">240</i>&nbsp;     * @param producto producto que  tendra promocion
+<i class="no-highlight">241</i>&nbsp;     * @param aplicaDosPorUno valor booleano que indica si aplica 2 x 1
+<i class="no-highlight">242</i>&nbsp;     * @param aplicaDtoPorCantidad valor booleano que indica si aplica descuento por cantidad
+<i class="no-highlight">243</i>&nbsp;     * @param dtoPorCantidad_CantMinima cantidad minima para que aplique el descuento por cantidad
+<i class="no-highlight">244</i>&nbsp;     * @param dtoPorCantidad_PrecioUnitario precio unitario del producto cuando aplica el descuento por cantidad
+<i class="no-highlight">245</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; La coleccion de promociones productos tendra un nuevo elemento&lt;br&gt;.
+<i class="no-highlight">246</i>&nbsp;     */
+<i class="no-highlight">247</i>&nbsp;    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList&lt;String&gt; diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnitario) {
+<b class="nc"><i class="no-highlight">248</i>&nbsp;        promocionProducto.setDiasPromocion(diasPromocion);</b>
+<b class="nc"><i class="no-highlight">249</i>&nbsp;        promocionProducto.setActiva(activa);</b>
+<b class="nc"><i class="no-highlight">250</i>&nbsp;        promocionProducto.setProducto(producto);</b>
+<b class="nc"><i class="no-highlight">251</i>&nbsp;        promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);</b>
+<b class="nc"><i class="no-highlight">252</i>&nbsp;        promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);</b>
+<b class="nc"><i class="no-highlight">253</i>&nbsp;        promocionProducto.setDtoPorCantidad_CantMinima(dtoPorCantidad_CantMinima);</b>
+<b class="nc"><i class="no-highlight">254</i>&nbsp;        promocionProducto.setDtoPorCantidad_PrecioUnitario(dtoPorCantidad_PrecioUnitario);</b>
+<i class="no-highlight">255</i>&nbsp;
+<b class="nc"><i class="no-highlight">256</i>&nbsp;        this.promocionesProductos.add(promocionProducto);</b>
+<i class="no-highlight">257</i>&nbsp;    }
+<i class="no-highlight">258</i>&nbsp;
+<i class="no-highlight">259</i>&nbsp;    public void agregarPromocionProducto(PromocionProducto promocionProducto, ArrayList&lt;String&gt; diasPromocion, boolean activa, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad) {
+<b class="fc"><i class="no-highlight">260</i>&nbsp;        promocionProducto.setDiasPromocion(diasPromocion);</b>
+<b class="fc"><i class="no-highlight">261</i>&nbsp;        promocionProducto.setActiva(activa);</b>
+<b class="fc"><i class="no-highlight">262</i>&nbsp;        promocionProducto.setProducto(producto);</b>
+<b class="fc"><i class="no-highlight">263</i>&nbsp;        promocionProducto.setAplicaDosPorUno(aplicaDosPorUno);</b>
+<b class="fc"><i class="no-highlight">264</i>&nbsp;        promocionProducto.setAplicaDtoPorCantidad(aplicaDtoPorCantidad);</b>
+<i class="no-highlight">265</i>&nbsp;
+<b class="fc"><i class="no-highlight">266</i>&nbsp;        this.promocionesProductos.add(promocionProducto);</b>
+<i class="no-highlight">267</i>&nbsp;    }
+<i class="no-highlight">268</i>&nbsp;
+<i class="no-highlight">269</i>&nbsp;    /**
+<i class="no-highlight">270</i>&nbsp;     * El metodo setea los valores de la promocion temporal y la agrega a la coleccion de promociones temporales
+<i class="no-highlight">271</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; Promocion temporal valida y distinto de null&lt;br&gt;.
+<i class="no-highlight">272</i>&nbsp;     * @param promocionTemporal a agregar
+<i class="no-highlight">273</i>&nbsp;     * @param diasPromocion coleccion de dias en los cuales aplica la promocion
+<i class="no-highlight">274</i>&nbsp;     * @param activa estado de la promocion
+<i class="no-highlight">275</i>&nbsp;     * @param nombre de la promocion
+<i class="no-highlight">276</i>&nbsp;     * @param formaDePago forma de pago con la cual aplica la promocion
+<i class="no-highlight">277</i>&nbsp;     * @param porcentajeDescuento porcentaje de descuento de la promocion
+<i class="no-highlight">278</i>&nbsp;     * @param esAcumulable valor booleano que indica si la promocion es acumulable con otras
+<i class="no-highlight">279</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; La coleccion de promociones temporales tendra un nuevo elemento&lt;br&gt;.
+<i class="no-highlight">280</i>&nbsp;     */
+<i class="no-highlight">281</i>&nbsp;    public void agregarPromocionTemporal(PromocionTemporal promocionTemporal, ArrayList&lt;String&gt; diasPromocion, boolean activa, String nombre, String formaDePago, int porcentajeDescuento, boolean esAcumulable){
+<b class="nc"><i class="no-highlight">282</i>&nbsp;        promocionTemporal.setDiasPromocion(diasPromocion);</b>
+<b class="nc"><i class="no-highlight">283</i>&nbsp;        promocionTemporal.setActiva(activa);</b>
+<b class="nc"><i class="no-highlight">284</i>&nbsp;        promocionTemporal.setNombre(nombre);</b>
+<b class="nc"><i class="no-highlight">285</i>&nbsp;        promocionTemporal.setFormaDePago(formaDePago);</b>
+<b class="nc"><i class="no-highlight">286</i>&nbsp;        promocionTemporal.setPorcentajeDescuento(porcentajeDescuento);</b>
+<b class="nc"><i class="no-highlight">287</i>&nbsp;        promocionTemporal.setEsAcumulable(esAcumulable);</b>
+<i class="no-highlight">288</i>&nbsp;
+<b class="nc"><i class="no-highlight">289</i>&nbsp;        this.promocionesTemporales.add(promocionTemporal);</b>
+<i class="no-highlight">290</i>&nbsp;    }
+<i class="no-highlight">291</i>&nbsp;
+<i class="no-highlight">292</i>&nbsp;    /**
+<i class="no-highlight">293</i>&nbsp;     * El metodo valida los datos correspondientes para crear un nuevo Mozo y agregarlo a la coleccion de mozos
+<i class="no-highlight">294</i>&nbsp;     * Ademas crea un nuevo elemento a la coleccion de estadisticasMozo
+<i class="no-highlight">295</i>&nbsp;     *
+<i class="no-highlight">296</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; La coleccion de mozos debe existir, nombre distinto de null y vacio, hijos y edad entero, &lt;br&gt;.
+<i class="no-highlight">297</i>&nbsp;     *
+<i class="no-highlight">298</i>&nbsp;     * @param nombre nombre del mozo
+<i class="no-highlight">299</i>&nbsp;     * @param edad edad del mozo
+<i class="no-highlight">300</i>&nbsp;     * @param hijos cantidad de hijos del mozo
+<i class="no-highlight">301</i>&nbsp;     * @throws Exception Se lanza excepción si numero de mozos llego al maximo (6)
+<i class="no-highlight">302</i>&nbsp;     * @throws Exception Se lanza excepción si Nombre es vacio
+<i class="no-highlight">303</i>&nbsp;     * @throws Exception Se lanza excepción si edad es menor 18
+<i class="no-highlight">304</i>&nbsp;     * @throws Exception Se lanza excepción si cantidad de hijos es menor a cero
+<i class="no-highlight">305</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Las colecciones de mozos y de estadisticas de Mozos tendran un nuevo elemento &lt;br&gt;.
+<i class="no-highlight">306</i>&nbsp;     */
+<i class="no-highlight">307</i>&nbsp;    public void agregarMozo(String nombre, int edad, int hijos) throws Exception {
+<b class="fc"><i class="no-highlight">308</i>&nbsp;        if (this.mozos.size() &gt;= totalMaximoMozos)</b>
+<b class="fc"><i class="no-highlight">309</i>&nbsp;            throw new Exception(&quot;ERROR : No se pueden dar de alta mas mozos. LLego al nro maximo&quot;);</b>
+<b class="fc"><i class="no-highlight">310</i>&nbsp;        if (nombre.equals(&quot;&quot;))</b>
+<b class="nc"><i class="no-highlight">311</i>&nbsp;            throw new Exception(&quot;ERROR : Nombre vacio&quot;);</b>
+<b class="fc"><i class="no-highlight">312</i>&nbsp;        if (edad &lt; 18)</b>
+<b class="fc"><i class="no-highlight">313</i>&nbsp;            throw new Exception(&quot;ERROR : La edad debe superar los 18 anos.&quot;);</b>
+<b class="fc"><i class="no-highlight">314</i>&nbsp;        if (hijos &lt; 0)</b>
+<b class="fc"><i class="no-highlight">315</i>&nbsp;            throw new Exception(&quot;ERROR : Cantidad de hijos debe ser mayo o igual a cero&quot;);</b>
+<i class="no-highlight">316</i>&nbsp;
+<b class="fc"><i class="no-highlight">317</i>&nbsp;        Mozo mozo = new Mozo(nombre, edad, hijos);</b>
+<b class="fc"><i class="no-highlight">318</i>&nbsp;        this.mozos.add(mozo);</b>
+<b class="fc"><i class="no-highlight">319</i>&nbsp;        this.estadisticasMozos.put(mozo, new EstadisticaMozo());</b>
+<i class="no-highlight">320</i>&nbsp;    }
+<i class="no-highlight">321</i>&nbsp;
+<i class="no-highlight">322</i>&nbsp;    /**
+<i class="no-highlight">323</i>&nbsp;     * El metodo valida los datos correspondientes para crear un nuevo Operario y agregarlo a la coleccion de operarios
+<i class="no-highlight">324</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de operarios debe existir&lt;br&gt;.
+<i class="no-highlight">325</i>&nbsp;     * @param nombre nombre del operario
+<i class="no-highlight">326</i>&nbsp;     * @param nombreUsuario nombre de usuario del operario
+<i class="no-highlight">327</i>&nbsp;     * @param contrasena constrasena del operario
+<i class="no-highlight">328</i>&nbsp;     * @param activo estado del operario ( activo / inactivo )
+<i class="no-highlight">329</i>&nbsp;     * @throws Exception Se lanza excepción si Nombre es vacio
+<i class="no-highlight">330</i>&nbsp;     * @throws Exception Se lanza excepción si Nombre de Usuario es menor a 5 caracteres o mayor a 10
+<i class="no-highlight">331</i>&nbsp;     * @throws Exception Se lanza excepción si contresena es menor a 5 caracteres o mayor a 10
+<i class="no-highlight">332</i>&nbsp;     * @throws Exception Se lanza excepción si constresena no tiene un digito numerico
+<i class="no-highlight">333</i>&nbsp;     * @throws Exception Se lanza excepción si constrasena no contiene por lo menos una letra mayuscula
+<i class="no-highlight">334</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; La coleccion de operarios tendra un nuevo elemento&lt;br&gt;.
+<i class="no-highlight">335</i>&nbsp;     */
+<i class="no-highlight">336</i>&nbsp;    public void agregarOperario(String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
+<b class="nc"><i class="no-highlight">337</i>&nbsp;        if (nombre.equals(&quot;&quot;))</b>
+<b class="nc"><i class="no-highlight">338</i>&nbsp;            throw new Exception(&quot;ERROR : Nombre vacio.&quot;);</b>
+<b class="nc"><i class="no-highlight">339</i>&nbsp;        if (nombreUsuario.length() &lt; 5 || nombreUsuario.length() &gt; 10)</b>
+<b class="nc"><i class="no-highlight">340</i>&nbsp;            throw new Exception(&quot;ERROR : El nombre de Usuario debe tener entre 5 y 10 caracteres.&quot;);</b>
+<b class="nc"><i class="no-highlight">341</i>&nbsp;        if (contrasena.length() &lt; 6 || contrasena.length() &gt; 12)</b>
+<b class="nc"><i class="no-highlight">342</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe tener entre 6 y 12 caracteres.&quot;);</b>
+<b class="nc"><i class="no-highlight">343</i>&nbsp;        if (!contieneDigito(contrasena))</b>
+<b class="nc"><i class="no-highlight">344</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe contener al menos un digito.&quot;);</b>
+<b class="nc"><i class="no-highlight">345</i>&nbsp;        if (!contieneMayuscula(contrasena))</b>
+<b class="nc"><i class="no-highlight">346</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe contener al menos una mayuscula.&quot;);</b>
+<i class="no-highlight">347</i>&nbsp;
+<b class="nc"><i class="no-highlight">348</i>&nbsp;        Operario operario = new Operario(nombre, nombreUsuario, contrasena, activo);</b>
+<b class="nc"><i class="no-highlight">349</i>&nbsp;        this.operarios.add(operario);</b>
+<i class="no-highlight">350</i>&nbsp;    }
+<i class="no-highlight">351</i>&nbsp;
+<i class="no-highlight">352</i>&nbsp;    /**
+<i class="no-highlight">353</i>&nbsp;     * El metodo añade una nueva factura a la lista de Facturas y llama a el metodo agregaNuevaEstadistica
+<i class="no-highlight">354</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; factura debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">355</i>&nbsp;     * @param factura que se agregara a la coleccion de facturas
+<i class="no-highlight">356</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; La coleccion de facturas tendra una nueva factura&lt;br&gt;.
+<i class="no-highlight">357</i>&nbsp;     */
+<i class="no-highlight">358</i>&nbsp;    public void agregarFactura(Factura factura){
+<b class="nc"><i class="no-highlight">359</i>&nbsp;        this.facturas.add(factura);</b>
+<b class="nc"><i class="no-highlight">360</i>&nbsp;        agregaNuevaEstadistica(factura);</b>
+<i class="no-highlight">361</i>&nbsp;    }
+<i class="no-highlight">362</i>&nbsp;
+<i class="no-highlight">363</i>&nbsp;    /**
+<i class="no-highlight">364</i>&nbsp;     * En base a una factura agrega una nueva estadistica a la mesa correspondiente, y otra al mozo que atendio
+<i class="no-highlight">365</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; factura debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">366</i>&nbsp;     * @param factura sobre la cual se calculara una nueva estadista tanto de mozo como de mesa.
+<i class="no-highlight">367</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Se agregaran a las colecciones de estadisticasMozos y estadisticasMesas un nuevo dato&lt;br&gt;.
+<i class="no-highlight">368</i>&nbsp;     */
+<i class="no-highlight">369</i>&nbsp;    private void agregaNuevaEstadistica(Factura factura){
+<b class="nc"><i class="no-highlight">370</i>&nbsp;        Mesa mesa = factura.getMesa();</b>
+<b class="nc"><i class="no-highlight">371</i>&nbsp;        Mozo mozo = mesasAsignadas.get(mesa);</b>
+<b class="nc"><i class="no-highlight">372</i>&nbsp;        EstadisticaMozo estadisticasMozo = this.estadisticasMozos.get(mozo);</b>
+<b class="nc"><i class="no-highlight">373</i>&nbsp;        estadisticasMozo.setCantidadVentas(estadisticasMozo.getCantidadVentas()+1);</b>
+<b class="nc"><i class="no-highlight">374</i>&nbsp;        estadisticasMozo.setTotalGastado(estadisticasMozo.getTotalGastado()+ factura.getTotal());</b>
+<b class="nc"><i class="no-highlight">375</i>&nbsp;        this.estadisticasMozos.replace(mozo,estadisticasMozo);</b>
+<b class="nc"><i class="no-highlight">376</i>&nbsp;        EstadisticaMesa estadisticasMesa = this.estadisticasMesas.get(mesa);</b>
+<b class="nc"><i class="no-highlight">377</i>&nbsp;        estadisticasMesa.setCantidadVentas(estadisticasMesa.getCantidadVentas()+1);</b>
+<b class="nc"><i class="no-highlight">378</i>&nbsp;        estadisticasMesa.setTotalGastado(estadisticasMesa.getTotalGastado()+ factura.getTotal());</b>
+<b class="nc"><i class="no-highlight">379</i>&nbsp;        this.estadisticasMesas.replace(mesa,estadisticasMesa);</b>
+<i class="no-highlight">380</i>&nbsp;    }
+<i class="no-highlight">381</i>&nbsp;
+<i class="no-highlight">382</i>&nbsp;    /**
+<i class="no-highlight">383</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; mesa y pedidos deben ser distintos de null&lt;br&gt;.
+<i class="no-highlight">384</i>&nbsp;     * @param mesa sobre la cual se va a crear la comanda
+<i class="no-highlight">385</i>&nbsp;     * @param pedidos lista de pedidos a agregar a la comanda
+<i class="no-highlight">386</i>&nbsp;     * @throws Exception Se lanza excepción si la mesa esta en estado Ocupado
+<i class="no-highlight">387</i>&nbsp;     * @throws Exception Se lanza excepción si No hay mesas habilitadas en el Negocio
+<i class="no-highlight">388</i>&nbsp;     * @throws Exception Se lanza excepción si la mesa no tiene mozo asignado
+<i class="no-highlight">389</i>&nbsp;     * @throws Exception Se lanza excepción Si el local no tiene Mozos activos
+<i class="no-highlight">390</i>&nbsp;     * @throws Exception Se lanza excepción si no hay dos promociones en estado activo
+<i class="no-highlight">391</i>&nbsp;     * @throws Exception Se lanza excepción si la lista de productos esta vacia.
+<i class="no-highlight">392</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Se agregara a la lista de comandas una nueva y la mesa pasara a estado ocupado&lt;br&gt;.
+<i class="no-highlight">393</i>&nbsp;     */
+<i class="no-highlight">394</i>&nbsp;    public void agregarComanda(Mesa mesa, ArrayList&lt;Pedido&gt; pedidos) throws Exception {
+<b class="fc"><i class="no-highlight">395</i>&nbsp;        assert mesa != null : &quot;ERROR : La mesa no debe ser null&quot;;</b>
+<b class="fc"><i class="no-highlight">396</i>&nbsp;        assert pedidos != null : &quot;ERROR : Pedidos no debe ser null&quot;;</b>
+<i class="no-highlight">397</i>&nbsp;
+<b class="fc"><i class="no-highlight">398</i>&nbsp;        if (mesa.getEstado().equalsIgnoreCase(&quot;Ocupado&quot;))</b>
+<b class="nc"><i class="no-highlight">399</i>&nbsp;            throw new Exception(&quot;No se puede crear la Comanda : Mesa Ocupada&quot;); //2. Mesa ocupada</b>
+<b class="fc"><i class="no-highlight">400</i>&nbsp;        if (this.mesas.size() == 0)</b>
+<b class="nc"><i class="no-highlight">401</i>&nbsp;            throw new Exception(&quot;No se puede crear la Comanda : No hay mesas habilitadas&quot;); //1.1 Local sin mesas habilitadas</b>
+<b class="fc"><i class="no-highlight">402</i>&nbsp;        if (this.mesasAsignadas.get(mesa) == null)</b>
+<b class="nc"><i class="no-highlight">403</i>&nbsp;            throw new Exception(&quot;No se puede crear la Comanda : La mesa no esta asignada a ningun mozo&quot;); //1.2 La mesa no esta en el hash de MesasAsignadas -&gt; no tiene mozo</b>
+<b class="fc"><i class="no-highlight">404</i>&nbsp;        if (this.mozos.isEmpty())</b>
+<b class="nc"><i class="no-highlight">405</i>&nbsp;            throw new Exception(&quot;No se puede crear la Comanda : No hay mozos activos&quot;); //1.2 No hay mozos activos</b>
+<b class="fc"><i class="no-highlight">406</i>&nbsp;        if (!hayDosProductosPromocionActiva())</b>
+<b class="nc"><i class="no-highlight">407</i>&nbsp;            throw new Exception(&quot;No se puede crear la Comanda : No hay dos productos en promocion&quot;); //1.4 NO hay 2 productos en promocion activa</b>
+<b class="fc"><i class="no-highlight">408</i>&nbsp;        if (this.productos.isEmpty())</b>
+<b class="nc"><i class="no-highlight">409</i>&nbsp;            throw new Exception(&quot;No se puede crear la Comanda : Lista de productos vacia&quot;); //1.5 lista de productos vacia</b>
+<i class="no-highlight">410</i>&nbsp;
+<b class="fc"><i class="no-highlight">411</i>&nbsp;        mesa.ocupar();</b>
+<b class="fc"><i class="no-highlight">412</i>&nbsp;        Comanda comanda = new Comanda();</b>
+<b class="fc"><i class="no-highlight">413</i>&nbsp;        comanda.setMesa(mesa);</b>
+<b class="fc"><i class="no-highlight">414</i>&nbsp;        comanda.setPedidos(pedidos);</b>
+<b class="fc"><i class="no-highlight">415</i>&nbsp;        this.comandas.add(comanda);</b>
+<i class="no-highlight">416</i>&nbsp;    }
+<i class="no-highlight">417</i>&nbsp;
+<i class="no-highlight">418</i>&nbsp;    /**
+<i class="no-highlight">419</i>&nbsp;     * El metodo valida los datos, crea un nuevo producto y lo agrega a la coleccion de productos
+<i class="no-highlight">420</i>&nbsp;     *
+<i class="no-highlight">421</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de productos debe existir&lt;br&gt;.
+<i class="no-highlight">422</i>&nbsp;     * @param ID numero unico de identificacion del producto
+<i class="no-highlight">423</i>&nbsp;     * @param nombre nombre del producto
+<i class="no-highlight">424</i>&nbsp;     * @param precioCosto precio de costo del producto
+<i class="no-highlight">425</i>&nbsp;     * @param precioVenta precio de venta del producto
+<i class="no-highlight">426</i>&nbsp;     * @param stockInicial stock del producto
+<i class="no-highlight">427</i>&nbsp;     * @throws Exception Se lanza excepción si el precio de venta es menor al precio de costo
+<i class="no-highlight">428</i>&nbsp;     * @throws Exception Se lanza excepción si el precio de costo es menor a cero
+<i class="no-highlight">429</i>&nbsp;     * @throws Exception Se lanza excepción si el precio de venta es menor a cero
+<i class="no-highlight">430</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Se agregara a la lista de productos un nuevo elemento&lt;br&gt;.
+<i class="no-highlight">431</i>&nbsp;     */
+<i class="no-highlight">432</i>&nbsp;
+<i class="no-highlight">433</i>&nbsp;    public void agregarProducto (int ID, String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+<b class="fc"><i class="no-highlight">434</i>&nbsp;        if (precioVenta &lt; precioCosto)</b>
+<b class="nc"><i class="no-highlight">435</i>&nbsp;            throw new Exception(&quot;El precio de venta es menor al de costo&quot;);</b>
+<b class="fc"><i class="no-highlight">436</i>&nbsp;        if(precioCosto &lt; 0)</b>
+<b class="nc"><i class="no-highlight">437</i>&nbsp;            throw new Exception(&quot;El precio de costo es menor a cero&quot;);</b>
+<b class="fc"><i class="no-highlight">438</i>&nbsp;        if(precioVenta &lt; 0)</b>
+<b class="nc"><i class="no-highlight">439</i>&nbsp;            throw new Exception(&quot;El precio de venta es menor a cero&quot;);</b>
+<i class="no-highlight">440</i>&nbsp;
+<b class="fc"><i class="no-highlight">441</i>&nbsp;        this.productos.put(ID,new Producto(nombre, precioCosto, precioVenta, stockInicial));</b>
+<i class="no-highlight">442</i>&nbsp;    }
+<i class="no-highlight">443</i>&nbsp;
+<i class="no-highlight">444</i>&nbsp;    // ELIMINAR
+<i class="no-highlight">445</i>&nbsp;
+<i class="no-highlight">446</i>&nbsp;    /**
+<i class="no-highlight">447</i>&nbsp;     * Elimina un mozo determinado
+<i class="no-highlight">448</i>&nbsp;     *
+<i class="no-highlight">449</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de mozos debe existir&lt;br&gt;.
+<i class="no-highlight">450</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; mozo debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">451</i>&nbsp;     * @param mozoViejo mozo que se desea eliminar
+<i class="no-highlight">452</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt;La lista de mozos tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">453</i>&nbsp;     */
+<i class="no-highlight">454</i>&nbsp;    public void eliminarMozo(Mozo mozoViejo){
+<b class="nc"><i class="no-highlight">455</i>&nbsp;        assert mozoViejo != null:&quot;ERROR : El mozo no puede ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">456</i>&nbsp;        for (int i = 0 ; i &lt; mozos.size() ; i++){</b>
+<b class="nc"><i class="no-highlight">457</i>&nbsp;            if (this.mozos.get(i).equals(mozoViejo)) {</b>
+<b class="nc"><i class="no-highlight">458</i>&nbsp;                this.mozos.remove(i);</b>
+<b class="nc"><i class="no-highlight">459</i>&nbsp;                break;</b>
+<i class="no-highlight">460</i>&nbsp;            }
+<i class="no-highlight">461</i>&nbsp;        }
+<i class="no-highlight">462</i>&nbsp;    }
+<i class="no-highlight">463</i>&nbsp;
+<i class="no-highlight">464</i>&nbsp;    /**
+<i class="no-highlight">465</i>&nbsp;     * Elimina una mesa determinada
+<i class="no-highlight">466</i>&nbsp;     *
+<i class="no-highlight">467</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de mesas debe existir&lt;br&gt;.
+<i class="no-highlight">468</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; mesa debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">469</i>&nbsp;     * @param mesa mesa que se desea eliminar
+<i class="no-highlight">470</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la lista de mesa tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">471</i>&nbsp;     */
+<i class="no-highlight">472</i>&nbsp;    public void eliminarMesa(Mesa mesa){
+<b class="nc"><i class="no-highlight">473</i>&nbsp;        assert mesa!=null:&quot;ERROR : La mesa no puede ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">474</i>&nbsp;        this.mesas.remove(mesa);</b>
+<i class="no-highlight">475</i>&nbsp;    }
+<i class="no-highlight">476</i>&nbsp;
+<i class="no-highlight">477</i>&nbsp;    /**
+<i class="no-highlight">478</i>&nbsp;     * Elimina una promocion temporal determinada
+<i class="no-highlight">479</i>&nbsp;     *
+<i class="no-highlight">480</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de promociones temporales debe existir&lt;br&gt;.
+<i class="no-highlight">481</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; promocion temporal debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">482</i>&nbsp;     * @param promo promocion temporal  que se desea eliminar
+<i class="no-highlight">483</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la lista de promociones temporales tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">484</i>&nbsp;     */
+<i class="no-highlight">485</i>&nbsp;    public void eliminarPromocionTemporal(PromocionTemporal promo){
+<b class="nc"><i class="no-highlight">486</i>&nbsp;        assert promo!=null:&quot;ERROR : La promocion no puede ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">487</i>&nbsp;        this.promocionesTemporales.remove(promo);</b>
+<i class="no-highlight">488</i>&nbsp;    }
+<i class="no-highlight">489</i>&nbsp;
+<i class="no-highlight">490</i>&nbsp;    /**
+<i class="no-highlight">491</i>&nbsp;     * Elimina una promocion de producto determinada
+<i class="no-highlight">492</i>&nbsp;     *
+<i class="no-highlight">493</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de promociones producto debe existir&lt;br&gt;.
+<i class="no-highlight">494</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; promocion producto debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">495</i>&nbsp;     * @param promo promocion producto  que se desea eliminar
+<i class="no-highlight">496</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la lista de promociones producto tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">497</i>&nbsp;     */
+<i class="no-highlight">498</i>&nbsp;    public void eliminarPromocionProducto(PromocionProducto promo){
+<b class="nc"><i class="no-highlight">499</i>&nbsp;        assert promo!=null:&quot;ERROR : La promocion no puede ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">500</i>&nbsp;        this.promocionesProductos.remove(promo);</b>
+<i class="no-highlight">501</i>&nbsp;    }
+<i class="no-highlight">502</i>&nbsp;
+<i class="no-highlight">503</i>&nbsp;    /**
+<i class="no-highlight">504</i>&nbsp;     * Elimina un operario determinada
+<i class="no-highlight">505</i>&nbsp;     *
+<i class="no-highlight">506</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de operarios debe existir&lt;br&gt;.
+<i class="no-highlight">507</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; operario debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">508</i>&nbsp;     * @param operario operario que se desea eliminar
+<i class="no-highlight">509</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la lista de operarios tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">510</i>&nbsp;     */
+<i class="no-highlight">511</i>&nbsp;    public void eliminarOperario (Operario operario){
+<b class="nc"><i class="no-highlight">512</i>&nbsp;        assert operario!=null:&quot;ERROR : El operario no puede ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">513</i>&nbsp;        this.operarios.remove(operario);</b>
+<i class="no-highlight">514</i>&nbsp;    }
+<i class="no-highlight">515</i>&nbsp;
+<i class="no-highlight">516</i>&nbsp;    /**
+<i class="no-highlight">517</i>&nbsp;     * Elimina una comanda determinada
+<i class="no-highlight">518</i>&nbsp;     *
+<i class="no-highlight">519</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; comanda deben ser distintos de null&lt;br&gt;.
+<i class="no-highlight">520</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de comandas debe existir&lt;br&gt;.
+<i class="no-highlight">521</i>&nbsp;     * @throws Exception Se lanza excepción si la comanda a cerrar ya esta en estado cerrada.
+<i class="no-highlight">522</i>&nbsp;     * @param comanda Comanda que se cerrara
+<i class="no-highlight">523</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Se cerrará la comanda. La mesa de la comanda queda en estado Libre. La lista de comandas tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">524</i>&nbsp;     */
+<i class="no-highlight">525</i>&nbsp;    public void eliminarComanda(Comanda comanda) throws Exception {
+<b class="fc"><i class="no-highlight">526</i>&nbsp;        assert comanda!=null:&quot;ERROR : La comanda no debe ser null&quot;;</b>
+<i class="no-highlight">527</i>&nbsp;
+<b class="fc"><i class="no-highlight">528</i>&nbsp;        if (comanda.getEstado().equalsIgnoreCase(&quot;Cerrada&quot;))</b>
+<b class="fc"><i class="no-highlight">529</i>&nbsp;            throw new Exception(&quot;ERROR : No se puede cerrar una comanda ya cerrada&quot;);</b>
+<i class="no-highlight">530</i>&nbsp;
+<b class="fc"><i class="no-highlight">531</i>&nbsp;        comanda.cerrarComanda();</b>
+<b class="fc"><i class="no-highlight">532</i>&nbsp;        comanda.getMesa().liberar();</b>
+<b class="fc"><i class="no-highlight">533</i>&nbsp;        this.comandas.remove(comanda);</b>
+<i class="no-highlight">534</i>&nbsp;    }
+<i class="no-highlight">535</i>&nbsp;
+<i class="no-highlight">536</i>&nbsp;    /**
+<i class="no-highlight">537</i>&nbsp;     * Elimina un producto determinada
+<i class="no-highlight">538</i>&nbsp;     *
+<i class="no-highlight">539</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la coleccion de operarios debe existir&lt;br&gt;.
+<i class="no-highlight">540</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; produto debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">541</i>&nbsp;     * @param producto producto que se desea eliminar
+<i class="no-highlight">542</i>&nbsp;     * @throws Exception Se lanza excepción si el producto que se desea eliminar esta asiciado a un pedido
+<i class="no-highlight">543</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la coleccion de productos tendra un elemento menos&lt;br&gt;.
+<i class="no-highlight">544</i>&nbsp;     */
+<i class="no-highlight">545</i>&nbsp;    public void eliminarProducto (Producto producto) throws Exception {
+<b class="nc"><i class="no-highlight">546</i>&nbsp;        for (Comanda comanda : comandas) {</b>
+<b class="nc"><i class="no-highlight">547</i>&nbsp;            ArrayList&lt;Pedido&gt; pedidos = comanda.getPedidos();</b>
+<i class="no-highlight">548</i>&nbsp;
+<b class="nc"><i class="no-highlight">549</i>&nbsp;            for (Pedido pedido : pedidos) {</b>
+<b class="nc"><i class="no-highlight">550</i>&nbsp;                if (producto.getIdProducto() == pedido.getProducto().getIdProducto()) {</b>
+<b class="nc"><i class="no-highlight">551</i>&nbsp;                    throw new Exception(&quot;El producto no se puede eliminar debido a que esta asociado a una comanda&quot;);</b>
+<i class="no-highlight">552</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">553</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">554</i>&nbsp;        }</b>
+<i class="no-highlight">555</i>&nbsp;
+<b class="nc"><i class="no-highlight">556</i>&nbsp;        this.productos.remove(producto.getIdProducto());</b>
+<i class="no-highlight">557</i>&nbsp;    }
+<i class="no-highlight">558</i>&nbsp;
+<i class="no-highlight">559</i>&nbsp;    // MODIFICAR
+<i class="no-highlight">560</i>&nbsp;
+<i class="no-highlight">561</i>&nbsp;    /**
+<i class="no-highlight">562</i>&nbsp;     * Modifica la contrasena del administrador
+<i class="no-highlight">563</i>&nbsp;     *
+<i class="no-highlight">564</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; el administrador debe existir&lt;br&gt;.
+<i class="no-highlight">565</i>&nbsp;     * @param contrasena nueva contrasena del administrador
+<i class="no-highlight">566</i>&nbsp;     * @throws Exception Se lanza excepción si la constrasena tiene menos de 6 o mas de 12 digitos
+<i class="no-highlight">567</i>&nbsp;     * @throws Exception Se lanza excepción si la constrasena no tiene un digito numerico
+<i class="no-highlight">568</i>&nbsp;     * @throws Exception Se lanza excepción si la constrasena no tiene un digito en mayuscula
+<i class="no-highlight">569</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; el administrador tendra nueva contrasena&lt;br&gt;.
+<i class="no-highlight">570</i>&nbsp;     */
+<i class="no-highlight">571</i>&nbsp;    public void modificarAdministrador(String contrasena) throws Exception{
+<b class="nc"><i class="no-highlight">572</i>&nbsp;        if (contrasena.length() &lt; 6 || contrasena.length() &gt; 12)</b>
+<b class="nc"><i class="no-highlight">573</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe tener entre 6 y 12 caracteres.&quot;);</b>
+<b class="nc"><i class="no-highlight">574</i>&nbsp;        if (!contieneDigito(contrasena))</b>
+<b class="nc"><i class="no-highlight">575</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe contener al menos un digito.&quot;);</b>
+<b class="nc"><i class="no-highlight">576</i>&nbsp;        if (!contieneMayuscula(contrasena))</b>
+<b class="nc"><i class="no-highlight">577</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe contener al menos una mayuscula.&quot;);</b>
+<i class="no-highlight">578</i>&nbsp;
+<b class="nc"><i class="no-highlight">579</i>&nbsp;        this.administrador.setPassword(contrasena);</b>
+<i class="no-highlight">580</i>&nbsp;    }
+<i class="no-highlight">581</i>&nbsp;
+<i class="no-highlight">582</i>&nbsp;    /**
+<i class="no-highlight">583</i>&nbsp;     * Modifica cantidad de sillas de una mesa determinada
+<i class="no-highlight">584</i>&nbsp;     *
+<i class="no-highlight">585</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; la mesa debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">586</i>&nbsp;     * @param mesa mesa a cambiar parametros
+<i class="no-highlight">587</i>&nbsp;     * @param cantidadComensales cantidad de sillas que posee la mesa
+<i class="no-highlight">588</i>&nbsp;     * @throws Exception Se lanza excepción si la cantidad de comensales es menor a 2
+<i class="no-highlight">589</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la mesa tendra nuevo numero de sillas&lt;br&gt;.
+<i class="no-highlight">590</i>&nbsp;     */
+<i class="no-highlight">591</i>&nbsp;    public void modificarMesa(Mesa mesa, int cantidadComensales) throws Exception {
+<b class="nc"><i class="no-highlight">592</i>&nbsp;        assert mesa!=null:&quot;ERROR : La mesa no puede ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">593</i>&nbsp;        if (cantidadComensales &lt; 2)</b>
+<b class="nc"><i class="no-highlight">594</i>&nbsp;            throw new Exception(&quot;ERROR : La cantidad de comensales no puede ser menor a 2&quot;);</b>
+<i class="no-highlight">595</i>&nbsp;
+<b class="nc"><i class="no-highlight">596</i>&nbsp;        mesa.setCantidadComensales(cantidadComensales);</b>
+<i class="no-highlight">597</i>&nbsp;    }
+<i class="no-highlight">598</i>&nbsp;
+<i class="no-highlight">599</i>&nbsp;    /**
+<i class="no-highlight">600</i>&nbsp;     * El metodo valida los datos correspondientes para modificar los paramentros de un  Mozo determinado     *
+<i class="no-highlight">601</i>&nbsp;     * @param mozo mozo a modificar
+<i class="no-highlight">602</i>&nbsp;     * @param nombre nombre del mozo
+<i class="no-highlight">603</i>&nbsp;     * @param edad edad del mozo
+<i class="no-highlight">604</i>&nbsp;     * @param hijos cantidad de hijos del mozo
+<i class="no-highlight">605</i>&nbsp;     * @throws Exception Se lanza excepción si Nombre es vacio
+<i class="no-highlight">606</i>&nbsp;     * @throws Exception Se lanza excepción si edad es menor 18
+<i class="no-highlight">607</i>&nbsp;     * @throws Exception Se lanza excepción si cantidad de hijos es menor a cero
+<i class="no-highlight">608</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; el mozo tendra nuevos valores en sus atributos &lt;br&gt;.
+<i class="no-highlight">609</i>&nbsp;     */
+<i class="no-highlight">610</i>&nbsp;    public void modificarMozo(Mozo mozo,String nombre, int edad, int hijos) throws Exception {
+<b class="nc"><i class="no-highlight">611</i>&nbsp;        if (nombre.equals(&quot;&quot;))</b>
+<b class="nc"><i class="no-highlight">612</i>&nbsp;            throw new Exception(&quot;ERROR : Nombre vacio&quot;);</b>
+<b class="nc"><i class="no-highlight">613</i>&nbsp;        if (hijos &lt; 0)</b>
+<b class="nc"><i class="no-highlight">614</i>&nbsp;            throw new Exception(&quot;ERROR : Cantidad de hijos debe ser mayo o igual a cero&quot;);</b>
+<b class="nc"><i class="no-highlight">615</i>&nbsp;        if (edad &lt; 18)</b>
+<b class="nc"><i class="no-highlight">616</i>&nbsp;            throw new Exception(&quot;ERROR : Es menor de edad&quot;);</b>
+<i class="no-highlight">617</i>&nbsp;
+<b class="nc"><i class="no-highlight">618</i>&nbsp;        mozo.setNombreYApellido(nombre);</b>
+<b class="nc"><i class="no-highlight">619</i>&nbsp;        mozo.setEdad(edad);</b>
+<b class="nc"><i class="no-highlight">620</i>&nbsp;        mozo.setCantHijos(hijos);</b>
+<i class="no-highlight">621</i>&nbsp;    }
+<i class="no-highlight">622</i>&nbsp;
+<i class="no-highlight">623</i>&nbsp;    /**
+<i class="no-highlight">624</i>&nbsp;     * El metodo valida los datos correspondientes para modificar un Operario determinar
+<i class="no-highlight">625</i>&nbsp;     *
+<i class="no-highlight">626</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; operario debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">627</i>&nbsp;     *
+<i class="no-highlight">628</i>&nbsp;     * @param operario operario a modificar
+<i class="no-highlight">629</i>&nbsp;     * @param nombre nombre del operario
+<i class="no-highlight">630</i>&nbsp;     * @param nombreUsuario nombre de usuario del operario
+<i class="no-highlight">631</i>&nbsp;     * @param contrasena constrasena del operario
+<i class="no-highlight">632</i>&nbsp;     * @param activo estado del operario ( activo / inactivo )
+<i class="no-highlight">633</i>&nbsp;     * @throws Exception Se lanza excepción si Nombre es vacio
+<i class="no-highlight">634</i>&nbsp;     * @throws Exception Se lanza excepción si Nombre de Usuario es menor a 5 caracteres o mayor a 10
+<i class="no-highlight">635</i>&nbsp;     * @throws Exception Se lanza excepción si contresena es menor a 5 caracteres o mayor a 10
+<i class="no-highlight">636</i>&nbsp;     * @throws Exception Se lanza excepción si constresena no tiene un digito numerico
+<i class="no-highlight">637</i>&nbsp;     * @throws Exception Se lanza excepción si constrasena no contiene por lo menos una letra mayuscula
+<i class="no-highlight">638</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; el operario cambiara el valor de sus atributos&lt;br&gt;.
+<i class="no-highlight">639</i>&nbsp;     */
+<i class="no-highlight">640</i>&nbsp;    public void modificarOperario(Operario operario,String nombre, String nombreUsuario, String contrasena, boolean activo ) throws Exception {
+<b class="nc"><i class="no-highlight">641</i>&nbsp;        if (nombre.equals(&quot;&quot;))</b>
+<b class="nc"><i class="no-highlight">642</i>&nbsp;            throw new Exception(&quot;ERROR : Nombre vacio.&quot;);</b>
+<b class="nc"><i class="no-highlight">643</i>&nbsp;        if (nombreUsuario.length() &lt; 5 || nombreUsuario.length() &gt; 10)</b>
+<b class="nc"><i class="no-highlight">644</i>&nbsp;            throw new Exception(&quot;ERROR : El nombre de Usuario debe tener entre 5 y 10 caracteres.&quot;);</b>
+<b class="nc"><i class="no-highlight">645</i>&nbsp;        if (contrasena.length() &lt; 6 || contrasena.length() &gt; 12)</b>
+<b class="nc"><i class="no-highlight">646</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe tener entre 6 y 12 caracteres.&quot;);</b>
+<b class="nc"><i class="no-highlight">647</i>&nbsp;        if (!contieneDigito(contrasena))</b>
+<b class="nc"><i class="no-highlight">648</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe contener al menos un digito.&quot;);</b>
+<b class="nc"><i class="no-highlight">649</i>&nbsp;        if (!contieneMayuscula(contrasena))</b>
+<b class="nc"><i class="no-highlight">650</i>&nbsp;            throw new Exception(&quot;ERROR : La contraseña debe contener al menos una mayuscula.&quot;);</b>
+<i class="no-highlight">651</i>&nbsp;
+<b class="nc"><i class="no-highlight">652</i>&nbsp;        operario.setNombreCompleto(nombre);</b>
+<b class="nc"><i class="no-highlight">653</i>&nbsp;        operario.setNombreUsuario(nombreUsuario);</b>
+<b class="nc"><i class="no-highlight">654</i>&nbsp;        operario.setContrasena(contrasena);</b>
+<b class="nc"><i class="no-highlight">655</i>&nbsp;        operario.setActivo(activo);</b>
+<i class="no-highlight">656</i>&nbsp;    }
+<i class="no-highlight">657</i>&nbsp;
+<i class="no-highlight">658</i>&nbsp;    /**
+<i class="no-highlight">659</i>&nbsp;     * El metodo valida los datos para modificar un producto determinado
+<i class="no-highlight">660</i>&nbsp;     *
+<i class="no-highlight">661</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt;el producto debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">662</i>&nbsp;     *
+<i class="no-highlight">663</i>&nbsp;     * @param producto producto que se desea modificar
+<i class="no-highlight">664</i>&nbsp;     * @param nombre nombre del producto
+<i class="no-highlight">665</i>&nbsp;     * @param precioCosto precio de costo del producto
+<i class="no-highlight">666</i>&nbsp;     * @param precioVenta precio de venta del producto
+<i class="no-highlight">667</i>&nbsp;     * @param stockInicial stock del producto
+<i class="no-highlight">668</i>&nbsp;     * @throws Exception Se lanza excepción si el precio de venta es menor al precio de costo
+<i class="no-highlight">669</i>&nbsp;     * @throws Exception Se lanza excepción si el precio de costo es menor a cero
+<i class="no-highlight">670</i>&nbsp;     * @throws Exception Se lanza excepción si el precio de venta es menor a cero
+<i class="no-highlight">671</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; el producto cambiara el valor de sus atributos&lt;br&gt;.
+<i class="no-highlight">672</i>&nbsp;     */
+<i class="no-highlight">673</i>&nbsp;    public void modificarProducto (Producto producto,String nombre, double precioCosto, double precioVenta, int stockInicial) throws Exception {
+<b class="fc"><i class="no-highlight">674</i>&nbsp;        if (precioVenta &lt; precioCosto)</b>
+<b class="fc"><i class="no-highlight">675</i>&nbsp;            throw new Exception(&quot;El precio de venta es menor al de costo&quot;);</b>
+<b class="fc"><i class="no-highlight">676</i>&nbsp;        if(precioCosto &lt; 0)</b>
+<b class="fc"><i class="no-highlight">677</i>&nbsp;            throw new Exception(&quot;El precio de costo es menor a cero&quot;);</b>
+<b class="fc"><i class="no-highlight">678</i>&nbsp;        if(precioVenta &lt; 0)</b>
+<b class="nc"><i class="no-highlight">679</i>&nbsp;            throw new Exception(&quot;El precio de venta es menor a cero&quot;);</b>
+<i class="no-highlight">680</i>&nbsp;
+<b class="fc"><i class="no-highlight">681</i>&nbsp;        producto.setNombre(nombre);</b>
+<b class="fc"><i class="no-highlight">682</i>&nbsp;        producto.setPrecioCosto(precioCosto);</b>
+<b class="fc"><i class="no-highlight">683</i>&nbsp;        producto.setPrecioVenta(precioVenta);</b>
+<b class="fc"><i class="no-highlight">684</i>&nbsp;        producto.setStockInicial(stockInicial);</b>
+<i class="no-highlight">685</i>&nbsp;    }
+<i class="no-highlight">686</i>&nbsp;
+<i class="no-highlight">687</i>&nbsp;    /**
+<i class="no-highlight">688</i>&nbsp;     * El metodo valida los datos para modificar una comanda determinada
+<i class="no-highlight">689</i>&nbsp;     *
+<i class="no-highlight">690</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt;la comanda debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">691</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt;la mesa debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">692</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; los pedidos debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">693</i>&nbsp;     *
+<i class="no-highlight">694</i>&nbsp;     * @param comanda comanda que se desea modificar
+<i class="no-highlight">695</i>&nbsp;     * @param mesa mesa asiciada a la comanda
+<i class="no-highlight">696</i>&nbsp;     * @param pedidos lista de pedidos de la comanda
+<i class="no-highlight">697</i>&nbsp;
+<i class="no-highlight">698</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; la comanda cambiara el valor de sus atributos&lt;br&gt;.
+<i class="no-highlight">699</i>&nbsp;     */
+<i class="no-highlight">700</i>&nbsp;    public void modificarComanda( Comanda comanda, Mesa mesa, ArrayList&lt;Pedido&gt; pedidos) {
+<b class="nc"><i class="no-highlight">701</i>&nbsp;        assert mesa != null : &quot;ERROR : La mesa no debe ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">702</i>&nbsp;        assert comanda != null : &quot;ERROR : La comanda no debe ser null&quot;;</b>
+<b class="nc"><i class="no-highlight">703</i>&nbsp;        assert pedidos != null : &quot;ERROR : Pedidos no debe ser null&quot;;</b>
+<i class="no-highlight">704</i>&nbsp;
+<b class="nc"><i class="no-highlight">705</i>&nbsp;        comanda.setMesa(mesa);</b>
+<b class="nc"><i class="no-highlight">706</i>&nbsp;        comanda.setPedidos(pedidos);</b>
+<b class="nc"><i class="no-highlight">707</i>&nbsp;        mesa.ocupar();</b>
+<i class="no-highlight">708</i>&nbsp;    }
+<i class="no-highlight">709</i>&nbsp;
+<i class="no-highlight">710</i>&nbsp;    /**
+<i class="no-highlight">711</i>&nbsp;     * El metodo verifica que haya dos prodcutos en promocion
+<i class="no-highlight">712</i>&nbsp;     *
+<i class="no-highlight">713</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt;la coleccion depromociones productos  debe ser distinto de null&lt;br&gt;.
+<i class="no-highlight">714</i>&nbsp;     *
+<i class="no-highlight">715</i>&nbsp;     * @return si es verdadero que hay dos productos en promocion
+<i class="no-highlight">716</i>&nbsp;     */
+<i class="no-highlight">717</i>&nbsp;    public boolean hayDosProductosPromocionActiva(){
+<b class="fc"><i class="no-highlight">718</i>&nbsp;        return this.promocionesProductos.size() &gt;= 2;</b>
+<i class="no-highlight">719</i>&nbsp;    }
+<i class="no-highlight">720</i>&nbsp;
+<i class="no-highlight">721</i>&nbsp;    /**
+<i class="no-highlight">722</i>&nbsp;     * * El metodo crea una lista con los mozos activos a partir de la lista de mozos. Ademas verifica que haya
+<i class="no-highlight">723</i>&nbsp;     *
+<i class="no-highlight">724</i>&nbsp;     * &lt;b&gt;pre:&lt;/b&gt; &lt;br&gt;.
+<i class="no-highlight">725</i>&nbsp;     * mesas y mozos activos para asignar a cada Mesa un mozo
+<i class="no-highlight">726</i>&nbsp;     * @throws Exception Se lanza excepción si no hay mesas habilitadas en el Negocio
+<i class="no-highlight">727</i>&nbsp;     * @throws Exception Se lanza excepción si no hay mozos en estado activo
+<i class="no-highlight">728</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Cada mesa tendra asignada un mozo (mesasAsignadas)&lt;br&gt;.
+<i class="no-highlight">729</i>&nbsp;     */
+<i class="no-highlight">730</i>&nbsp;    public void asignarMesas() throws Exception {
+<b class="fc"><i class="no-highlight">731</i>&nbsp;        ArrayList&lt;Mozo&gt; listaMozosActivos = mozosActivos();</b>
+<b class="fc"><i class="no-highlight">732</i>&nbsp;        int mozo = 0;</b>
+<i class="no-highlight">733</i>&nbsp;
+<b class="fc"><i class="no-highlight">734</i>&nbsp;        if (this.mesas.isEmpty())</b>
+<b class="nc"><i class="no-highlight">735</i>&nbsp;            throw new Exception(&quot;No hay mesas habilitadas. NO se puede Asignar mesas&quot;);</b>
+<b class="fc"><i class="no-highlight">736</i>&nbsp;        if (listaMozosActivos.isEmpty())</b>
+<b class="nc"><i class="no-highlight">737</i>&nbsp;            throw new Exception(&quot;No hay mozos activos. NO se puede asignar mesas&quot;);</b>
+<i class="no-highlight">738</i>&nbsp;
+<b class="fc"><i class="no-highlight">739</i>&nbsp;        for (Mesa mesa : this.mesas) {</b>
+<b class="fc"><i class="no-highlight">740</i>&nbsp;            if (mozo &gt;= listaMozosActivos.size())</b>
+<b class="fc"><i class="no-highlight">741</i>&nbsp;                mozo = 0;</b>
+<b class="fc"><i class="no-highlight">742</i>&nbsp;            this.mesasAsignadas.put(mesa, listaMozosActivos.get(mozo));</b>
+<b class="fc"><i class="no-highlight">743</i>&nbsp;            mozo++;</b>
+<b class="fc"><i class="no-highlight">744</i>&nbsp;        }</b>
+<i class="no-highlight">745</i>&nbsp;    }
+<i class="no-highlight">746</i>&nbsp;
+<i class="no-highlight">747</i>&nbsp;    /**
+<i class="no-highlight">748</i>&nbsp;     * Metodo privado de esta clase que es llamado por asignarMesas. Este genera una lista con los mozos que
+<i class="no-highlight">749</i>&nbsp;     * estan activos.
+<i class="no-highlight">750</i>&nbsp;     * @return ArrayList&lt;Mozo&gt; Lista de mozos activos
+<i class="no-highlight">751</i>&nbsp;     */
+<i class="no-highlight">752</i>&nbsp;    public ArrayList&lt;Mozo&gt; mozosActivos() {
+<b class="fc"><i class="no-highlight">753</i>&nbsp;        ArrayList&lt;Mozo&gt; activos = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">754</i>&nbsp;
+<b class="fc"><i class="no-highlight">755</i>&nbsp;        for (Mozo mozo : this.mozos) {</b>
+<b class="fc"><i class="no-highlight">756</i>&nbsp;            if (mozo.getEstado().equalsIgnoreCase(&quot;Activo&quot;))</b>
+<b class="fc"><i class="no-highlight">757</i>&nbsp;                activos.add(mozo);</b>
+<b class="fc"><i class="no-highlight">758</i>&nbsp;        }</b>
+<b class="fc"><i class="no-highlight">759</i>&nbsp;        return activos;</b>
+<i class="no-highlight">760</i>&nbsp;    }
+<i class="no-highlight">761</i>&nbsp;
+<i class="no-highlight">762</i>&nbsp;
+<i class="no-highlight">763</i>&nbsp;    /**
+<i class="no-highlight">764</i>&nbsp;     * * El metodo finaliza una joranada laboral
+<i class="no-highlight">765</i>&nbsp;     * @throws Exception Se lanza excepción si hay comandas abiertas
+<i class="no-highlight">766</i>&nbsp;     * &lt;b&gt;post:&lt;/b&gt; Cada mozo pasa a estado null&lt;br&gt;.
+<i class="no-highlight">767</i>&nbsp;     */
+<i class="no-highlight">768</i>&nbsp;    public void finalizarJornada() throws Exception {
+<b class="nc"><i class="no-highlight">769</i>&nbsp;        if (!comandas.isEmpty())</b>
+<b class="nc"><i class="no-highlight">770</i>&nbsp;            throw new Exception(&quot;Es necesario que cierre todas las comandas abiertas para finalizar la jornada.&quot;);</b>
+<i class="no-highlight">771</i>&nbsp;
+<b class="nc"><i class="no-highlight">772</i>&nbsp;        for (Mozo mozo : mozos) {</b>
+<b class="nc"><i class="no-highlight">773</i>&nbsp;            mozo.setEstado(null);</b>
+<b class="nc"><i class="no-highlight">774</i>&nbsp;        }</b>
+<i class="no-highlight">775</i>&nbsp;
+<b class="nc"><i class="no-highlight">776</i>&nbsp;        mesasAsignadas.clear();</b>
+<i class="no-highlight">777</i>&nbsp;    }
+<i class="no-highlight">778</i>&nbsp;
+<i class="no-highlight">779</i>&nbsp;
+<i class="no-highlight">780</i>&nbsp;    /**
+<i class="no-highlight">781</i>&nbsp;     * prepara las estadisticas de mozos para mostrarlas
+<i class="no-highlight">782</i>&nbsp;     *
+<i class="no-highlight">783</i>&nbsp;     * @return ArrayList&lt;String&gt; devuelve una lista con la estadisticas de los mozos
+<i class="no-highlight">784</i>&nbsp;     */
+<i class="no-highlight">785</i>&nbsp;    public ArrayList&lt;String&gt; mostrarEstadisticasMozos() {
+<b class="nc"><i class="no-highlight">786</i>&nbsp;        ArrayList&lt;String&gt; respuesta = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">787</i>&nbsp;
+<b class="nc"><i class="no-highlight">788</i>&nbsp;        if (!estadisticasMozos.isEmpty()) {</b>
+<b class="nc"><i class="no-highlight">789</i>&nbsp;            Mozo mozoMaximo = estadisticasMozos.keySet().iterator().next();</b>
+<b class="nc"><i class="no-highlight">790</i>&nbsp;            Mozo mozoMinimo = estadisticasMozos.keySet().iterator().next();</b>
+<i class="no-highlight">791</i>&nbsp;
+<b class="nc"><i class="no-highlight">792</i>&nbsp;            for (Map.Entry &lt; Mozo, EstadisticaMozo&gt; entry : estadisticasMozos.entrySet()) {</b>
+<b class="nc"><i class="no-highlight">793</i>&nbsp;                if (entry.getValue().getTotalGastado() &gt; estadisticasMozos.get(mozoMaximo).getTotalGastado())</b>
+<b class="nc"><i class="no-highlight">794</i>&nbsp;                    mozoMaximo = entry.getKey();</b>
+<b class="nc"><i class="no-highlight">795</i>&nbsp;                if (entry.getValue().getTotalGastado() &lt; estadisticasMozos.get(mozoMinimo).getTotalGastado())</b>
+<b class="nc"><i class="no-highlight">796</i>&nbsp;                    mozoMinimo = entry.getKey();</b>
+<b class="nc"><i class="no-highlight">797</i>&nbsp;            }</b>
+<i class="no-highlight">798</i>&nbsp;
+<b class="nc"><i class="no-highlight">799</i>&nbsp;            respuesta.add(&quot;Mozo con mayor volumen de ventas: &#39;&quot; + mozoMaximo.getNombreYApellido());</b>
+<b class="nc"><i class="no-highlight">800</i>&nbsp;            respuesta.add(&quot;Mozo con menor volumen de ventas: &#39;&quot; + mozoMinimo.getNombreYApellido() + &quot;&#39; - Cantidad Ventas = &quot; + estadisticasMozos.get(mozoMinimo).getCantidadVentas() + &quot; - Total Facturado= &quot; + estadisticasMozos.get(mozoMinimo).getTotalGastado());</b>
+<i class="no-highlight">801</i>&nbsp;        }
+<i class="no-highlight">802</i>&nbsp;
+<b class="nc"><i class="no-highlight">803</i>&nbsp;        return respuesta;</b>
+<i class="no-highlight">804</i>&nbsp;    }
+<i class="no-highlight">805</i>&nbsp;
+<i class="no-highlight">806</i>&nbsp;
+<i class="no-highlight">807</i>&nbsp;    /**
+<i class="no-highlight">808</i>&nbsp;     * prepara las estadisticas de mesas para mostrarlas
+<i class="no-highlight">809</i>&nbsp;     *
+<i class="no-highlight">810</i>&nbsp;     * @return ArrayList&lt;String&gt; devuelve una lista con la estadisticas de los mesas
+<i class="no-highlight">811</i>&nbsp;     */
+<i class="no-highlight">812</i>&nbsp;    public ArrayList&lt;String&gt; mostrarEstadisticasMesas() {
+<b class="nc"><i class="no-highlight">813</i>&nbsp;        ArrayList&lt;String&gt; respuesta = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">814</i>&nbsp;
+<b class="nc"><i class="no-highlight">815</i>&nbsp;        for (Map.Entry&lt;Mesa,EstadisticaMesa&gt; entry : estadisticasMesas.entrySet()) {</b>
+<b class="nc"><i class="no-highlight">816</i>&nbsp;            int cantidadVentas = entry.getValue().getCantidadVentas();</b>
+<i class="no-highlight">817</i>&nbsp;
+<b class="nc"><i class="no-highlight">818</i>&nbsp;            String renglon = &quot;Mesa : &quot; + entry.getKey() + &quot; |  Promedio Ventas : &quot; + (cantidadVentas == 0 ? &quot;0&quot; : entry.getValue().getTotalGastado() / cantidadVentas);</b>
+<b class="nc"><i class="no-highlight">819</i>&nbsp;            respuesta.add(renglon);</b>
+<b class="nc"><i class="no-highlight">820</i>&nbsp;        }</b>
+<i class="no-highlight">821</i>&nbsp;
+<b class="nc"><i class="no-highlight">822</i>&nbsp;        return respuesta;</b>
+<i class="no-highlight">823</i>&nbsp;    }
+<i class="no-highlight">824</i>&nbsp;
+<i class="no-highlight">825</i>&nbsp;    public static void setInstance(Cerveceria instance) {
+<b class="fc"><i class="no-highlight">826</i>&nbsp;        Cerveceria.instance = instance;</b>
+<i class="no-highlight">827</i>&nbsp;    }
+<i class="no-highlight">828</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-11-14 11:20</div>
+</div>
+</body>
+</html>

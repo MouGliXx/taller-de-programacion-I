@@ -1,5 +1,6 @@
 package app;
 
+import modelo.Administrador;
 import modelo.Cerveceria;
 import modelo.Operario;
 import modelo.Producto;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
         Cerveceria cerveceria = Cerveceria.getInstance();
+        Administrador admin = new Administrador("ADMIN","ADMIN1234");
+        cerveceria.setAdministrador(admin);
 
         /*
         //MOZOS
@@ -64,18 +67,18 @@ public class App {
          */
 
         //CARGO EL SISTEMA CON LOS ARCHIVOS BINARIOS
-        try {
-            IPersistencia bin = new PersistenciaBIN();
-            bin.abrirInput("Cerveceria.bin");
-            CerveceriaDTO cerveceriaDTO = (CerveceriaDTO) bin.leer();
-            Util.cerveceriaFromCerveceriaDTO(cerveceriaDTO);
-        } catch (IOException e) {
-            System.out.println("Se ha creado un archivo binario nuevo");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            IPersistencia bin = new PersistenciaBIN();
+//            bin.abrirInput("Cerveceria.bin");
+//            CerveceriaDTO cerveceriaDTO = (CerveceriaDTO) bin.leer();
+//            Util.cerveceriaFromCerveceriaDTO(cerveceriaDTO);
+//        } catch (IOException e) {
+//            System.out.println("Se ha creado un archivo binario nuevo");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 
         //EJECUCION NORMAL
         VentanaLogin ventanaLogin = new VentanaLogin();
