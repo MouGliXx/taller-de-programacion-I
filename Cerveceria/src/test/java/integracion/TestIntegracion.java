@@ -75,6 +75,39 @@ public class TestIntegracion {
 
     }
 
+    @DisplayName("Creacion de comanda sin mozo")
+    @Test
+    public void creaComandaSinEmpresa(){
+        Pedido p1 = new Pedido();
+        Pedido p2 = new Pedido();
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        p1.setProducto(this.escenario.cerveza.getProductos().get(1));
+        p1.setCantidad(2);
+        pedidos.add(p1);
+        p2.setProducto(this.escenario.cerveza.getProductos().get(2));
+        p2.setCantidad(3);
+
+
+        try {
+            this.escenario.cerveza.modificarComanda(this.escenario.cerveza.getComandas().get(0),null,pedidos);
+            assertTrue(true,"Se modifico correctamente la comanda");
+        }catch (Exception e){
+            assertTrue(false,"No deberia haber entrado aca");
+        }
+    }
+
+    @DisplayName("Creacion de comanda sin mozo")
+    @Test
+    public void creaComandaSinMesa(){
+
+    }
+
+    @DisplayName("Creacion de comanda sin mozo")
+    @Test
+    public void creaComandaSinMozo(){
+
+    }
+
     @Test
     public void cierroComanda(){
         Pedido p1 = new Pedido();

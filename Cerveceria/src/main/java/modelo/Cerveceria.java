@@ -675,8 +675,6 @@ public class Cerveceria {
             throw new Exception("El precio de venta es menor al de costo");
         if(precioCosto < 0)
             throw new Exception("El precio de costo es menor a cero");
-        if(precioVenta < 0)
-            throw new Exception("El precio de venta es menor a cero");
 
         producto.setNombre(nombre);
         producto.setPrecioCosto(precioCosto);

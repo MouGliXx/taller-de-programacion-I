@@ -35,6 +35,19 @@ class CerveceriaTestEscenario1 {
             assertEquals(false,"Entro en la excepcion ERROR");
         }
     }
+    @DisplayName("Caso con nombre vacio")
+    @Test
+    void testAgregarMozoVacio(){
+
+        try {
+            this.escenario.cerveceria.agregarMozo("", 18, 0);
+            Mozo mozo = this.escenario.cerveceria.getMozos().get(this.escenario.cerveceria.getMozos().size() - 1 );
+            assertTrue(false,"ERROR: No se lanzo la excepcion");
+        }
+        catch(Exception e){
+            assertTrue(true,"Entro en la excepcion, no se creo mozo");
+        }
+    }
 
     @DisplayName("Caso mozo menor de edad")
     @Test
